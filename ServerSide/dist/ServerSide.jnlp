@@ -8,11 +8,11 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="ServerSide.jar" size="175610" download="eager" />
+    <jar href="ServerSide.jar" size="175802" download="eager" />
   </resources>
   <applet-desc  width="800" height="600" main-class="com.javafx.main.NoJavaFXFallback"  name="ServerSide" >
     <param name="requiredFXVersion" value="8.0+"/>
   </applet-desc>
-  <jfx:javafx-desc  width="800" height="600" main-class="serverside.ServerSide"  name="ServerSide" />
+  <jfx:javafx-desc  width="800" height="600" main-class="Model.ServerSide"  name="ServerSide" />
   <update check="always"/>
 </jnlp>
