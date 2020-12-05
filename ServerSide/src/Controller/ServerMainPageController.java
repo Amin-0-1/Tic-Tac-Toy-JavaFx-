@@ -55,11 +55,12 @@ public class ServerMainPageController implements Initializable {
     }
     
     @FXML
-    private void toggleServer(ActionEvent event){
+    private void toggleServer(ActionEvent event) throws InterruptedException{
         System.out.println("Toggle server");
         serverState = !serverState;
         if(serverState){ // state is false needed to be activate
             try {
+                Thread.sleep(200);
                 serverStateImage.setImage(new Image(new FileInputStream("src/resources/shutdown.png")));
                 status.setText("Deactivate");
                 currentLabel.setText("Status : On");
