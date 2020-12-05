@@ -20,8 +20,8 @@ public class ServerSide extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-//        Parent root = FXMLLoader.load(getClass().getResource("/Viewer/ServerMainPage.fxml"));
-          Parent root = FXMLLoader.load(getClass().getResource("/Viewer/OnlinePlayerPage.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/Viewer/ServerMainPage.fxml"));
+//          Parent root = FXMLLoader.load(getClass().getResource("/Viewer/OnlinePlayerPage.fxml"));
           
         Scene scene = new Scene(root);
         scene.getStylesheets().add(getClass().getResource("/css/fullpackstyling.css").toString());
