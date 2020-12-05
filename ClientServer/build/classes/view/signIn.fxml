@@ -26,7 +26,11 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
+<<<<<<< HEAD
                   <Label alignment="CENTER" contentDisplay="CENTER" graphicTextGap="10.0" prefHeight="81.0" prefWidth="176.0" style="-fx-font-size: 16;" text="UserName" textAlignment="CENTER" textFill="WHITE">
+=======
+                  <Label alignment="CENTER" contentDisplay="CENTER" graphicTextGap="10.0" prefHeight="81.0" prefWidth="176.0" style="-fx-font-size: 16;" text="UserName" textAlignment="CENTER" textFill="#eeecec">
+>>>>>>> 62a05734f3326f1f078518d68fa81e7f615e9839
                      <GridPane.margin>
                         <Insets />
                      </GridPane.margin>
