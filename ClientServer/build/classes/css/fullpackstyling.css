@@ -60,6 +60,22 @@
     -fx-background-radius :  30 30 30 30;
 }
 
+.button5
+{
+-fx-background-color : #FA2C56;
+-fx-background-radius :  5 5 5 5;
+}
+.button5:hover
+{
+-fx-background-color : #524A7B ;
+-fx-background-radius :  5 0 0 5;
+}
+.button5:pressed
+{
+-fx-background-color : #2F2B43 ;
+-fx-background-radius :  5 0 0 5;
+}
+
 #circleID:hover{
 
    -fx-background-color :linear-gradient( #41951C, #D4CEE3);

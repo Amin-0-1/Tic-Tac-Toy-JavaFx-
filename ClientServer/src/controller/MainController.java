@@ -111,11 +111,10 @@ public class MainController implements Initializable{
         
         try {
             //get scene
-<<<<<<< HEAD
-            Parent onlineGameParent = FXMLLoader.load(getClass().getResource("/view/LoginAndRegisterFXML.fxml"));
-=======
+
+
             Parent onlineGameParent = FXMLLoader.load(getClass().getResource("/view/LoginOrRegister.fxml"));
->>>>>>> 62a05734f3326f1f078518d68fa81e7f615e9839
+
             //generate new scene
             Scene onlineGameScene = new Scene(onlineGameParent);
         

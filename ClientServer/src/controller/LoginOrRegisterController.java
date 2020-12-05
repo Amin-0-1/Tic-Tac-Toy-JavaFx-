@@ -36,7 +36,7 @@ public class LoginOrRegisterController {
         
         System.out.println("backToMainPage: called");
         
-        ButtonBack btnback = new ButtonBack("/sample/sample.fxml");
+        ButtonBack btnback = new ButtonBack("/view/sample.fxml");
         btnback.handleButtonBack(event);
          
     }  
