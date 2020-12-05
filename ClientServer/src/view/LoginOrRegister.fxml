@@ -37,7 +37,7 @@
                <children>
                   <Pane prefHeight="102.0" prefWidth="671.0">
                      <children>
-                        <Button fx:id="login" alignment="CENTER" layoutX="35.0" layoutY="14.0" mnemonicParsing="false" onAction="#changeSceneToLogin" prefHeight="77.0" prefWidth="603.0" style="-fx-font-size: #2F2B43;" styleClass="button2" stylesheets="@../css/fullpackstyling.css" text="Login" textAlignment="CENTER" textFill="#fffefe">
+                        <Button fx:id="login" alignment="CENTER" layoutX="35.0" layoutY="14.0" mnemonicParsing="false" onAction="#changeSceneToLogin" prefHeight="77.0" prefWidth="603.0" styleClass="button2" stylesheets="@../css/fullpackstyling.css" text="Login" textAlignment="CENTER" textFill="#fffefe">
                            <font>
                               <Font name="System Bold" size="24.0" />
                            </font>
@@ -45,7 +45,7 @@
                      </children>
                   </Pane>
                   <Pane layoutY="116.0" prefHeight="127.0" prefWidth="655.0" />
-                  <Button fx:id="register" alignment="CENTER" layoutX="35.0" layoutY="138.0" mnemonicParsing="false" onAction="#changeSceneToRegister" prefHeight="77.0" prefWidth="603.0" style="-fx-font-size: #2F2B43;" styleClass="button2" stylesheets="@../css/fullpackstyling.css" text="Register" textFill="#f2f2f2">
+                  <Button fx:id="register" alignment="CENTER" layoutX="35.0" layoutY="138.0" mnemonicParsing="false" onAction="#changeSceneToRegister" prefHeight="77.0" prefWidth="603.0" styleClass="button2" stylesheets="@../css/fullpackstyling.css" text="Register" textFill="#f2f2f2">
                      <font>
                         <Font name="System Bold" size="24.0" />
                      </font>
