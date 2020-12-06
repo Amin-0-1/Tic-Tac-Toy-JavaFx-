@@ -89,6 +89,25 @@
 -fx-background-radius :  40 40 40 40;
 }
 
+.myDialog{
+    -fx-background-color: #f9d900;
+}
+.myDialog > *.button-bar > *.container{
+    -fx-background-color: #ffffff;
+}
+.myDialog > *.label.content{
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+.myDialog:header *.header-panel{
+    -fx-background-color: #ffffff;
+}
+.myDialog:header *.header-panel *.label{
+    -fx-font-size: 18px;
+    -fx-font-style: italic;
+    -fx-fill: #2F2B43;
+}
+
 .combo-box
 {
     -fx-background-color : #141124;
