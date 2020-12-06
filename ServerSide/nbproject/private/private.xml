@@ -3,8 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/C:/Users/Amin/Desktop/Tic%20Tac%20Toy/ServerSide/src/Model/ServerSide.java</file>
             <file>file:/C:/Users/Amin/Desktop/Tic%20Tac%20Toy/ServerSide/src/Controller/ServerMainPageController.java</file>
+=======
+            <file>file:/D:/ITI/Java/java%20project/Tic-Tac-Toy-JavaFx-/ServerSide/src/Controller/ServerMainPageController.java</file>
+            <file>file:/D:/ITI/Java/java%20project/Tic-Tac-Toy-JavaFx-/ServerSide/src/Model/ServerSide.java</file>
+>>>>>>> 825e38f4e8e4a9a1acbf0c75071d742d680b9330
         </group>
     </open-files>
 </project-private>
