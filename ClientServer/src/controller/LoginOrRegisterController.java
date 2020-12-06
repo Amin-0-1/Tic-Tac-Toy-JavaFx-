@@ -41,7 +41,7 @@ public class LoginOrRegisterController {
          
     }  
     
-      /**
+     /**
      * changeSceneToLogin.
      * when called scene will be change to Login.
      * @param event 
@@ -69,7 +69,7 @@ public class LoginOrRegisterController {
         
     }
     
-      /**
+     /**
      * changeSceneToRegister.
      * when called scene will be change to Register.
      * @param event 
@@ -93,8 +93,6 @@ public class LoginOrRegisterController {
         } catch (IOException ex) {
             Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        
     }
     
     
