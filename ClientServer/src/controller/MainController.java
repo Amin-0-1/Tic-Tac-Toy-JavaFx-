@@ -53,7 +53,8 @@ public class MainController implements Initializable{
            Parent singlePlayerParent = FXMLLoader.load(getClass().getResource("/view/SinglePlayFXML.fxml"));
            
            //generate new scene
-           Scene singlePlayerScene = new Scene(singlePlayerParent);
+           Scene singlePlayerScene = new Scene(singlePlayerParent,btnWatchGame.getScene().getWidth(),
+           btnWatchGame.getScene().getHeight());
 
            //get stage information
            Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();

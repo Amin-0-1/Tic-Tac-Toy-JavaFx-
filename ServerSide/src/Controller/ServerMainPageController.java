@@ -67,7 +67,6 @@ public class ServerMainPageController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        initServer();
         serverState = false;
         disableBtn();
     }
@@ -82,11 +81,11 @@ public class ServerMainPageController implements Initializable {
                 serverStateImage.setImage(new Image(new FileInputStream("src/resources/shutdown.png")));
                 status.setText("Deactivate");
                 currentLabel.setText("Status : On");
-                enableBtn();    // enable list online and offline btn;
+                
+            }catch (FileNotFoundException ex){
+                System.out.println("No Img");
+            }finally{
                 enableConnection();
-                listPlayers();
-            }catch (FileNotFoundException ex) {
-                ex.printStackTrace();
             }
         }else{ // state is true needed to be deactivate
             
@@ -94,11 +93,12 @@ public class ServerMainPageController implements Initializable {
                 serverStateImage.setImage(new Image(new FileInputStream("src/resources/launch.png")));
                 status.setText("Activate");
                 currentLabel.setText("Status : OFF");
+            }catch (FileNotFoundException ex) {
+                System.out.println("No Img");
+            }finally{
                 emptyList();
                 disableBtn();
                 disableConnections();
-            }catch (FileNotFoundException ex) {
-                ex.printStackTrace();
             }
         }
             
@@ -107,46 +107,54 @@ public class ServerMainPageController implements Initializable {
     
     @FXML
     private void listOnline(ActionEvent event) {
-        System.out.println("List Online");
+        listPlayers(true);
      
     }
     @FXML
     private void listOffline(ActionEvent event){
-        System.out.println("List Offline");
+        listPlayers(false);
     }
  
  
-    private void listPlayers(){
+    private void listPlayers(Boolean state){
         try {
             Button button;
             VBox vbox = new VBox();
             HBox hbox;
             while(rs.next()){
-                ImageView view,view2;
-                try {
-                    // avatar view
-                    view = new ImageView(new Image(new FileInputStream("src/resources/avatar.png")));
-                    view.setFitHeight(30);
-                    view.setPreserveRatio(true);
-                    
-                    // active icon view
-                    view2 = new ImageView(new Image(new FileInputStream("src/resources/active.png")));
-                    view2.setFitHeight(20);
-                    view2.setPreserveRatio(true);
-                    
-                    button = new Button(""+rs.getString("userName"),view);
-                    button.setAlignment(Pos.BOTTOM_LEFT);
-                    
-                    hbox = new HBox(button,view2);
-                    HBox.setMargin(view2, new Insets(10,0,0,5)); // top right bottom left
-                    button.getStyleClass().add("button1");
-                    vbox.getChildren().add(hbox);
-                    
-                    scrollpane.setContent(vbox);
-                } catch (FileNotFoundException ex) {
-                    Logger.getLogger(ServerMainPageController.class.getName()).log(Level.SEVERE, null, ex);
+                if(rs.getString("isactive").equals(state+"")){
+                    ImageView view,view2;
+                    try {
+                        // avatar view
+                        view = new ImageView(new Image(new FileInputStream("src/resources/avatar.png")));
+                        view.setFitHeight(30);
+                        view.setPreserveRatio(true);
+
+                        // active icon view
+                        if(state)
+                            view2 = new ImageView(new Image(new FileInputStream("src/resources/active.png")));
+                        else
+                            view2 = new ImageView(new Image(new FileInputStream("src/resources/inactive.png")));
+                            
+
+                        view2.setFitHeight(20);
+                        view2.setPreserveRatio(true);
+
+                        button = new Button(""+rs.getString("userName"),view);
+                        button.setAlignment(Pos.BOTTOM_LEFT);
+
+                        hbox = new HBox(button,view2);
+                        HBox.setMargin(view2, new Insets(10,0,0,5)); // top right bottom left
+                        button.getStyleClass().add("button1");
+                        vbox.getChildren().add(hbox);
+
+                        scrollpane.setContent(vbox);
+                    } catch (FileNotFoundException ex) {
+                        System.out.println("Image Not Found");
+                    }
                 }
             }
+            rs.beforeFirst();
         } catch (SQLException ex) {
             Logger.getLogger(ServerMainPageController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -170,8 +178,11 @@ public class ServerMainPageController implements Initializable {
             DriverManager.registerDriver(new ClientDriver());
             con = DriverManager.getConnection("jdbc:derby://localhost:1527/TicTackToy","root","root");
             updateResultSet();
+            listPlayers(true);
+            enableBtn();    // enable list online and offline btn;
+            initServer(); // enable socket server
         }catch(SQLException e){
-            e.printStackTrace();
+            System.out.println("Connection Issues, Try again later");
 //            alert connection 
         }
     }
@@ -181,7 +192,8 @@ public class ServerMainPageController implements Initializable {
             pst = con.prepareStatement("Select * from player",ResultSet.TYPE_SCROLL_INSENSITIVE ,ResultSet.CONCUR_READ_ONLY );
             rs = pst.executeQuery(); // rs has all data
         }catch (SQLException ex) {
-            
+            System.out.println("Connection Issues, Try again later");
+            //alert
         }
     }
     
@@ -233,6 +245,6 @@ class ConnectedPlayer{
             ex.printStackTrace();
        }
        players.add(this);
-       
+     
    }
 }
