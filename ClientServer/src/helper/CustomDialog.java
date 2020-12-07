@@ -17,15 +17,19 @@ import javafx.scene.control.DialogPane;
 import javafx.scene.control.TextField;
 
 
-
-
 /**
  *
  * @author Wesam
  */
 public class CustomDialog {
     
+   private String name = "";
     public CustomDialog(){}
+     public String getName()
+     {
+      return name;
+         
+     }
    
     public boolean displayDialog(String message){
         boolean isCancled = false;
@@ -49,7 +53,7 @@ public class CustomDialog {
              getClass().getResource("/css/fullpackstyling.css").toExternalForm());
              dialogPane.getStyleClass().add("myDialog");
 
-        String name = "";
+        
         Optional<ButtonType> result = alert.showAndWait();
        if(result.get() == buttonTypeOk){
          name = content.getText().trim();
@@ -64,5 +68,8 @@ public class CustomDialog {
        }
        return isCancled;
     
+
     }   
+
+    
 }

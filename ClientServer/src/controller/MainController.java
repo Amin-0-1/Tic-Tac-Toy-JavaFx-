@@ -5,6 +5,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.prefs.Preferences;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -26,16 +27,18 @@ public class MainController implements Initializable{
     private Rectangle recWatchGame;
     
     private boolean btnEnable = false;
-    
+    Preferences prefName ;
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         if(btnEnable){
             btnWatchGame.setDisable(false);
            recWatchGame.setVisible(false); 
         } 
+         prefName = Preferences.userNodeForPackage(MainController.class);
+
     }
      
-    
+
     
     
     /**
@@ -46,8 +49,19 @@ public class MainController implements Initializable{
     public void changeSceneToSinglePlayer(ActionEvent event) {
         
         System.out.println("changeSceneToSinglePlayer: called");
-        
-      
+
+        if(prefName==null)
+            {
+               CustomDialog  c=new CustomDialog();
+               c.displayDialog("Enter your name");
+               prefName.put("userName", c.getName());
+                System.out.println(prefName.get("userName", "not found"));
+            }
+            //  prefs.put("username", name.getText());
+              //prefs.put("score","50");
+
+            //}
+       
          
         try {
             CustomDialog cd = new CustomDialog();
@@ -101,8 +115,7 @@ public class MainController implements Initializable{
             window.show();
         } catch (IOException ex) {
             Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
+        }       
         
     }
     
