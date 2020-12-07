@@ -29,7 +29,7 @@ public class OnlinePlayerPageController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        //need to call server ang get rs of online users
     }    
     
     @FXML 
@@ -38,6 +38,8 @@ public class OnlinePlayerPageController implements Initializable {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/Viewer/test.fxml"));
             playboard.getChildren().add(root);
+            
+            
         } catch (IOException ex) {
             Logger.getLogger(OnlinePlayerPageController.class.getName()).log(Level.SEVERE, null, ex);
         }
