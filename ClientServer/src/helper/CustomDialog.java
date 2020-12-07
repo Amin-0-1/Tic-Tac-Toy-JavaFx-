@@ -64,9 +64,5 @@ public class CustomDialog {
        }
        return isCancled;
     
-    }
-
-
-    
-    
+    }   
 }
