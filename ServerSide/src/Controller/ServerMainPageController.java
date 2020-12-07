@@ -5,6 +5,7 @@
  */
 package Controller;
 
+import helper.Notification;
 import java.io.DataInputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -19,21 +20,33 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
-import java.util.Vector;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar.ButtonData;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
+import javafx.stage.Popup;
+import javafx.stage.Stage;
+import javafx.stage.Window;
 import org.apache.derby.jdbc.ClientDriver;
 
 
@@ -44,12 +57,13 @@ import org.apache.derby.jdbc.ClientDriver;
  */
 public class ServerMainPageController implements Initializable {
     ServerSocket serverSocket ;
+    Thread listener ;
     Socket socket ;
     Connection con;
     ResultSet rs ;
     PreparedStatement pst;
     
-    private boolean serverState ;
+    private boolean serverState ;    
     
     @FXML
     private ImageView serverStateImage;
@@ -77,28 +91,52 @@ public class ServerMainPageController implements Initializable {
         serverState = !serverState;
         if(serverState){ // state is false needed to be activate
             try {
-                Thread.sleep(200);
-                serverStateImage.setImage(new Image(new FileInputStream("src/resources/shutdown.png")));
-                status.setText("Deactivate");
-                currentLabel.setText("Status : On");
+                        
+
+
+//                Popup popup = new Popup();
+//                SplashScreenController controller = new SplashScreenController();
+//                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Viewer/SplashScreen.fxml"));
+//                loader.setController(controller);
+//                popup.getContent().add((Parent)loader.load());
+//                popup.show((Stage) serverStateImage.getScene().getWindow());
+//                ((Stage)status.getScene().getWindow()).requestFocus();
+//                if(popup.isShowing()){
+//                    System.out.println("show");
+//                    Thread.sleep(1000);
+//                }
+                
+                // needed some blocking reloading window
+                
+                
+                boolean cont = enableConnection();
+                if(cont){ // connection established successfully
+                    serverStateImage.setImage(new Image(new FileInputStream("src/resources/shutdown.png")));
+                    status.setText("Deactivate");
+                    currentLabel.setText("Status : On");
+                    Notification alert = new Notification(new Image(new FileInputStream("src/resources/connected.png")), "Connected");
+                    
+                }
                 
             }catch (FileNotFoundException ex){
                 System.out.println("No Img");
-            }finally{
-                enableConnection();
+            } catch (IOException ex) {
+                Logger.getLogger(ServerMainPageController.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }else{ // state is true needed to be deactivate
             
+        }else{ // state is true needed to be deactivate
             try {
-                serverStateImage.setImage(new Image(new FileInputStream("src/resources/launch.png")));
-                status.setText("Activate");
-                currentLabel.setText("Status : OFF");
+                boolean cont = disableConnections();
+                if(cont){
+                    serverStateImage.setImage(new Image(new FileInputStream("src/resources/launch.png")));
+                    status.setText("Activate");
+                    currentLabel.setText("Status : OFF");
+                    emptyList();
+                    disableBtn();
+                }
+                                
             }catch (FileNotFoundException ex) {
                 System.out.println("No Img");
-            }finally{
-                emptyList();
-                disableBtn();
-                disableConnections();
             }
         }
             
@@ -156,7 +194,7 @@ public class ServerMainPageController implements Initializable {
             }
             rs.beforeFirst();
         } catch (SQLException ex) {
-            Logger.getLogger(ServerMainPageController.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("list players");
         }
     }
     
@@ -172,7 +210,7 @@ public class ServerMainPageController implements Initializable {
         listOfflinebtn.setDisable(false);
     }
     
-    private void enableConnection(){
+    private boolean enableConnection(){
         
         try{
             DriverManager.registerDriver(new ClientDriver());
@@ -181,8 +219,12 @@ public class ServerMainPageController implements Initializable {
             listPlayers(true);
             enableBtn();    // enable list online and offline btn;
             initServer(); // enable socket server
+            System.out.println(serverState);
+            return true;
         }catch(SQLException e){
             System.out.println("Connection Issues, Try again later");
+            serverState = !serverState;
+            return false;
 //            alert connection 
         }
     }
@@ -197,21 +239,29 @@ public class ServerMainPageController implements Initializable {
         }
     }
     
-    private void disableConnections(){
+    private boolean disableConnections(){
         try {
+            System.out.println(serverState);
             rs.close();
             pst.close();
             con.close();
-        } catch (SQLException ex) {
+            listener.stop();
+            socket.close();
+            serverSocket.close();
+            System.out.println("closed connection");
+            return true;
+        }catch (SQLException | IOException ex) {
+            serverState = !serverState;
             //alert connection issue
         }
+        return false;
     }
     
     private void initServer(){
         try {
             serverSocket = new ServerSocket(9876);
-            
-            new Thread(new Runnable() {
+            socket = new Socket();
+            listener = new Thread(new Runnable() {
                 @Override
                 public void run() {
                     while(true){
@@ -224,7 +274,8 @@ public class ServerMainPageController implements Initializable {
                         
                     }
                 }
-            }).start();
+            });
+            listener.start();
         }catch (IOException ex) {
             ex.printStackTrace();
         }
@@ -235,7 +286,7 @@ public class ServerMainPageController implements Initializable {
 class ConnectedPlayer{
    DataInputStream dis;
    PrintStream ps;
-   static Vector<ConnectedPlayer> players = new Vector<ConnectedPlayer>();
+   static ArrayList<ConnectedPlayer> players = new ArrayList<ConnectedPlayer>();
    
    public ConnectedPlayer(Socket socket){
        try {
