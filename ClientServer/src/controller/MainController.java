@@ -51,7 +51,8 @@ public class MainController implements Initializable{
          
         try {
             CustomDialog cd = new CustomDialog();
-            cd.displayDialog("Enter Your Name");
+            Boolean isCancled = cd.displayDialog("Enter Your Name");
+            if(!isCancled){
            //get scene
            Parent singlePlayerParent = FXMLLoader.load(getClass().getResource("/view/SinglePlayFXML.fxml"));
            
@@ -65,9 +66,11 @@ public class MainController implements Initializable{
            window.setTitle("Single play Mode");
            window.setScene(singlePlayerScene);
            window.show(); 
+            }
         } catch (IOException ex) {
             Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
         
           
     }

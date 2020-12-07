@@ -27,7 +27,8 @@ public class CustomDialog {
     
     public CustomDialog(){}
    
-    public void displayDialog(String message){
+    public boolean displayDialog(String message){
+        boolean isCancled = false;
                
        Alert alert = new Alert(Alert.AlertType.NONE);
        TextField content = new TextField();
@@ -35,30 +36,33 @@ public class CustomDialog {
        alert.setHeaderText(message);
        alert.getDialogPane().setContent(content);
     
-    ButtonType buttonTypeOk = new ButtonType("Ok");
+           ButtonType buttonTypeOk = new ButtonType("Ok");
             ButtonType buttonTypeCancel = new ButtonType("Cancel", 
                     ButtonBar.ButtonData.CANCEL_CLOSE);
             
-            alert.getButtonTypes().setAll(buttonTypeOk,
+             alert.getButtonTypes().setAll(buttonTypeOk,
                     buttonTypeCancel);
    
     
-    DialogPane dialogPane = alert.getDialogPane();
-    dialogPane.getStylesheets().add(
-    getClass().getResource("/css/fullpackstyling.css").toExternalForm());
-    dialogPane.getStyleClass().add("myDialog");
+            DialogPane dialogPane = alert.getDialogPane();
+             dialogPane.getStylesheets().add(
+             getClass().getResource("/css/fullpackstyling.css").toExternalForm());
+             dialogPane.getStyleClass().add("myDialog");
 
-    String name = "";
-    Optional<ButtonType> result = alert.showAndWait();
-    if(result.get() == buttonTypeOk){
+        String name = "";
+        Optional<ButtonType> result = alert.showAndWait();
+       if(result.get() == buttonTypeOk){
          name = content.getText().trim();
-        if(name.isEmpty()){
+          if(name.isEmpty()){
             displayDialog("Name is required");
             System.out.println("Please Enter your name");    
-        }else{
+          }else{
            System.out.println(name);
-        }
-    }
+          }
+       }else if(result.get() == buttonTypeCancel){
+           isCancled = true;
+       }
+       return isCancled;
     
     }
 
