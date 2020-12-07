@@ -176,7 +176,7 @@
             </HBox>
          </children>
       </VBox>
-      <HBox prefHeight="139.0" prefWidth="231.0">
+      <HBox prefHeight="139.0" prefWidth="231.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" rotate="-54.2">
                <image>
@@ -185,7 +185,7 @@
             </ImageView>
          </children>
       </HBox>
-      <HBox alignment="BOTTOM_RIGHT" layoutX="856.0" layoutY="499.0" prefHeight="139.0" prefWidth="231.0">
+      <HBox alignment="BOTTOM_RIGHT" layoutX="856.0" layoutY="499.0" prefHeight="139.0" prefWidth="231.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>
             <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" rotate="-67.4">
                <image>

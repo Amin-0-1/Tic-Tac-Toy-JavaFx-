@@ -1,4 +1,5 @@
 package controller;
+import helper.CustomDialog;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -49,6 +50,8 @@ public class MainController implements Initializable{
       
          
         try {
+            CustomDialog cd = new CustomDialog();
+            cd.displayDialog("Enter Your Name");
            //get scene
            Parent singlePlayerParent = FXMLLoader.load(getClass().getResource("/view/SinglePlayFXML.fxml"));
            

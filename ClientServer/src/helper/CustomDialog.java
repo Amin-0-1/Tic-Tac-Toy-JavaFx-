@@ -5,11 +5,19 @@
  */
 package helper;
 
+import java.util.Optional;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.TextField;
+
+
+
 
 /**
  *
@@ -17,16 +25,9 @@ import javafx.scene.control.TextField;
  */
 public class CustomDialog {
     
-    private String message ;
-    
     public CustomDialog(){}
-    
-    public CustomDialog(String message){
-        this.message = message;
-    }
-    
-    
-    public void displayDialog(){
+   
+    public void displayDialog(String message){
                
        Alert alert = new Alert(Alert.AlertType.NONE);
        TextField content = new TextField();
@@ -34,11 +35,11 @@ public class CustomDialog {
        alert.setHeaderText(message);
        alert.getDialogPane().setContent(content);
     
-    ButtonType buttonTypeSave = new ButtonType("Ok");
+    ButtonType buttonTypeOk = new ButtonType("Ok");
             ButtonType buttonTypeCancel = new ButtonType("Cancel", 
                     ButtonBar.ButtonData.CANCEL_CLOSE);
             
-            alert.getButtonTypes().setAll(buttonTypeSave,
+            alert.getButtonTypes().setAll(buttonTypeOk,
                     buttonTypeCancel);
    
     
@@ -47,8 +48,21 @@ public class CustomDialog {
     getClass().getResource("/css/fullpackstyling.css").toExternalForm());
     dialogPane.getStyleClass().add("myDialog");
 
-     alert.showAndWait();
+    String name = "";
+    Optional<ButtonType> result = alert.showAndWait();
+    if(result.get() == buttonTypeOk){
+         name = content.getText().trim();
+        if(name.isEmpty()){
+            displayDialog("Name is required");
+            System.out.println("Please Enter your name");    
+        }else{
+           System.out.println(name);
+        }
     }
+    
+    }
+
+
     
     
 }
