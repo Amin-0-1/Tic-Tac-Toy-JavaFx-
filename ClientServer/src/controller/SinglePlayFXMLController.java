@@ -68,7 +68,7 @@ public class SinglePlayFXMLController {
     }
     public void handle(ActionEvent e){
         if(!winner){
-            System.err.println("pressed");
+            System.err.println("x");
             buttonPressed = (Button) e.getSource();
             if(buttonPressed.getText().equals("")){
                 buttonPressed.setText(""+player);
