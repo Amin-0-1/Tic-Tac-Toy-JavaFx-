@@ -59,7 +59,8 @@ public class CustomDialog {
          name = content.getText().trim();
           if(name.isEmpty()){
             displayDialog("Name is required");
-            System.out.println("Please Enter your name");    
+            System.out.println("Please Enter your name");
+            isCancled = true;
           }else{
            System.out.println(name);
           }
