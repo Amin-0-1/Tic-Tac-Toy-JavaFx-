@@ -7,6 +7,9 @@ package controller;
 
 import helper.ButtonBack;
 import java.util.Random;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -16,6 +19,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
 
 /**
  * FXML Controller class
@@ -29,7 +33,7 @@ public class SinglePlayFXMLController {
      * when called scene will be change to main page.
      * @param event 
      */
-    private char player = 'X';
+    private String player = "X";
     private Button buttonPressed;
     private boolean winner = false;
     @FXML
@@ -71,19 +75,19 @@ public class SinglePlayFXMLController {
             System.err.println("x");
             buttonPressed = (Button) e.getSource();
             if(buttonPressed.getText().equals("")){
-                buttonPressed.setText(""+player);
-                if(player=='X'){
-                    player='O';
+                buttonPressed.setText(player);
+                if(player=="X"){
+                    player="O";
                 }
                 else{
-                    player='X';
-                }        
-            }else{}
-            checkState();
-            if(!winner){
-                computerTurn();
+                    player="X";
+                }  
                 checkState();
-            }
+                if(!winner){
+                    computerTurn();
+                    checkState();
+                }
+            }else{}
         }
 
     }
@@ -117,11 +121,11 @@ public class SinglePlayFXMLController {
             buttonPressed = (Button) e.getSource();
             if(buttonPressed.getText().equals("")){
                 buttonPressed.setText(""+player);
-                if(player=='X'){
-                    player='O';
+                if(player=="X"){
+                    player="O";
                 }
                 else{
-                    player='X';
+                    player="X";
                 }        
             }else{}
                 }
