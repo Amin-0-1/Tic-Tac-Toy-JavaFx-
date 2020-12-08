@@ -86,7 +86,7 @@ public class SinglePlayFXMLController {
                 }
             }else{
                 if(isFullGrid()){
-                    txtWinner.setText("Withdraw");
+                    txtWinner.setText("draw");
                 }
             }
         }else{
@@ -132,7 +132,7 @@ public class SinglePlayFXMLController {
                     }        
                 }else{
                     if(isFullGrid() && !winner){
-                        txtWinner.setText("Withdraw");
+                        txtWinner.setText("draw");
                     }
                 }
             }
