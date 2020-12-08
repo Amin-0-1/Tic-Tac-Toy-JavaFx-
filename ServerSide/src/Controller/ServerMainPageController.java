@@ -18,8 +18,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
-import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.ActionEvent;
@@ -48,7 +48,7 @@ public class ServerMainPageController implements Initializable {
     Connection con;
     ResultSet rs ;
     PreparedStatement pst;
-    
+    Thread listener;
     private boolean serverState ;
     
     @FXML
@@ -76,17 +76,7 @@ public class ServerMainPageController implements Initializable {
         System.out.println("Toggle server");
         serverState = !serverState;
         if(serverState){ // state is false needed to be activate
-            try {
-                Thread.sleep(200);
-                serverStateImage.setImage(new Image(new FileInputStream("src/resources/shutdown.png")));
-                status.setText("Deactivate");
-                currentLabel.setText("Status : On");
-                
-            }catch (FileNotFoundException ex){
-                System.out.println("No Img");
-            }finally{
-                enableConnection();
-            }
+            enableConnection();
         }else{ // state is true needed to be deactivate
             
             try {
@@ -181,9 +171,19 @@ public class ServerMainPageController implements Initializable {
             listPlayers(true);
             enableBtn();    // enable list online and offline btn;
             initServer(); // enable socket server
+            
+            Thread.sleep(200);
+            serverStateImage.setImage(new Image(new FileInputStream("src/resources/shutdown.png")));
+            status.setText("Deactivate");
+            currentLabel.setText("Status : On");
+                
         }catch(SQLException e){
             System.out.println("Connection Issues, Try again later");
 //            alert connection 
+        }catch (FileNotFoundException ex) {
+            System.out.println("loading image issues");
+        }catch (InterruptedException ex) {
+            
         }
     }
     
@@ -202,8 +202,12 @@ public class ServerMainPageController implements Initializable {
             rs.close();
             pst.close();
             con.close();
+            listener.stop();
+            serverSocket.close();
         } catch (SQLException ex) {
             //alert connection issue
+        } catch (IOException ex) {
+            Logger.getLogger(ServerMainPageController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
@@ -211,20 +215,18 @@ public class ServerMainPageController implements Initializable {
         try {
             serverSocket = new ServerSocket(9876);
             
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    while(true){
-                        try {
-                            socket = serverSocket.accept();
-                            new ConnectedPlayer(socket);
-                        }catch (IOException ex) {
-                            Logger.getLogger(ServerMainPageController.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                        
+            listener = new Thread(() -> {
+                while(true){
+                    try {
+                        socket = serverSocket.accept();
+                        new ConnectedPlayer(socket);
+                    }catch (IOException ex) {
+                        Logger.getLogger(ServerMainPageController.class.getName()).log(Level.SEVERE, null, ex);
                     }
+                    
                 }
-            }).start();
+            });
+            listener.start();
         }catch (IOException ex) {
             ex.printStackTrace();
         }
@@ -235,7 +237,7 @@ public class ServerMainPageController implements Initializable {
 class ConnectedPlayer{
    DataInputStream dis;
    PrintStream ps;
-   static Vector<ConnectedPlayer> players = new Vector<ConnectedPlayer>();
+   static ArrayList<ConnectedPlayer> players = new ArrayList<ConnectedPlayer>();
    
    public ConnectedPlayer(Socket socket){
        try {
