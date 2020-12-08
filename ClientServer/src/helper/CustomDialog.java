@@ -25,6 +25,11 @@ public class CustomDialog {
     
    private String name = "";
     public CustomDialog(){}
+     public String getName()
+     {
+      return name;
+         
+     }
    
     public boolean displayDialog(String message){
         boolean isCancled = false;
@@ -54,23 +59,23 @@ public class CustomDialog {
          name = content.getText().trim();
           if(name.isEmpty()){
             displayDialog("Name is required");
-            System.out.println("Please Enter your name");    
+            System.out.println("Please Enter your name");
+            isCancled = true;
           }else{
+              isCancled = false;
            System.out.println(name);
           }
        }else if(result.get() == buttonTypeCancel){
            isCancled = true;
        }
+ 
+       if(!name.isEmpty() &&isCancled ){
+               isCancled = false;
+           }
        return isCancled;
     
-    }
-    public String getName()
-     {
-      return name;
-         
-     }
-  
 
-    
+    }   
+
     
 }

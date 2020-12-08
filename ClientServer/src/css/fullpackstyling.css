@@ -86,26 +86,29 @@
 .buttonBack
 {
 -fx-background-color : #2F2B43;
--fx-background-radius :  40 40 40 40;
+-fx-background-radius :  20 20 20 20;
 }
 
 .myDialog{
-    -fx-background-color: #f9d900;
+    -fx-background-color: #393351;
+     -fx-padding: 20 20 20 25;
 }
 .myDialog > *.button-bar > *.container{
-    -fx-background-color: #ffffff;
+    -fx-background-color: #393351;
 }
 .myDialog > *.label.content{
     -fx-font-size: 14px;
     -fx-font-weight: bold;
 }
 .myDialog:header *.header-panel{
-    -fx-background-color: #ffffff;
+    -fx-background-color: #393351;
 }
 .myDialog:header *.header-panel *.label{
-    -fx-font-size: 18px;
+    -fx-font-size: 40px;
     -fx-font-style: italic;
-    -fx-fill: #2F2B43;
+    -fx-text-fill: #ffffff
+    
+    
 }
 
 .combo-box
