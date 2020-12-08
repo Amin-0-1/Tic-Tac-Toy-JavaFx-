@@ -6,6 +6,7 @@
 package controller;
 
 import helper.ButtonBack;
+import helper.DisplayVideo;
 import java.util.Random;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -139,6 +140,7 @@ public class SinglePlayFXMLController {
             drawLine(btn1,btn3);
             if(btn1.getText().equals("X")){
                 txtWinner.setText("you won!");
+                displayVideo();
             }else{
                 txtWinner.setText("computer won!");
             }
@@ -148,6 +150,7 @@ public class SinglePlayFXMLController {
             drawLine(btn4,btn7);
             if(btn4.getText().equals("X")){
                 txtWinner.setText("you won!");
+                displayVideo();
             }else{
                 txtWinner.setText("computer won!");
             }
@@ -157,6 +160,7 @@ public class SinglePlayFXMLController {
             drawLine(btn7,btn9);
             if(btn9.getText().equals("X")){
                 txtWinner.setText("you won!");
+                displayVideo();
             }else{
                 txtWinner.setText("computer won!");
             }
@@ -169,6 +173,7 @@ public class SinglePlayFXMLController {
             drawLine(btn1,btn7);
             if(btn1.getText().equals("X")){
                 txtWinner.setText("you won!");
+                displayVideo();
             }else{
                 txtWinner.setText("computer won!");
             }
@@ -178,6 +183,7 @@ public class SinglePlayFXMLController {
             drawLine(btn2,btn8);
             if(btn2.getText().equals("X")){
                 txtWinner.setText("you won!");
+                displayVideo();
             }else{
                 txtWinner.setText("computer won!");
             }
@@ -187,6 +193,7 @@ public class SinglePlayFXMLController {
             drawLine(btn3,btn9);
             if(btn3.getText().equals("X")){
                 txtWinner.setText("you won!");
+                displayVideo();
             }else{
                 txtWinner.setText("computer won!");
             }
@@ -199,6 +206,7 @@ public class SinglePlayFXMLController {
             drawLine(btn1,btn9);
             if(btn1.getText().equals("X")){
                 txtWinner.setText("you won!");
+                displayVideo();
             }else{
                 txtWinner.setText("computer won!");
             }
@@ -208,6 +216,7 @@ public class SinglePlayFXMLController {
             drawLine(btn3,btn7);
             if(btn3.getText().equals("X")){
                 txtWinner.setText("you won!");
+                displayVideo();
             }else{
                 txtWinner.setText("computer won!");
             }
@@ -218,5 +227,13 @@ public class SinglePlayFXMLController {
         checkRows();
         checkColumns();
         checkDiagonal();
+    }
+    
+    /**
+     * displayVideo called when player win
+     */
+    private void displayVideo(){
+        DisplayVideo winnerVideo = new DisplayVideo();
+        winnerVideo.diplay();
     }
 }
