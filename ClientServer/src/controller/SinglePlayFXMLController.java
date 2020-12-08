@@ -68,7 +68,7 @@ public class SinglePlayFXMLController {
     }
     public void handle(ActionEvent e){
         if(!winner){
-            System.err.println("button pressed");
+            System.err.println("button");
             buttonPressed = (Button) e.getSource();
             if(buttonPressed.getText().equals("")){
                 buttonPressed.setText(""+player);
@@ -214,6 +214,5 @@ public class SinglePlayFXMLController {
         checkRows();
         checkColumns();
         checkDiagonal();
-        
     }
 }
