@@ -34,6 +34,7 @@ public class MainController implements Initializable{
             btnWatchGame.setDisable(false);
            recWatchGame.setVisible(false); 
         }
+                       prefs = Preferences.userNodeForPackage(MainController.class);
 
     }
 
@@ -45,9 +46,6 @@ public class MainController implements Initializable{
     public void changeSceneToSinglePlayer(ActionEvent event) {
                        System.out.println("changeSceneToSinglePlayer: called");                    
                     try {
-  
-                     // String path=MainController.class.getProtectionDomain().getCodeSource().getLocation().getPath();
-                     prefs = Preferences.userNodeForPackage(MainController.class);
                      if(prefs.nodeExists("/controller"))
                      {
                         String s=prefs.get("username","");
