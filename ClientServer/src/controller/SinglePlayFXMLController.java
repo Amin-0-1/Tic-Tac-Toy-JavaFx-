@@ -6,16 +6,10 @@
 package controller;
 
 import helper.ButtonBack;
-import java.awt.Point;
-import java.net.URL;
 import java.util.Random;
-import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.event.EventHandler;
-import javafx.event.EventType;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.geometry.Bounds;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
@@ -136,9 +130,7 @@ public class SinglePlayFXMLController {
 
     }
     
-    private void checkState (){
-
-        //check rows wins
+    private void checkRows(){
         if(btn1.getText().equals(btn2.getText()) && btn2.getText().equals(btn3.getText()) && !btn1.getText().equals("")){
             drawLine(btn1,btn3);
             if(btn1.getText().equals("X")){
@@ -166,8 +158,10 @@ public class SinglePlayFXMLController {
             }
             winner = true;
         }
-        //check for columns wins
-        else if(btn1.getText().equals(btn4.getText()) && btn4.getText().equals(btn7.getText()) && !btn1.getText().equals("")){
+    }
+    
+    private void checkColumns(){
+        if(btn1.getText().equals(btn4.getText()) && btn4.getText().equals(btn7.getText()) && !btn1.getText().equals("")){
             drawLine(btn1,btn7);
             if(btn1.getText().equals("X")){
                 txtWinner.setText("you won!");
@@ -194,8 +188,10 @@ public class SinglePlayFXMLController {
             }
             winner = true;
         }
-        //check for diagonal wins
-        else if(btn1.getText().equals(btn5.getText()) && btn5.getText().equals(btn9.getText()) && !btn1.getText().equals("")){
+    }
+    
+    private void checkDiagonal(){
+        if(btn1.getText().equals(btn5.getText()) && btn5.getText().equals(btn9.getText()) && !btn1.getText().equals("")){
             drawLine(btn1,btn9);
             if(btn1.getText().equals("X")){
                 txtWinner.setText("you won!");
@@ -213,6 +209,11 @@ public class SinglePlayFXMLController {
             }
             winner = true;
         }
+    }
+    private void checkState (){
+        checkRows();
+        checkColumns();
+        checkDiagonal();
         
     }
 }
