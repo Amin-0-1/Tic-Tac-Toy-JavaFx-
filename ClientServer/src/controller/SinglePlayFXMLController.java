@@ -37,6 +37,7 @@ public class SinglePlayFXMLController {
     private String player = "X";
     private Button buttonPressed;
     private boolean winner = false;
+    private boolean display = false;
     @FXML
     private  Button btn1;
     @FXML
@@ -140,7 +141,8 @@ public class SinglePlayFXMLController {
             drawLine(btn1,btn3);
             if(btn1.getText().equals("X")){
                 txtWinner.setText("you won!");
-                displayVideo();
+                //displayVideo();
+                display = true;
             }else{
                 txtWinner.setText("computer won!");
             }
@@ -150,7 +152,8 @@ public class SinglePlayFXMLController {
             drawLine(btn4,btn7);
             if(btn4.getText().equals("X")){
                 txtWinner.setText("you won!");
-                displayVideo();
+                //displayVideo();
+                display = true;
             }else{
                 txtWinner.setText("computer won!");
             }
@@ -160,7 +163,8 @@ public class SinglePlayFXMLController {
             drawLine(btn7,btn9);
             if(btn9.getText().equals("X")){
                 txtWinner.setText("you won!");
-                displayVideo();
+                //displayVideo();
+                display = true;
             }else{
                 txtWinner.setText("computer won!");
             }
@@ -173,7 +177,8 @@ public class SinglePlayFXMLController {
             drawLine(btn1,btn7);
             if(btn1.getText().equals("X")){
                 txtWinner.setText("you won!");
-                displayVideo();
+                //displayVideo();
+                display = true;
             }else{
                 txtWinner.setText("computer won!");
             }
@@ -183,7 +188,8 @@ public class SinglePlayFXMLController {
             drawLine(btn2,btn8);
             if(btn2.getText().equals("X")){
                 txtWinner.setText("you won!");
-                displayVideo();
+                //displayVideo();
+                display = true;
             }else{
                 txtWinner.setText("computer won!");
             }
@@ -193,7 +199,8 @@ public class SinglePlayFXMLController {
             drawLine(btn3,btn9);
             if(btn3.getText().equals("X")){
                 txtWinner.setText("you won!");
-                displayVideo();
+               // displayVideo();
+               display = true;
             }else{
                 txtWinner.setText("computer won!");
             }
@@ -206,7 +213,8 @@ public class SinglePlayFXMLController {
             drawLine(btn1,btn9);
             if(btn1.getText().equals("X")){
                 txtWinner.setText("you won!");
-                displayVideo();
+                //displayVideo();
+                display = true;
             }else{
                 txtWinner.setText("computer won!");
             }
@@ -216,7 +224,8 @@ public class SinglePlayFXMLController {
             drawLine(btn3,btn7);
             if(btn3.getText().equals("X")){
                 txtWinner.setText("you won!");
-                displayVideo();
+                //displayVideo();
+                display = true;
             }else{
                 txtWinner.setText("computer won!");
             }
@@ -227,6 +236,9 @@ public class SinglePlayFXMLController {
         checkRows();
         checkColumns();
         checkDiagonal();
+        if(display){
+            displayVideo();
+        }
     }
     
     /**
