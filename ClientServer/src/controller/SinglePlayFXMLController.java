@@ -5,8 +5,10 @@
  */
 package controller;
 
+import helper.AccessFile;
 import helper.ButtonBack;
 import helper.DisplayVideo;
+import java.io.File;
 import java.util.Random;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -62,6 +64,9 @@ public class SinglePlayFXMLController {
     private GridPane grid;
     @FXML
     private AnchorPane pane;
+            File  file= new File("E:\\ITI\\Java\\Project\\Tic-Tac-Toy-JavaFx-\\game.txt");
+
+
     public void backToMainPage(ActionEvent event){
         
         System.out.println("backToMainPage: called");
@@ -78,6 +83,7 @@ public class SinglePlayFXMLController {
             buttonPressed = (Button) e.getSource();
             if(buttonPressed.getText().equals("")){
                 buttonPressed.setText(player);
+                AccessFile.writeFile(file,buttonPressed.getId()+player+".");
                 if(player=="X"){
                     player="O";
                 }
@@ -123,6 +129,8 @@ public class SinglePlayFXMLController {
             buttonPressed = (Button) e.getSource();
             if(buttonPressed.getText().equals("")){
                 buttonPressed.setText(""+player);
+                AccessFile.writeFile(file,buttonPressed.getId()+player+".");
+
                 if(player=="X"){
                     player="O";
                 }

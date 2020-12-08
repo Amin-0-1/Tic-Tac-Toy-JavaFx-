@@ -52,7 +52,6 @@ public class CustomDialog {
              dialogPane.getStylesheets().add(
              getClass().getResource("/css/fullpackstyling.css").toExternalForm());
              dialogPane.getStyleClass().add("myDialog");
-
         
         Optional<ButtonType> result = alert.showAndWait();
        if(result.get() == buttonTypeOk){
@@ -74,8 +73,5 @@ public class CustomDialog {
            }
        return isCancled;
     
-
-    }   
-
-    
+    }    
 }
