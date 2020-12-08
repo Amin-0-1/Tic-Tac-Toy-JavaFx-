@@ -4,3 +4,4 @@ dist/
 nbdist/
 nbproject/private
 /ClientServer/nbproject/private/
+/ServerSide/nbproject/private/
