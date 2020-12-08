@@ -2,4 +2,5 @@ build/
 nbbuild/
 dist/
 nbdist/
-private/
+nbproject/private
+nbproject/private/
