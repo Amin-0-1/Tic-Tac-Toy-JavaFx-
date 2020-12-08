@@ -62,11 +62,16 @@ public class CustomDialog {
             System.out.println("Please Enter your name");
             isCancled = true;
           }else{
+              isCancled = false;
            System.out.println(name);
           }
        }else if(result.get() == buttonTypeCancel){
            isCancled = true;
        }
+ 
+       if(!name.isEmpty() &&isCancled ){
+               isCancled = false;
+           }
        return isCancled;
     
 
