@@ -105,7 +105,8 @@ public class MainController implements Initializable{
             //get scene
            Parent twoPlayerParent = FXMLLoader.load(getClass().getResource("/view/TwoPlayerFXML.fxml"));
             //generate new scene
-            Scene twoPlayerScene = new Scene(twoPlayerParent);
+            Scene twoPlayerScene = new Scene(twoPlayerParent,btnWatchGame.getScene().getWidth(),
+           btnWatchGame.getScene().getHeight());
         
             //get stage information
             Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
@@ -136,7 +137,8 @@ public class MainController implements Initializable{
             Parent onlineGameParent = FXMLLoader.load(getClass().getResource("/view/LoginOrRegister.fxml"));
 
             //generate new scene
-            Scene onlineGameScene = new Scene(onlineGameParent);
+            Scene onlineGameScene = new Scene(onlineGameParent,btnWatchGame.getScene().getWidth(),
+           btnWatchGame.getScene().getHeight());
         
             //get stage information
             Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
