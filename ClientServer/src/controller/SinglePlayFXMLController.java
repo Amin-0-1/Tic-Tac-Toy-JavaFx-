@@ -9,7 +9,9 @@ import helper.AccessFile;
 import helper.ButtonBack;
 import helper.DisplayVideo;
 import java.io.File;
+import java.net.URL;
 import java.util.Random;
+import java.util.ResourceBundle;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -64,9 +66,14 @@ public class SinglePlayFXMLController {
     private GridPane grid;
     @FXML
     private AnchorPane pane;
-            File  file= new File("E:\\ITI\\Java\\Project\\Tic-Tac-Toy-JavaFx-\\game.txt");
+   // File file;
+    public File  file= new File("E:\\ITI\\Java\\Project\\Tic-Tac-Toy-JavaFx-\\game.txt");
 
 
+    public void initialize(URL url, ResourceBundle rb) {
+        // TODO
+
+    } 
     public void backToMainPage(ActionEvent event){
         
         System.out.println("backToMainPage: called");
@@ -83,7 +90,10 @@ public class SinglePlayFXMLController {
             buttonPressed = (Button) e.getSource();
             if(buttonPressed.getText().equals("")){
                 buttonPressed.setText(player);
-                AccessFile.writeFile(file,buttonPressed.getId()+player+".");
+                //if(file.exists())
+                { 
+                AccessFile.writeFile(buttonPressed.getId()+player+".");
+                }
                 if(player=="X"){
                     player="O";
                 }
@@ -129,7 +139,7 @@ public class SinglePlayFXMLController {
             buttonPressed = (Button) e.getSource();
             if(buttonPressed.getText().equals("")){
                 buttonPressed.setText(""+player);
-                AccessFile.writeFile(file,buttonPressed.getId()+player+".");
+                AccessFile.writeFile(buttonPressed.getId()+player+".");
 
                 if(player=="X"){
                     player="O";
@@ -256,4 +266,6 @@ public class SinglePlayFXMLController {
         DisplayVideo winnerVideo = new DisplayVideo();
         winnerVideo.diplay();
     }
+    
+    
 }

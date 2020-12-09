@@ -15,35 +15,34 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.prefs.Preferences;
 
 /**
  *
  * @author dell
  */
 public class AccessFile {
-    /*
-   public void createFile(){
+   public static File file;
+   public static void createFile(){
+       
        try {
-           File file = new File("E:\\ITI\\Java\\Netbeans\\gameTest\\file.txt");
-           if(file.createNewFile())
-           {
-               FileWriter writer=new FileWriter(file);
-               BufferedWriter bufferedWrite = new BufferedWriter(writer);
-		PrintWriter write = new PrintWriter(bufferedWrite);
-               write.write("file created and write into it ");
-               
-               write.flush();
-               write.close();
-               System.out.println("file Created an writ into it");            
-           }
+           String uniqueID = UUID.randomUUID().toString();
+           Preferences prefs=Preferences.userNodeForPackage(AccessFile.class);
+           prefs.put(uniqueID, uniqueID);
+
+            file = new File("E:\\ITI\\Java\\Project\\Tic-Tac-Toy-JavaFx-\\"+prefs.get(uniqueID, ""));
+           
+           file.createNewFile();
        } catch (IOException ex) {
-           Logger.getLogger(SaveFile.class.getName()).log(Level.SEVERE, null, ex);
-       }         
+           Logger.getLogger(AccessFile.class.getName()).log(Level.SEVERE, null, ex);
+       }
+          
           }
-***/
-    public static void writeFile(File file,String s)
+
+    public static void writeFile(String s)
     {
         try {
             file.createNewFile();
@@ -85,6 +84,10 @@ public class AccessFile {
         } catch (IOException ex) {
             Logger.getLogger(AccessFile.class.getName()).log(Level.SEVERE, null, ex);
         }
+     }
+     public  static File getFileName()
+     {
+         return file.getAbsoluteFile();
      }
 
      

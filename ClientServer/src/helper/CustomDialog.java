@@ -15,8 +15,6 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.TextField;
-
-
 /**
  *
  * @author Wesam
@@ -73,5 +71,6 @@ public class CustomDialog {
            }
        return isCancled;
     
-    }    
+    }   
+    
 }
