@@ -179,6 +179,7 @@ public class ServerMainPageController implements Initializable {
                 
         }catch(SQLException e){
             System.out.println("Connection Issues, Try again later");
+            serverState = !serverState;
 //            alert connection 
         }catch (FileNotFoundException ex) {
             System.out.println("loading image issues");
