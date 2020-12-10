@@ -160,7 +160,7 @@ public class SinglePlayFXMLController {
             }
         }
         else if(btn4.getText().equals(btn5.getText()) && btn5.getText().equals(btn6.getText()) && !btn4.getText().equals("")){
-            drawLine(btn4,btn7);
+            drawLine(btn4,btn6);
             if(btn4.getText().equals("X")){
                 txtWinner.setText("you won!");
             }else{

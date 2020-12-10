@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="649.0" prefWidth="1087.0" style="-fx-background-color: #2F2B43;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.signInFXMLController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="649.0" prefWidth="1087.0" style="-fx-background-color: #2F2B43;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.RegisterFXMLController">
    <children>
       <AnchorPane layoutX="217.0" prefHeight="649.0" prefWidth="870.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -61,7 +61,7 @@
                   
                </children>
             </GridPane>
-            <Button fx:id="btnSignup" contentDisplay="CENTER" layoutX="393.0" layoutY="511.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="302.0" style="-fx-font-size: 16;" styleClass="button5" stylesheets="@../css/fullpackstyling.css" text="SIGN-UP" textAlignment="CENTER" textFill="#fffefe" />
+            <Button fx:id="btnSignup" contentDisplay="CENTER" layoutX="393.0" layoutY="511.0" mnemonicParsing="false" onAction="#signUpPressed" prefHeight="32.0" prefWidth="302.0" style="-fx-font-size: 16;" styleClass="button5" stylesheets="@../css/fullpackstyling.css" text="SIGN-UP" textAlignment="CENTER" textFill="#fffefe" />
             <AnchorPane layoutX="73.0" layoutY="454.0" prefHeight="32.0" prefWidth="1087.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                <children>
                   <Label fx:id="txtAlret" alignment="CENTER" layoutX="456.0" layoutY="2.0" prefHeight="32.0" prefWidth="176.0" text="Alret" textFill="#2f2b43" AnchorPane.bottomAnchor="-2.0" AnchorPane.topAnchor="2.0" />
