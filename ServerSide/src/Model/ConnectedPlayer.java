@@ -60,35 +60,48 @@ public class ConnectedPlayer extends Thread{
                    System.out.println("login");
                    String username = token.nextToken();
                    String password = token.nextToken();
+                   String check;
+                   int score;
                    System.out.println(username+" "+password);
                    try{
 
                         instance = Database.getDataBase();
-                        instance.login(username, password);
+                        check = instance.checkSignIn(username, password);
+                        score = instance.getScore(username);
+                        if(check.equals("Logged in successfully")){
+                            instance.login(username, password);
+                            ps.println(check +"@@@" + score);
+                        }
+                        ps.println(check +"@@@" + score);
                        
                    }catch(SQLException e){
                        //alert
                        System.out.println("Connection Issues");
                    }
                }else{ // SignUp
-                   String username = token.nextToken();
-                   String email = token.nextToken();
-                   String password = token.nextToken();
+                    String username = token.nextToken();
+                    String email = token.nextToken();
+                    String password = token.nextToken();
+                    System.out.println(username+" "+email+" "+password);
+                    String check;
                    
                    try{
-                       instance = Database.getDataBase();
-                       System.out.println(username+" "+email+" "+password);
-                       
-                       instance.SignUp(username,email,password);
-//                       server.databaseInstance.SignUp(username,email,password);
-                       System.out.println("User is registered now , check database");
+                        instance = Database.getDataBase();
+                        check = instance.checkRegister(username, email);
+                        System.out.println(check);
+                        ps.println(check);
+                        if(check.equals("Registered Successfully")){
+                            instance.SignUp(username,email,password);
+     //                       server.databaseInstance.SignUp(username,email,password);
+                            System.out.println("User is registered now , check database");                       }
+
                        instance.updateResultSet();
                    }catch(SQLException e){
                        //alert
                        e.printStackTrace();
                        System.out.println("Connection Issues");
                        
-                   }
+                    }
                }
            } catch (IOException ex) {
                this.stop();

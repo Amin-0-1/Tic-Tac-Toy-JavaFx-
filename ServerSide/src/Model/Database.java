@@ -78,5 +78,61 @@ public class Database {
         updateResultSet();
         login(username,password);
     }
-        
+
+    public String checkRegister(String username , String email){
+        ResultSet checkRs;
+        PreparedStatement pstCheck;
+        String check;
+        try {
+            //        String queryString= new String("select username from player where username = ?");
+            pstCheck = con.prepareStatement("select * from player where username = ?");
+            pstCheck.setString(1, username);
+            checkRs = pstCheck.executeQuery();
+            if(checkRs.next()){
+                return "already signed-up";
+            }
+        } catch (SQLException ex) {
+            System.out.println("here ");
+            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return "Registered Successfully";
+    }
+    public String checkSignIn(String username, String password){
+        ResultSet checkRs;
+        PreparedStatement pstCheck;
+        String check;       
+        try {
+            pstCheck = con.prepareStatement("select * from player where username = ?");
+            pstCheck.setString(1, username);
+            checkRs = pstCheck.executeQuery();
+            if(checkRs.next()){
+                if(password.equals(checkRs.getString(4))){
+                    return "Logged in successfully";
+                }
+                return "Password is incorrect";
+            }
+            return "Username is incorrect";
+        } catch (SQLException ex) {
+            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+            return "Connection issue, please try again later";
+        }
+    }
+    
+    public int getScore(String username){
+        int score;
+        ResultSet checkRs;
+        PreparedStatement pstCheck;
+ 
+        try {
+            pstCheck = con.prepareStatement("select * from player where username = ?");
+            pstCheck.setString(1, username);
+            checkRs = pstCheck.executeQuery();
+            checkRs.next();
+            score = checkRs.getInt(5);
+            return score;
+        } catch (SQLException ex) {
+            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return -1;
+    }
 }

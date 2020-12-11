@@ -65,7 +65,7 @@ public class SinglePlayFXMLController {
         System.out.println("backToMainPage: called");
         ButtonBack btnback = new ButtonBack("/view/sample.fxml");
         btnback.handleButtonBack(event);
-    } 
+    }
     
     public void buttonPressed(ActionEvent e){
         if(!winner){
