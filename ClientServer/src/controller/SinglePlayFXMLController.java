@@ -67,7 +67,7 @@ public class SinglePlayFXMLController {
     @FXML
     private AnchorPane pane;
    // File file;
-    public File  file= new File("E:\\ITI\\Java\\Project\\Tic-Tac-Toy-JavaFx-\\game.txt");
+    //public File  file= new File("E:\\ITI\\Java\\Project\\Tic-Tac-Toy-JavaFx-\\game.txt");
 
 
     public void initialize(URL url, ResourceBundle rb) {

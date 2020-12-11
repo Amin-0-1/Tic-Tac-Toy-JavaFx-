@@ -38,16 +38,15 @@ public class CustomDialog {
        alert.setHeaderText(message);
        alert.getDialogPane().setContent(content);
     
-           ButtonType buttonTypeOk = new ButtonType("Ok");
-            ButtonType buttonTypeCancel = new ButtonType("Cancel", 
-                    ButtonBar.ButtonData.CANCEL_CLOSE);
+        ButtonType buttonTypeOk = new ButtonType("Ok");
+        ButtonType buttonTypeCancel = new ButtonType("Cancel", 
+        ButtonBar.ButtonData.CANCEL_CLOSE);
             
-             alert.getButtonTypes().setAll(buttonTypeOk,
-                    buttonTypeCancel);
+        alert.getButtonTypes().setAll(buttonTypeOk,
+                buttonTypeCancel);
    
-    
-            DialogPane dialogPane = alert.getDialogPane();
-             dialogPane.getStylesheets().add(
+        DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.getStylesheets().add(
              getClass().getResource("/css/fullpackstyling.css").toExternalForm());
              dialogPane.getStyleClass().add("myDialog");
         

@@ -33,17 +33,17 @@ public class MainController implements Initializable{
     @Override
     public void initialize(URL url, ResourceBundle rb) {
        //File file=new File("E:\\ITI\\Java\\Project\\Tic-Tac-Toy-JavaFx-\\game.txt");
-       /*
-        if(file.exists()){
-           btnWatchGame.setDisable(true);
-           recWatchGame.setVisible(true); 
-        }**/
+       
+       
+           btnWatchGame.setDisable(false);
+           recWatchGame.setVisible(false); 
         
+        /*
         if(btnEnable)
         {
             btnWatchGame.setDisable(false);
             recWatchGame.setVisible(false); 
-        }
+        }**/
         prefs = Preferences.userNodeForPackage(MainController.class);            
     }
 
@@ -77,7 +77,7 @@ public class MainController implements Initializable{
                 {
                     CustomDialog cd = new CustomDialog();
                     Boolean isCancled = cd.displayDialog("Enter Your Name");
-                    prefs.put("username", cd.getName());
+                   // prefs.put("username", cd.getName());
                     if(!isCancled){
                         try {
                             //get scene
@@ -192,13 +192,12 @@ public class MainController implements Initializable{
      * @param event 
      */
      public void changeSceneToWatchGame(ActionEvent event){
-         
-        System.out.println("changeSceneToWatchGame: called");
-      //  if(file.exists())
-        {
-             try {
+         System.out.println("changeSceneToOnlineGame: called");
+        
+        try {
             //get scene
-            Parent onlineGameParent = FXMLLoader.load(getClass().getResource("/view/WatchGame.fxml"));
+
+            Parent onlineGameParent = FXMLLoader.load(getClass().getResource("/view/ListRecordedGames.fxml"));
 
             //generate new scene
             Scene onlineGameScene = new Scene(onlineGameParent,btnWatchGame.getScene().getWidth(),
@@ -207,13 +206,12 @@ public class MainController implements Initializable{
             //get stage information
             Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
 
-            window.setTitle("Watch Game");
+            window.setTitle("ListRecordedGames");
             window.setScene(onlineGameScene);
             window.show();
         } catch (IOException ex) {
             Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        }
-        
+        }       
+    
     }
 }
