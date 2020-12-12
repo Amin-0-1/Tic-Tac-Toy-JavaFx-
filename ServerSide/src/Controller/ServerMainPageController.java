@@ -21,6 +21,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -38,7 +39,9 @@ public class ServerMainPageController implements Initializable {
     Server server;
     private Thread updateListThread;
     private boolean serverState ;
-    
+    private Thread thread;
+    private boolean flageStartThrea = false;
+    private boolean onlineOrOfflineFlag = true;
     @FXML
     private ImageView serverStateImage;
     @FXML
@@ -63,22 +66,38 @@ public class ServerMainPageController implements Initializable {
 //        System.out.println(server instanceof Server);
         disableBtn();
         
-//        Platform.runLater(new Runnable() {
-//            @Override
-//            public void run() {
-//                while(serverState && Platform.isFxApplicationThread()){
-//                    System.out.println("platform");
-//                    listPlayers(true);
-//                }
-////                Platform.exit();
-//            }
-//        });
+        // thread listen to update list user
+     thread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                       while(true){
+                        //System.out.println("True Loop platform");
+                        while(serverState){
+                        //System.out.println(" Checked State platform");
+                          Platform.runLater(()->{
+                              if(onlineOrOfflineFlag){
+                                listPlayers(true);   
+                              }else{
+                                 listPlayers(false); 
+                              }  
+                         });
+                          try{
+                            Thread.sleep(100);  
+                          }catch(InterruptedException ex){
+
+                          }   
+                    }
+                  }
+                }
+
+            });   
     }
     
     @FXML
     private void toggleServer(ActionEvent event) throws InterruptedException{
         
         serverState = !serverState;
+        //onlineOrOfflineFlag = true;
 //        System.out.println(serverState);
         if(serverState){
             try {
@@ -90,6 +109,17 @@ public class ServerMainPageController implements Initializable {
                 serverStateImage.setImage(new Image(new FileInputStream("src/resources/shutdown.png")));
                 status.setText("Deactivate");
                 currentLabel.setText("Status : On");
+
+                // check if thread stated or not
+                if(Platform.isFxApplicationThread()){
+                    if(!flageStartThrea){
+                      thread.start();  
+                    }else{
+                        thread.resume();
+                    }
+
+                }
+            
             }catch(SQLException e){
                 System.out.println("Connection Issues, Try again later");
                 serverState = !serverState;
@@ -101,6 +131,10 @@ public class ServerMainPageController implements Initializable {
                 serverStateImage.setImage(new Image(new FileInputStream("src/resources/launch.png")));
                 status.setText("Activate");
                 currentLabel.setText("Status : OFF");
+                thread.suspend();
+                flageStartThrea = true;
+                onlineOrOfflineFlag = true;
+                //Platform.exit();
             }catch (FileNotFoundException ex) {
                 System.out.println("No Img");
             }finally{
@@ -115,11 +149,13 @@ public class ServerMainPageController implements Initializable {
     
     @FXML
     private void listOnline(ActionEvent event) {
+        onlineOrOfflineFlag = true;
         listPlayers(true);
      
     }
     @FXML
     private void listOffline(ActionEvent event){
+        onlineOrOfflineFlag = false;
         listPlayers(false);
     }
  
@@ -132,7 +168,8 @@ public class ServerMainPageController implements Initializable {
             HBox hbox;
             
             while(server.databaseInstance.rs.next()){
-                if(server.databaseInstance.rs.getString("isactive").equals(state+"")){
+                if(server.databaseInstance.rs.getString("ISACTIVE").equals(state+"")){
+                    //System.out.println("platform check action action");
                     
                     ImageView view,view2;
                         // avatar view
