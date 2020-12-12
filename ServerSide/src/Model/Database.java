@@ -78,7 +78,6 @@ public class Database {
         updateResultSet();
         login(username,password);
     }
-<<<<<<< HEAD
 
     public String checkRegister(String username , String email){
         ResultSet checkRs;
@@ -135,8 +134,5 @@ public class Database {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
         }
         return -1;
-    }
-=======
-        
->>>>>>> 5bc69cba34895972e6dbe6a292a799d6443d72bc
+    }     
 }

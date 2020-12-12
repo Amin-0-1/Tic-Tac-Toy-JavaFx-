@@ -61,10 +61,11 @@ public class WatchGameController implements Initializable ,Runnable{
        // String data=AccessFile.readFile(ListRecordedGamesController.gamename);
        // System.out.println(ListRecordedGamesController.gamename);
         //System.out.println("filename");
-     displayRecorderdGame(AccessFile.readFileAsString("E:\\ITI\\Java\\Project\\Tic-Tac-Toy-JavaFx-\\"+ListRecordedGamesController.gamename));
+    // displayRecorderdGame(AccessFile.readFileAsString("E:\\ITI\\Java\\Project\\Tic-Tac-Toy-JavaFx-\\"+ListRecordedGamesController.gamename));
        System.out.println("done");
-             datathread=new Thread(this);
-
+       datathread=new Thread(this);
+       datathread.start();
+                   
      
         }
                   
@@ -75,8 +76,6 @@ public class WatchGameController implements Initializable ,Runnable{
     }
     public void displayRecorderdGame(String dataStored)
     {          
-
-
         //System.out.println("displayGame");
       //  System.out.println(dataStored.substring(0,1));     
 		int index;
@@ -113,10 +112,7 @@ public class WatchGameController implements Initializable ,Runnable{
                      d=data[a].substring(4,5);
                     System.out.println("####");   
                    // setText(d, position);
-                       datathread=new Thread(this);
-                       datathread.start();
-                   
-                     
+            
                 } 
             }      
     }
@@ -161,12 +157,12 @@ public class WatchGameController implements Initializable ,Runnable{
     @Override
     public void run() {
        while (true) { 
-          
-         //  Platform.runLater(() -> {
-               setText(d,position );
-         // });
+     displayRecorderdGame(AccessFile.readFileAsString("E:\\ITI\\Java\\Project\\Tic-Tac-Toy-JavaFx-\\"+ListRecordedGamesController.gamename));
+           Platform.runLater(() -> {
+              setText(d,position );
+          });
             try {
-               Thread.sleep(5000);
+               Thread.sleep(1000);
                System.out.println("sleep");
 
             } catch (InterruptedException ex) {

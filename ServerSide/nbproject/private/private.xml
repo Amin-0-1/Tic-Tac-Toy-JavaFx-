@@ -4,6 +4,8 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/E:/ITI/Java/Project/Tic-Tac-Toy-JavaFx-/ServerSide/src/Controller/ServerMainPageController.java</file>
+            <file>file:/E:/ITI/Java/Project/Tic-Tac-Toy-JavaFx-/ServerSide/src/Model/Database.java</file>
+            <file>file:/E:/ITI/Java/Project/Tic-Tac-Toy-JavaFx-/ServerSide/src/Model/ConnectedPlayer.java</file>
         </group>
     </open-files>
 </project-private>

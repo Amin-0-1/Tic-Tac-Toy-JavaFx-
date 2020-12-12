@@ -83,16 +83,11 @@
             </AnchorPane>
             <AnchorPane layoutX="393.0" layoutY="511.0" AnchorPane.bottomAnchor="101.0" AnchorPane.leftAnchor="393.0" AnchorPane.rightAnchor="392.0">
                <children>
-                  <Button fx:id="btnSignup" contentDisplay="CENTER" mnemonicParsing="false" onAction="#signUpPressed" prefHeight="32.0" prefWidth="302.0" style="-fx-font-size: 16;" styleClass="button5" stylesheets="@../css/fullpackstyling.css" text="SIGN-UP" textAlignment="CENTER" textFill="#fffefe" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                   <Button fx:id="btnSignup" contentDisplay="CENTER" layoutX="393.0" layoutY="511.0" mnemonicParsing="false" onAction="#signUpPressed" prefHeight="32.0" prefWidth="302.0" style="-fx-font-size: 16;" styleClass="button5" stylesheets="@../css/fullpackstyling.css" text="SIGN-UP" textAlignment="CENTER" textFill="#fffefe" />
                </children>
-<<<<<<< HEAD
             </AnchorPane>
             <AnchorPane layoutX="73.0" layoutY="454.0" prefHeight="32.0" prefWidth="1087.0" AnchorPane.bottomAnchor="163.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-=======
-            </GridPane>
-            <Button fx:id="btnSignup" contentDisplay="CENTER" layoutX="393.0" layoutY="511.0" mnemonicParsing="false" onAction="#signUpPressed" prefHeight="32.0" prefWidth="302.0" style="-fx-font-size: 16;" styleClass="button5" stylesheets="@../css/fullpackstyling.css" text="SIGN-UP" textAlignment="CENTER" textFill="#fffefe" />
-            <AnchorPane layoutX="73.0" layoutY="454.0" prefHeight="32.0" prefWidth="1087.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
->>>>>>> 5bc69cba34895972e6dbe6a292a799d6443d72bc
+            
                <children>
                   <Label fx:id="txtAlret" alignment="CENTER" layoutX="438.0" layoutY="2.0" prefHeight="32.0" prefWidth="216.0" textFill="RED" AnchorPane.bottomAnchor="-2.0" AnchorPane.topAnchor="2.0" />
                </children>

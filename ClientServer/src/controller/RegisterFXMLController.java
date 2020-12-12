@@ -24,11 +24,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-<<<<<<< HEAD
+
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-=======
->>>>>>> 5bc69cba34895972e6dbe6a292a799d6443d72bc
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -53,15 +51,10 @@ public class RegisterFXMLController {
     private TextField txtPassword;
     @FXML
     private TextField txtRePassword;
-<<<<<<< HEAD
     @FXML
     private Label txtAlret;
     @FXML
     private Button btnBack;
-    
-    
-=======
->>>>>>> 5bc69cba34895972e6dbe6a292a799d6443d72bc
     
     public void backToMainPage(ActionEvent event){
         
@@ -74,7 +67,7 @@ public class RegisterFXMLController {
     @FXML
     public void signUpPressed(ActionEvent e){
         try {
-<<<<<<< HEAD
+
 
             //check for a vaild mail
             String regex = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$";
@@ -123,21 +116,13 @@ public class RegisterFXMLController {
                 }.start();
             }
                     } catch (IOException ex) {
-=======
-            Socket socket = new Socket("127.0.0.1",9876);
-            DataInputStream dis = new DataInputStream(socket.getInputStream());
-            PrintStream ps = new PrintStream(socket.getOutputStream());
-            ps.println("SignUp,"+txtUserName.getText()+","+txtMail.getText()+","+txtPassword.getText());
-            ButtonBack btnback = new ButtonBack("/view/OnlinePlayFXML.fxml");
-            btnback.handleButtonBack(e);
-        } catch (IOException ex) {
->>>>>>> 5bc69cba34895972e6dbe6a292a799d6443d72bc
+
             System.out.print("catch");
             Logger.getLogger(signInFXMLController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
-<<<<<<< HEAD
+
     
     public void printNow(){
         txtAlret.setText("this mail is already signed-up");
@@ -146,6 +131,5 @@ public class RegisterFXMLController {
 //        return false;
 //    }
 
-=======
->>>>>>> 5bc69cba34895972e6dbe6a292a799d6443d72bc
+
 }

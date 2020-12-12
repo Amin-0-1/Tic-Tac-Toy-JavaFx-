@@ -1,6 +1,7 @@
 package controller;
 import helper.AskDialog;
 import helper.CustomDialog;
+import helper.IPvalidatation;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -76,12 +77,12 @@ public class MainController implements Initializable{
                 {
                     CustomDialog cd = new CustomDialog();
                     Boolean isCancled = cd.displayDialog("Enter Your Name");
-                    //prefs.put("username", cd.getName());
+                    prefs.put("username", cd.getName());
                     if(!isCancled){
                         try {
                             //get scene
                             AskDialog isrecoredGame = new AskDialog();
-                            isrecoredGame.alert("Do you want record game ?");
+                            isrecoredGame.alert("Do you want to record game ?");
                     
                             Parent singlePlayerParent = FXMLLoader.load(getClass().getResource("/view/SinglePlayFXML.fxml"));
                             
@@ -103,7 +104,7 @@ public class MainController implements Initializable{
             else
             {
                  AskDialog isrecoredGame = new AskDialog();
-                  isrecoredGame.alert("Do you want record game ?");
+                  isrecoredGame.alert("Do you want to record game ?");
                    
                 Parent singlePlayerParent = FXMLLoader.load(getClass().getResource("/view/SinglePlayFXML.fxml"));
                 
@@ -170,8 +171,9 @@ public class MainController implements Initializable{
 
                     CustomDialog cd = new CustomDialog();
                     Boolean isCancled = cd.displayDialog("Enter Server IP");
-                    System.out.println(cd.getName());
                     
+                    if(IPvalidatation.isValidIPAddress(cd.getName()))
+                    {
                     if(!isCancled){
                         try {
                             //get scene
@@ -191,7 +193,7 @@ public class MainController implements Initializable{
                             Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
                         }
                     }
-    }
+    }}
     
     /**
      * changeSceneToWatchGame.
