@@ -64,7 +64,7 @@ public class signInFXMLController {
             dis = new DataInputStream(socket.getInputStream());
             ps = new PrintStream(socket.getOutputStream());
             ps.println("SignIn,"+txtUserName.getText()+","+txtPassword.getText());
-            ButtonBack btnback = new ButtonBack("/view/OnlinePlayFXML.fxml");
+            ButtonBack btnback = new ButtonBack("/view/OnlinePlayer.fxml");
             btnback.handleButtonBack(e);
         } catch (IOException ex) {
             Logger.getLogger(signInFXMLController.class.getName()).log(Level.SEVERE, null, ex);
