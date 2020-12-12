@@ -10,6 +10,7 @@ import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
@@ -21,13 +22,16 @@ public class ServerSide extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
+        
         Parent root = FXMLLoader.load(getClass().getResource("/Viewer/ServerMainPage.fxml"));
 //          Parent root = FXMLLoader.load(getClass().getResource("/Viewer/OnlinePlayerPage.fxml"));
           
         Scene scene = new Scene(root);
         scene.getStylesheets().add(getClass().getResource("/css/fullpackstyling.css").toString());
+//        stage.initModality(Modality.APPLICATION_MODAL);
         stage.setScene(scene);
         stage.setTitle("Tic Tac Toy, Play and Enjoy!!");
+//        stage.initModality(Modality.APPLICATION_MODAL);
         stage.show();
     }
 
