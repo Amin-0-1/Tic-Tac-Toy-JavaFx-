@@ -82,7 +82,11 @@ public class ServerMainPageController implements Initializable {
                               }  
                          });
                           try{
+<<<<<<< HEAD
                             Thread.sleep(100);  
+=======
+                            Thread.sleep(1000);  
+>>>>>>> 5bc69cba34895972e6dbe6a292a799d6443d72bc
                           }catch(InterruptedException ex){
 
                           }   

@@ -41,8 +41,11 @@ public class SinglePlayFXMLController {
     private String player = "X";
     private Button buttonPressed;
     private boolean winner = false;
+<<<<<<< HEAD
 
     private boolean display = false;
+=======
+>>>>>>> 5bc69cba34895972e6dbe6a292a799d6443d72bc
     
     @FXML
     private  Button btn1;
@@ -80,7 +83,11 @@ public class SinglePlayFXMLController {
         System.out.println("backToMainPage: called");
         ButtonBack btnback = new ButtonBack("/view/sample.fxml");
         btnback.handleButtonBack(event);
+<<<<<<< HEAD
     }
+=======
+    } 
+>>>>>>> 5bc69cba34895972e6dbe6a292a799d6443d72bc
     
     public void buttonPressed(ActionEvent e){
         if(!winner){
@@ -141,12 +148,17 @@ public class SinglePlayFXMLController {
             public void handle(ActionEvent e) {
             System.err.println("button pressed");
             buttonPressed = (Button) e.getSource();
+<<<<<<< HEAD
 
 
                 if(buttonPressed.getText().equals("")){
                     buttonPressed.setText(""+player);
                        AccessFile.writeFile(buttonPressed.getId()+player+".");
 
+=======
+                if(buttonPressed.getText().equals("")){
+                    buttonPressed.setText(""+player);
+>>>>>>> 5bc69cba34895972e6dbe6a292a799d6443d72bc
                     if(player=="X"){
                         player="O";
                     }
@@ -157,7 +169,10 @@ public class SinglePlayFXMLController {
                     if(isFullGrid() && !winner){
                         txtWinner.setText("draw");
                     }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 5bc69cba34895972e6dbe6a292a799d6443d72bc
                 }
             }
         });
@@ -278,6 +293,7 @@ public class SinglePlayFXMLController {
         return winner;
     }
     private void checkState (){
+<<<<<<< HEAD
 
         checkRows();
         checkColumns();
@@ -285,6 +301,24 @@ public class SinglePlayFXMLController {
         if(display){
             displayVideo();
         }
+=======
+        if(!checkRows()){
+            if(!checkColumns()){
+                if(!checkDiagonal()){
+                    
+                }else{
+                    winner = true;
+                }
+            }else{
+                winner = true;
+            }
+        }else{
+            winner = true;
+        }
+//        checkRows();
+//        checkColumns();
+//        checkDiagonal();
+>>>>>>> 5bc69cba34895972e6dbe6a292a799d6443d72bc
     }
     /**
      * displayVideo called when player win

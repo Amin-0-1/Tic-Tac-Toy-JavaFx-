@@ -43,17 +43,23 @@ public class signInFXMLController {
     Socket socket;
     DataInputStream dis;
     PrintStream ps;
+<<<<<<< HEAD
     StringTokenizer token;
     int score;
 
+=======
+>>>>>>> 5bc69cba34895972e6dbe6a292a799d6443d72bc
     
     
     @FXML
     private TextField txtUserName;
     @FXML
     private TextField txtPassword;
+<<<<<<< HEAD
     @FXML
     private Label txtAlret;
+=======
+>>>>>>> 5bc69cba34895972e6dbe6a292a799d6443d72bc
     
     
     public void backToMainPage(ActionEvent event){
@@ -71,6 +77,7 @@ public class signInFXMLController {
             dis = new DataInputStream(socket.getInputStream());
             ps = new PrintStream(socket.getOutputStream());
             ps.println("SignIn,"+txtUserName.getText()+","+txtPassword.getText());
+<<<<<<< HEAD
 //            ButtonBack btnback = new ButtonBack("/view/OnlinePlayFXML.fxml");
 //            btnback.handleButtonBack(e);
             if(txtUserName.getText().equals("")){
@@ -124,5 +131,14 @@ public class signInFXMLController {
             Logger.getLogger(signInFXMLController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+=======
+            ButtonBack btnback = new ButtonBack("/view/OnlinePlayer.fxml");
+            btnback.handleButtonBack(e);
+        } catch (IOException ex) {
+            Logger.getLogger(signInFXMLController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+>>>>>>> 5bc69cba34895972e6dbe6a292a799d6443d72bc
 
 }
