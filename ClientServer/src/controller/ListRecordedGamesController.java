@@ -51,25 +51,28 @@ public class ListRecordedGamesController implements Initializable {
     public Preferences prefs=Preferences.userNodeForPackage(AccessFile.class);
     
     public static String gamename;
-    @Override
-       /**
+ 
+    /**
      * backToMainPage.
      * when called scene will be change to main page.
      * @param event 
      */
-    public void initialize(URL url, ResourceBundle rb) {
-            // TODO
-            listgames.applyCss();
-            showListItemes();        
-    } 
-    
-    public void backToMainPage(ActionEvent event){     
+    public void backToMainPage(ActionEvent event){       
         System.out.println("backToMainPage: called");
+        
         ButtonBack btnback = new ButtonBack("/view/sample.fxml");
         btnback.handleButtonBack(event);         
-    }
+    }  
+    
+    public void initialize(URL url, ResourceBundle rb) {
+            // TODO
+            listgames.applyCss();             
+            showListItemes();        
+    } 
+     
+    
+     
     public void showListItemes(){
-       
            // listgames.setPrefSize(200, 250);
             try{
             String []names=prefs.keys();
@@ -90,11 +93,12 @@ public class ListRecordedGamesController implements Initializable {
     
     public void selectedItem()
     {     
-            listgames.setOnMouseClicked((event) -> {
+            listgames.setOnMouseClicked((MouseEvent event) -> {
             System.out.println(listgames.getSelectionModel().getSelectedItems().toString());
 
+            
              String selectedItem = listgames.getSelectionModel().getSelectedItems().toString();
-             if(selectedItem !=null)
+             if(selectedItem !="[]")
              {
         selectedItem=selectedItem.substring(1);
          int  index=selectedItem.indexOf("]");

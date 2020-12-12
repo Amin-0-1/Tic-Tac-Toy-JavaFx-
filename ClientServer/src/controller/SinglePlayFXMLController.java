@@ -41,7 +41,9 @@ public class SinglePlayFXMLController {
     private String player = "X";
     private Button buttonPressed;
     private boolean winner = false;
+
     private boolean display = false;
+    
     @FXML
     private  Button btn1;
     @FXML
@@ -75,16 +77,12 @@ public class SinglePlayFXMLController {
 
     } 
     public void backToMainPage(ActionEvent event){
-        
         System.out.println("backToMainPage: called");
-        
         ButtonBack btnback = new ButtonBack("/view/sample.fxml");
         btnback.handleButtonBack(event);
-    } 
-    public void buttonPressed(ActionEvent e){
-        handle(e);
     }
-    public void handle(ActionEvent e){
+    
+    public void buttonPressed(ActionEvent e){
         if(!winner){
             System.err.println("x");
             buttonPressed = (Button) e.getSource();
@@ -105,7 +103,13 @@ public class SinglePlayFXMLController {
                     computerTurn();
                     checkState();
                 }
-            }else{}
+            }else{
+                if(isFullGrid()){
+                    txtWinner.setText("draw");
+                }
+            }
+        }else{
+            // show video
         }
 
     }
@@ -128,33 +132,49 @@ public class SinglePlayFXMLController {
             r = new Random();
             int i =r.nextInt(9);
             myBtn = btns[i];
-            if(!btn1.getText().equals("") && !btn2.getText().equals("") && !btn3.getText().equals("") && !btn4.getText().equals("")
-                    && !btn5.getText().equals("") && !btn6.getText().equals("")&& !btn7.getText().equals("")
-                    && !btn8.getText().equals("") && !btn9.getText().equals("")){break;}
+            if(isFullGrid()){
+                break;
+            }
         }while(!myBtn.getText().equals(""));
         myBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
             System.err.println("button pressed");
             buttonPressed = (Button) e.getSource();
-            if(buttonPressed.getText().equals("")){
-                buttonPressed.setText(""+player);
-                AccessFile.writeFile(buttonPressed.getId()+player+".");
 
-                if(player=="X"){
-                    player="O";
+
+                if(buttonPressed.getText().equals("")){
+                    buttonPressed.setText(""+player);
+                       AccessFile.writeFile(buttonPressed.getId()+player+".");
+
+                    if(player=="X"){
+                        player="O";
+                    }
+                    else{
+                        player="X";
+                    }        
+                }else{
+                    if(isFullGrid() && !winner){
+                        txtWinner.setText("draw");
+                    }
+
                 }
-                else{
-                    player="X";
-                }        
-            }else{}
-                }
+            }
         });
         myBtn.fire();
 
     }
     
-    private void checkRows(){
+    private boolean isFullGrid(){
+        if(!btn1.getText().equals("") && !btn2.getText().equals("") && !btn3.getText().equals("") && !btn4.getText().equals("")
+                    && !btn5.getText().equals("") && !btn6.getText().equals("")&& !btn7.getText().equals("")
+                    && !btn8.getText().equals("") && !btn9.getText().equals("")){
+                    return true;
+        }else{
+            return false;
+        }
+    }
+    private boolean checkRows(){
         if(btn1.getText().equals(btn2.getText()) && btn2.getText().equals(btn3.getText()) && !btn1.getText().equals("")){
             drawLine(btn1,btn3);
             if(btn1.getText().equals("X")){
@@ -164,10 +184,9 @@ public class SinglePlayFXMLController {
             }else{
                 txtWinner.setText("computer won!");
             }
-            winner = true;
         }
         else if(btn4.getText().equals(btn5.getText()) && btn5.getText().equals(btn6.getText()) && !btn4.getText().equals("")){
-            drawLine(btn4,btn7);
+            drawLine(btn4,btn6);
             if(btn4.getText().equals("X")){
                 txtWinner.setText("you won!");
                 //displayVideo();
@@ -175,7 +194,6 @@ public class SinglePlayFXMLController {
             }else{
                 txtWinner.setText("computer won!");
             }
-            winner = true;
         }
         else if(btn7.getText().equals(btn8.getText()) && btn8.getText().equals(btn9.getText()) && !btn9.getText().equals("")){
             drawLine(btn7,btn9);
@@ -187,10 +205,13 @@ public class SinglePlayFXMLController {
                 txtWinner.setText("computer won!");
             }
             winner = true;
+        }else{
+            return false;
         }
+        return winner;
     }
     
-    private void checkColumns(){
+    private boolean checkColumns(){
         if(btn1.getText().equals(btn4.getText()) && btn4.getText().equals(btn7.getText()) && !btn1.getText().equals("")){
             drawLine(btn1,btn7);
             if(btn1.getText().equals("X")){
@@ -223,10 +244,13 @@ public class SinglePlayFXMLController {
                 txtWinner.setText("computer won!");
             }
             winner = true;
+        }else{
+            return false;
         }
+        return winner;
     }
     
-    private void checkDiagonal(){
+    private boolean checkDiagonal(){
         if(btn1.getText().equals(btn5.getText()) && btn5.getText().equals(btn9.getText()) && !btn1.getText().equals("")){
             drawLine(btn1,btn9);
             if(btn1.getText().equals("X")){
@@ -248,9 +272,13 @@ public class SinglePlayFXMLController {
                 txtWinner.setText("computer won!");
             }
             winner = true;
+        }else{
+            return false;
         }
+        return winner;
     }
     private void checkState (){
+
         checkRows();
         checkColumns();
         checkDiagonal();
@@ -258,13 +286,29 @@ public class SinglePlayFXMLController {
             displayVideo();
         }
     }
-    
     /**
      * displayVideo called when player win
      */
     private void displayVideo(){
         DisplayVideo winnerVideo = new DisplayVideo();
         winnerVideo.diplay();
+        if(!checkRows()){
+            if(!checkColumns()){
+                if(!checkDiagonal()){
+                    
+                }else{
+                    winner = true;
+                }
+            }else{
+                winner = true;
+            }
+        }else{
+            winner = true;
+        }
+//        checkRows();
+//        checkColumns();
+//        checkDiagonal();
+
     }
     
     

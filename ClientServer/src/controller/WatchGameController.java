@@ -13,17 +13,20 @@ import java.util.ResourceBundle;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Platform;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.text.Text;
 
 /**
  * FXML Controller class
  *
  * @author dell
  */
-public class WatchGameController implements Initializable{
+public class WatchGameController implements Initializable ,Runnable{
 
     /**
      * Initializes the controller class.
@@ -48,26 +51,33 @@ public class WatchGameController implements Initializable{
     @FXML
     protected  Button btn9=new Button();
     protected File file;
-    
+    Thread datathread;
+    boolean x=true;
+    String d;
+    String position;
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
        // String data=AccessFile.readFile(ListRecordedGamesController.gamename);
        // System.out.println(ListRecordedGamesController.gamename);
         //System.out.println("filename");
-       displayRecorderdGame(AccessFile.readFileAsString("E:\\ITI\\Java\\Project\\Tic-Tac-Toy-JavaFx-\\"+ListRecordedGamesController.gamename));
-        System.out.println("done");
-        }
+     displayRecorderdGame(AccessFile.readFileAsString("E:\\ITI\\Java\\Project\\Tic-Tac-Toy-JavaFx-\\"+ListRecordedGamesController.gamename));
+       System.out.println("done");
+             datathread=new Thread(this);
 
-    public void backToMainPage(ActionEvent event){     
-        System.out.println("backToMainPage: called");
-        
-        ButtonBack btnback = new ButtonBack("/view/sample.fxml");
+     
+        }
+                  
+    public void backToRecordedGames(ActionEvent event){     
+        System.out.println("backToRecordedGames: called");
+        ButtonBack btnback = new ButtonBack("/view/ListRecordedGames.fxml");
         btnback.handleButtonBack(event);         
     }
     public void displayRecorderdGame(String dataStored)
-    {    
-        System.out.println("displayGame");
+    {          
+
+
+        //System.out.println("displayGame");
       //  System.out.println(dataStored.substring(0,1));     
 		int index;
                 String[] data=new String[9];
@@ -78,50 +88,53 @@ public class WatchGameController implements Initializable{
 	                index=dataStored.indexOf(".");
 			if(index!=-1)
 			{
-			System.out.println(dataStored.substring(0,index));
+			//System.out.println(dataStored.substring(0,index));
                         data[i]=dataStored.substring(0,index);                     
-                           System.out.println("array  "+i+"   "+data[i]);
+                        //System.out.println("array  "+i+"   "+data[i]);
                        // btn_1.setText(s);
 			 dataStored=dataStored.substring(index+1,dataStored.length());
 			}
 			else 
 			{
-                            System.out.println(dataStored);
+                          //  System.out.println(dataStored);
 			    dataStored="";
 			}                        
                     }
 		} 
-                System.out.println();
-
+                System.out.println("..........................");
                  for(int a=0;a<9;a++)
-                         {
-         
-                System.out.println(data[a]);
+                 {
+               // System.out.println(data[a]);
                 if(data[a]!=null)
                 {
                     System.out.println(data[a].substring(3,4));
-                    String position=data[a].substring(3,4);
+                     position=data[a].substring(3,4);
                     //System.out.println(data[a].substring(1,2));
-                    String d=data[a].substring(4,5);
-                    System.out.println("####");
-                    
-                    switch(position)
+                     d=data[a].substring(4,5);
+                    System.out.println("####");   
+                   // setText(d, position);
+                       datathread=new Thread(this);
+                       datathread.start();
+                   
+                     
+                } 
+            }      
+    }
+    private void setText(String data,String position ){
+        System.out.println("settextmethod called");
+         switch(position)
                     {
                         case "1":
                             btn1.setText(d);
-                           // Thread.sleep(1000);
                             break;
                         case "2":
                             btn2.setText(d);
-                            //Thread.sleep(1000);
                             break;
                         case "3":
                             btn3.setText(d);
-                            //Thread.sleep(1000);
                             break;
                         case "4":
                             btn4.setText(d);
-                           // Thread.sleep(1000);
                             break;
                         case "5":
                             btn5.setText(d);
@@ -139,12 +152,27 @@ public class WatchGameController implements Initializable{
                             btn9.setText(d);
                             break;
                         default:
-                            
                             break;
                     }
+         System.out.println(position);
+         System.out.println(d);
+    }
 
-                }
-                      //  Thread.sleep(1000);
-            }      
+    @Override
+    public void run() {
+       while (true) { 
+          
+         //  Platform.runLater(() -> {
+               setText(d,position );
+         // });
+            try {
+               Thread.sleep(5000);
+               System.out.println("sleep");
+
+            } catch (InterruptedException ex) {
+               Logger.getLogger(WatchGameController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+       }
     }
 }

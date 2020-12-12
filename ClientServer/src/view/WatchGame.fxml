@@ -16,7 +16,7 @@
    <children>
       <Pane layoutX="3.0" layoutY="3.0" prefHeight="54.0" prefWidth="65.0">
          <children>
-            <Button fx:id="back" mnemonicParsing="false" onAction="#backToMainPage" opacity="0.7" prefHeight="54.0" prefWidth="65.0" styleClass="buttonBack" stylesheets="@../css/fullpackstyling.css">
+            <Button fx:id="btnback" mnemonicParsing="false" onAction="#backToRecordedGames" opacity="0.7" prefHeight="54.0" prefWidth="65.0" styleClass="buttonBack" stylesheets="@../css/fullpackstyling.css">
                <graphic>
                   <ImageView fitHeight="40.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true">
                      <image>

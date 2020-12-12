@@ -33,8 +33,7 @@ public class MainController implements Initializable{
     @Override
     public void initialize(URL url, ResourceBundle rb) {
        //File file=new File("E:\\ITI\\Java\\Project\\Tic-Tac-Toy-JavaFx-\\game.txt");
-       
-       
+
            btnWatchGame.setDisable(false);
            recWatchGame.setVisible(false); 
         
@@ -77,12 +76,12 @@ public class MainController implements Initializable{
                 {
                     CustomDialog cd = new CustomDialog();
                     Boolean isCancled = cd.displayDialog("Enter Your Name");
-                   // prefs.put("username", cd.getName());
+                    //prefs.put("username", cd.getName());
                     if(!isCancled){
                         try {
                             //get scene
                             AskDialog isrecoredGame = new AskDialog();
-                     isrecoredGame.alert("Do you want record game ?");
+                            isrecoredGame.alert("Do you want record game ?");
                     
                             Parent singlePlayerParent = FXMLLoader.load(getClass().getResource("/view/SinglePlayFXML.fxml"));
                             
@@ -138,6 +137,9 @@ public class MainController implements Initializable{
         
         System.out.println("changeSceneToTwoPlayers: called");
         try {
+            
+            
+            
             //get scene
            Parent twoPlayerParent = FXMLLoader.load(getClass().getResource("/view/TwoPlayerFXML.fxml"));
             //generate new scene
@@ -165,25 +167,30 @@ public class MainController implements Initializable{
     public void changeSceneToOnlineGame(ActionEvent event) {
         
         System.out.println("changeSceneToOnlineGame: called");
-        
-        try {
-            //get scene
 
-            Parent onlineGameParent = FXMLLoader.load(getClass().getResource("/view/LoginOrRegister.fxml"));
-
-            //generate new scene
-            Scene onlineGameScene = new Scene(onlineGameParent,btnWatchGame.getScene().getWidth(),
-           btnWatchGame.getScene().getHeight());
-        
-            //get stage information
-            Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-
-            window.setTitle("Login And Register");
-            window.setScene(onlineGameScene);
-            window.show();
-        } catch (IOException ex) {
-            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
-        }       
+                    CustomDialog cd = new CustomDialog();
+                    Boolean isCancled = cd.displayDialog("Enter Server IP");
+                    System.out.println(cd.getName());
+                    
+                    if(!isCancled){
+                        try {
+                            //get scene
+                       
+                            Parent singlePlayerParent = FXMLLoader.load(getClass().getResource("/view/LoginOrRegister.fxml"));
+                            
+                            //generate new scene
+                            Scene singlePlayerScene = new Scene(singlePlayerParent,btnWatchGame.getScene().getWidth(),
+                                    btnWatchGame.getScene().getHeight());
+                            
+                            //get stage information
+                            Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+                            window.setTitle("Single play Mode");
+                            window.setScene(singlePlayerScene);
+                            window.show();
+                         }catch (IOException ex) {
+                            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
     }
     
     /**
