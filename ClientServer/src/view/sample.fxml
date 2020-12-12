@@ -32,68 +32,80 @@
                <children>
                   <Pane minHeight="-Infinity" minWidth="-Infinity">
                      <children>
-                        <Button fx:id="btnSinglePlayer" mnemonicParsing="false" onAction="#changeSceneToSinglePlayer" opacity="0.7" prefHeight="190.0" prefWidth="168.0" styleClass="button2" stylesheets="@../css/fullpackstyling.css" />
-                        <Circle layoutX="84.0" layoutY="87.0" radius="50.0" strokeType="INSIDE">
-                           <stroke>
-                              <LinearGradient endX="1.0" endY="1.0">
-                                 <stops>
-                                    <Stop color="BLACK" />
-                                    <Stop color="WHITE" offset="1.0" />
-                                 </stops>
-                              </LinearGradient>
-                           </stroke>
-                           <fill>
-                              <LinearGradient endX="1.0" endY="1.0" startY="0.4952380952380952">
-                                 <stops>
-                                    <Stop color="#03b5fc" />
-                                    <Stop color="WHITE" offset="1.0" />
-                                 </stops>
-                              </LinearGradient>
-                           </fill>
-                        </Circle>
-                        <ImageView fitHeight="49.0" fitWidth="37.0" layoutX="66.0" layoutY="68.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../resources/single_player.png" />
-                           </image>
-                        </ImageView>
-                        <Label fx:id="labSinglePlayer" alignment="CENTER" layoutX="-6.0" layoutY="146.0" prefHeight="17.0" prefWidth="174.0" text="Single player" textFill="WHITE">
-                           <font>
-                              <Font name="Arial Bold" size="13.0" />
-                           </font>
-                        </Label>
+                        <Button fx:id="btnSinglePlayer" mnemonicParsing="false" onAction="#changeSceneToSinglePlayer" prefHeight="190.0" prefWidth="168.0" styleClass="button2" stylesheets="@../css/fullpackstyling.css">
+                           <graphic>
+                              <AnchorPane>
+                                 <children>
+                                    <Circle layoutX="80.0" layoutY="84.0" radius="50.0" strokeType="INSIDE" AnchorPane.bottomAnchor="46.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="34.0">
+                                       <stroke>
+                                          <LinearGradient endX="1.0" endY="1.0">
+                                             <stops>
+                                                <Stop color="BLACK" />
+                                                <Stop color="WHITE" offset="1.0" />
+                                             </stops>
+                                          </LinearGradient>
+                                       </stroke>
+                                       <fill>
+                                          <LinearGradient endX="1.0" endY="1.0" startY="0.4952380952380952">
+                                             <stops>
+                                                <Stop color="#03b5fc" />
+                                                <Stop color="WHITE" offset="1.0" />
+                                             </stops>
+                                          </LinearGradient>
+                                       </fill>
+                                    </Circle>
+                                    <Label fx:id="labSinglePlayer" alignment="CENTER" layoutX="-14.0" layoutY="140.0" prefHeight="17.0" prefWidth="174.0" text="Single player" textFill="WHITE" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                                       <font>
+                                          <Font name="Arial Bold" size="13.0" />
+                                       </font>
+                                    </Label>
+                                    <ImageView fitHeight="49.0" fitWidth="37.0" layoutX="55.0" layoutY="65.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="61.0" AnchorPane.rightAnchor="62.0">
+                                       <image>
+                                          <Image url="@../resources/single_player.png" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                              </AnchorPane>
+                           </graphic></Button>
                      </children>
                   </Pane>
                   <Pane prefHeight="202.0" prefWidth="179.0">
                      <children>
-                        <Button fx:id="btnTwoPlayer" mnemonicParsing="false" onAction="#changeSceneToTwoPlayers" opacity="0.7" prefHeight="190.0" prefWidth="168.0" styleClass="button2" stylesheets="@../css/fullpackstyling.css" />
-                        <Circle layoutX="84.0" layoutY="87.0" radius="50.0" strokeType="INSIDE">
-                           <stroke>
-                              <LinearGradient endX="1.0" endY="1.0">
-                                 <stops>
-                                    <Stop color="BLACK" />
-                                    <Stop color="WHITE" offset="1.0" />
-                                 </stops>
-                              </LinearGradient>
-                           </stroke>
-                           <fill>
-                              <LinearGradient endX="1.0" endY="1.0" startY="0.4952380952380952">
-                                 <stops>
-                                    <Stop color="#68479f" />
-                                    <Stop color="WHITE" offset="1.0" />
-                                 </stops>
-                              </LinearGradient>
-                           </fill>
-                        </Circle>
-                        <ImageView fitHeight="49.0" fitWidth="37.0" layoutX="66.0" layoutY="68.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../resources/two_player.png" />
-                           </image>
-                        </ImageView>
-                        <Label alignment="CENTER" layoutX="1.0" layoutY="146.0" prefHeight="17.0" prefWidth="168.0" text="Two players" textFill="WHITE">
-                           <font>
-                              <Font name="Arial Bold" size="13.0" />
-                           </font>
-                        </Label>
+                        <Button fx:id="btnTwoPlayer" mnemonicParsing="false" onAction="#changeSceneToTwoPlayers" prefHeight="190.0" prefWidth="168.0" styleClass="button2" stylesheets="@../css/fullpackstyling.css">
+                           <graphic>
+                              <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                                 <children>
+                                    <Circle radius="50.0" strokeType="INSIDE" AnchorPane.bottomAnchor="46.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0">
+                                       <stroke>
+                                          <LinearGradient endX="1.0" endY="1.0">
+                                             <stops>
+                                                <Stop color="BLACK" />
+                                                <Stop color="WHITE" offset="1.0" />
+                                             </stops>
+                                          </LinearGradient>
+                                       </stroke>
+                                       <fill>
+                                          <LinearGradient endX="1.0" endY="1.0" startY="0.4952380952380952">
+                                             <stops>
+                                                <Stop color="#68479f" />
+                                                <Stop color="WHITE" offset="1.0" />
+                                             </stops>
+                                          </LinearGradient>
+                                       </fill>
+                                    </Circle>
+                                    <ImageView fitHeight="49.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="61.0" AnchorPane.rightAnchor="61.0">
+                                       <image>
+                                          <Image url="@../resources/two_player.png" />
+                                       </image>
+                                    </ImageView>
+                                    <Label alignment="CENTER" prefHeight="17.0" prefWidth="168.0" text="Two players" textFill="WHITE" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                                       <font>
+                                          <Font name="Arial Bold" size="13.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </AnchorPane>
+                           </graphic></Button>
                      </children>
                      <HBox.margin>
                         <Insets left="40.0" />
@@ -108,61 +120,73 @@
                <children>
                   <Pane prefHeight="202.0" prefWidth="179.0">
                      <children>
-                        <Button fx:id="btnOnlineGame" mnemonicParsing="false" onAction="#changeSceneToOnlineGame" opacity="0.7" prefHeight="190.0" prefWidth="168.0" styleClass="button2" stylesheets="@../css/fullpackstyling.css" />
-                        <Circle fx:id="circleOnlineGame" layoutX="84.0" layoutY="87.0" radius="50.0" strokeType="INSIDE">
-                           <stroke>
-                              <LinearGradient endX="1.0" endY="1.0">
-                                 <stops>
-                                    <Stop color="BLACK" />
-                                    <Stop color="WHITE" offset="1.0" />
-                                 </stops>
-                              </LinearGradient>
-                           </stroke>
-                           <fill>
-                              <LinearGradient endX="1.0" endY="1.0" startY="0.4952380952380952">
-                                 <stops>
-                                    <Stop color="#ff52e2" />
-                                    <Stop color="WHITE" offset="1.0" />
-                                 </stops>
-                              </LinearGradient>
-                           </fill>
-                        </Circle>
-                        <ImageView fitHeight="49.0" fitWidth="37.0" layoutX="66.0" layoutY="68.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../resources/playing-online.png" />
-                           </image>
-                        </ImageView>
-                        <Label alignment="CENTER" layoutX="3.0" layoutY="146.0" prefHeight="17.0" prefWidth="168.0" text="Online game" textFill="WHITE">
-                           <font>
-                              <Font name="Arial Bold" size="13.0" />
-                           </font>
-                        </Label>
+                        <Button fx:id="btnOnlineGame" mnemonicParsing="false" onAction="#changeSceneToOnlineGame" prefHeight="190.0" prefWidth="168.0" styleClass="button2" stylesheets="@../css/fullpackstyling.css">
+                           <graphic>
+                              <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                                 <children>
+                                    <Circle fx:id="circleOnlineGame" radius="50.0" strokeType="INSIDE" AnchorPane.bottomAnchor="46.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0">
+                                       <stroke>
+                                          <LinearGradient endX="1.0" endY="1.0">
+                                             <stops>
+                                                <Stop color="BLACK" />
+                                                <Stop color="WHITE" offset="1.0" />
+                                             </stops>
+                                          </LinearGradient>
+                                       </stroke>
+                                       <fill>
+                                          <LinearGradient endX="1.0" endY="1.0" startY="0.4952380952380952">
+                                             <stops>
+                                                <Stop color="#ff52e2" />
+                                                <Stop color="WHITE" offset="1.0" />
+                                             </stops>
+                                          </LinearGradient>
+                                       </fill>
+                                    </Circle>
+                                    <ImageView fitHeight="49.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="61.0" AnchorPane.rightAnchor="62.0">
+                                       <image>
+                                          <Image url="@../resources/playing-online.png" />
+                                       </image>
+                                    </ImageView>
+                                    <Label alignment="CENTER" prefHeight="17.0" prefWidth="168.0" text="Online game" textFill="WHITE" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                                       <font>
+                                          <Font name="Arial Bold" size="13.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </AnchorPane>
+                           </graphic></Button>
                      </children>
                   </Pane>
                   <Pane prefHeight="202.0" prefWidth="179.0">
                      <children>
-                        <Button fx:id="btnWatchGame" disable="true" mnemonicParsing="false" onAction="#changeSceneToWatchGame" opacity="0.7" prefHeight="190.0" prefWidth="168.0" styleClass="button2" stylesheets="@../css/fullpackstyling.css" />
-                        <Circle layoutX="84.0" layoutY="87.0" radius="50.0" stroke="#ff924f" strokeType="INSIDE">
-                           <fill>
-                              <LinearGradient endX="1.0" endY="1.0" startY="0.4952380952380952">
-                                 <stops>
-                                    <Stop color="#ff934f" />
-                                    <Stop color="WHITE" offset="0.9961685823754789" />
-                                    <Stop color="WHITE" offset="1.0" />
-                                 </stops>
-                              </LinearGradient>
-                           </fill>
-                        </Circle>
-                        <ImageView fitHeight="49.0" fitWidth="37.0" layoutX="66.0" layoutY="68.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../resources/video.png" />
-                           </image>
-                        </ImageView>
-                        <Label alignment="CENTER" layoutX="1.0" layoutY="146.0" prefHeight="17.0" prefWidth="168.0" text="Watch game" textFill="WHITE">
-                           <font>
-                              <Font name="Arial Bold" size="13.0" />
-                           </font>
-                        </Label>
+                        <Button fx:id="btnWatchGame" disable="true" mnemonicParsing="false" onAction="#changeSceneToWatchGame" opacity="0.7" prefHeight="190.0" prefWidth="168.0" styleClass="button2" stylesheets="@../css/fullpackstyling.css">
+                           <graphic>
+                              <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                                 <children>
+                                    <Circle radius="50.0" stroke="#ff924f" strokeType="INSIDE" AnchorPane.bottomAnchor="46.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0">
+                                       <fill>
+                                          <LinearGradient endX="1.0" endY="1.0" startY="0.4952380952380952">
+                                             <stops>
+                                                <Stop color="#ff934f" />
+                                                <Stop color="WHITE" offset="0.9961685823754789" />
+                                                <Stop color="WHITE" offset="1.0" />
+                                             </stops>
+                                          </LinearGradient>
+                                       </fill>
+                                    </Circle>
+                                    <ImageView fitHeight="49.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="83.0" AnchorPane.leftAnchor="61.0" AnchorPane.rightAnchor="62.0">
+                                       <image>
+                                          <Image url="@../resources/video.png" />
+                                       </image>
+                                    </ImageView>
+                                    <Label alignment="CENTER" prefHeight="17.0" prefWidth="168.0" text="Watch game" textFill="WHITE" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                                       <font>
+                                          <Font name="Arial Bold" size="13.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </AnchorPane>
+                           </graphic></Button>
                         <Rectangle fx:id="recWatchGame" arcHeight="5.0" arcWidth="5.0" fill="#3933516b" height="177.0" layoutX="9.0" layoutY="6.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="152.0" />
                      </children>
                      <HBox.margin>
@@ -176,7 +200,7 @@
             </HBox>
          </children>
       </VBox>
-      <HBox prefHeight="139.0" prefWidth="231.0">
+      <HBox prefHeight="139.0" prefWidth="231.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" rotate="-54.2">
                <image>
@@ -185,7 +209,7 @@
             </ImageView>
          </children>
       </HBox>
-      <HBox alignment="BOTTOM_RIGHT" layoutX="856.0" layoutY="499.0" prefHeight="139.0" prefWidth="231.0">
+      <HBox alignment="BOTTOM_RIGHT" layoutX="856.0" layoutY="499.0" prefHeight="139.0" prefWidth="231.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>
             <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" rotate="-67.4">
                <image>

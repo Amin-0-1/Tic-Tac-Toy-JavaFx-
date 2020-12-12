@@ -7,17 +7,27 @@ package controller;
 
 
 import helper.ButtonBack;
+import java.io.DataInputStream;
 import java.io.IOException;
+import java.io.PrintStream;
+import java.net.Socket;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 /**
@@ -33,6 +43,19 @@ public class RegisterFXMLController {
      * @param event 
      */
     
+    @FXML
+    private TextField txtUserName;
+    @FXML
+    private TextField txtMail;
+    @FXML
+    private TextField txtPassword;
+    @FXML
+    private TextField txtRePassword;
+    @FXML
+    private Label txtAlret;
+    @FXML
+    private Button btnBack;
+    
     public void backToMainPage(ActionEvent event){
         
         System.out.println("backToMainPage: called");
@@ -40,5 +63,73 @@ public class RegisterFXMLController {
         ButtonBack btnback = new ButtonBack("/view/sample.fxml");
         btnback.handleButtonBack(event);
          
-    }  
+    } 
+    @FXML
+    public void signUpPressed(ActionEvent e){
+        try {
+
+
+            //check for a vaild mail
+            String regex = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$";
+            Pattern pattern = Pattern.compile(regex);     
+            Matcher matcher = pattern.matcher(txtMail.getText());
+            if(!matcher.matches()){
+                txtAlret.setText("Please enter a valid mail");
+            }
+            //check for correct password
+            else if(!txtPassword.getText().equals(txtRePassword.getText())){
+                txtAlret.setText("Please check your password");
+            }else{
+                Socket socket = new Socket("127.0.0.1",9876);
+                DataInputStream dis = new DataInputStream(socket.getInputStream());
+                PrintStream ps = new PrintStream(socket.getOutputStream());
+                ps.println("SignUp,"+txtUserName.getText()+","+txtMail.getText()+","+txtPassword.getText());
+//                ButtonBack btnback = new ButtonBack("/view/OnlinePlayFXML.fxml");
+//                btnback.handleButtonBack(e);
+
+                //the server response
+                new Thread(){
+                    String state;
+                    @Override
+                    public void run(){
+                        try {
+                            state = dis.readLine();
+                            
+                            System.out.println(state);
+                            if(state.equals("registered successfully")){
+                                // notification or successful registeration.
+                                
+                                btnBack.fire();
+                                this.stop();
+                            } else if(state.equals("already signed-up")){
+//                                txtAlret.setText("this mail is already signed-up");
+                                printNow();
+                                this.stop();
+                            }
+                            
+                        } catch (IOException ex) {
+                            txtAlret.setText("Our server is having some issues, please try again later");
+                            this.stop();
+                            Logger.getLogger(RegisterFXMLController.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+                }.start();
+            }
+                    } catch (IOException ex) {
+
+            System.out.print("catch");
+            Logger.getLogger(signInFXMLController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+
+    
+    public void printNow(){
+        txtAlret.setText("this mail is already signed-up");
+    }
+//    private static boolean checkMail (){
+//        return false;
+//    }
+
+
 }
