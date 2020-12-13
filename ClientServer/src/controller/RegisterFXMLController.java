@@ -54,8 +54,7 @@ public class RegisterFXMLController {
     private Label txtAlret;
     @FXML
     private Button btnBack;
-    
-    
+
     
     public void backToMainPage(ActionEvent event){
         
@@ -68,6 +67,7 @@ public class RegisterFXMLController {
     @FXML
     public void signUpPressed(ActionEvent e){
         try {
+
 
             //check for a vaild mail
             String regex = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$";
@@ -116,17 +116,20 @@ public class RegisterFXMLController {
                 }.start();
             }
                     } catch (IOException ex) {
+
             System.out.print("catch");
             Logger.getLogger(signInFXMLController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
+
     
     public void printNow(){
         txtAlret.setText("this mail is already signed-up");
     }
+}
 //    private static boolean checkMail (){
 //        return false;
 //    }
 
-}
+

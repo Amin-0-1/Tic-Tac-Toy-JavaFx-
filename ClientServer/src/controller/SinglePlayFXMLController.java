@@ -5,11 +5,12 @@
  */
 package controller;
 
+import helper.AccessFile;
 import helper.ButtonBack;
+import helper.DisplayVideo;
+import java.net.URL;
 import java.util.Random;
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.Timeline;
+import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -19,7 +20,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
-import javafx.util.Duration;
 
 /**
  * FXML Controller class
@@ -27,15 +27,20 @@ import javafx.util.Duration;
  * @author Wesam
  */
 public class SinglePlayFXMLController {
+    
 
      /**
      * backToMainPage.
      * when called scene will be change to main page.
      * @param event 
      */
+    
     private String player = "X";
     private Button buttonPressed;
     private boolean winner = false;
+
+    private boolean display = false;
+
     
     @FXML
     private  Button btn1;
@@ -61,11 +66,19 @@ public class SinglePlayFXMLController {
     private GridPane grid;
     @FXML
     private AnchorPane pane;
+   // File file;
+    //public File  file= new File("E:\\ITI\\Java\\Project\\Tic-Tac-Toy-JavaFx-\\game.txt");
+
+
+    public void initialize(URL url, ResourceBundle rb) {
+        // TODO
+
+    } 
     public void backToMainPage(ActionEvent event){
         System.out.println("backToMainPage: called");
         ButtonBack btnback = new ButtonBack("/view/sample.fxml");
-        btnback.handleButtonBack(event);
-    }
+        btnback.handleButtonBack(event);   
+    } 
     
     public void buttonPressed(ActionEvent e){
         if(!winner){
@@ -73,6 +86,10 @@ public class SinglePlayFXMLController {
             buttonPressed = (Button) e.getSource();
             if(buttonPressed.getText().equals("")){
                 buttonPressed.setText(player);
+                //if(file.exists())
+                { 
+                AccessFile.writeFile(buttonPressed.getId()+player+".");
+                }
                 if(player=="X"){
                     player="O";
                 }
@@ -122,8 +139,15 @@ public class SinglePlayFXMLController {
             public void handle(ActionEvent e) {
             System.err.println("button pressed");
             buttonPressed = (Button) e.getSource();
+
+
+               /* if(buttonPressed.getText().equals("")){
+                    buttonPressed.setText(""+player);
+**/
                 if(buttonPressed.getText().equals("")){
                     buttonPressed.setText(""+player);
+                     AccessFile.writeFile(buttonPressed.getId()+player+".");
+
                     if(player=="X"){
                         player="O";
                     }
@@ -155,6 +179,8 @@ public class SinglePlayFXMLController {
             drawLine(btn1,btn3);
             if(btn1.getText().equals("X")){
                 txtWinner.setText("you won!");
+                //displayVideo();
+                display = true;
             }else{
                 txtWinner.setText("computer won!");
             }
@@ -163,6 +189,8 @@ public class SinglePlayFXMLController {
             drawLine(btn4,btn6);
             if(btn4.getText().equals("X")){
                 txtWinner.setText("you won!");
+                //displayVideo();
+                display = true;
             }else{
                 txtWinner.setText("computer won!");
             }
@@ -171,6 +199,8 @@ public class SinglePlayFXMLController {
             drawLine(btn7,btn9);
             if(btn9.getText().equals("X")){
                 txtWinner.setText("you won!");
+                //displayVideo();
+                display = true;
             }else{
                 txtWinner.setText("computer won!");
             }
@@ -186,6 +216,8 @@ public class SinglePlayFXMLController {
             drawLine(btn1,btn7);
             if(btn1.getText().equals("X")){
                 txtWinner.setText("you won!");
+                //displayVideo();
+                display = true;
             }else{
                 txtWinner.setText("computer won!");
             }
@@ -195,6 +227,8 @@ public class SinglePlayFXMLController {
             drawLine(btn2,btn8);
             if(btn2.getText().equals("X")){
                 txtWinner.setText("you won!");
+                //displayVideo();
+                display = true;
             }else{
                 txtWinner.setText("computer won!");
             }
@@ -204,6 +238,8 @@ public class SinglePlayFXMLController {
             drawLine(btn3,btn9);
             if(btn3.getText().equals("X")){
                 txtWinner.setText("you won!");
+               // displayVideo();
+               display = true;
             }else{
                 txtWinner.setText("computer won!");
             }
@@ -219,6 +255,8 @@ public class SinglePlayFXMLController {
             drawLine(btn1,btn9);
             if(btn1.getText().equals("X")){
                 txtWinner.setText("you won!");
+                //displayVideo();
+                display = true;
             }else{
                 txtWinner.setText("computer won!");
             }
@@ -228,6 +266,8 @@ public class SinglePlayFXMLController {
             drawLine(btn3,btn7);
             if(btn3.getText().equals("X")){
                 txtWinner.setText("you won!");
+                //displayVideo();
+                display = true;
             }else{
                 txtWinner.setText("computer won!");
             }
@@ -238,6 +278,20 @@ public class SinglePlayFXMLController {
         return winner;
     }
     private void checkState (){
+
+        checkRows();
+        checkColumns();
+        checkDiagonal();
+        if(display){
+            displayVideo();
+        }
+    }
+    
+    // * displayVideo called when player win
+     
+    private void displayVideo(){
+        DisplayVideo winnerVideo = new DisplayVideo();
+        winnerVideo.diplay();
         if(!checkRows()){
             if(!checkColumns()){
                 if(!checkDiagonal()){
@@ -254,5 +308,8 @@ public class SinglePlayFXMLController {
 //        checkRows();
 //        checkColumns();
 //        checkDiagonal();
+
     }
+
+  
 }

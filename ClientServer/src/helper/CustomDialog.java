@@ -15,8 +15,6 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.TextField;
-
-
 /**
  *
  * @author Wesam
@@ -25,6 +23,11 @@ public class CustomDialog {
     
    private String name = "";
     public CustomDialog(){}
+     public String getName()
+     {
+      return name;
+         
+     }
    
     public boolean displayDialog(String message){
         boolean isCancled = false;
@@ -35,42 +38,38 @@ public class CustomDialog {
        alert.setHeaderText(message);
        alert.getDialogPane().setContent(content);
     
-           ButtonType buttonTypeOk = new ButtonType("Ok");
-            ButtonType buttonTypeCancel = new ButtonType("Cancel", 
-                    ButtonBar.ButtonData.CANCEL_CLOSE);
+        ButtonType buttonTypeOk = new ButtonType("Ok");
+        ButtonType buttonTypeCancel = new ButtonType("Cancel", 
+        ButtonBar.ButtonData.CANCEL_CLOSE);
             
-             alert.getButtonTypes().setAll(buttonTypeOk,
-                    buttonTypeCancel);
+        alert.getButtonTypes().setAll(buttonTypeOk,
+                buttonTypeCancel);
    
-    
-            DialogPane dialogPane = alert.getDialogPane();
-             dialogPane.getStylesheets().add(
+        DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.getStylesheets().add(
              getClass().getResource("/css/fullpackstyling.css").toExternalForm());
              dialogPane.getStyleClass().add("myDialog");
-
         
         Optional<ButtonType> result = alert.showAndWait();
        if(result.get() == buttonTypeOk){
          name = content.getText().trim();
           if(name.isEmpty()){
             displayDialog("Name is required");
-            System.out.println("Please Enter your name");    
+            System.out.println("Please Enter your name");
+            isCancled = true;
           }else{
+              isCancled = false;
            System.out.println(name);
           }
        }else if(result.get() == buttonTypeCancel){
            isCancled = true;
        }
+ 
+       if(!name.isEmpty() &&isCancled ){
+               isCancled = false;
+           }
        return isCancled;
     
-    }
-    public String getName()
-     {
-      return name;
-         
-     }
-  
-
-    
+    }   
     
 }

@@ -62,6 +62,7 @@ public class ConnectedPlayer extends Thread{
                    String password = token.nextToken();
                    String check;
                    int score;
+
                    System.out.println(username+" "+password);
                    try{
 
@@ -93,7 +94,8 @@ public class ConnectedPlayer extends Thread{
                         if(check.equals("Registered Successfully")){
                             instance.SignUp(username,email,password);
      //                       server.databaseInstance.SignUp(username,email,password);
-                            System.out.println("User is registered now , check database");                       }
+                            System.out.println("User is registered now , check database");
+                        }
 
                        instance.updateResultSet();
                    }catch(SQLException e){
@@ -102,6 +104,7 @@ public class ConnectedPlayer extends Thread{
                        System.out.println("Connection Issues");
                        
                     }
+
                }
            } catch (IOException ex) {
                this.stop();

@@ -39,15 +39,13 @@ public class signInFXMLController {
      * when called scene will be change to main page.
      * @param event 
      */
-    
+ 
     Socket socket;
     DataInputStream dis;
     PrintStream ps;
     StringTokenizer token;
     int score;
 
-    
-    
     @FXML
     private TextField txtUserName;
     @FXML
@@ -55,6 +53,7 @@ public class signInFXMLController {
     @FXML
     private Label txtAlret;
     
+
     
     public void backToMainPage(ActionEvent event){
         
@@ -116,13 +115,9 @@ public class signInFXMLController {
                 }.start();            
 
             }
-
-            
-            
         } catch (IOException ex) {
             System.out.println("33333333333");
             Logger.getLogger(signInFXMLController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
 }
