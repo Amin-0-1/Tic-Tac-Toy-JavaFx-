@@ -69,31 +69,31 @@ public class ServerMainPageController implements Initializable {
 //        System.out.println(server instanceof Server);
         disableBtn();
         // thread listen to update list user
-//     thread = new Thread(new Runnable() {
-//                @Override
-//                public void run() {
-//                       while(refRs != server.databaseInstance.rs && refRs != null){
-//                        //System.out.println("True Loop platform");
-//                        while(serverState){
-//                        //System.out.println(" Checked State platform");
-//                          Platform.runLater(()->{
-//                              if(onlineOrOfflineFlag){
-//                                listPlayers(true);   
-//                              }else{
-//                                 listPlayers(false); 
-//                              }  
-//                         });
-//                          try{
-//                            Thread.sleep(1000);  
-//                       
-//                          }catch(InterruptedException ex){
-//
-//                          }   
-//                    }
-//                  }
-//                }
-//
-//            });   
+     thread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                       while(true){
+                        //System.out.println("True Loop platform");
+                        while(serverState){
+                        //System.out.println(" Checked State platform");
+                          Platform.runLater(()->{
+                              if(onlineOrOfflineFlag){
+                                listPlayers(true);   
+                              }else{
+                                 listPlayers(false); 
+                              }  
+                         });
+                          try{
+                            Thread.sleep(2000);  
+                       
+                          }catch(InterruptedException ex){
+
+                          }   
+                    }
+                  }
+                }
+
+            });   
     }
     
     @FXML
@@ -107,7 +107,7 @@ public class ServerMainPageController implements Initializable {
                 System.out.println("toggle");
                 server.enableConnections();
                         
-                listPlayers(true);
+//                listPlayers(true);
                 enableBtn();    // enable list online and offline btn;
                 serverStateImage.setImage(new Image(new FileInputStream("src/resources/shutdown.png")));
                 status.setText("Deactivate");
@@ -116,14 +116,14 @@ public class ServerMainPageController implements Initializable {
                 // check if thread stated or not
                 
                 
-//                if(Platform.isFxApplicationThread()){
-//                    if(!flageStartThrea){
-//                      thread.start();  
-//                    }else{
-//                        thread.resume();
-//                    }
-//
-//                }
+                if(Platform.isFxApplicationThread()){
+                    if(!flageStartThrea){
+                      thread.start();  
+                    }else{
+                        thread.resume();
+                    }
+
+                }
             
             }catch(SQLException e){
                 System.out.println("Connection Issues, Try again later");
@@ -154,21 +154,26 @@ public class ServerMainPageController implements Initializable {
     
     @FXML
     private void listOnline(ActionEvent event) {
-        onlineOrOfflineFlag = true;
-        listPlayers(true);
-     
+        if(!onlineOrOfflineFlag){
+            scrollpane.setContent(null);
+            onlineOrOfflineFlag = true;
+            listPlayers(true);
+        }
+        
     }
     @FXML
     private void listOffline(ActionEvent event){
-        onlineOrOfflineFlag = false;
+        if(onlineOrOfflineFlag){
+            scrollpane.setContent(null);
+            onlineOrOfflineFlag = false;
+            listPlayers(false);
+        }
         
-        System.out.println(server.databaseInstance.rs == refRs);
-        listPlayers(false);
     }
  
  
     private void listPlayers(Boolean state){
-        scrollpane.setContent(null);
+//        scrollpane.setContent(null);
         try {
             Button button;
             VBox vbox = new VBox();
@@ -227,15 +232,15 @@ public class ServerMainPageController implements Initializable {
     
     @FXML
     public void mouseEntered(){
-        if(refRs != null && refRs != server.databaseInstance.rs){
-            if(serverState && onlineOrOfflineFlag)
-                listPlayers(true);
-            else if(serverState && !onlineOrOfflineFlag)
-                listPlayers(false);
-            
-            refRs = server.databaseInstance.rs;
-            System.out.println("mouse entered");
-        }
+//        if(refRs != null && refRs != server.databaseInstance.rs){
+//            if(serverState && onlineOrOfflineFlag)
+//                listPlayers(true);
+//            else if(serverState && !onlineOrOfflineFlag)
+//                listPlayers(false);
+//            
+//            refRs = server.databaseInstance.rs;
+//            System.out.println("mouse entered");
+//        }
             
     }
 }

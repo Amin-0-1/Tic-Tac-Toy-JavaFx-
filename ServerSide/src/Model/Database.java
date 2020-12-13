@@ -36,7 +36,7 @@ public class Database {
         return instanceData;
     }
     
-    public void updateResultSet()  {
+    public void updateResultSet(){
         
         try {
             this.pst =con.prepareStatement("Select * from player",ResultSet.TYPE_SCROLL_SENSITIVE ,ResultSet.CONCUR_READ_ONLY  );
@@ -51,13 +51,54 @@ public class Database {
         }
     }
     
+    public ResultSet getActivePlayers(String username){
+        
+        try {
+            this.pst =con.prepareStatement("Select * from player where isactive = true and not username = ? ",ResultSet.TYPE_SCROLL_SENSITIVE ,ResultSet.CONCUR_READ_ONLY  );
+            pst.setString(1, username);
+            return pst.executeQuery(); // rs has all data
+        } catch (SQLException ex) {
+            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("catch getactive");
+            return null;
+        }
+        
+    }
+    
+        public ResultSet getActivePlayers( ){
+        
+        try {
+            this.pst =con.prepareStatement("Select * from player where isactive = true ",ResultSet.TYPE_SCROLL_SENSITIVE ,ResultSet.CONCUR_READ_ONLY  );
+            return pst.executeQuery(); // rs has all data
+        } catch (SQLException ex) {
+            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("catch getactive");
+            return null;
+        }
+        
+    }
+   
+    
     public void disableConnection() throws SQLException{
+        changeStateToOffline();
         rs.close();
         pst.close();
         con.close();
         instanceData = null;
     }
     
+    public void changeStateToOffline(){
+        try {
+            pst = con.prepareStatement("update player set isActive = ? ",ResultSet.TYPE_SCROLL_SENSITIVE ,ResultSet.CONCUR_UPDATABLE  );
+            pst.setString(1, "false");
+            pst.executeUpdate(); // rs has all data
+            updateResultSet();
+        } catch (SQLException ex) {
+            System.out.println("change state to offline");
+            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
     public void login(String username,String password) throws SQLException{
         pst = con.prepareStatement("update player set isActive = ?  where username = ? and password = ? ",ResultSet.TYPE_SCROLL_SENSITIVE ,ResultSet.CONCUR_UPDATABLE  );
         pst.setString(1, "true");
@@ -65,7 +106,6 @@ public class Database {
         pst.setString(3, password);
         pst.executeUpdate(); // rs has all data
         updateResultSet();
-        System.out.println("Model.Database.login()");
     }
     
     public void SignUp(String username , String email, String password) throws SQLException{
@@ -134,5 +174,21 @@ public class Database {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
         }
         return -1;
-    }     
+    }  
+    public String getEmail(String username){
+        String email;
+        ResultSet checkRs;
+        PreparedStatement pstCheck;
+        try {
+            pstCheck = con.prepareStatement("select * from player where username = ?");
+            pstCheck.setString(1, username);
+            checkRs = pstCheck.executeQuery();
+            checkRs.next();
+            email = checkRs.getString(3);
+            return email;
+        } catch (SQLException ex) {
+            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
 }
