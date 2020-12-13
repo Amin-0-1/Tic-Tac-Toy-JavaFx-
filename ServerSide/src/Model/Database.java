@@ -58,10 +58,10 @@ public class Database {
         instanceData = null;
     }
     
-    public void login(String username,String password) throws SQLException{
-        pst = con.prepareStatement("update player set isActive = ?  where username = ? and password = ? ",ResultSet.TYPE_SCROLL_SENSITIVE ,ResultSet.CONCUR_UPDATABLE  );
+    public void login(String email,String password) throws SQLException{
+        pst = con.prepareStatement("update player set isActive = ?  where email = ? and password = ? ",ResultSet.TYPE_SCROLL_SENSITIVE ,ResultSet.CONCUR_UPDATABLE  );
         pst.setString(1, "true");
-        pst.setString(2, username);
+        pst.setString(2, email);
         pst.setString(3, password);
         pst.executeUpdate(); // rs has all data
         updateResultSet();
@@ -97,16 +97,19 @@ public class Database {
         }
         return "Registered Successfully";
     }
-    public String checkSignIn(String username, String password){
+    public String checkSignIn(String email, String password){
         ResultSet checkRs;
         PreparedStatement pstCheck;
         String check;       
         try {
-            pstCheck = con.prepareStatement("select * from player where username = ?");
-            pstCheck.setString(1, username);
+            pstCheck = con.prepareStatement("select * from player where email = ?");
+            pstCheck.setString(1, email);
             checkRs = pstCheck.executeQuery();
             if(checkRs.next()){
-                if(password.equals(checkRs.getString(4))){
+                if(checkRs.getBoolean(6)==true){
+                    return "Already Signed-in on another device";
+                }
+                else if(password.equals(checkRs.getString(4))){
                     return "Logged in successfully";
                 }
                 return "Password is incorrect";

@@ -58,19 +58,19 @@ public class ConnectedPlayer extends Thread{
                token = new StringTokenizer(clientData,",");
                if(token.nextToken().equals("SignIn") && token != null){
                    System.out.println("login");
-                   String username = token.nextToken();
+                   String email = token.nextToken();
                    String password = token.nextToken();
                    String check;
                    int score;
 
-                   System.out.println(username+" "+password);
+                   System.out.println(email+" "+password);
                    try{
 
                         instance = Database.getDataBase();
-                        check = instance.checkSignIn(username, password);
-                        score = instance.getScore(username);
+                        check = instance.checkSignIn(email, password);
+                        score = instance.getScore(email);
                         if(check.equals("Logged in successfully")){
-                            instance.login(username, password);
+                            instance.login(email, password);
                             ps.println(check +"@@@" + score);
                         }
                         ps.println(check +"@@@" + score);
