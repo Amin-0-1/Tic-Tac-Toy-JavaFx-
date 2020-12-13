@@ -9,6 +9,7 @@ import Model.Server;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.net.URL;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -25,6 +26,7 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Background;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
@@ -37,6 +39,7 @@ import javafx.scene.layout.VBox;
 public class ServerMainPageController implements Initializable {
     
     Server server;
+    ResultSet refRs;
     private Thread updateListThread;
     private boolean serverState ;
     private Thread thread;
@@ -65,33 +68,32 @@ public class ServerMainPageController implements Initializable {
         server = Server.getServer();
 //        System.out.println(server instanceof Server);
         disableBtn();
-        
         // thread listen to update list user
-     thread = new Thread(new Runnable() {
-                @Override
-                public void run() {
-                       while(true){
-                        //System.out.println("True Loop platform");
-                        while(serverState){
-                        //System.out.println(" Checked State platform");
-                          Platform.runLater(()->{
-                              if(onlineOrOfflineFlag){
-                                listPlayers(true);   
-                              }else{
-                                 listPlayers(false); 
-                              }  
-                         });
-                          try{
-                            Thread.sleep(100);  
-                       
-                          }catch(InterruptedException ex){
-
-                          }   
-                    }
-                  }
-                }
-
-            });   
+//     thread = new Thread(new Runnable() {
+//                @Override
+//                public void run() {
+//                       while(refRs != server.databaseInstance.rs && refRs != null){
+//                        //System.out.println("True Loop platform");
+//                        while(serverState){
+//                        //System.out.println(" Checked State platform");
+//                          Platform.runLater(()->{
+//                              if(onlineOrOfflineFlag){
+//                                listPlayers(true);   
+//                              }else{
+//                                 listPlayers(false); 
+//                              }  
+//                         });
+//                          try{
+//                            Thread.sleep(1000);  
+//                       
+//                          }catch(InterruptedException ex){
+//
+//                          }   
+//                    }
+//                  }
+//                }
+//
+//            });   
     }
     
     @FXML
@@ -110,16 +112,18 @@ public class ServerMainPageController implements Initializable {
                 serverStateImage.setImage(new Image(new FileInputStream("src/resources/shutdown.png")));
                 status.setText("Deactivate");
                 currentLabel.setText("Status : On");
-
+                refRs = server.databaseInstance.rs; // unused
                 // check if thread stated or not
-                if(Platform.isFxApplicationThread()){
-                    if(!flageStartThrea){
-                      thread.start();  
-                    }else{
-                        thread.resume();
-                    }
-
-                }
+                
+                
+//                if(Platform.isFxApplicationThread()){
+//                    if(!flageStartThrea){
+//                      thread.start();  
+//                    }else{
+//                        thread.resume();
+//                    }
+//
+//                }
             
             }catch(SQLException e){
                 System.out.println("Connection Issues, Try again later");
@@ -157,6 +161,8 @@ public class ServerMainPageController implements Initializable {
     @FXML
     private void listOffline(ActionEvent event){
         onlineOrOfflineFlag = false;
+        
+        System.out.println(server.databaseInstance.rs == refRs);
         listPlayers(false);
     }
  
@@ -217,5 +223,19 @@ public class ServerMainPageController implements Initializable {
     private void enableBtn(){
         listOnlinebtn.setDisable(false);
         listOfflinebtn.setDisable(false);
-    }    
+    }   
+    
+    @FXML
+    public void mouseEntered(){
+        if(refRs != null && refRs != server.databaseInstance.rs){
+            if(serverState && onlineOrOfflineFlag)
+                listPlayers(true);
+            else if(serverState && !onlineOrOfflineFlag)
+                listPlayers(false);
+            
+            refRs = server.databaseInstance.rs;
+            System.out.println("mouse entered");
+        }
+            
+    }
 }

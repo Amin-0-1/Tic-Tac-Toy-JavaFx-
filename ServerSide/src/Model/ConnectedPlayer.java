@@ -23,9 +23,8 @@ import javafx.application.Platform;
  */
 
 public class ConnectedPlayer extends Thread{
-   Database instance ;
+//   Database instance ;
    Server server;
-   ResultSet rs;
    DataInputStream dis;
    PrintStream ps;
    Socket currentSocket;
@@ -34,7 +33,9 @@ public class ConnectedPlayer extends Thread{
    static ArrayList<ConnectedPlayer> players = new ArrayList<ConnectedPlayer>();
    
    public ConnectedPlayer(Socket socket){
+       server = Server.getServer();
        try {
+           
             dis = new DataInputStream(socket.getInputStream());
             ps = new PrintStream(socket.getOutputStream());
             currentSocket = socket;
@@ -67,11 +68,11 @@ public class ConnectedPlayer extends Thread{
                    System.out.println(username+" "+password);
                    try{
 
-                        instance = Database.getDataBase();
-                        check = instance.checkSignIn(username, password);
-                        score = instance.getScore(username);
+//                        instance = Database.getDataBase();
+                        check = server.databaseInstance.checkSignIn(username, password);
+                        score = server.databaseInstance.getScore(username);
                         if(check.equals("Logged in successfully")){
-                            instance.login(username, password);
+                            server.databaseInstance.login(username, password);
                             ps.println(check +"@@@" + score);
                         }
                         ps.println(check +"@@@" + score);
@@ -88,17 +89,17 @@ public class ConnectedPlayer extends Thread{
                     String check;
                    
                    try{
-                        instance = Database.getDataBase();
-                        check = instance.checkRegister(username, email);
+                        server.databaseInstance = Database.getDataBase();
+                        check = server.databaseInstance.checkRegister(username, email);
                         System.out.println(check);
                         ps.println(check);
                         if(check.equals("Registered Successfully")){
-                            instance.SignUp(username,email,password);
+                            server.databaseInstance.SignUp(username,email,password);
      //                       server.databaseInstance.SignUp(username,email,password);
                             System.out.println("User is registered now , check database");                       }
 
 
-                       instance.updateResultSet();
+                       server.databaseInstance.updateResultSet();
                    }catch(SQLException e){
                        //alert
                        e.printStackTrace();

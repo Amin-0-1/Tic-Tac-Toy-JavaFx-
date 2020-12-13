@@ -24,7 +24,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -55,6 +54,7 @@ public class RegisterFXMLController {
     private Label txtAlret;
     @FXML
     private Button btnBack;
+
     
     public void backToMainPage(ActionEvent event){
         
@@ -127,9 +127,7 @@ public class RegisterFXMLController {
     public void printNow(){
         txtAlret.setText("this mail is already signed-up");
     }
+}
 //    private static boolean checkMail (){
 //        return false;
 //    }
-
-
-}
