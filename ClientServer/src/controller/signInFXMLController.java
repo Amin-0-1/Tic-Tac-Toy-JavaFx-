@@ -17,6 +17,7 @@ import java.util.ResourceBundle;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -64,13 +65,13 @@ public class signInFXMLController {
     }
     
     public void signInPressed(ActionEvent e){
+            ButtonBack btnback = new ButtonBack("/view/OnlinePlayer.fxml");         
         try {
             socket = new Socket("127.0.0.1",9876);
             dis = new DataInputStream(socket.getInputStream());
             ps = new PrintStream(socket.getOutputStream());
             ps.println("SignIn,"+txtUserName.getText()+","+txtPassword.getText());
-//            ButtonBack btnback = new ButtonBack("/view/OnlinePlayFXML.fxml");
-//            btnback.handleButtonBack(e);
+
             if(txtUserName.getText().equals("")){
                 txtAlret.setText("Please enter your unsername");
             } else if(txtPassword.getText().equals("")){
@@ -94,6 +95,9 @@ public class signInFXMLController {
                                     score = Integer.parseInt(token.nextToken());
                                     System.out.println(receivedState + " " + score);
                                     //notification for successful logging in
+                                     Platform.runLater(()->{
+                                       btnback.handleButtonBack(e);
+                                      });
                                     break;
                                 case "Username is incorrect":
                                     System.out.println(receivedState);                                
