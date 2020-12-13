@@ -13,10 +13,12 @@ import java.io.PrintStream;
 import java.net.Socket;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -56,6 +58,8 @@ public class RegisterFXMLController {
     private Button btnBack;
 
     
+    StringTokenizer token;
+    
     public void backToMainPage(ActionEvent event){
         
         System.out.println("backToMainPage: called");
@@ -66,6 +70,7 @@ public class RegisterFXMLController {
     } 
     @FXML
     public void signUpPressed(ActionEvent e){
+        ButtonBack btnback = new ButtonBack("/view/OnlinePlayer.fxml");
         try {
 
 
@@ -84,8 +89,7 @@ public class RegisterFXMLController {
                 DataInputStream dis = new DataInputStream(socket.getInputStream());
                 PrintStream ps = new PrintStream(socket.getOutputStream());
                 ps.println("SignUp,"+txtUserName.getText()+","+txtMail.getText()+","+txtPassword.getText());
-//                ButtonBack btnback = new ButtonBack("/view/OnlinePlayFXML.fxml");
-//                btnback.handleButtonBack(e);
+
 
                 //the server response
                 new Thread(){
@@ -96,15 +100,33 @@ public class RegisterFXMLController {
                             state = dis.readLine();
                             
                             System.out.println(state);
-                            if(state.equals("registered successfully")){
-                                // notification or successful registeration.
-                                
-                                btnBack.fire();
-                                this.stop();
-                            } else if(state.equals("already signed-up")){
-//                                txtAlret.setText("this mail is already signed-up");
-                                printNow();
-                                this.stop();
+                            
+//                            if(state.equals("Registered Ruccessfully")){
+//                                // notification or successful registeration.
+//                                System.out.println(state);
+//                                Platform.runLater(()->{
+//                                       btnback.handleButtonBack(e);
+//                                      });
+//                                //btnBack.fire();
+//                                this.stop();
+//                            } else if(state.equals("already signed-up")){
+////                                txtAlret.setText("this mail is already signed-up");
+//                                //printNow();
+//                                this.stop();
+//                            }
+                            token = new StringTokenizer(state,"@@@");
+                            String receivedState = token.nextToken();
+                            System.out.println(receivedState);
+                           switch(receivedState){
+                                case "Registered Successfully":
+                                    //notification for successful logging in
+                                     Platform.runLater(()->{
+                                       btnback.handleButtonBack(e);
+                                      });
+                                    break;
+                                case "already signed-up":
+                                    System.out.println(receivedState);                                
+                                    break;
                             }
                             
                         } catch (IOException ex) {
