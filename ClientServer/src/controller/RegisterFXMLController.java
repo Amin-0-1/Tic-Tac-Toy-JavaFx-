@@ -12,6 +12,8 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.net.Socket;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.ResourceBundle;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
@@ -26,7 +28,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -57,6 +58,7 @@ public class RegisterFXMLController {
     private Label txtAlret;
     @FXML
     private Button btnBack;
+
     
     StringTokenizer token;
     
@@ -85,6 +87,7 @@ public class RegisterFXMLController {
             else if(!txtPassword.getText().equals(txtRePassword.getText())){
                 txtAlret.setText("Please check your password");
             }else{
+                
                 Socket socket = new Socket("127.0.0.1",9876);
                 DataInputStream dis = new DataInputStream(socket.getInputStream());
                 PrintStream ps = new PrintStream(socket.getOutputStream());
@@ -92,28 +95,23 @@ public class RegisterFXMLController {
 
 
                 //the server response
+                
                 new Thread(){
-                    String state;
+                    String state,playerData;
+                    HashMap<String, String> hash = new HashMap<>(); 
                     @Override
                     public void run(){
                         try {
                             state = dis.readLine();
                             
-                            System.out.println(state);
+                            playerData = dis.readLine();
                             
-//                            if(state.equals("Registered Ruccessfully")){
-//                                // notification or successful registeration.
-//                                System.out.println(state);
-//                                Platform.runLater(()->{
-//                                       btnback.handleButtonBack(e);
-//                                      });
-//                                //btnBack.fire();
-//                                this.stop();
-//                            } else if(state.equals("already signed-up")){
-////                                txtAlret.setText("this mail is already signed-up");
-//                                //printNow();
-//                                this.stop();
-//                            }
+                            token = new StringTokenizer(playerData,",");
+                            hash.put("username", token.nextToken());
+                            hash.put("email",token.nextToken());
+                            hash.put("score", "0");
+                            
+                            System.out.println(hash.toString());
                             token = new StringTokenizer(state,"@@@");
                             String receivedState = token.nextToken();
                             System.out.println(receivedState);
@@ -121,7 +119,7 @@ public class RegisterFXMLController {
                                 case "Registered Successfully":
                                     //notification for successful logging in
                                      Platform.runLater(()->{
-                                       btnback.handleButtonBack(e);
+                                       btnback.handleButtonBack(e,hash);
                                       });
                                     break;
                                 case "already signed-up":
@@ -149,9 +147,4 @@ public class RegisterFXMLController {
     public void printNow(){
         txtAlret.setText("this mail is already signed-up");
     }
-//    private static boolean checkMail (){
-//        return false;
-//    }
-
-
 }

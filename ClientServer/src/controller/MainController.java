@@ -169,12 +169,12 @@ public class MainController implements Initializable{
         
         System.out.println("changeSceneToOnlineGame: called");
 
-                    CustomDialog cd = new CustomDialog();
-                    Boolean isCancled = cd.displayDialog("Enter Server IP");
+//                    CustomDialog cd = new CustomDialog();
+//                    Boolean isCancled = cd.displayDialog("Enter Server IP");
                     
-                    if(IPvalidatation.isValidIPAddress(cd.getName()))
-                    {
-                    if(!isCancled){
+//                    if(IPvalidatation.isValidIPAddress(cd.getName()))
+//                    {
+//                    if(!isCancled){
                         try {
                             //get scene
                        
@@ -192,8 +192,9 @@ public class MainController implements Initializable{
                          }catch (IOException ex) {
                             Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
                         }
-                    }
-    }}
+//                    }
+    //}
+    }
     
     /**
      * changeSceneToWatchGame.

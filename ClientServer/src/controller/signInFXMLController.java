@@ -13,6 +13,8 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.net.Socket;
 import java.net.URL;
+import java.sql.ResultSet;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
@@ -63,7 +65,6 @@ public class signInFXMLController {
         btnback.handleButtonBack(event);
          
     }
-    
     public void signInPressed(ActionEvent e){
             ButtonBack btnback = new ButtonBack("/view/OnlinePlayer.fxml");         
         try {
@@ -80,23 +81,37 @@ public class signInFXMLController {
 
                 //reciving response
                 new Thread(){
-
-                    String state;
+                    HashMap<String, String> hash = new HashMap<>(); 
+                    String state,playerData;
                     @Override
                     public void run(){
                         try {
                             state = dis.readLine();
-                            System.out.println(state);
                             token = new StringTokenizer(state,"@@@");
                             String receivedState = token.nextToken();
                             System.out.println(receivedState);
+                            playerData = dis.readLine();
+                            
+                            StringTokenizer token2 = new StringTokenizer(playerData,",");
+                            hash.put("username", token2.nextToken());
+                            hash.put("email",token2.nextToken());
+                            hash.put("score", token2.nextToken());
+                            
+                            // after login , get result set
+//                            String str;
+//                            do{
+//                                str = dis.readLine(); 
+//                                System.out.println(str);
+//                            }while(!str.equals(null));
+                            
+                            
                             switch(receivedState){
                                 case "Logged in successfully":
                                     score = Integer.parseInt(token.nextToken());
-                                    System.out.println(receivedState + " " + score);
+                                    
                                     //notification for successful logging in
                                      Platform.runLater(()->{
-                                       btnback.handleButtonBack(e);
+                                       btnback.handleButtonBack(e,hash);
                                       });
                                     break;
                                 case "Username is incorrect":
