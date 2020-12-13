@@ -173,7 +173,9 @@ public class MainController implements Initializable{
                     Boolean isCancled = cd.displayDialog("Enter Server IP");
                     
                     if(IPvalidatation.isValidIPAddress(cd.getName()))
-                    {
+                    { 
+                        System.out.println("you entered ip ="+cd.getName());
+                        
                     if(!isCancled){
                         try {
                             //get scene

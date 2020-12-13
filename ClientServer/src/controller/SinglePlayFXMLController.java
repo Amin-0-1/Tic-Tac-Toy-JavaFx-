@@ -74,7 +74,6 @@ public class SinglePlayFXMLController {
    // File file;
     //public File  file= new File("E:\\ITI\\Java\\Project\\Tic-Tac-Toy-JavaFx-\\game.txt");
 
-
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
 
@@ -92,7 +91,7 @@ public class SinglePlayFXMLController {
             buttonPressed = (Button) e.getSource();
             if(buttonPressed.getText().equals("")){
                 buttonPressed.setText(player);
-                //if(file.exists())
+                if(AccessFile.getFileName().exists())
                 { 
                 AccessFile.writeFile(buttonPressed.getId()+player+".");
                 }
@@ -152,6 +151,7 @@ public class SinglePlayFXMLController {
 **/
                 if(buttonPressed.getText().equals("")){
                     buttonPressed.setText(""+player);
+                    if(AccessFile.getFileName().exists())
                      AccessFile.writeFile(buttonPressed.getId()+player+".");
 
                     if(player=="X"){

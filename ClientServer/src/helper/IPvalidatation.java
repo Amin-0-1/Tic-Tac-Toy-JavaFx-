@@ -14,6 +14,7 @@ import java.util.regex.Pattern;
  */
 public class IPvalidatation {
     // Function to validate the IPs address. 
+    public static String validIp;
     public static boolean isValidIPAddress(String ip) 
     { 
   
@@ -43,8 +44,11 @@ public class IPvalidatation {
         // Pattern class contains matcher() method 
         // to find matching between given IP address 
         // and regular expression. 
-        Matcher m = p.matcher(ip); 
-  
+        //Matcher m = p.matcher(ip);
+        Matcher m =p.matcher(ip);
+        if(m.matches())
+            validIp=ip;
+         
         // Return if the IP address 
         // matched the ReGex 
         return m.matches(); 

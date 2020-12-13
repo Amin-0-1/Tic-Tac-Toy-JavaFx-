@@ -7,6 +7,7 @@ package controller;
 
 
 import helper.ButtonBack;
+import helper.IPvalidatation;
 import javafx.scene.control.TextField;
 import java.io.DataInputStream;
 import java.io.IOException;
@@ -117,6 +118,7 @@ public class signInFXMLController {
 
         } catch (IOException ex) {
             System.out.println("33333333333");
+            System.out.println("disconnect");
             Logger.getLogger(signInFXMLController.class.getName()).log(Level.SEVERE, null, ex);
         }
     

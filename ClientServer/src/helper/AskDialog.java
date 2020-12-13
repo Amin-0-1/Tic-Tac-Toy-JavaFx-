@@ -20,7 +20,7 @@ public class AskDialog {
     public AskDialog(){};
      
     public void alert(String s)
-    {
+    {   boolean check=false;
         ButtonType Yes = new ButtonType("Yes"); 
         ButtonType No = new ButtonType("NO", ButtonBar.ButtonData.CANCEL_CLOSE);
         Alert a = new Alert(Alert.AlertType.NONE); 
@@ -38,10 +38,11 @@ public class AskDialog {
        
            if(a.getResult()==Yes)
            {  
-               Preferences pfrefs= Preferences.userNodeForPackage(MainController.class);   
+             //  Preferences pfrefs= Preferences.userNodeForPackage(MainController.class);   
 
+               check=true;
                AccessFile.createFile();
-               AccessFile.writeFile(pfrefs.get("username","not found")+".");  
+             //  AccessFile.writeFile(pfrefs.get("username","not found")+".");  
            }
            else if (a.getResult()==No)
                    {

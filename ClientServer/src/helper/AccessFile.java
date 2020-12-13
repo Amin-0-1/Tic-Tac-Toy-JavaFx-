@@ -71,7 +71,7 @@ public class AccessFile {
            Logger.getLogger(AccessFile.class.getName()).log(Level.SEVERE, null, ex);
        }
     }
-**/
+
     /*
     public static String readFile(String fileName) 
   {         String data = "";
@@ -104,6 +104,7 @@ public class AccessFile {
         return data;
   } 
  **/
+ 
     public static void writeFile(String s)
     {
         try {
