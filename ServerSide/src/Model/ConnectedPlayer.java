@@ -41,7 +41,7 @@ public class ConnectedPlayer extends Thread implements Initializable {
    Thread thread;
    
    
-   String username;
+   String username,email;
   
    static ArrayList<ConnectedPlayer> players = new ArrayList<ConnectedPlayer>();
    
@@ -51,19 +51,18 @@ public class ConnectedPlayer extends Thread implements Initializable {
         loggedin = false;
         System.out.println("initi");
         result = server.databaseInstance.rs;
-        
     }
     
    public ConnectedPlayer(Socket socket){
        server = Server.getServer();
        try {
-           
             dis = new DataInputStream(socket.getInputStream());
             ps = new PrintStream(socket.getOutputStream());
             currentSocket = socket;
             players.add(this);
             this.start();
        }catch (IOException ex) {
+           System.out.println("1");
             ex.printStackTrace();
             // alert 
            try {
@@ -84,9 +83,9 @@ public class ConnectedPlayer extends Thread implements Initializable {
               }
               
                if(query.equals("SignIn") && token != null){
-                   username = token.nextToken();
+                   username = token.nextToken().toString();
                    String password = token.nextToken();
-                   String check,email;
+                   String check;
                    int score;
                    System.out.println(username+" "+password);
                    try{
@@ -147,30 +146,29 @@ public class ConnectedPlayer extends Thread implements Initializable {
                        @Override
                        public void run() {
                            while(true){
-                                    System.out.println("inside playerlist "+username);
-
-                                    result = server.databaseInstance.getActivePlayers();
+                                result = server.databaseInstance.getActivePlayers();
                                     
-                                    System.out.println(result);
-                                    try {
-                                        while(result.next()){
-                                            
-                                             ps.println(result.getString("username")+"#"+
-                                                        result.getString("email")+"#"+
-                                                        result.getBoolean("isActive")+"#"+
-                                                        result.getBoolean("isPlaying")+"#"+
-                                                        result.getInt("score")
+                                System.out.println(result);
+                                try {
+                                    while(result.next()){
 
-                                                     );
-                                        }
+                                         ps.println(result.getString("username")+"#"+
+                                                    result.getString("email")+"#"+
+                                                    result.getBoolean("isActive")+"#"+
+                                                    result.getBoolean("isPlaying")+"#"+
+                                                    result.getInt("score")
 
-                                        ps.println("null");
-
-                                        System.out.println("end while");
-                                    } catch (SQLException ex) {
-                                        System.out.println("catch");
-                                        Logger.getLogger(ConnectedPlayer.class.getName()).log(Level.SEVERE, null, ex);
+                                                 );
                                     }
+
+                                    ps.println("null");
+
+                                    System.out.println("end while");
+                                } catch (SQLException ex) {
+                                    System.out.println("4");
+                                    System.out.println("catch");
+                                    Logger.getLogger(ConnectedPlayer.class.getName()).log(Level.SEVERE, null, ex);
+                                }
                                try {
                                 Thread.sleep(5000);
                                 } catch (InterruptedException ex) {
@@ -181,11 +179,20 @@ public class ConnectedPlayer extends Thread implements Initializable {
                    }).start();
                }
            } catch (IOException ex) {
-               System.out.println("1");
+               System.out.println("2");
+               System.out.println("Closing try");
+               System.out.println(email);
+               if(email != null){
+                    server.databaseInstance.setActive(false,email);
+                    players.remove(this);   
+               }
+                
                this.stop();
            }
        }
        if(currentSocket.isClosed()){
+           System.out.println("3");
+           System.out.println("close");
            players.remove(this);
        }
    }

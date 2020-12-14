@@ -91,7 +91,7 @@ public class OnlinePlayerController implements Initializable {
                                    if(data.equals("null")){
                                        break;
                                    }
-                                   System.out.println("data :"+data+"\n");
+                                  System.out.println("data :"+data+"\n");
                                    token = new StringTokenizer(data, "#");
 
                                    getUsername = token.nextToken();
