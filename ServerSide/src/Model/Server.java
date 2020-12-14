@@ -47,7 +47,8 @@ public class Server {
     public void enableConnections() throws SQLException{
 
         databaseInstance = Database.getDataBase();
-        databaseInstance.updateResultSet();       
+        databaseInstance.updateResultSet(); 
+        databaseInstance.changeStateToOffline();
         initServer(); // enable socket server
 //    Thread.sleep(200);
     }

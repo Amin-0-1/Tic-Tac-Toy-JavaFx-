@@ -51,19 +51,33 @@ public class Database {
         }
     }
     
-    public ResultSet getActivePlayers(String username){
-        
+    public void setActive(boolean state , String email){
         try {
-            this.pst =con.prepareStatement("Select * from player where isactive = true and not username = ? ",ResultSet.TYPE_SCROLL_SENSITIVE ,ResultSet.CONCUR_READ_ONLY  );
-            pst.setString(1, username);
-            return pst.executeQuery(); // rs has all data
+            pst = con.prepareStatement("update player set isActive = ? where email = ?");
+            pst.setString(1, state+"");
+            pst.setString(2, email);
+            System.out.println("db mail:"+email);
+            pst.executeUpdate(); // rs has all data
+            updateResultSet();
         } catch (SQLException ex) {
+            System.out.println("change state to offline catch");
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("catch getactive");
-            return null;
         }
-        
     }
+    
+//    public ResultSet getActivePlayers(String username){
+//        
+//        try {
+//            this.pst =con.prepareStatement("Select * from player where isactive = true and not username = ? ",ResultSet.TYPE_SCROLL_SENSITIVE ,ResultSet.CONCUR_READ_ONLY  );
+//            pst.setString(1, username);
+//            return pst.executeQuery(); // rs has all data
+//        } catch (SQLException ex) {
+//            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+//            System.out.println("catch getactive");
+//            return null;
+//        }
+//        
+//    }
     
         public ResultSet getActivePlayers( ){
         
