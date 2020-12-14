@@ -33,6 +33,7 @@ public class VideoWindowController implements Initializable {
         mv.setMediaPlayer(mp);
         mp.play();
         
+        
     }   
     
 }
