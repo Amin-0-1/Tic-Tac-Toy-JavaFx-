@@ -105,6 +105,7 @@ public class OnlinePlayerController implements Initializable {
                                     }
 
                             } catch (IOException ex) {
+                                System.out.println("Server closed");
                                 thread.stop();
                             }
                         }while(true);
