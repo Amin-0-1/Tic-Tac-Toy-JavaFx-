@@ -83,6 +83,7 @@ public class Server {
             });
             listener.start();
         }catch (IOException ex) {
+            System.out.println("server exception");
             ex.printStackTrace();
         }
     }

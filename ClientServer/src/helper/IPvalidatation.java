@@ -14,7 +14,7 @@ import java.util.regex.Pattern;
  */
 public class IPvalidatation {
     // Function to validate the IPs address. 
-    public static String validIp;
+    private static String validIp;
     public static boolean isValidIPAddress(String ip) 
     { 
   
@@ -53,6 +53,11 @@ public class IPvalidatation {
         // matched the ReGex 
         return m.matches(); 
     } 
+    public static String getIp()
+    {
+        return validIp;
+    }
+
 
  
 }

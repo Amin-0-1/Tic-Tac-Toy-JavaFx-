@@ -14,16 +14,8 @@
 
 <AnchorPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="649.0" prefWidth="1087.0" style="-fx-background-color: #2F2B43;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.SinglePlayFXMLController">
    <children>
-      <Pane layoutX="-2.0" prefHeight="649.0" prefWidth="1093.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-2.0" AnchorPane.rightAnchor="-4.0" AnchorPane.topAnchor="0.0">
+      <Pane layoutX="-3.0" layoutY="7.0" prefHeight="649.0" prefWidth="1093.0" AnchorPane.bottomAnchor="-7.0" AnchorPane.leftAnchor="-3.0" AnchorPane.rightAnchor="-3.0" AnchorPane.topAnchor="7.0">
          <children>
-            <Pane layoutX="289.0" layoutY="14.0" prefHeight="54.0" prefWidth="444.0">
-               <children>
-                  <Label layoutX="158.0" layoutY="17.0" text="Single Player Mode" textFill="WHITE">
-                     <font>
-                        <Font name="System Bold Italic" size="20.0" />
-                     </font></Label>
-               </children>
-            </Pane>
             <Pane layoutX="34.0" layoutY="14.0" prefHeight="54.0" prefWidth="58.0">
                <children>
                   <Button mnemonicParsing="false" onAction="#backToMainPage" opacity="0.7" prefHeight="54.0" prefWidth="65.0" styleClass="buttonBack" stylesheets="@../css/fullpackstyling.css">
@@ -37,11 +29,7 @@
                   </Button>
                </children>
             </Pane>
-            <Text fx:id="txtWinner" fill="WHITE" layoutX="898.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="180.6708984375">
-               <font>
-                  <Font size="48.0" />
-               </font>
-            </Text>
+            <Text fill="#e1d6d6" layoutX="803.0" layoutY="115.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Comuter" wrappingWidth="180.67089313268661" />
          </children>
       </Pane>
       <GridPane fx:id="grid" alignment="TOP_CENTER" gridLinesVisible="true" layoutY="143.0" prefHeight="506.0" prefWidth="885.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="150.0">
@@ -154,5 +142,14 @@
             </AnchorPane>
          </children>
       </GridPane>
+      <Pane layoutX="313.0" layoutY="25.0" prefHeight="54.0" prefWidth="444.0">
+         <children>
+            <Label layoutX="132.0" layoutY="-1.0" text="Single Player Mode" textFill="WHITE">
+               <font>
+                  <Font name="System Bold Italic" size="20.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
    </children>    
 </AnchorPane>

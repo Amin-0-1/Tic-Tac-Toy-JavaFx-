@@ -3,5 +3,5 @@ nbbuild/
 dist/
 nbdist/
 private/
-*2020.txt
+savedGame/
 

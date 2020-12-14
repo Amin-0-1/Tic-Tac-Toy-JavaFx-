@@ -18,6 +18,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
@@ -28,9 +29,12 @@ public class MainController implements Initializable{
     private  Button btnWatchGame;
     @FXML
     private Rectangle recWatchGame;
+
     private boolean btnEnable = false;
     Preferences prefs ;
     int checkname;
+    private boolean checkip=false;
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
        //File file=new File("E:\\ITI\\Java\\Project\\Tic-Tac-Toy-JavaFx-\\game.txt");
@@ -103,9 +107,9 @@ public class MainController implements Initializable{
                 
             else
             {
-                 AskDialog isrecoredGame = new AskDialog();
+                  AskDialog isrecoredGame = new AskDialog();
                   isrecoredGame.alert("Do you want to record game ?");
-                   
+                
                 Parent singlePlayerParent = FXMLLoader.load(getClass().getResource("/view/SinglePlayFXML.fxml"));
                 
                 //generate new scene
@@ -168,15 +172,21 @@ public class MainController implements Initializable{
     public void changeSceneToOnlineGame(ActionEvent event) {
         
         System.out.println("changeSceneToOnlineGame: called");
+                if(!checkip)
+                { CustomDialog cd = new CustomDialog();
+                 Boolean isCancled = cd.displayDialog("Enter Server IP");
+                    checkip=true;
 
-                    CustomDialog cd = new CustomDialog();
-                    Boolean isCancled = cd.displayDialog("Enter Server IP");
-                    
                     if(IPvalidatation.isValidIPAddress(cd.getName()))
                     { 
                         System.out.println("you entered ip ="+cd.getName());
                         
                     if(!isCancled){
+
+//                    if(IPvalidatation.isValidIPAddress(cd.getName()))
+//                    {
+//                    if(!isCancled){
+
                         try {
                             //get scene
                        
@@ -194,8 +204,9 @@ public class MainController implements Initializable{
                          }catch (IOException ex) {
                             Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
                         }
-                    }
+                   }
     }}
+    }
     
     /**
      * changeSceneToWatchGame.

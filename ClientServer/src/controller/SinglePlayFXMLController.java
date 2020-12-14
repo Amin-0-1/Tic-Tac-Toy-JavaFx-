@@ -12,6 +12,7 @@ import java.io.File;
 import java.net.URL;
 import java.util.Random;
 import java.util.ResourceBundle;
+import java.util.prefs.Preferences;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -20,6 +21,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Bounds;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Line;
@@ -71,12 +73,17 @@ public class SinglePlayFXMLController {
     private GridPane grid;
     @FXML
     private AnchorPane pane;
+    @FXML
+    private TextField username;
    // File file;
     //public File  file= new File("E:\\ITI\\Java\\Project\\Tic-Tac-Toy-JavaFx-\\game.txt");
+    private Preferences prefs;
 
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+       // prefs = Preferences.userNodeForPackage(MainController.class);            
 
+        //username.setText(prefs.get("username","not found"));
     } 
     public void backToMainPage(ActionEvent event){
         System.out.println("backToMainPage: called");
@@ -91,10 +98,9 @@ public class SinglePlayFXMLController {
             buttonPressed = (Button) e.getSource();
             if(buttonPressed.getText().equals("")){
                 buttonPressed.setText(player);
-                if(AccessFile.getFileName().exists())
-                { 
+                if(AccessFile.file.exists())
                 AccessFile.writeFile(buttonPressed.getId()+player+".");
-                }
+                
                 if(player=="X"){
                     player="O";
                 }
@@ -144,16 +150,15 @@ public class SinglePlayFXMLController {
             public void handle(ActionEvent e) {
             System.err.println("button pressed");
             buttonPressed = (Button) e.getSource();
-
-
                /* if(buttonPressed.getText().equals("")){
                     buttonPressed.setText(""+player);
 **/
                 if(buttonPressed.getText().equals("")){
                     buttonPressed.setText(""+player);
-                    if(AccessFile.getFileName().exists())
-                     AccessFile.writeFile(buttonPressed.getId()+player+".");
-
+                    if(AccessFile.file.exists())
+                  AccessFile.writeFile(buttonPressed.getId()+player+".");
+               
+                
                     if(player=="X"){
                         player="O";
                     }
@@ -334,6 +339,5 @@ public class SinglePlayFXMLController {
 //        checkDiagonal();
 
     }
-
-  
+ 
 }

@@ -30,8 +30,7 @@ import java.util.prefs.Preferences;
 public class AccessFile {
    public static File file;
    public static void createFile(){
-       
-       try {
+         try {
            //String uniqueID = UUID.randomUUID().toString();
            Preferences prefs=Preferences.userNodeForPackage(AccessFile.class);
            //prefs.put(uniqueID, uniqueID);
@@ -39,13 +38,14 @@ public class AccessFile {
            prefs.put(CurrentDateTime.getCurrentDateTime(), CurrentDateTime.getCurrentDateTime());
           
            System.out.println(prefs.get(CurrentDateTime.getCurrentDateTime(),""));
-            file = new File("E:\\ITI\\Java\\Project\\Tic-Tac-Toy-JavaFx-\\"+prefs.get(CurrentDateTime.getCurrentDateTime(),""));
+           file = new File("E:\\ITI\\Java\\Project\\Tic-Tac-Toy-JavaFx-\\"+prefs.get(CurrentDateTime.getCurrentDateTime(),""));
 
-           file.createNewFile();
-       } catch (IOException ex) {
+           if(file.createNewFile())
+               System.out.println("file is created");
+        } catch (IOException ex) {
            Logger.getLogger(AccessFile.class.getName()).log(Level.SEVERE, null, ex);
-       }
-          
+        }
+         
           }
 /*
     public static void writeFile(String s)
@@ -121,6 +121,7 @@ public class AccessFile {
                
             }
         } catch (IOException ex) {
+            System.out.println("error during write file");
             Logger.getLogger(AccessFile.class.getName()).log(Level.SEVERE, null, ex);
         }
               
@@ -147,11 +148,15 @@ public class AccessFile {
             Logger.getLogger(AccessFile.class.getName()).log(Level.SEVERE, null, ex);
         }
      }
-     public  static File getFileName()
+     public  static boolean isFileExit()
      {
-         return file.getAbsoluteFile();
+        
+               if( file.getAbsoluteFile().exists())
+                 return true;
+               else 
+       return false;
+         
      }
 
-     
-   
+
 }
