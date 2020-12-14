@@ -39,7 +39,7 @@ public class AccessFile {
            prefs.put(CurrentDateTime.getCurrentDateTime(), CurrentDateTime.getCurrentDateTime());
           
            System.out.println(prefs.get(CurrentDateTime.getCurrentDateTime(),""));
-            file = new File("E:\\ITI\\Java\\Project\\Tic-Tac-Toy-JavaFx-\\"+prefs.get(CurrentDateTime.getCurrentDateTime(),""));
+            file = new File("D:\\ITI\\Java\\java project\\Tic-Tac-Toy-JavaFx-\\"+prefs.get(CurrentDateTime.getCurrentDateTime(),""));
 
            file.createNewFile();
        } catch (IOException ex) {

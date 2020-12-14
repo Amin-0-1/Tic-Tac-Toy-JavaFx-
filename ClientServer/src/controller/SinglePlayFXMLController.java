@@ -12,14 +12,20 @@ import java.io.File;
 import java.net.URL;
 import java.util.Random;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.prefs.BackingStoreException;
+import java.util.prefs.Preferences;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.geometry.Bounds;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Line;
@@ -31,20 +37,17 @@ import javafx.util.Duration;
  *
  * @author Wesam
  */
-public class SinglePlayFXMLController {
+public class SinglePlayFXMLController implements Initializable{
     
 
-     /**
-     * backToMainPage.
-     * when called scene will be change to main page.
-     * @param event 
-     */
     
     private String player = "X";
     private Button buttonPressed;
     private boolean winner = false;
 
     private boolean display = false;
+    private Preferences prefs ;
+    private int score = 0;
 
     
     @FXML
@@ -71,20 +74,42 @@ public class SinglePlayFXMLController {
     private GridPane grid;
     @FXML
     private AnchorPane pane;
+    @FXML
+    private Label labUserName;
+    @FXML
+    private Label labScore;
+    
    // File file;
     //public File  file= new File("E:\\ITI\\Java\\Project\\Tic-Tac-Toy-JavaFx-\\game.txt");
 
 
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        System.out.println("first init");
+        prefs = Preferences.userNodeForPackage(SinglePlayFXMLController.class); 
+        try {
+            if(prefs.nodeExists("/controller"))
+            {
+             System.out.println("init");
+              String userName=prefs.get("username","");
+               score=prefs.getInt("score",0);
+              System.out.println(userName);
+              
+              if(userName.length() != 0){
+                 labUserName.setText(userName); 
+              }
+              if(score != 0){
+                 labScore.setText(""+ score);  
+              }
+              
+            }
+        } catch (BackingStoreException ex) {
+            Logger.getLogger(SinglePlayFXMLController.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     } 
-    public void backToMainPage(ActionEvent event){
-        System.out.println("backToMainPage: called");
-        ButtonBack btnback = new ButtonBack("/view/sample.fxml");
-        btnback.handleButtonBack(event);
-   
-    } 
+    
+     
     
     public void buttonPressed(ActionEvent e){
         if(!winner){
@@ -187,6 +212,7 @@ public class SinglePlayFXMLController {
                 txtWinner.setText("you won!");
                 //displayVideo();
                 display = true;
+                score += 10;
             }else{
                 txtWinner.setText("computer won!");
             }
@@ -197,16 +223,18 @@ public class SinglePlayFXMLController {
                 txtWinner.setText("you won!");
                 //displayVideo();
                 display = true;
+                score += 10;
             }else{
                 txtWinner.setText("computer won!");
             }
         }
-        else if(btn7.getText().equals(btn8.getText()) && btn8.getText().equals(btn9.getText()) && !btn9.getText().equals("")){
+        else if(btn7.getText().equals(btn8.getText()) && btn8.getText().equals(btn9.getText()) && !btn7.getText().equals("")){
             drawLine(btn7,btn9);
-            if(btn9.getText().equals("X")){
+            if(btn7.getText().equals("X")){
                 txtWinner.setText("you won!");
                 //displayVideo();
                 display = true;
+                score += 10;
             }else{
                 txtWinner.setText("computer won!");
             }
@@ -224,6 +252,7 @@ public class SinglePlayFXMLController {
                 txtWinner.setText("you won!");
                 //displayVideo();
                 display = true;
+                score += 10;
             }else{
                 txtWinner.setText("computer won!");
             }
@@ -235,6 +264,7 @@ public class SinglePlayFXMLController {
                 txtWinner.setText("you won!");
                 //displayVideo();
                 display = true;
+                score += 10;
             }else{
                 txtWinner.setText("computer won!");
             }
@@ -246,6 +276,7 @@ public class SinglePlayFXMLController {
                 txtWinner.setText("you won!");
                // displayVideo();
                display = true;
+               score += 10;
             }else{
                 txtWinner.setText("computer won!");
             }
@@ -263,6 +294,7 @@ public class SinglePlayFXMLController {
                 txtWinner.setText("you won!");
                 //displayVideo();
                 display = true;
+                score += 10;
             }else{
                 txtWinner.setText("computer won!");
             }
@@ -274,6 +306,7 @@ public class SinglePlayFXMLController {
                 txtWinner.setText("you won!");
                 //displayVideo();
                 display = true;
+                score += 10;
             }else{
                 txtWinner.setText("computer won!");
             }
@@ -285,11 +318,15 @@ public class SinglePlayFXMLController {
     }
     private void checkState (){
 
-        checkRows();
         checkColumns();
+        checkRows();
+        
         checkDiagonal();
         if(display){
             displayVideo();
+            prefs.putInt("score",score);
+            labScore.setText(""+ score); 
+            
         }
 /*
         if(!checkRows()){
@@ -311,29 +348,41 @@ public class SinglePlayFXMLController {
 //        checkDiagonal();
     }
     
-    // * displayVideo called when player win
-     
+    /**
+     * displayVideo called when player win
+     */
     private void displayVideo(){
         DisplayVideo winnerVideo = new DisplayVideo();
         winnerVideo.diplay();
-        if(!checkRows()){
-            if(!checkColumns()){
-                if(!checkDiagonal()){
-                    
-                }else{
-                    winner = true;
-                }
-            }else{
-                winner = true;
-            }
-        }else{
-            winner = true;
-        }
-//        checkRows();
-//        checkColumns();
-//        checkDiagonal();
+//        if(!checkRows()){
+//            if(!checkColumns()){
+//                if(!checkDiagonal()){
+//                    
+//                }else{
+//                    winner = true;
+//                }
+//            }else{
+//                winner = true;
+//            }
+//        }else{
+//            winner = true;
+//        }
+////        checkRows();
+////        checkColumns();
+////        checkDiagonal();
 
     }
-
+    
+     /**
+     * backToMainPage.
+     * when called scene will be change to main page.
+     * @param event 
+     */
+    public void backToMainPage(ActionEvent event){
+        System.out.println("backToMainPage: called");
+        ButtonBack btnback = new ButtonBack("/view/sample.fxml");
+        btnback.handleButtonBack(event);
+   
+    } 
   
 }
