@@ -92,16 +92,17 @@ public class SinglePlayFXMLController {
             buttonPressed = (Button) e.getSource();
             if(buttonPressed.getText().equals("")){
                 buttonPressed.setText(player);
-                //if(file.exists())
-                { 
-                AccessFile.writeFile(buttonPressed.getId()+player+".");
-                }
+//                if(file.exists())
+//                { 
+//                AccessFile.writeFile(buttonPressed.getId()+player+".");
+//                }
                 if(player=="X"){
                     player="O";
                 }
                 else{
                     player="X";
                 }  
+                
                 checkState();
                 if(!winner){
                     computerTurn();
@@ -190,6 +191,7 @@ public class SinglePlayFXMLController {
             }else{
                 txtWinner.setText("computer won!");
             }
+            winner = true;
         }
         else if(btn4.getText().equals(btn5.getText()) && btn5.getText().equals(btn6.getText()) && !btn4.getText().equals("")){
             drawLine(btn4,btn6);
@@ -200,6 +202,7 @@ public class SinglePlayFXMLController {
             }else{
                 txtWinner.setText("computer won!");
             }
+            winner = true;
         }
         else if(btn7.getText().equals(btn8.getText()) && btn8.getText().equals(btn9.getText()) && !btn9.getText().equals("")){
             drawLine(btn7,btn9);
@@ -214,6 +217,7 @@ public class SinglePlayFXMLController {
         }else{
             return false;
         }
+        
         return winner;
     }
     
