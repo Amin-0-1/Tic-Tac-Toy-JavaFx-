@@ -6,10 +6,13 @@
 package controller;
 
 import helper.AccessFile;
+import helper.AskDialog;
 import helper.ButtonBack;
+import helper.CustomDialog;
 import helper.DisplayVideo;
 import java.io.File;
 import java.net.URL;
+import java.util.Optional;
 import java.util.Random;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -25,6 +28,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Bounds;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
@@ -69,7 +74,7 @@ public class SinglePlayFXMLController implements Initializable{
     @FXML
     private  Button btn9;
     @FXML
-    private  Text txtWinner;
+    private  Label txtWinner;
     @FXML
     private GridPane grid;
     @FXML
@@ -78,6 +83,9 @@ public class SinglePlayFXMLController implements Initializable{
     private Label labUserName;
     @FXML
     private Label labScore;
+    @FXML
+    private  Button btnPlayAgain;
+    
     
    // File file;
     //public File  file= new File("E:\\ITI\\Java\\Project\\Tic-Tac-Toy-JavaFx-\\game.txt");
@@ -205,6 +213,20 @@ public class SinglePlayFXMLController implements Initializable{
             return false;
         }
     }
+    
+    private void makeGridEmpty(){
+        btn1.setText("");
+        btn2.setText("");
+        btn3.setText("");
+        btn4.setText("");
+        btn5.setText("");
+        btn6.setText("");
+        btn7.setText("");
+        btn8.setText("");
+        btn9.setText("");
+                    
+    }
+    
     private boolean checkRows(){
         if(btn1.getText().equals(btn2.getText()) && btn2.getText().equals(btn3.getText()) && !btn1.getText().equals("")){
             drawLine(btn1,btn3);
@@ -216,6 +238,7 @@ public class SinglePlayFXMLController implements Initializable{
             }else{
                 txtWinner.setText("computer won!");
             }
+            winner = true;
         }
         else if(btn4.getText().equals(btn5.getText()) && btn5.getText().equals(btn6.getText()) && !btn4.getText().equals("")){
             drawLine(btn4,btn6);
@@ -227,6 +250,7 @@ public class SinglePlayFXMLController implements Initializable{
             }else{
                 txtWinner.setText("computer won!");
             }
+            winner = true;
         }
         else if(btn7.getText().equals(btn8.getText()) && btn8.getText().equals(btn9.getText()) && !btn7.getText().equals("")){
             drawLine(btn7,btn9);
@@ -320,13 +344,12 @@ public class SinglePlayFXMLController implements Initializable{
 
         checkColumns();
         checkRows();
-        
         checkDiagonal();
         if(display){
             displayVideo();
             prefs.putInt("score",score);
-            labScore.setText(""+ score); 
-            
+            labScore.setText(""+ score);  
+            btnPlayAgain.setVisible(true);
         }
 /*
         if(!checkRows()){
@@ -383,6 +406,22 @@ public class SinglePlayFXMLController implements Initializable{
         ButtonBack btnback = new ButtonBack("/view/sample.fxml");
         btnback.handleButtonBack(event);
    
+    } 
+    
+    /**
+     * repalayAgain 
+     * when called make labe for winner empty and make button Visible
+     * @param event 
+     */
+      public void repalayAgain(ActionEvent event){
+        txtWinner.setText("");
+        btnPlayAgain.setVisible(false);
+       //makeGridEmpty();
+        AskDialog isrecoredGame = new AskDialog();
+        isrecoredGame.alert("Do you want to record game ?");
+       ButtonBack btnback = new ButtonBack("/view/SinglePlayFXML.fxml");
+       btnback.handleButtonBack(event);
+         
     } 
   
 }
