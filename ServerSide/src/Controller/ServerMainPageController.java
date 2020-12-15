@@ -48,6 +48,7 @@ public class ServerMainPageController implements Initializable {
     
     private boolean serverState ;
     private boolean flageStartThrea = false;
+    private boolean flageStartCharThread = true;
     private boolean onlineOrOfflineFlag = true;
     private boolean showingChart = false;
     private Thread updateListThread;
@@ -106,8 +107,11 @@ public class ServerMainPageController implements Initializable {
             @Override
             public void run() {
                 System.out.println("run");
-                while(true && showingChart && !chart.getFlag()){
-                        id =(int) Thread.currentThread().getId();
+                while(true && showingChart){
+                    
+                        
+                        if(!chart.getFlag()){
+                                id =(int) Thread.currentThread().getId();
                         ObservableList<PieChart.Data> pieChartData;
                         pieChartData =
                         FXCollections.observableArrayList(
@@ -117,8 +121,7 @@ public class ServerMainPageController implements Initializable {
                         chart.setChartData(pieChartData);                        
                         Platform.runLater(() -> {
                             try {
-                                 chart.start(thisStage);
-//                                
+                                chart.start(thisStage);
                                 System.out.print("outer Thread"+Thread.currentThread().getId());
                             } catch (Exception ex) {
                                 System.out.println("sss");
@@ -131,8 +134,19 @@ public class ServerMainPageController implements Initializable {
                         }catch(InterruptedException ex){
 
                         }
+                    
+                      }else{
+                        System.out.println("Getting before suspend"+chart.getFlag());
+                        flageStartCharThread = false;
+                        chartThread.suspend();
+                        System.out.println("Getting after suspend"+chart.getFlag());
+                            
+                       }
+                        
                 }
-                chart.setFlag(false);
+                
+                
+                
             }
         });
     }
@@ -284,10 +298,16 @@ public class ServerMainPageController implements Initializable {
         countOffline = server.databaseInstance.getCountOfOfflineUserse();
         showingChart = true; 
         chart = new Chart();
-        thisStage = (Stage) serverStateImage.getScene().getWindow();
+        //thisStage = (Stage) serverStateImage.getScene().getWindow();
         
         if(Platform.isFxApplicationThread() && showingChart){
-            chartThread.start();
+            if(flageStartCharThread){
+              chartThread.start();  
+            }else{
+                chart.setFlag(false);
+               chartThread.resume();
+            }
+            
         }
         
     }

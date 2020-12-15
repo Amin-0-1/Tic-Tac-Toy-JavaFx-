@@ -14,6 +14,9 @@ import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
+import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -47,7 +50,26 @@ public class Chart extends Application {
         System.out.println("hello from chart");
         
         Scene scene = new Scene(new Group());
-        ((Group) scene.getRoot()).getChildren().add(chart);
+//        final Label caption = new Label("");
+//        caption.setTextFill(Color.WHITE);
+//        caption.setStyle("-fx-font: 12 arial;");
+ 
+//        for (final PieChart.Data data : chart.getData()) {
+//            data.getNode().addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
+//                @Override
+//                public void handle(MouseEvent e) {
+//                    caption.setTranslateX(e.getSceneX());
+//                    caption.setTranslateY(e.getSceneY());
+// 
+//                    caption.setText(String.valueOf(data.getPieValue()));
+//                }
+//            });
+//        }
+//        
+//        
+//        
+//        ((Group) scene.getRoot()).getChildren().addAll(chart,caption);
+           ((Group) scene.getRoot()).getChildren().add(chart);
         if(dialogStage == null){
             
             dialogStage = new Stage();
@@ -58,7 +80,30 @@ public class Chart extends Application {
             
         }
         dialogStage.setScene(scene);
-        dialogStage.show();
+        
+        System.out.println(dialogStage.isShowing());
+
+//        final Label caption = new Label("");
+//        caption.setTextFill(Color.WHITE);
+//        caption.setStyle("-fx-font: 12 arial;");
+// 
+//        for (final PieChart.Data data : chart.getData()) {
+//            data.getNode().addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
+//                @Override
+//                public void handle(MouseEvent e) {
+//                    caption.setTranslateX(e.getSceneX());
+//                    caption.setTranslateY(e.getSceneY());
+// 
+//                    caption.setText(String.valueOf(data.getPieValue()));
+//                }
+//            });
+//        }
+
+          
+                   dialogStage.show(); 
+
+         
+        
         
         dialogStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
           public void handle(WindowEvent we) {
