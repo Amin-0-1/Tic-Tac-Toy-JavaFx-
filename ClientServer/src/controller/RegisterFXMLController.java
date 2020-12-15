@@ -95,7 +95,7 @@ public class RegisterFXMLController {
 
 
                 //the server response
-                
+                System.out.println("main thread "+Thread.currentThread().getId());
                 new Thread(){
                     String state,playerData;
                     HashMap<String, String> hash = new HashMap<>(); 
@@ -115,19 +115,21 @@ public class RegisterFXMLController {
                             token = new StringTokenizer(state,"@@@");
                             String receivedState = token.nextToken();
                             System.out.println(receivedState);
-                           switch(receivedState){
+                            switch(receivedState){
                                 case "Registered Successfully":
-                                    //notification for successful logging in
+                                     System.out.println("Thread before "+this.getId());
                                      Platform.runLater(()->{
                                        btnback.handleButtonBack(e,hash);
-                                      });
+                                     });
+                                     
+//                                    this.stop();
                                     break;
                                 case "already signed-up":
                                     System.out.println(receivedState);                                
                                     break;
                             }
                             
-                        } catch (IOException ex) {
+                        }catch (IOException ex) {
                             txtAlret.setText("Our server is having some issues, please try again later");
                             this.stop();
                             Logger.getLogger(RegisterFXMLController.class.getName()).log(Level.SEVERE, null, ex);

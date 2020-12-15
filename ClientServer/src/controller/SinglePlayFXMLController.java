@@ -125,16 +125,17 @@ public class SinglePlayFXMLController implements Initializable{
             buttonPressed = (Button) e.getSource();
             if(buttonPressed.getText().equals("")){
                 buttonPressed.setText(player);
-                //if(file.exists())
-                { 
-                AccessFile.writeFile(buttonPressed.getId()+player+".");
-                }
+//                if(file.exists())
+//                { 
+//                AccessFile.writeFile(buttonPressed.getId()+player+".");
+//                }
                 if(player=="X"){
                     player="O";
                 }
                 else{
                     player="X";
                 }  
+                
                 checkState();
                 if(!winner){
                     computerTurn();
@@ -266,6 +267,7 @@ public class SinglePlayFXMLController implements Initializable{
         }else{
             return false;
         }
+        
         return winner;
     }
     

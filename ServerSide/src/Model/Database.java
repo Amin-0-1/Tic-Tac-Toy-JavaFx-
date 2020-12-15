@@ -51,6 +51,18 @@ public class Database {
         }
     }
     
+    public int getCountOfOfflineUserse(){
+        try {
+            this.pst =con.prepareStatement("select count(*) from player where isactive = false",ResultSet.TYPE_SCROLL_SENSITIVE ,ResultSet.CONCUR_READ_ONLY  );
+            ResultSet r =pst.executeQuery(); // rs has all data            System.out.println("has next"+r.next());
+
+            return r.next() ? r.getInt(1) : -1;
+        }catch (SQLException ex) {
+            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("catch getactive");
+        }
+        return -1;
+    }
     public void setActive(boolean state , String email){
         try {
             pst = con.prepareStatement("update player set isActive = ? where email = ?");

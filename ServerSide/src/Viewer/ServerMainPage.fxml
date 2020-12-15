@@ -95,7 +95,7 @@
                   </Pane>
                   <Pane GridPane.columnIndex="1">
                      <children>
-                        <Button fx:id="listOnlinebtn" disable="true" layoutX="46.0" layoutY="230.0" mnemonicParsing="false" onAction="#listOnline" prefHeight="190.0" styleClass="button2" stylesheets="@../css/fullpackstyling.css">
+                        <Button fx:id="listOnlinebtn" disable="true" layoutX="46.0" layoutY="230.0" mnemonicParsing="false" onAction="#toggleList" prefHeight="190.0" styleClass="button2" stylesheets="@../css/fullpackstyling.css">
                            <graphic>
                               <VBox>
                                  <children>
@@ -119,14 +119,14 @@
                                                 </LinearGradient>
                                              </fill>
                                           </Circle>
-                                          <ImageView fitHeight="61.0" fitWidth="61.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="listimg" fitHeight="61.0" fitWidth="61.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
-                                                <Image url="@../resources/online.png" />
+                                                <Image url="@../resources/Offline.png" />
                                              </image>
                                           </ImageView>
                                        </children>
                                     </StackPane>
-                                    <Label alignment="CENTER" prefHeight="17.0" prefWidth="168.0" text="List Online Users" textFill="WHITE">
+                                    <Label fx:id="listbtnlbl" alignment="CENTER" prefHeight="17.0" prefWidth="168.0" text="List Offline Players" textFill="WHITE">
                                        <font>
                                           <Font name="Arial Bold" size="13.0" />
                                        </font>
@@ -151,7 +151,7 @@
                   </Pane>
                   <Pane GridPane.columnIndex="2">
                      <children>
-                        <Button fx:id="listOfflinebtn" disable="true" layoutX="43.0" layoutY="230.0" mnemonicParsing="false" onAction="#listOffline" prefHeight="190.0" prefWidth="184.0" styleClass="button2" stylesheets="@../css/fullpackstyling.css">
+                        <Button fx:id="chartbtn" disable="true" layoutX="43.0" layoutY="230.0" mnemonicParsing="false" onAction="#chartHandle" prefHeight="190.0" prefWidth="184.0" styleClass="button2" stylesheets="@../css/fullpackstyling.css">
                            <graphic>
                               <VBox>
                                  <children>
@@ -170,12 +170,12 @@
                                           </Circle>
                                           <ImageView fitHeight="49.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
-                                                <Image url="@../resources/Offline.png" />
+                                                <Image url="@../resources/chart.png" />
                                              </image>
                                           </ImageView>
                                        </children>
                                     </StackPane>
-                                    <Label alignment="CENTER" prefHeight="17.0" prefWidth="168.0" text="List Ofline Users" textFill="WHITE">
+                                    <Label alignment="CENTER" prefHeight="17.0" prefWidth="168.0" text="Statistics" textFill="WHITE">
                                        <font>
                                           <Font name="Arial Bold" size="13.0" />
                                        </font>
