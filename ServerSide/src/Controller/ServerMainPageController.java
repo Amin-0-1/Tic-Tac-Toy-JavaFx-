@@ -51,10 +51,12 @@ public class ServerMainPageController implements Initializable {
     private boolean onlineOrOfflineFlag = true;
     private boolean showingChart = false;
     private Thread updateListThread;
-    private Thread chartThread;;
+    private Thread chartThread;
     private int countOnline = 0;
     private int countOffline = 0;
-    
+    private Chart chart;
+    private Stage thisStage;
+    int id;
     @FXML
     private ImageView serverStateImage;
     @FXML
@@ -100,35 +102,37 @@ public class ServerMainPageController implements Initializable {
         });   
         
         chartThread = new Thread(new Runnable() {
-            Chart chart = new Chart();
+                      
             @Override
             public void run() {
-                while(true && showingChart){
-                    
-                        System.out.println("inside");
+                System.out.println("run");
+                while(true && showingChart && !chart.getFlag()){
+                        id =(int) Thread.currentThread().getId();
                         ObservableList<PieChart.Data> pieChartData;
                         pieChartData =
                         FXCollections.observableArrayList(
                             new PieChart.Data("Offline", countOffline),
                             new PieChart.Data("Idle", countOnline));
 
-                        chart.setChartData(pieChartData);
-                        Stage thisStage = (Stage) serverStateImage.getScene().getWindow();
+                        chart.setChartData(pieChartData);                        
                         Platform.runLater(() -> {
                             try {
-                                chart.start(thisStage);
+                                 chart.start(thisStage);
+//                                
+                                System.out.print("outer Thread"+Thread.currentThread().getId());
                             } catch (Exception ex) {
+                                System.out.println("sss");
                                 Logger.getLogger(ServerMainPageController.class.getName()).log(Level.SEVERE, null, ex);
                             }
+                        });
+                        
+                        try{
+                            Thread.sleep(2000);
+                        }catch(InterruptedException ex){
+
                         }
-                    );
-                       try{
-                     Thread.sleep(2000);  
-
-                   }catch(InterruptedException ex){
-
-                   }
-                }        
+                }
+                chart.setFlag(false);
             }
         });
     }
@@ -137,8 +141,6 @@ public class ServerMainPageController implements Initializable {
     private void toggleServer(ActionEvent event) throws InterruptedException{
         
         serverState = !serverState;
-        //onlineOrOfflineFlag = true;
-//        System.out.println(serverState);
         if(serverState){
             try {
                 System.out.println("toggle");
@@ -149,17 +151,13 @@ public class ServerMainPageController implements Initializable {
                 serverStateImage.setImage(new Image(new FileInputStream("src/resources/shutdown.png")));
                 status.setText("Deactivate");
                 currentLabel.setText("Status : On");
-//                refRs = server.databaseInstance.rs; // unused
-                // check if thread stated or not
-                
-                
+
                 if(Platform.isFxApplicationThread()){
                     if(!flageStartThrea){
                       updateListThread.start();  
                     }else{
                         updateListThread.resume();
                     }
-
                 }
             
             }catch(SQLException e){
@@ -284,42 +282,14 @@ public class ServerMainPageController implements Initializable {
     @FXML
     private void chartHandle(ActionEvent e){
         countOffline = server.databaseInstance.getCountOfOfflineUserse();
-        showingChart = true;        
-         
+        showingChart = true; 
+        chart = new Chart();
+        thisStage = (Stage) serverStateImage.getScene().getWindow();
         
-        
-        Chart chart = new Chart();
-            
-                        System.out.println("inside");
-                        ObservableList<PieChart.Data> pieChartData;
-                        pieChartData =
-                        FXCollections.observableArrayList(
-                            new PieChart.Data("Offline", countOffline),
-                            new PieChart.Data("Idle", countOnline));
-
-                        chart.setChartData(pieChartData);
-                        Stage thisStage = (Stage) serverStateImage.getScene().getWindow();
-        try {
-            chart.start(thisStage);
-        } catch (Exception ex) {
-            Logger.getLogger(ServerMainPageController.class.getName()).log(Level.SEVERE, null, ex);
+        if(Platform.isFxApplicationThread() && showingChart){
+            chartThread.start();
         }
-  
-            
-            
-           
-//        if(Platform.isFxApplicationThread()){
-//            chartThread.start();
-//
-////            if(showingChart)
-////                chartThread.start();
-////            else
-////                chartThread.stop();
-//        }
         
-//        new PieChart.Data("Playing", 10),
-//        new PieChart.Data("Online", 22)
-        showingChart = false;
     }
     public void mouseEntered(){
 //        if(refRs != null && refRs != server.databaseInstance.rs){
