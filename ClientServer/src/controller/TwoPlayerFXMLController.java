@@ -16,6 +16,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Bounds;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Line;
@@ -28,24 +29,16 @@ import javafx.scene.text.Text;
  */
 public class TwoPlayerFXMLController {
 
-     /**
-     * backToMainPage.
-     * when called scene will be change to main page.
-     * @param event 
-     */
-    public void backToMainPage(ActionEvent event){
-        
-        System.out.println("backToMainPage: called");
-        
-        ButtonBack btnback = new ButtonBack("/view/sample.fxml");
-        btnback.handleButtonBack(event);
-         
-    }
    
     private String player = "X";
     private Button buttonPressed;
     private boolean winner = false;
     private boolean display = false;
+    private boolean firstPllayerWinner = false ;
+    private boolean secondPlayerWinner = false;
+    private int firstPlayerScore = 0;
+    private int secondPlayerScore = 0;
+    
     @FXML
     private  Button btn1;
     @FXML
@@ -70,6 +63,11 @@ public class TwoPlayerFXMLController {
     private GridPane grid;
     @FXML
     private AnchorPane pane;
+    @FXML
+    private Label labelFirstPlayer;
+     @FXML
+    private Label labelSecondPlayer;
+    
 
     public void buttonPressed(ActionEvent e){
         handle(e);
@@ -88,7 +86,9 @@ public class TwoPlayerFXMLController {
                 }  
                 checkState();
               
-            }else{}
+            }else{
+                
+            }
         }
 
     }
@@ -109,33 +109,44 @@ public class TwoPlayerFXMLController {
         if(btn1.getText().equals(btn2.getText()) && btn2.getText().equals(btn3.getText()) && !btn1.getText().equals("")){
             drawLine(btn1,btn3);
             if(btn1.getText().equals("X")){
-                txtWinner.setText("First player win");
+                //txtWinner.setText("First player win");
                 //displayVideo();
                 //display = true;
+                firstPllayerWinner = true;
+                firstPlayerScore += 10;
             }else{
-                txtWinner.setText("Second player win");
+                //txtWinner.setText("Second player win");
+                secondPlayerWinner = true;
             }
             winner = true;
         }
         else if(btn4.getText().equals(btn5.getText()) && btn5.getText().equals(btn6.getText()) && !btn4.getText().equals("")){
             drawLine(btn4,btn6);
             if(btn4.getText().equals("X")){
-                txtWinner.setText("First player win");
+                //txtWinner.setText("First player win");
                 //displayVideo();
                 //display = true;
+                firstPllayerWinner = true;
+                firstPlayerScore += 10;
             }else{
-                txtWinner.setText("Second player win");
+                //txtWinner.setText("Second player win");
+                secondPlayerWinner = true;
+                secondPlayerScore += 10;
             }
             winner = true;
         }
         else if(btn7.getText().equals(btn8.getText()) && btn8.getText().equals(btn9.getText()) && !btn9.getText().equals("")){
             drawLine(btn7,btn9);
             if(btn9.getText().equals("X")){
-                txtWinner.setText("First player win");
+                //txtWinner.setText("First player win");
                 //displayVideo();
                 //display = true;
+                firstPllayerWinner = true;
+                firstPlayerScore += 10;
             }else{
-                txtWinner.setText("Second player win");
+                //txtWinner.setText("Second player win");
+                secondPlayerWinner = true;
+                secondPlayerScore += 10;
             }
             winner = true;
         }
@@ -145,33 +156,45 @@ public class TwoPlayerFXMLController {
         if(btn1.getText().equals(btn4.getText()) && btn4.getText().equals(btn7.getText()) && !btn1.getText().equals("")){
             drawLine(btn1,btn7);
             if(btn1.getText().equals("X")){
-                txtWinner.setText("First player win");
+                //txtWinner.setText("First player win");
                 //displayVideo();
                 //display = true;
+                firstPllayerWinner = true;
+                firstPlayerScore += 10;
             }else{
-                txtWinner.setText("Second player win");
+                //txtWinner.setText("Second player win");
+                secondPlayerWinner = true;
+                secondPlayerScore += 10;
             }
             winner = true;
         }
         else if(btn2.getText().equals(btn5.getText()) && btn5.getText().equals(btn8.getText()) && !btn2.getText().equals("")){
             drawLine(btn2,btn8);
             if(btn2.getText().equals("X")){
-                txtWinner.setText("First player win");
+                //txtWinner.setText("First player win");
                 //displayVideo();
                 //display = true;
+                firstPllayerWinner = true;
+                firstPlayerScore += 10;
             }else{
-                txtWinner.setText("Second player win");
+                //txtWinner.setText("Second player win");
+                secondPlayerWinner = true;
+                secondPlayerScore += 10;
             }
             winner = true;
         }
         else if(btn3.getText().equals(btn6.getText()) && btn6.getText().equals(btn9.getText()) && !btn3.getText().equals("")){
             drawLine(btn3,btn9);
             if(btn3.getText().equals("X")){
-                txtWinner.setText("First player win");
+                //txtWinner.setText("First player win");
                // displayVideo();
                //display = true;
+               firstPllayerWinner = true;
+               firstPlayerScore += 10;
             }else{
-                txtWinner.setText("Second player win");
+                //txtWinner.setText("Second player win");
+                secondPlayerWinner = true;
+                secondPlayerScore += 10;
             }
             winner = true;
         }
@@ -181,22 +204,30 @@ public class TwoPlayerFXMLController {
         if(btn1.getText().equals(btn5.getText()) && btn5.getText().equals(btn9.getText()) && !btn1.getText().equals("")){
             drawLine(btn1,btn9);
             if(btn1.getText().equals("X")){
-                txtWinner.setText("First player win");
+                //txtWinner.setText("First player win");
                 //displayVideo();
                 //display = true;
+                firstPllayerWinner = true;
+                firstPlayerScore += 10;
             }else{
-                txtWinner.setText("Second player win");
+                //txtWinner.setText("Second player win");
+                secondPlayerWinner = true;
+                secondPlayerScore += 10;
             }
             winner = true;
         }
         else if(btn3.getText().equals(btn5.getText()) && btn5.getText().equals(btn7.getText()) && !btn3.getText().equals("")){
             drawLine(btn3,btn7);
             if(btn3.getText().equals("X")){
-                txtWinner.setText("First player win");
+                //txtWinner.setText("First player win");
                 //displayVideo();
                 //display = true;
+                firstPllayerWinner = true;
+                firstPlayerScore += 10;
             }else{
-                txtWinner.setText("Second player win");
+                //txtWinner.setText("Second player win");
+                secondPlayerWinner = true;
+                secondPlayerScore += 10;
             }
             winner = true;
         }
@@ -205,17 +236,54 @@ public class TwoPlayerFXMLController {
         checkRows();
         checkColumns();
         checkDiagonal();
-        if(display){
-            displayVideo();
-        }
+
+            if(firstPllayerWinner){
+                System.out.println("Player one is win");
+                labelFirstPlayer.setText("Player1: " +firstPlayerScore);
+                
+            }else if(secondPlayerWinner){
+                System.out.println("Player two is win");
+                labelSecondPlayer.setText("Player2: " +secondPlayerScore);
+            }else{
+                if((isFullGrid())){
+                    System.out.println("It's a Draw"); 
+                }
+                   
+            }
+        
     }
     
+    
     /**
-     * displayVideo called when player win
+     * isFullGrid 
+     * check if grid all item not empty
+     * @return 
      */
-    private void displayVideo(){
-        DisplayVideo winnerVideo = new DisplayVideo();
-        winnerVideo.diplay();
+    
+     private boolean isFullGrid(){
+        if(!btn1.getText().equals("") && !btn2.getText().equals("") && !btn3.getText().equals("") && !btn4.getText().equals("")
+                    && !btn5.getText().equals("") && !btn6.getText().equals("")&& !btn7.getText().equals("")
+                    && !btn8.getText().equals("") && !btn9.getText().equals("")){
+                    return true;
+        }else{
+            return false;
+        }
     }
+         
+     
+     /**
+     * backToMainPage.
+     * when called scene will be change to main page.
+     * @param event 
+     */
+    public void backToMainPage(ActionEvent event){
+        
+        System.out.println("backToMainPage: called");
+        
+        ButtonBack btnback = new ButtonBack("/view/sample.fxml");
+        btnback.handleButtonBack(event);
+         
+    }
+    
     
 }

@@ -3,8 +3,18 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/ITI/Java/java%20project/Tic-Tac-Toy-JavaFx-/ClientServer/src/model/Main.java</file>
+            <file>file:/D:/ITI/Java/java%20project/Tic-Tac-Toy-JavaFx-/ClientServer/src/helper/Notification.java</file>
             <file>file:/D:/ITI/Java/java%20project/Tic-Tac-Toy-JavaFx-/ClientServer/src/controller/TwoPlayerFXMLController.java</file>
+            <file>file:/D:/ITI/Java/java%20project/Tic-Tac-Toy-JavaFx-/ClientServer/src/helper/DisplayVideo.java</file>
+            <file>file:/D:/ITI/Java/java%20project/Tic-Tac-Toy-JavaFx-/ClientServer/src/controller/VideoWindowController.java</file>
+            <file>file:/D:/ITI/Java/java%20project/Tic-Tac-Toy-JavaFx-/ClientServer/src/controller/SinglePlayFXMLController.java</file>
+            <file>file:/D:/ITI/Java/java%20project/Tic-Tac-Toy-JavaFx-/ClientServer/src/controller/MainController.java</file>
+            <file>file:/D:/ITI/Java/java%20project/Tic-Tac-Toy-JavaFx-/ClientServer/src/controller/LoginOrRegisterController.java</file>
+            <file>file:/D:/ITI/Java/java%20project/Tic-Tac-Toy-JavaFx-/ClientServer/src/model/Main.java</file>
+            <file>file:/D:/ITI/Java/java%20project/Tic-Tac-Toy-JavaFx-/ClientServer/src/controller/GameController.java</file>
+            <file>file:/D:/ITI/Java/java%20project/Tic-Tac-Toy-JavaFx-/ClientServer/src/controller/signInFXMLController.java</file>
+            <file>file:/D:/ITI/Java/java%20project/Tic-Tac-Toy-JavaFx-/ClientServer/src/controller/RegisterFXMLController.java</file>
+            <file>file:/D:/ITI/Java/java%20project/Tic-Tac-Toy-JavaFx-/ClientServer/src/helper/CustomDialog.java</file>
         </group>
     </open-files>
 </project-private>

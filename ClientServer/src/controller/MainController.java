@@ -1,4 +1,7 @@
 package controller;
+import helper.ButtonBack;
+import helper.CustomDialog;
+import helper.TwoPlayerDialog;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -14,6 +17,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class MainController implements Initializable{
@@ -25,9 +29,11 @@ public class MainController implements Initializable{
     private Rectangle recWatchGame;
     
     private boolean btnEnable = false;
+    private Stage thisStage;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        //thisStage = (Stage) recWatchGame.getScene().getWindow();
         if(btnEnable){
             btnWatchGame.setDisable(false);
            recWatchGame.setVisible(false); 
@@ -79,23 +85,44 @@ public class MainController implements Initializable{
         
         System.out.println("changeSceneToTwoPlayers: called");
        
+        //navigaetToTwoPlayerPage();
         
-         
-        try {
-            //get scene
-           Parent twoPlayerParent = FXMLLoader.load(getClass().getResource("/view/TwoPlayerFXML.fxml"));
-            //generate new scene
-            Scene twoPlayerScene = new Scene(twoPlayerParent);
-        
-            //get stage information
-            Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-        
-            window.setTitle("Two players Mode");
-            window.setScene(twoPlayerScene);
-            window.show();
-        } catch (IOException ex) {
-            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        TwoPlayerDialog p = new TwoPlayerDialog();
+//        thisStage = (Stage) recWatchGame.getScene().getWindow();
+//        try {
+//            p.start(thisStage);
+            
+            
+//        try {
+//            //get scene
+//             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/TwoPlayerDialog.fxml"));
+//             Parent parent = fxmlLoader.load();
+//
+//               TwoPlayerDialog dialogController = fxmlLoader.<TwoPlayerDialog>getController();
+//               //dialogController.setAppMainObservableList();
+//               if(dialogController.getFlage()){
+//                   ButtonBack btnback = new ButtonBack("/view/sample.fxml");
+//                   btnback.handleButtonBack(event);
+//               }else{
+//                   Scene twoPlayerScene = new Scene(parent);
+//        
+//                    //get stage information
+//                    Stage window = new Stage();
+//
+//                    window.setTitle("Two players Mode");
+//                    window.initModality(Modality.APPLICATION_MODAL);
+//                    window.setScene(twoPlayerScene);
+//                    window.showAndWait();
+//               }
+//            
+//              
+//        } catch (IOException ex) {
+//            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+
+           CustomDialog d = new CustomDialog("Enter First Player Name");
+           d.displayDialog();
+
         
         
     }
@@ -140,5 +167,32 @@ public class MainController implements Initializable{
      public void changeSceneToWatchGame(ActionEvent event){
          
         System.out.println("changeSceneToWatchGame: called");
+    }
+     
+      /**
+     * navigaetToTwoPlayerPage
+     * when called method will build new window to take player name
+     */
+    public void navigaetToTwoPlayerPage(){
+        try {
+            //get scene
+            Parent Register = FXMLLoader.load(getClass().getResource("/view/TwoPlayerDialog.fxml"));
+            //generate new scene
+            Scene RegisterScene = new Scene(Register);
+        
+            //get stage information
+            Stage window = new Stage();
+
+            window.setTitle("Congratulation");
+            window.setScene(RegisterScene);
+            window.setMinHeight(500);
+            window.setMinWidth(500);
+            window.setMaxHeight(250);
+            window.setMaxWidth(500);  
+            window.show();
+        } catch (IOException ex) {
+            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
 }
