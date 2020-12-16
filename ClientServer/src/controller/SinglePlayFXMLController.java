@@ -131,6 +131,9 @@ public class SinglePlayFXMLController implements Initializable{
 //                { 
 //                AccessFile.writeFile(buttonPressed.getId()+player+".");
 //                }
+
+                 if(MainController.isrecord)
+                 AccessFile.writeFile(buttonPressed.getId()+buttonPressed.getText()+".");
                 if(player=="X"){
                     player="O";
                 }
@@ -145,7 +148,8 @@ public class SinglePlayFXMLController implements Initializable{
                 }
             }else{
                 if(isFullGrid()){
-                    txtWinner.setText("draw");
+                    txtWinner.setText("It's a Draw");
+                    btnPlayAgain.setVisible(true);
                 }
             }
         }else{
@@ -188,7 +192,8 @@ public class SinglePlayFXMLController implements Initializable{
 **/
                 if(buttonPressed.getText().equals("")){
                     buttonPressed.setText(""+player);
-                     AccessFile.writeFile(buttonPressed.getId()+player+".");
+                     if(MainController.isrecord)
+                     AccessFile.writeFile(buttonPressed.getId()+buttonPressed.getText()+".");
 
                     if(player=="X"){
                         player="O";

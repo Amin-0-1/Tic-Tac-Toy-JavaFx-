@@ -1,9 +1,11 @@
 package controller;
 
+import helper.AccessFile;
 import helper.ButtonBack;
 import helper.TwoPlayerDialog;
 
 import helper.AskDialog;
+import helper.CurrentDateTime;
 import helper.CustomDialog;
 import helper.IPvalidatation;
 import java.io.File;
@@ -38,6 +40,7 @@ public class MainController implements Initializable{
     private Stage thisStage;
      Preferences prefs ;
     int checkname;
+    static boolean isrecord=false;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -45,7 +48,7 @@ public class MainController implements Initializable{
         btnWatchGame.setDisable(false);
         recWatchGame.setVisible(false);
   
-           recWatchGame.setVisible(false); 
+        recWatchGame.setVisible(false); 
         
         /*
         if(btnEnable)
@@ -64,20 +67,8 @@ public class MainController implements Initializable{
     public void changeSceneToSinglePlayer(ActionEvent event) {
         try {
             System.out.println("changeSceneToSinglePlayer: called");
-            /*
-            if(prefs.nodeExists("/controller"))
-            {
-            String s=prefs.get("username","");
-            System.out.println(s.length());
-            if(s.length()==0)
-            {
-            CustomDialog  c=new CustomDialog();
-            c.displayDialog("Enter your name");
-            prefs.put("username", c.getName());
-            System.out.println(prefs.get("username", "not found"));
-            }
-            }
-            **/
+            CurrentDateTime c=new CurrentDateTime();
+            System.out.println(c.getCurrentDateTime());
             if(prefs.nodeExists("/controller"))
             {
                 String s=prefs.get("username","");
@@ -90,8 +81,12 @@ public class MainController implements Initializable{
                     if(!isCancled){
                         try {
                             //get scene
-                            AskDialog isrecoredGame = new AskDialog();
-                            isrecoredGame.alert("Do you want to record game ?");
+                              AskDialog isrecoredGame = new AskDialog();
+                              Boolean check = isrecoredGame.alert("Do you want to record game ?");
+              
+                              AccessFile.createFile();
+                     
+                 
                     
                             Parent singlePlayerParent = FXMLLoader.load(getClass().getResource("/view/SinglePlayFXML.fxml"));
                             
@@ -112,8 +107,17 @@ public class MainController implements Initializable{
                 
             else
             {
-                 AskDialog isrecoredGame = new AskDialog();
-                  isrecoredGame.alert("Do you want to record game ?");
+                  AskDialog isrecoredGame = new AskDialog();
+                  Boolean check=isrecoredGame.alert("Do you want to record game ?");
+                  if(check)
+                  {
+                   AccessFile.createFile();
+                   AccessFile.writeFile("username1"+".");
+                   AccessFile.writeFile("username2"+".");
+
+                     
+                     isrecord=true;
+                  }
                    
                 Parent singlePlayerParent = FXMLLoader.load(getClass().getResource("/view/SinglePlayFXML.fxml"));
                 
