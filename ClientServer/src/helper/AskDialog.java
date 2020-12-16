@@ -42,6 +42,7 @@ public class AskDialog {
              //  Preferences pfrefs= Preferences.userNodeForPackage(MainController.class);   
              //  AccessFile.createFile();
                check= true;
+               System.out.println("alertyes");
               
 //               System.out.println("alertOk");
              //  AccessFile.writeFile(pfrefs.get("username","not found")+".");  

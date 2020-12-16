@@ -42,7 +42,7 @@ public class MainController implements Initializable{
     int checkname;
     static boolean isrecord=false;
     static boolean x=false;
-     boolean checkip=false;
+     static boolean checkip=false;
 
     Socket socket;
     DataInputStream dis;
@@ -67,8 +67,8 @@ public class MainController implements Initializable{
      */
     public void changeSceneToSinglePlayer(ActionEvent event) {
         try {
-            CurrentDateTime c=new CurrentDateTime();
-         System.out.println(c.getCurrentDateTime());
+         //   CurrentDateTime c=new CurrentDateTime();
+        // System.out.println(c.getCurrentDateTime());
 
             if(prefs.nodeExists("/controller"))
             {
@@ -86,7 +86,7 @@ public class MainController implements Initializable{
                   Boolean check=isrecoredGame.alert("Do you want to record game ?");
                 //  if(check)
                 //  {
-                     AccessFile.createFile();
+                   //  AccessFile.createFile();
                      
                   //   isrecord=true;
                   //}
@@ -181,15 +181,17 @@ public class MainController implements Initializable{
 
         System.out.println("changeSceneToOnlineGame: called");
                if(!checkip)
-                { CustomDialog cd = new CustomDialog();
+                {     System.out.println(checkip);               
+                 CustomDialog cd = new CustomDialog();
                  Boolean isCancled = cd.displayDialog("Enter Server IP");
                    
-                    if(IPvalidatation.isValidIPAddress(cd.getName()))
+                 if(IPvalidatation.isValidIPAddress(cd.getName()))
                     { 
                         System.out.println("you entered ip ="+cd.getName());
                     if(!isCancled){
-                         checkip=true;
+                             
                             try {
+                                checkip=true;
                                 socket = new Socket(IPvalidatation.getIp(),9876);
                                 System.out.println("conncet valid ip ");
                                 System.out.println(IPvalidatation.getIp());
@@ -213,11 +215,14 @@ public class MainController implements Initializable{
                                 Boolean c= AskIp.alert("You Enter Not Valid Ip Do You Want To Enter IP Again");
                                 if(c)
                                 {
-                                    cd.displayDialog("Enter Server IP");
+                                   cd.displayDialog("Enter Server IP");
+                                   checkip=true;
+                                 }
+                                else {checkip=false;
                                 }
                                 }
                       
-                   }else {checkip=false;}
+                   }
                     
                     }
                 }  
