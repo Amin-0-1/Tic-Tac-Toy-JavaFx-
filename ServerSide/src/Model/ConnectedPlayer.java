@@ -39,7 +39,7 @@ public class ConnectedPlayer extends Thread implements Initializable {
    boolean loggedin;
    ResultSet result;
    Thread thread;
-   
+   private Boolean updateList;   
    
    String username,email;
   
@@ -181,10 +181,13 @@ public class ConnectedPlayer extends Thread implements Initializable {
            } catch (IOException ex) {
                System.out.println("2");
                System.out.println("Closing try");
-               System.out.println(email);
+               System.out.println("Email: "+ email);
                if(email != null){
                     server.databaseInstance.setActive(false,email);
                     players.remove(this);   
+               }else{
+                 System.out.println("nulllllll");  
+                 updateList = true;
                }
                 
                this.stop();
