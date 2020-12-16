@@ -134,6 +134,7 @@ public class SinglePlayFXMLController implements Initializable{
 
                  if(MainController.isrecord)
                  AccessFile.writeFile(buttonPressed.getId()+buttonPressed.getText()+".");
+                 
                 if(player=="X"){
                     player="O";
                 }
@@ -192,6 +193,7 @@ public class SinglePlayFXMLController implements Initializable{
 **/
                 if(buttonPressed.getText().equals("")){
                     buttonPressed.setText(""+player);
+                    
                      if(MainController.isrecord)
                      AccessFile.writeFile(buttonPressed.getId()+buttonPressed.getText()+".");
 
@@ -407,7 +409,15 @@ public class SinglePlayFXMLController implements Initializable{
         btnPlayAgain.setVisible(false);
        //makeGridEmpty();
         AskDialog isrecoredGame = new AskDialog();
-        isrecoredGame.alert("Do you want to record game ?");
+                  Boolean check=isrecoredGame.alert("Do you want to record game ?");
+                  if(check)
+                  {
+                   AccessFile.createFile();
+                   AccessFile.writeFile("username1"+".");
+                   AccessFile.writeFile("username2"+".");
+
+                     MainController.isrecord=true;
+        }
        ButtonBack btnback = new ButtonBack("/view/SinglePlayFXML.fxml");
        btnback.handleButtonBack(event);
          

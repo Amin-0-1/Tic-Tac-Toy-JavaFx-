@@ -111,7 +111,7 @@ public class ConnectedPlayer extends Thread implements Initializable {
                    token = null;
                }else if(query.equals("SignUp") && token != null){ // SignUp
                     String username = token.nextToken();
-                    String email = token.nextToken();
+                     email = token.nextToken();
                     String password = token.nextToken();
                     System.out.println(username+" "+email+" "+password);
 //                    int score = server.databaseInstance.getScore(username);
@@ -131,14 +131,14 @@ public class ConnectedPlayer extends Thread implements Initializable {
                         }
 
 
-                       server.databaseInstance.updateResultSet();
+                       //server.databaseInstance.updateResultSet();
                    }catch(SQLException e){
                        //alert
                        e.printStackTrace();
                        System.out.println("Connection Issues");
                        
                     }
-
+                   token = null;
                }
                else if(query.equals("playerlist") && token != null){
                    
@@ -161,9 +161,12 @@ public class ConnectedPlayer extends Thread implements Initializable {
                                                  );
                                     }
 
+                                    System.out.println("Email in player:" + email);
                                     ps.println("null");
 
                                     System.out.println("end while");
+                                    //server.databaseInstance.setActive(false, email);
+                                   
                                 } catch (SQLException ex) {
                                     System.out.println("4");
                                     System.out.println("catch");
@@ -181,6 +184,7 @@ public class ConnectedPlayer extends Thread implements Initializable {
            } catch (IOException ex) {
                System.out.println("2");
                System.out.println("Closing try");
+               //server.databaseInstance.updateResultSet();
                System.out.println(email);
                if(email != null){
                     server.databaseInstance.setActive(false,email);
@@ -188,11 +192,17 @@ public class ConnectedPlayer extends Thread implements Initializable {
                }
                 
                this.stop();
+               try {
+                   currentSocket.close();
+               } catch (IOException ex1) {
+                   Logger.getLogger(ConnectedPlayer.class.getName()).log(Level.SEVERE, null, ex1);
+               }
            }
        }
        if(currentSocket.isClosed()){
            System.out.println("3");
            System.out.println("close");
+           server.databaseInstance.getActivePlayers();
            players.remove(this);
        }
    }
