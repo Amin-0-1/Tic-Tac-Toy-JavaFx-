@@ -42,7 +42,7 @@ public class MainController implements Initializable{
     int checkname;
     static boolean isrecord=false;
     static boolean x=false;
-    static boolean checkip=false;
+     boolean checkip=false;
 
     Socket socket;
     DataInputStream dis;
@@ -118,7 +118,6 @@ public class MainController implements Initializable{
                    AccessFile.writeFile("username1"+".");
                    AccessFile.writeFile("username2"+".");
 
-                     
                      isrecord=true;
                   }
                   
@@ -155,9 +154,6 @@ public class MainController implements Initializable{
         
         System.out.println("changeSceneToTwoPlayers: called");
         try {
-            
-            
-            
             //get scene
            Parent twoPlayerParent = FXMLLoader.load(getClass().getResource("/view/TwoPlayerFXML.fxml"));
             //generate new scene
@@ -175,23 +171,24 @@ public class MainController implements Initializable{
         }       
         
     }
-    
-    
+
     /**
      * changeSceneToOnlineGame.
      * when called scene will be change to online game mode.
      * @param event 
      */
     public void changeSceneToOnlineGame(ActionEvent event) {
+
         System.out.println("changeSceneToOnlineGame: called");
                if(!checkip)
                 { CustomDialog cd = new CustomDialog();
                  Boolean isCancled = cd.displayDialog("Enter Server IP");
-                    checkip=true;
+                   
                     if(IPvalidatation.isValidIPAddress(cd.getName()))
                     { 
                         System.out.println("you entered ip ="+cd.getName());
                     if(!isCancled){
+                         checkip=true;
                             try {
                                 socket = new Socket(IPvalidatation.getIp(),9876);
                                 System.out.println("conncet valid ip ");
@@ -212,13 +209,15 @@ public class MainController implements Initializable{
                                 window.show();
                             }catch (IOException ex) {
                                  System.out.println("disconnect");
-                                // ex.printStackTrace();
-                                    // dis.close();
-                                    // socket.close();
-                                    // Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
-                            }
+                                 AskDialog AskIp=new AskDialog();
+                                Boolean c= AskIp.alert("You Enter Not Valid Ip Do You Want To Enter IP Again");
+                                if(c)
+                                {
+                                    cd.displayDialog("Enter Server IP");
+                                }
+                                }
                       
-                   }
+                   }else {checkip=false;}
                     
                     }
                 }  
