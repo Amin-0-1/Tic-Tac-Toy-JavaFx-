@@ -21,7 +21,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.text.Text;
-
 /**
  * FXML Controller class
  *
@@ -130,6 +129,8 @@ public class WatchGameController implements Initializable {
                }
            
        }).start();
+       
+       
     
         }
     public void backToRecordedGames(ActionEvent event){     
@@ -143,13 +144,18 @@ public class WatchGameController implements Initializable {
                 String []data=new String[9];
                 
 		while(dataStored.length()!=0)
-		{
+		{ 
                     for(int i=0;i<9;i++)
                     {
 	                index=dataStored.indexOf(".");
 			if(index!=-1)
                         {
-                        data[i]=dataStored.substring(0,index);                     
+                          String username1=dataStored.substring(0, index);
+                          String username2=dataStored.substring(0, index);
+                            System.out.println(username1);
+                            System.out.println(username2);
+                          data[i]=dataStored.substring(0,index);  
+                         
 			 dataStored=dataStored.substring(index+1,dataStored.length());
 			}
 			else 

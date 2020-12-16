@@ -1,11 +1,17 @@
 package controller;
+import helper.AccessFile;
 import helper.AskDialog;
+import helper.CurrentDateTime;
 import helper.CustomDialog;
 import helper.IPvalidatation;
+import java.io.DataInputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintStream;
+import java.net.Socket;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.prefs.BackingStoreException;
@@ -24,6 +30,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 public class MainController implements Initializable{
+
     
     @FXML
     private  Button btnWatchGame;
@@ -33,16 +40,18 @@ public class MainController implements Initializable{
     private boolean btnEnable = false;
     Preferences prefs ;
     int checkname;
-    private boolean checkip=false;
-    
+    static boolean isrecord=false;
+    static boolean x=false;
+    static boolean checkip=false;
+
+    Socket socket;
+    DataInputStream dis;
+    PrintStream ps;
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-       //File file=new File("E:\\ITI\\Java\\Project\\Tic-Tac-Toy-JavaFx-\\game.txt");
-
            btnWatchGame.setDisable(false);
            recWatchGame.setVisible(false); 
-        
-        /*
+      /*
         if(btnEnable)
         {
             btnWatchGame.setDisable(false);
@@ -58,21 +67,9 @@ public class MainController implements Initializable{
      */
     public void changeSceneToSinglePlayer(ActionEvent event) {
         try {
-            System.out.println("changeSceneToSinglePlayer: called");
-            /*
-            if(prefs.nodeExists("/controller"))
-            {
-            String s=prefs.get("username","");
-            System.out.println(s.length());
-            if(s.length()==0)
-            {
-            CustomDialog  c=new CustomDialog();
-            c.displayDialog("Enter your name");
-            prefs.put("username", c.getName());
-            System.out.println(prefs.get("username", "not found"));
-            }
-            }
-            **/
+            CurrentDateTime c=new CurrentDateTime();
+         System.out.println(c.getCurrentDateTime());
+
             if(prefs.nodeExists("/controller"))
             {
                 String s=prefs.get("username","");
@@ -86,7 +83,13 @@ public class MainController implements Initializable{
                         try {
                             //get scene
                             AskDialog isrecoredGame = new AskDialog();
-                            isrecoredGame.alert("Do you want to record game ?");
+                  Boolean check=isrecoredGame.alert("Do you want to record game ?");
+                //  if(check)
+                //  {
+                     AccessFile.createFile();
+                     
+                  //   isrecord=true;
+                  //}
                     
                             Parent singlePlayerParent = FXMLLoader.load(getClass().getResource("/view/SinglePlayFXML.fxml"));
                             
@@ -108,8 +111,18 @@ public class MainController implements Initializable{
             else
             {
                   AskDialog isrecoredGame = new AskDialog();
-                  isrecoredGame.alert("Do you want to record game ?");
-                
+                  Boolean check=isrecoredGame.alert("Do you want to record game ?");
+                  if(check)
+                  {
+                   AccessFile.createFile();
+                   AccessFile.writeFile("username1"+".");
+                   AccessFile.writeFile("username2"+".");
+
+                     
+                     isrecord=true;
+                  }
+                  
+            
                 Parent singlePlayerParent = FXMLLoader.load(getClass().getResource("/view/SinglePlayFXML.fxml"));
                 
                 //generate new scene
@@ -170,42 +183,64 @@ public class MainController implements Initializable{
      * @param event 
      */
     public void changeSceneToOnlineGame(ActionEvent event) {
-        
         System.out.println("changeSceneToOnlineGame: called");
-                if(!checkip)
+               if(!checkip)
                 { CustomDialog cd = new CustomDialog();
                  Boolean isCancled = cd.displayDialog("Enter Server IP");
                     checkip=true;
-
                     if(IPvalidatation.isValidIPAddress(cd.getName()))
                     { 
                         System.out.println("you entered ip ="+cd.getName());
-                        
                     if(!isCancled){
+                            try {
+                                socket = new Socket(IPvalidatation.getIp(),9876);
+                                System.out.println("conncet valid ip ");
+                                System.out.println(IPvalidatation.getIp());
+                                dis = new DataInputStream(socket.getInputStream());
+                                ps = new PrintStream(socket.getOutputStream());
 
-//                    if(IPvalidatation.isValidIPAddress(cd.getName()))
-//                    {
-//                    if(!isCancled){
-
-                        try {
-                            //get scene
-                       
-                            Parent singlePlayerParent = FXMLLoader.load(getClass().getResource("/view/LoginOrRegister.fxml"));
-                            
-                            //generate new scene
-                            Scene singlePlayerScene = new Scene(singlePlayerParent,btnWatchGame.getScene().getWidth(),
-                                    btnWatchGame.getScene().getHeight());
-                            
-                            //get stage information
-                            Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-                            window.setTitle("Single play Mode");
-                            window.setScene(singlePlayerScene);
-                            window.show();
-                         }catch (IOException ex) {
-                            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
-                        }
+                                //get scene
+                                Parent singlePlayerParent = FXMLLoader.load(getClass().getResource("/view/LoginOrRegister.fxml"));
+                                //generate new scene
+                                Scene singlePlayerScene = new Scene(singlePlayerParent,btnWatchGame.getScene().getWidth(),
+                                 btnWatchGame.getScene().getHeight());
+                                
+                                //get stage information
+                                Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+                                window.setTitle("Single play Mode");
+                                window.setScene(singlePlayerScene);
+                                window.show();
+                            }catch (IOException ex) {
+                                 System.out.println("disconnect");
+                                // ex.printStackTrace();
+                                    // dis.close();
+                                    // socket.close();
+                                    // Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                      
                    }
-    }}
+                    
+                    }
+                }  
+               else if (checkip)
+               { 
+            try {
+                Parent singlePlayerParent = FXMLLoader.load(getClass().getResource("/view/LoginOrRegister.fxml"));
+                
+                //generate new scene
+                Scene singlePlayerScene = new Scene(singlePlayerParent,btnWatchGame.getScene().getWidth(),
+                        btnWatchGame.getScene().getHeight());
+                
+                //get stage information
+                Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+                window.setTitle("Single play Mode");
+                window.setScene(singlePlayerScene);
+                window.show();
+            } catch (IOException ex) {
+                Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+               }
+    
     }
     
     /**

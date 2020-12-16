@@ -28,87 +28,37 @@ import java.util.prefs.Preferences;
  * @author dell
  */
 public class AccessFile {
-   public static File file;
-   public static void createFile(){
-         try {
-           //String uniqueID = UUID.randomUUID().toString();
-           Preferences prefs=Preferences.userNodeForPackage(AccessFile.class);
-           //prefs.put(uniqueID, uniqueID);
-           
-           prefs.put(CurrentDateTime.getCurrentDateTime(), CurrentDateTime.getCurrentDateTime());
-          
-           System.out.println(prefs.get(CurrentDateTime.getCurrentDateTime(),""));
-           file = new File("E:\\ITI\\Java\\Project\\Tic-Tac-Toy-JavaFx-\\"+prefs.get(CurrentDateTime.getCurrentDateTime(),""));
-
-           if(file.createNewFile())
-               System.out.println("file is created");
-        } catch (IOException ex) {
-           Logger.getLogger(AccessFile.class.getName()).log(Level.SEVERE, null, ex);
-        }
-         
-          }
-/*
-    public static void writeFile(String s)
-    {
-     
-       try {
-           file.createNewFile();
-           System.out.println("file Created an writ into it");         
-           if(file.exists())
-           {/*
-               FileWriter writer=new FileWriter(file,true);
-               //writeFile(s);
-               writer.write(s);
-               writer.flush();
-               writer.close();
-               ///
-               FileOutputStream fostream =new FileOutputStream(file);
-               DataOutputStream dostream = new DataOutputStream(fostream);              
-               dostream.writeUTF(s);
-               dostream.close();           
-               fostream.close();
-           }  } catch (IOException ex) {
-           Logger.getLogger(AccessFile.class.getName()).log(Level.SEVERE, null, ex);
-       }
+    
+   private static File file;
+   
+    public AccessFile() {
     }
+   
+   public  static void createFile() {
 
-    /*
-    public static String readFile(String fileName) 
-  {         String data = "";
- 
-      try {
-      
-      /*
-      // data = new String(Files.readAllBytes(Paths.get(fileName)));
-      FileReader reader =new FileReader("E:\\ITI\\Java\\Project\\Tic-Tac-Toy-JavaFx-\\"+fileName);
-       reader.read();
-      
-       } catch (IOException ex) {
-           Logger.getLogger(AccessFile.class.getName()).log(Level.SEVERE, null, ex);
-       }*
-    //*
-         File f=new File("E:\\ITI\\Java\\Project\\Tic-Tac-Toy-JavaFx-\\"+fileName);
-         if(f.canRead()){
-          FileInputStream fis=new FileInputStream(f);
-          DataInputStream dis=new DataInputStream(fis);
-          data=dis.readUTF();
-             System.out.println(data);
-          dis.close();
-          fis.close();      
-         }
-      } catch (FileNotFoundException ex) {
-           Logger.getLogger(AccessFile.class.getName()).log(Level.SEVERE, null, ex);
-       } catch (IOException ex) {
-           Logger.getLogger(AccessFile.class.getName()).log(Level.SEVERE, null, ex);
-       }
-        return data;
-  } 
- **/
- 
-    public static void writeFile(String s)
+        Preferences prefs=Preferences.userNodeForPackage(AccessFile.class);
+          CurrentDateTime c=new CurrentDateTime();
+
+        prefs.put(c.getCurrentDateTime(), c.getCurrentDateTime());
+       //  System.out.println(c.getCurrentDateTime());
+           file = new File("E:\\ITI\\Java\\Project\\Tic-Tac-Toy-JavaFx-\\savedGame\\"+prefs.get(c.getCurrentDateTime(),""));
+           System.out.println(prefs.get(c.getCurrentDateTime(),""));
+               
+           try {
+               
+               if(file.createNewFile())
+                   System.out.println("file created");
+              
+              
+           } catch (IOException ex) {
+               Logger.getLogger(AccessFile.class.getName()).log(Level.SEVERE, null, ex);
+           }
+   }
+
+    public  static void writeFile(String s)
     {
         try {
-            file.createNewFile();
+           // file.createNewFile();
             System.out.println("file Created an writ into it");
 
             if(file.exists())
@@ -138,25 +88,6 @@ public class AccessFile {
        }
      return data;   
   } 
-     public static void removeFile(String fileName) 
+   
      
-     {
-        try { 
-            Files.deleteIfExists(Paths.get(fileName));
-            System.out.println("file Deleted Successfully");
-        } catch (IOException ex) {
-            Logger.getLogger(AccessFile.class.getName()).log(Level.SEVERE, null, ex);
-        }
-     }
-     public  static boolean isFileExit()
-     {
-        
-               if( file.getAbsoluteFile().exists())
-                 return true;
-               else 
-       return false;
-         
-     }
-
-
 }

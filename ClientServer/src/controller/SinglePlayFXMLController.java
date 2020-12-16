@@ -19,6 +19,7 @@ import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.geometry.Bounds;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -27,13 +28,14 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
+import sun.net.www.protocol.mailto.MailToURLConnection;
 
 /**
  * FXML Controller class
  *
  * @author Wesam
  */
-public class SinglePlayFXMLController {
+public class SinglePlayFXMLController implements Initializable{
     
 
      /**
@@ -45,10 +47,7 @@ public class SinglePlayFXMLController {
     private String player = "X";
     private Button buttonPressed;
     private boolean winner = false;
-
     private boolean display = false;
-
-    
     @FXML
     private  Button btn1;
     @FXML
@@ -73,17 +72,14 @@ public class SinglePlayFXMLController {
     private GridPane grid;
     @FXML
     private AnchorPane pane;
-    @FXML
-    private TextField username;
-   // File file;
-    //public File  file= new File("E:\\ITI\\Java\\Project\\Tic-Tac-Toy-JavaFx-\\game.txt");
-    private Preferences prefs;
+    @FXML 
+    protected Text username;
+     
+        Preferences prefs = Preferences.userNodeForPackage(MainController.class);            
 
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-       // prefs = Preferences.userNodeForPackage(MainController.class);            
-
-        //username.setText(prefs.get("username","not found"));
+       username.setText(prefs.get("username", "not found"));
     } 
     public void backToMainPage(ActionEvent event){
         System.out.println("backToMainPage: called");
@@ -93,14 +89,15 @@ public class SinglePlayFXMLController {
     } 
     
     public void buttonPressed(ActionEvent e){
+
         if(!winner){
             System.err.println("x");
             buttonPressed = (Button) e.getSource();
             if(buttonPressed.getText().equals("")){
                 buttonPressed.setText(player);
-                if(AccessFile.file.exists())
-                AccessFile.writeFile(buttonPressed.getId()+player+".");
-                
+                if(MainController.isrecord)
+                 AccessFile.writeFile(buttonPressed.getId()+buttonPressed.getText()+".");
+               
                 if(player=="X"){
                     player="O";
                 }
@@ -150,15 +147,14 @@ public class SinglePlayFXMLController {
             public void handle(ActionEvent e) {
             System.err.println("button pressed");
             buttonPressed = (Button) e.getSource();
-               /* if(buttonPressed.getText().equals("")){
-                    buttonPressed.setText(""+player);
-**/
+             // //  if(buttonPressed.getText().equals("")){
+               //     buttonPressed.setText(""+player);
+
                 if(buttonPressed.getText().equals("")){
                     buttonPressed.setText(""+player);
-                    if(AccessFile.file.exists())
-                  AccessFile.writeFile(buttonPressed.getId()+player+".");
+                if(MainController.isrecord)
+                   AccessFile.writeFile(buttonPressed.getId()+buttonPressed.getText()+".");
                
-                
                     if(player=="X"){
                         player="O";
                     }
@@ -295,6 +291,7 @@ public class SinglePlayFXMLController {
         checkDiagonal();
         if(display){
             displayVideo();
+            
         }
 /*
         if(!checkRows()){
