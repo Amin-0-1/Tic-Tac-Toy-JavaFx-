@@ -148,6 +148,7 @@ public class TwoPlayerFXMLController implements Initializable {
             }else{
                 //txtWinner.setText("Second player win");
                 secondPlayerWinner = true;
+                 secondPlayerScore += 10;
             }
             winner = true;
         }
@@ -272,6 +273,7 @@ public class TwoPlayerFXMLController implements Initializable {
                 System.out.println("Player one is win");
                 labelFirstPlayer.setText("Player1: " +firstPlayerScore);
                 prefs.putInt("firstPlayerScore",firstPlayerScore);
+                
                 repalayAgain();
                 
             }else if(secondPlayerWinner){

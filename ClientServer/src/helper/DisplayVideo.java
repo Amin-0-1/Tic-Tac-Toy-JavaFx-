@@ -21,12 +21,12 @@ import javafx.util.Duration;
  *
  * @author Wesam
  */
-public class DisplayVideo {
+ public class DisplayVideo {
     
     /**
      * when called method will build new window and display video on it
      */
-    public void diplay(){
+     public void diplay(){
         try {
             //get scene
             Parent Register = FXMLLoader.load(getClass().getResource("/view/VideoWindow.fxml"));
@@ -57,7 +57,7 @@ public class DisplayVideo {
         } catch (IOException ex) {
             Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }
     
 }
