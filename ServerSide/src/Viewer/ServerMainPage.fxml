@@ -19,7 +19,7 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="649.0" prefWidth="1087.0" style="-fx-background-color: #2F2B43;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ServerMainPageController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseMoved="#mouseEntered" prefHeight="649.0" prefWidth="1087.0" style="-fx-background-color: #2F2B43;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ServerMainPageController">
    <children>
       <AnchorPane prefHeight="649.0" prefWidth="296.0" style="-fx-background-color: #393351;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -49,38 +49,34 @@
                <children>
                   <Pane>
                      <children>
-                        <Button alignment="BOTTOM_CENTER" layoutX="46.0" layoutY="230.0" mnemonicParsing="false" onAction="#toggleServer" opacity="0.66" styleClass="button2" stylesheets="@../css/fullpackstyling.css">
+                        <Button alignment="BOTTOM_CENTER" layoutX="46.0" layoutY="230.0" mnemonicParsing="false" onAction="#toggleServer" prefHeight="190.0" prefWidth="195.0" styleClass="button2" stylesheets="@../css/fullpackstyling.css">
                            <graphic>
-                              <VBox>
+                              <AnchorPane prefHeight="166.0" prefWidth="190.0">
                                  <children>
-                                    <StackPane>
-                                       <children>
-                                          <Circle radius="50.0" strokeType="INSIDE">
-                                             <stroke>
-                                                <LinearGradient endX="1.0" endY="1.0">
-                                                   <stops>
-                                                      <Stop color="BLACK" />
-                                                      <Stop color="WHITE" offset="1.0" />
-                                                   </stops>
-                                                </LinearGradient>
-                                             </stroke>
-                                             <fill>
-                                                <LinearGradient endX="1.0" endY="1.0" startY="0.4952380952380952">
-                                                   <stops>
-                                                      <Stop color="#03b5fc" />
-                                                      <Stop color="WHITE" offset="1.0" />
-                                                   </stops>
-                                                </LinearGradient>
-                                             </fill>
-                                          </Circle>
-                                          <ImageView fx:id="serverStateImage" fitHeight="61.0" fitWidth="77.0" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@../resources/launch.png" />
-                                             </image>
-                                          </ImageView>
-                                       </children>
-                                    </StackPane>
-                                    <Label fx:id="status" alignment="CENTER" prefHeight="17.0" prefWidth="174.0" text="Activate" textFill="WHITE">
+                                    <Circle layoutX="87.0" layoutY="84.0" radius="50.0" strokeType="INSIDE">
+                                       <stroke>
+                                          <LinearGradient endX="1.0" endY="1.0">
+                                             <stops>
+                                                <Stop color="BLACK" />
+                                                <Stop color="WHITE" offset="1.0" />
+                                             </stops>
+                                          </LinearGradient>
+                                       </stroke>
+                                       <fill>
+                                          <LinearGradient endX="1.0" endY="1.0" startY="0.4952380952380952">
+                                             <stops>
+                                                <Stop color="#03b5fc" />
+                                                <Stop color="WHITE" offset="1.0" />
+                                             </stops>
+                                          </LinearGradient>
+                                       </fill>
+                                    </Circle>
+                                    <ImageView fx:id="serverStateImage" fitHeight="61.0" fitWidth="77.0" layoutX="57.0" layoutY="54.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../resources/launch.png" />
+                                       </image>
+                                    </ImageView>
+                                    <Label fx:id="status" alignment="CENTER" layoutY="123.0" prefHeight="17.0" prefWidth="174.0" text="Activate" textFill="WHITE">
                                        <font>
                                           <Font name="Arial Bold" size="13.0" />
                                        </font>
@@ -89,10 +85,7 @@
                                        </padding>
                                     </Label>
                                  </children>
-                                 <padding>
-                                    <Insets top="30.0" />
-                                 </padding>
-                              </VBox>
+                              </AnchorPane>
                            </graphic>
                         </Button>
                      </children>
@@ -102,7 +95,7 @@
                   </Pane>
                   <Pane GridPane.columnIndex="1">
                      <children>
-                        <Button fx:id="listOnlinebtn" layoutX="46.0" layoutY="230.0" mnemonicParsing="false" onAction="#listOnline" opacity="0.7" prefHeight="190.0" styleClass="button2" stylesheets="@../css/fullpackstyling.css">
+                        <Button fx:id="listOnlinebtn" disable="true" layoutX="46.0" layoutY="230.0" mnemonicParsing="false" onAction="#toggleList" prefHeight="190.0" styleClass="button2" stylesheets="@../css/fullpackstyling.css">
                            <graphic>
                               <VBox>
                                  <children>
@@ -126,14 +119,14 @@
                                                 </LinearGradient>
                                              </fill>
                                           </Circle>
-                                          <ImageView fitHeight="61.0" fitWidth="61.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="listimg" fitHeight="61.0" fitWidth="61.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
-                                                <Image url="@../resources/online.png" />
+                                                <Image url="@../resources/Offline.png" />
                                              </image>
                                           </ImageView>
                                        </children>
                                     </StackPane>
-                                    <Label alignment="CENTER" prefHeight="17.0" prefWidth="168.0" text="List Online Users" textFill="WHITE">
+                                    <Label fx:id="listbtnlbl" alignment="CENTER" prefHeight="17.0" prefWidth="168.0" text="List Offline Players" textFill="WHITE">
                                        <font>
                                           <Font name="Arial Bold" size="13.0" />
                                        </font>
@@ -158,7 +151,7 @@
                   </Pane>
                   <Pane GridPane.columnIndex="2">
                      <children>
-                        <Button fx:id="listOfflinebtn" layoutX="43.0" layoutY="230.0" mnemonicParsing="false" onAction="#listOffline" opacity="0.7" styleClass="button2" stylesheets="@../css/fullpackstyling.css">
+                        <Button fx:id="chartbtn" disable="true" layoutX="43.0" layoutY="230.0" mnemonicParsing="false" onAction="#chartHandle" prefHeight="190.0" prefWidth="184.0" styleClass="button2" stylesheets="@../css/fullpackstyling.css">
                            <graphic>
                               <VBox>
                                  <children>
@@ -177,12 +170,12 @@
                                           </Circle>
                                           <ImageView fitHeight="49.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
-                                                <Image url="@../resources/Offline.png" />
+                                                <Image url="@../resources/chart.png" />
                                              </image>
                                           </ImageView>
                                        </children>
                                     </StackPane>
-                                    <Label alignment="CENTER" prefHeight="17.0" prefWidth="168.0" text="List Ofline Users" textFill="WHITE">
+                                    <Label alignment="CENTER" prefHeight="17.0" prefWidth="168.0" text="Statistics" textFill="WHITE">
                                        <font>
                                           <Font name="Arial Bold" size="13.0" />
                                        </font>

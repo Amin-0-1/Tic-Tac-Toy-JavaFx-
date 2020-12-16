@@ -22,8 +22,6 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("/view/sample.fxml"));
        
-
-
         //grab your root here
         root.setOnMousePressed(event -> {
             xOffset = event.getSceneX();
@@ -45,6 +43,9 @@ public class Main extends Application {
         scene.setFill(Color.TRANSPARENT);
         primaryStage.setScene(scene);
         primaryStage.show();
+        
+        
+        
     }
 
 

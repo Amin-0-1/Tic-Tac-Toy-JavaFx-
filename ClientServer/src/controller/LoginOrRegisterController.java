@@ -5,7 +5,6 @@
  */
 package controller;
 
-
 import helper.ButtonBack;
 import helper.CustomDialog;
 import java.io.IOException;
@@ -20,7 +19,6 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
 /**
  * FXML Controller class
  *
@@ -33,13 +31,11 @@ public class LoginOrRegisterController {
      * when called scene will be change to main page.
      * @param event 
      */
-    public void backToMainPage(ActionEvent event){
-        
+    public void backToMainPage(ActionEvent event){       
         System.out.println("backToMainPage: called");
         
         ButtonBack btnback = new ButtonBack("/view/sample.fxml");
-        btnback.handleButtonBack(event);
-         
+        btnback.handleButtonBack(event);         
     }  
     
      /**
@@ -47,8 +43,7 @@ public class LoginOrRegisterController {
      * when called scene will be change to Login.
      * @param event 
      */
-    public void changeSceneToLogin(ActionEvent event) {
-        
+    public void changeSceneToLogin(ActionEvent event) {       
         System.out.println("changeSceneToLogin: called");
         
         try {
@@ -65,9 +60,7 @@ public class LoginOrRegisterController {
             window.show();
         } catch (IOException ex) {
             Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        
+        }   
     }
     
      /**
@@ -94,7 +87,6 @@ public class LoginOrRegisterController {
         } catch (IOException ex) {
             Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
-    
+    } 
     
 }

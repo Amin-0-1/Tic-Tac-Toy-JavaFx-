@@ -13,6 +13,9 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import java.util.logging.Logger;
 import java.util.logging.Level;
+import javafx.animation.PauseTransition;
+import javafx.application.Platform;
+import javafx.util.Duration;
 
 /**
  *
@@ -40,6 +43,17 @@ public class DisplayVideo {
             window.setMaxHeight(250);
             window.setMaxWidth(500);  
             window.show();
+            
+            
+                PauseTransition wait = new PauseTransition(Duration.seconds(3));
+                            wait.setOnFinished((e) -> {
+                                /*YOUR METHOD*/
+                                window.close();
+                                //btn.setDisable(false);
+                                wait.playFromStart();
+                            });
+                            wait.play();
+                    
         } catch (IOException ex) {
             Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
         }
