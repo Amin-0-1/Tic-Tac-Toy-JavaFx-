@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
@@ -7,15 +8,36 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
 <AnchorPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="649.0" prefWidth="1087.0" style="-fx-background-color: #2F2B43;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.SinglePlayFXMLController">
    <children>
       <Pane layoutX="-3.0" layoutY="7.0" prefHeight="649.0" prefWidth="1093.0" AnchorPane.bottomAnchor="-7.0" AnchorPane.leftAnchor="-3.0" AnchorPane.rightAnchor="-3.0" AnchorPane.topAnchor="7.0">
          <children>
+            <Pane layoutX="289.0" layoutY="14.0" prefHeight="54.0" prefWidth="444.0">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="54.0" prefWidth="444.0">
+                     <children>
+                        <Label text="Welcome" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold Italic" size="20.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets right="8.0" />
+                           </HBox.margin>
+                        </Label>
+                        <Label fx:id="labUserName" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold Italic" size="20.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+               </children>
+            </Pane>
             <Pane layoutX="34.0" layoutY="14.0" prefHeight="54.0" prefWidth="58.0">
                <children>
                   <Button mnemonicParsing="false" onAction="#backToMainPage" opacity="0.7" prefHeight="54.0" prefWidth="65.0" styleClass="buttonBack" stylesheets="@../css/fullpackstyling.css">
@@ -29,7 +51,33 @@
                   </Button>
                </children>
             </Pane>
-            <Text fill="#e1d6d6" layoutX="803.0" layoutY="115.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Comuter" wrappingWidth="180.67089313268661" />
+            <Pane layoutX="815.0" layoutY="14.0" prefHeight="54.0" prefWidth="278.0">
+               <children>
+                  <HBox alignment="CENTER_LEFT" prefHeight="54.0" prefWidth="444.0">
+                     <children>
+                        <Label text="Score:" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold Italic" size="20.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets right="8.0" />
+                           </HBox.margin>
+                        </Label>
+                        <Label fx:id="labScore" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold Italic" size="20.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+               </children>
+            </Pane>
+            <Button fx:id="btnPlayAgain" layoutX="916.0" layoutY="99.0" mnemonicParsing="false" onAction="#repalayAgain" style="-fx-font-size: 16;" styleClass="button5" stylesheets="@../css/fullpackstyling.css" text="Play Again" textFill="#fffefe" visible="false" />
+            <Label fx:id="txtWinner" layoutX="468.0" layoutY="103.0" textFill="WHITE">
+               <font>
+                  <Font name="System Bold Italic" size="20.0" />
+               </font>
+            </Label>
          </children>
       </Pane>
       <GridPane fx:id="grid" alignment="TOP_CENTER" gridLinesVisible="true" layoutY="143.0" prefHeight="506.0" prefWidth="885.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="150.0">

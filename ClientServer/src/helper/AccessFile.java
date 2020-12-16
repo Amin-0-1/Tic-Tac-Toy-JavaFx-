@@ -39,6 +39,7 @@ public class AccessFile {
           
            System.out.println(prefs.get(CurrentDateTime.getCurrentDateTime(),""));
            file = new File("E:\\ITI\\Java\\Project\\Tic-Tac-Toy-JavaFx-\\"+prefs.get(CurrentDateTime.getCurrentDateTime(),""));
+           // file = new File("D:\\ITI\\Java\\java project\\Tic-Tac-Toy-JavaFx-\\"+prefs.get(CurrentDateTime.getCurrentDateTime(),""));
 
            if(file.createNewFile())
                System.out.println("file is created");

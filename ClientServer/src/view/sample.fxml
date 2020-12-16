@@ -159,7 +159,7 @@
                   </Pane>
                   <Pane prefHeight="202.0" prefWidth="179.0">
                      <children>
-                        <Button fx:id="btnWatchGame" disable="true" mnemonicParsing="false" onAction="#changeSceneToWatchGame" opacity="0.7" prefHeight="190.0" prefWidth="168.0" styleClass="button2" stylesheets="@../css/fullpackstyling.css">
+                        <Button fx:id="btnWatchGame" disable="true" mnemonicParsing="false" onAction="#changeSceneToWatchGame" prefHeight="190.0" prefWidth="168.0" styleClass="button2" stylesheets="@../css/fullpackstyling.css">
                            <graphic>
                               <AnchorPane prefHeight="200.0" prefWidth="200.0">
                                  <children>
