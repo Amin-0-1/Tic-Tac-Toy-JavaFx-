@@ -37,11 +37,7 @@ import javafx.stage.Stage;
  */
 public class signInFXMLController {
     
-     /**
-     * backToMainPage.
-     * when called scene will be change to main page.
-     * @param event 
-     */
+     
  
     Socket socket;
     DataInputStream dis;
@@ -57,14 +53,7 @@ public class signInFXMLController {
     @FXML
     private Label txtAlret;
     
-    public void backToMainPage(ActionEvent event){
-        
-        System.out.println("backToMainPage: called");
-        
-        ButtonBack btnback = new ButtonBack("/view/sample.fxml");
-        btnback.handleButtonBack(event);
-         
-    }
+  
     public void signInPressed(ActionEvent e){
             ButtonBack btnback = new ButtonBack("/view/OnlinePlayer.fxml");         
         try {
@@ -140,6 +129,20 @@ public class signInFXMLController {
         }
     
 
+    }
+    
+     /**
+     * backToMainPage.
+     * when called scene will be change to main page.
+     * @param event 
+     */
+    public void backToMainPage(ActionEvent event){
+        
+        System.out.println("backToMainPage: called");
+        
+        ButtonBack btnback = new ButtonBack("/view/sample.fxml");
+        btnback.handleButtonBack(event);
+         
     }
    
 }

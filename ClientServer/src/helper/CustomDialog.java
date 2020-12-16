@@ -77,48 +77,6 @@ public class CustomDialog {
        return isCancled;
     
     }   
-    public boolean displayFirstPlayerDialog(String message){
-        boolean isCancled = false;
-               
-       Alert alert = new Alert(Alert.AlertType.NONE);
-       TextField content = new TextField();
-       alert.setTitle("Alert");
-       alert.setHeaderText(message);
-       alert.getDialogPane().setContent(content);
-    
-        ButtonType buttonTypeOk = new ButtonType("Ok");
-        ButtonType buttonTypeCancel = new ButtonType("Cancel", 
-        ButtonBar.ButtonData.CANCEL_CLOSE);
-            
-        alert.getButtonTypes().setAll(buttonTypeOk,
-                buttonTypeCancel);
-   
-        DialogPane dialogPane = alert.getDialogPane();
-        dialogPane.getStylesheets().add(
-             getClass().getResource("/css/fullpackstyling.css").toExternalForm());
-             dialogPane.getStyleClass().add("myDialog");
-        
-        Optional<ButtonType> result = alert.showAndWait();
-       if(result.get() == buttonTypeOk){
-         name = content.getText().trim();
-          if(name.isEmpty()){
-            displayDialog("Name is required");
-            System.out.println("Please Enter your name");
-            isCancled = true;
-          }else{
-              isCancled = false;
-           System.out.println(name);
-          }
-       }else if(result.get() == buttonTypeCancel){
-           isCancled = true;
-       }
- 
-       if(!name.isEmpty() &&isCancled ){
-               isCancled = false;
-           }
-       return isCancled;
-    
-    }
     
     public Optional<ButtonType> displayReplayDialog(String message ){
               

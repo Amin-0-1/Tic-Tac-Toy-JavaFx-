@@ -5,29 +5,40 @@
  */
 package controller;
 
+import helper.AskDialog;
 import helper.ButtonBack;
 import helper.DisplayVideo;
+import java.io.IOException;
 import java.net.URL;
 import java.util.Random;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.prefs.BackingStoreException;
+import java.util.prefs.Preferences;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Bounds;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
  *
  * @author Wesam
  */
-public class TwoPlayerFXMLController {
+public class TwoPlayerFXMLController implements Initializable {
 
    
     private String player = "X";
@@ -38,6 +49,7 @@ public class TwoPlayerFXMLController {
     private boolean secondPlayerWinner = false;
     private int firstPlayerScore = 0;
     private int secondPlayerScore = 0;
+    private Preferences prefs ;
     
     @FXML
     private  Button btn1;
@@ -67,6 +79,25 @@ public class TwoPlayerFXMLController {
     private Label labelFirstPlayer;
      @FXML
     private Label labelSecondPlayer;
+     
+     public void initialize(URL url, ResourceBundle rb) {
+         prefs = Preferences.userNodeForPackage(TwoPlayerFXMLController.class);
+        try {
+            if(prefs.nodeExists("/controller")){
+                String fristplayerName=prefs.get("fristPlayer","");
+                String secondPlayerName=prefs.get("secondPlayer","");
+                firstPlayerScore = prefs.getInt("firstPlayerScore",0);
+                secondPlayerScore = prefs.getInt("secondPlayerScore",0);
+                if(fristplayerName.length() != 0 && secondPlayerName.length() != 0){
+                 labelFirstPlayer.setText(fristplayerName + ": "+ firstPlayerScore ); 
+                 labelSecondPlayer.setText(secondPlayerName + ": "+ secondPlayerScore);
+              }
+                
+            }
+        } catch (BackingStoreException ex) {
+            Logger.getLogger(TwoPlayerFXMLController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+     }
     
 
     public void buttonPressed(ActionEvent e){
@@ -240,19 +271,56 @@ public class TwoPlayerFXMLController {
             if(firstPllayerWinner){
                 System.out.println("Player one is win");
                 labelFirstPlayer.setText("Player1: " +firstPlayerScore);
+                prefs.putInt("firstPlayerScore",firstPlayerScore);
+                repalayAgain();
                 
             }else if(secondPlayerWinner){
                 System.out.println("Player two is win");
                 labelSecondPlayer.setText("Player2: " +secondPlayerScore);
+                prefs.putInt("secondPlayerScore",secondPlayerScore);
+                repalayAgain();
             }else{
                 if((isFullGrid())){
                     System.out.println("It's a Draw"); 
+                    repalayAgain();
+                    
                 }
                    
             }
         
     }
     
+     /**
+     * repalayAgain 
+     * when called make labe for winner empty and make button Visible
+     * @param event 
+     */
+      public void repalayAgain(){
+        
+       //makeGridEmpty();
+//       AskDialog isrecoredGame = new AskDialog();
+//       isrecoredGame.alert("Do you want to record game ?");
+//       ButtonBack btnback = new ButtonBack("/view/SinglePlayFXML.fxml");
+//       btnback.handleButtonBack(event);
+
+          //get scene
+        Parent buttonParent;
+        try {
+         buttonParent = FXMLLoader.load(getClass().getResource("/view/TwoPlayerFXML.fxml"));
+             //generate new scene
+        Scene buttonScene = new Scene(buttonParent);
+        
+        //get stage information
+        Stage window = (Stage)btn1.getScene().getWindow();
+        
+        window.setTitle("Home");
+        window.setScene(buttonScene);
+        window.show();
+        } catch (IOException ex) {
+            Logger.getLogger(ButtonBack.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         
+    } 
     
     /**
      * isFullGrid 

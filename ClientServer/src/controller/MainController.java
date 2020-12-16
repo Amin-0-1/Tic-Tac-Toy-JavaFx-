@@ -187,14 +187,18 @@ public class MainController implements Initializable{
            CustomDialog fristPlayerNameDialog = new CustomDialog();
            Boolean isCancled = fristPlayerNameDialog.displayDialog("Enter First Player Name");
            prefs.put("fristPlayer", fristPlayerNameDialog.getName());
+           prefs.putInt("firstPlayerScore",0);
            System.out.println("fristPlayer" +fristPlayerNameDialog.getName() );
            if(!isCancled){
               CustomDialog secondtPlayerNameDialog = new CustomDialog();
              Boolean isSecondCancled = secondtPlayerNameDialog.displayDialog("Enter Second Player Name"); 
              System.out.println("secondPlayer" +secondtPlayerNameDialog.getName() );
              prefs.put("secondPlayer", secondtPlayerNameDialog.getName());
+             prefs.putInt("secondPlayerScore",0);
              if(!isSecondCancled){
                  System.out.println("Not Canceld");
+                 ButtonBack btnback = new ButtonBack("/view/TwoPlayerFXML.fxml");
+                 btnback.handleButtonBack(event);
              }
            }
 
