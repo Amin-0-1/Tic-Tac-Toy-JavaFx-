@@ -170,7 +170,7 @@ public class ConnectedPlayer extends Thread implements Initializable {
              email = server.databaseInstance.getEmail(username);
 
              if(check.equals("Logged in successfully")){
-                 server.databaseInstance.login(username, password);
+                 server.databaseInstance.login(email, password);
                  ps.println(check +"###" + score);
                  ps.println(username+"###"+email+"###"+score); // send data to registerController
                  loggedin = true;

@@ -124,10 +124,10 @@ public class Database {
         }
         
     }
-    public void login(String username,String password) throws SQLException{
-        pst = con.prepareStatement("update player set isActive = ?  where username = ? and password = ? ",ResultSet.TYPE_SCROLL_SENSITIVE ,ResultSet.CONCUR_UPDATABLE  );
+    public void login(String email,String password) throws SQLException{
+        pst = con.prepareStatement("update player set isActive = ?  where email = ? and password = ? ",ResultSet.TYPE_SCROLL_SENSITIVE ,ResultSet.CONCUR_UPDATABLE  );
         pst.setString(1, "true");
-        pst.setString(2, username);
+        pst.setString(2, email);
         pst.setString(3, password);
         pst.executeUpdate(); // rs has all data
         updateResultSet();
@@ -140,7 +140,7 @@ public class Database {
         pst.setString(2, email);
         pst.setString(3, password);
         pst.executeUpdate(); // rs has all data
-        login(username,password);
+        login(email,password);
     }
 
     public String checkRegister(String username , String email){
@@ -151,7 +151,7 @@ public class Database {
             //        String queryString= new String("select username from player where username = ?");
             pstCheck = con.prepareStatement("select * from player where username = ? and email = ?");
             pstCheck.setString(1, username);
-            pstCheck.setString(1, username);
+            pstCheck.setString(2, email);
             checkRs = pstCheck.executeQuery();
             if(checkRs.next()){
                 return "already signed-up";
@@ -162,13 +162,13 @@ public class Database {
         }
         return "Registered Successfully";
     }
-    public String checkSignIn(String username, String password){
+    public String checkSignIn(String email, String password){
         ResultSet checkRs;
         PreparedStatement pstCheck;
         String check;       
         try {
-            pstCheck = con.prepareStatement("select * from player where username = ?");
-            pstCheck.setString(1, username);
+            pstCheck = con.prepareStatement("select * from player where email = ? ");
+            pstCheck.setString(1, email);
             checkRs = pstCheck.executeQuery();
             if(checkRs.next()){
                 if(password.equals(checkRs.getString(4))){
@@ -183,14 +183,14 @@ public class Database {
         }
     }
     
-    public int getScore(String username){
+    public int getScore(String email){
         int score;
         ResultSet checkRs;
         PreparedStatement pstCheck;
  
         try {
-            pstCheck = con.prepareStatement("select * from player where username = ?");
-            pstCheck.setString(1, username);
+            pstCheck = con.prepareStatement("select * from player where email = ?");
+            pstCheck.setString(1, email);
             checkRs = pstCheck.executeQuery();
             checkRs.next();
             score = checkRs.getInt(5);
@@ -205,7 +205,7 @@ public class Database {
         ResultSet checkRs;
         PreparedStatement pstCheck;
         try {
-            pstCheck = con.prepareStatement("select * from player where username = ?");
+            pstCheck = con.prepareStatement("select * from player where email = ?");
             pstCheck.setString(1, username);
             checkRs = pstCheck.executeQuery();
             checkRs.next();
