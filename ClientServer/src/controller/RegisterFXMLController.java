@@ -91,39 +91,39 @@ public class RegisterFXMLController {
                 Socket socket = new Socket("127.0.0.1",9876);
                 DataInputStream dis = new DataInputStream(socket.getInputStream());
                 PrintStream ps = new PrintStream(socket.getOutputStream());
-                ps.println("SignUp,"+txtUserName.getText()+","+txtMail.getText()+","+txtPassword.getText());
-
-
+                ps.println("SignUp###"+txtUserName.getText()+"###"+txtMail.getText()+"###"+txtPassword.getText());
+                
                 //the server response
-                System.out.println("main thread "+Thread.currentThread().getId());
+                
                 new Thread(){
                     String state,playerData;
                     HashMap<String, String> hash = new HashMap<>(); 
                     @Override
                     public void run(){
                         try {
+                            
                             state = dis.readLine();
-                            
-                            playerData = dis.readLine();
-                            
-                            token = new StringTokenizer(playerData,",");
-                            hash.put("username", token.nextToken());
-                            hash.put("email",token.nextToken());
-                            hash.put("score", "0");
-                            
-                            System.out.println(hash.toString());
-                            token = new StringTokenizer(state,"@@@");
+                            token = new StringTokenizer(state,"###");
                             String receivedState = token.nextToken();
+                            
                             System.out.println(receivedState);
+                            
                             switch(receivedState){
                                 case "Registered Successfully":
-                                     System.out.println("Thread before "+this.getId());
+                                    
+                                     playerData = dis.readLine();
+                                     token = new StringTokenizer(playerData,"###");
+                                     hash.put("username", token.nextToken());
+                                     hash.put("email",token.nextToken());
+                                     hash.put("score", "0");
+                                    
                                      Platform.runLater(()->{
-                                       btnback.handleButtonBack(e,hash);
+                                       btnback.handleButtonBack(e,hash,socket);
                                      });
                                      
 //                                    this.stop();
                                     break;
+                                    
                                 case "already signed-up":
                                     System.out.println(receivedState);                                
                                     break;
@@ -137,7 +137,7 @@ public class RegisterFXMLController {
                     }
                 }.start();
             }
-                    } catch (IOException ex) {
+        } catch (IOException ex) {
 
             System.out.print("catch");
             Logger.getLogger(signInFXMLController.class.getName()).log(Level.SEVERE, null, ex);

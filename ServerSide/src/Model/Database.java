@@ -21,8 +21,12 @@ import org.apache.derby.jdbc.ClientDriver;
 public class Database {
     private static Database instanceData;
     private Connection con;
-    public ResultSet rs ;
+    private ResultSet rs ;
     private PreparedStatement pst;
+    
+    public ResultSet getResultSet(){
+        return rs;
+    }
     
     private Database() throws SQLException{
          DriverManager.registerDriver(new ClientDriver());
@@ -40,11 +44,6 @@ public class Database {
         
         try {
             this.pst =con.prepareStatement("Select * from player",ResultSet.TYPE_SCROLL_SENSITIVE ,ResultSet.CONCUR_READ_ONLY  );
-        } catch (SQLException ex) {
-            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        try {
             this.rs = pst.executeQuery(); // rs has all data
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
@@ -141,17 +140,17 @@ public class Database {
         pst.setString(2, email);
         pst.setString(3, password);
         pst.executeUpdate(); // rs has all data
-        updateResultSet();
         login(username,password);
     }
 
     public String checkRegister(String username , String email){
         ResultSet checkRs;
         PreparedStatement pstCheck;
-        String check;
+        
         try {
             //        String queryString= new String("select username from player where username = ?");
-            pstCheck = con.prepareStatement("select * from player where username = ?");
+            pstCheck = con.prepareStatement("select * from player where username = ? and email = ?");
+            pstCheck.setString(1, username);
             pstCheck.setString(1, username);
             checkRs = pstCheck.executeQuery();
             if(checkRs.next()){

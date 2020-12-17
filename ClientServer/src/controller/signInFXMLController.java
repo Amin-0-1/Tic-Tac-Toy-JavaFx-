@@ -7,6 +7,7 @@ package controller;
 
 
 import helper.ButtonBack;
+
 import javafx.scene.control.TextField;
 import java.io.DataInputStream;
 import java.io.IOException;
@@ -71,7 +72,7 @@ public class signInFXMLController {
             socket = new Socket("127.0.0.1",9876);
             dis = new DataInputStream(socket.getInputStream());
             ps = new PrintStream(socket.getOutputStream());
-            ps.println("SignIn,"+txtUserName.getText()+","+txtPassword.getText());
+            ps.println("SignIn###"+txtUserName.getText()+"###"+txtPassword.getText());
 
             if(txtUserName.getText().equals("")){
                 txtAlret.setText("Please enter your unsername");
@@ -87,15 +88,10 @@ public class signInFXMLController {
                     public void run(){
                         try {
                             state = dis.readLine();
-                            token = new StringTokenizer(state,"@@@");
+                            token = new StringTokenizer(state,"###");
                             String receivedState = token.nextToken();
                             System.out.println(receivedState);
-                            playerData = dis.readLine();
                             
-                            StringTokenizer token2 = new StringTokenizer(playerData,",");
-                            hash.put("username", token2.nextToken());
-                            hash.put("email",token2.nextToken());
-                            hash.put("score", token2.nextToken());
                             
                             // after login , get result set
 //                            String str;
@@ -107,11 +103,16 @@ public class signInFXMLController {
                             
                             switch(receivedState){
                                 case "Logged in successfully":
-                                    score = Integer.parseInt(token.nextToken());
-                                    
+//                                    score = Integer.parseInt(token.nextToken());
+                                    playerData = dis.readLine();
+                            
+                                    StringTokenizer token2 = new StringTokenizer(playerData,"###");
+                                    hash.put("username", token2.nextToken());
+                                    hash.put("email",token2.nextToken());
+                                    hash.put("score", token2.nextToken());
                                     //notification for successful logging in
                                      Platform.runLater(()->{
-                                       btnback.handleButtonBack(e,hash);
+                                       btnback.handleButtonBack(e,hash,socket);
                                       });
                                     break;
                                 case "Username is incorrect":
