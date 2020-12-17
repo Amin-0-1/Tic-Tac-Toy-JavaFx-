@@ -152,6 +152,7 @@ public class WatchGameController implements Initializable {
                         {
                           String username1=dataStored.substring(0, index);
                           String username2=dataStored.substring(0, index);
+                            System.out.println(dataStored);
                             System.out.println(username1);
                             System.out.println(username2);
                           data[i]=dataStored.substring(0,index);  
@@ -165,9 +166,7 @@ public class WatchGameController implements Initializable {
                     }
                 }
                 return data;
-    }
-    
-    
+  }
     public void setItems(String[] data)     
     {
         for(int a=0;a<9;a++)

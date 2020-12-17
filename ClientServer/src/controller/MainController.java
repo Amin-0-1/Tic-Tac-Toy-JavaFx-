@@ -30,8 +30,6 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 public class MainController implements Initializable{
-
-    
     @FXML
     private  Button btnWatchGame;
     @FXML
@@ -43,23 +41,42 @@ public class MainController implements Initializable{
     static boolean isrecord=false;
     static boolean x=false;
      static boolean checkip=false;
-
     Socket socket;
     DataInputStream dis;
     PrintStream ps;
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-           btnWatchGame.setDisable(false);
-           recWatchGame.setVisible(false); 
-      /*
-        if(btnEnable)
-        {
+        
+            prefs = Preferences.userNodeForPackage(MainController.class);
+            Preferences pref =Preferences.userNodeForPackage(AccessFile.class);
+          //  btnWatchGame.setDisable(false);
+            //recWatchGame.setVisible(false);
+        try {
+            /*  if(btnEnable)
+            {
             btnWatchGame.setDisable(false);
-            recWatchGame.setVisible(false); 
-        }**/
-        prefs = Preferences.userNodeForPackage(MainController.class);            
-    }
+            recWatchGame.setVisible(false);
+            }
+            **/
+            
+            if(prefs.nodeExists("/helper"))
+            {String []keys=pref.keys();
+                String k=prefs.get(keys[1],"");
+                System.out.println(k.length());
+                if(k.length()==0)
+                {
+                    btnWatchGame.setDisable(false);
+                    recWatchGame.setVisible(false);
+                }
+            }
+           
+         
+    }   catch (BackingStoreException ex) {
+            System.out.println("empty pref");
+           // Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
+    }
     /**
      * changeSceneToSinglePlayer.
      * when called scene will be change to single player mode.
@@ -83,14 +100,15 @@ public class MainController implements Initializable{
                         try {
                             //get scene
                             AskDialog isrecoredGame = new AskDialog();
-                  Boolean check=isrecoredGame.alert("Do you want to record game ?");
-                //  if(check)
-                //  {
-                   //  AccessFile.createFile();
-                     
-                  //   isrecord=true;
-                  //}
-                    
+                            Boolean check=isrecoredGame.alert("Do you want to record game ?");
+                            if(check)
+                            {
+                             AccessFile.createFile();
+                             AccessFile.writeFile("username1"+".");
+                             AccessFile.writeFile("username2"+".");
+                               isrecord=true;
+                            }
+
                             Parent singlePlayerParent = FXMLLoader.load(getClass().getResource("/view/SinglePlayFXML.fxml"));
                             
                             //generate new scene
@@ -117,11 +135,9 @@ public class MainController implements Initializable{
                    AccessFile.createFile();
                    AccessFile.writeFile("username1"+".");
                    AccessFile.writeFile("username2"+".");
-
                      isrecord=true;
                   }
                   
-            
                 Parent singlePlayerParent = FXMLLoader.load(getClass().getResource("/view/SinglePlayFXML.fxml"));
                 
                 //generate new scene
@@ -189,7 +205,6 @@ public class MainController implements Initializable{
                     { 
                         System.out.println("you entered ip ="+cd.getName());
                     if(!isCancled){
-                             
                             try {
                                 checkip=true;
                                 socket = new Socket(IPvalidatation.getIp(),9876);
@@ -215,13 +230,15 @@ public class MainController implements Initializable{
                                 Boolean c= AskIp.alert("You Enter Not Valid Ip Do You Want To Enter IP Again");
                                 if(c)
                                 {
-                                   cd.displayDialog("Enter Server IP");
-                                   checkip=true;
+                                boolean sCancled=cd.displayDialog("Enter Server IP");
+                                 if(!sCancled)
+                                  checkip=true;
+                                 else 
+                                     checkip=false;
                                  }
                                 else {checkip=false;
                                 }
                                 }
-                      
                    }
                     
                     }

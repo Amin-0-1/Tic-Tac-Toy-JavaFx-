@@ -50,6 +50,11 @@
                   </Text>
                </children>
             </Pane>
+            <Button fx:id="logout" layoutX="949.0" layoutY="14.0" mnemonicParsing="false" onAction="#changeSceneToMain" prefHeight="51.0" prefWidth="130.0" styleClass="button2" stylesheets="@../css/fullpackstyling.css" text="Logout" textFill="#fffefe">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Button>
          </children>
       </Pane>
       <GridPane fx:id="grid" alignment="TOP_CENTER" gridLinesVisible="true" layoutY="143.0" prefHeight="506.0" prefWidth="885.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="150.0">

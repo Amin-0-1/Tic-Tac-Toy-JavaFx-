@@ -15,7 +15,7 @@ public class CurrentDateTime {
   
    private  DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd  HH-mm-ss");
    private  LocalDateTime now = LocalDateTime.now();
-   public  String getCurrentDateTime(){
+   public   String getCurrentDateTime(){
         //  System.out.println(dtf.format(now));
         
             return  dtf.format(now);

@@ -9,9 +9,13 @@ import helper.AccessFile;
 import helper.ButtonBack;
 import helper.DisplayVideo;
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.Random;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -19,14 +23,19 @@ import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Bounds;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 import sun.net.www.protocol.mailto.MailToURLConnection;
 
@@ -74,6 +83,8 @@ public class SinglePlayFXMLController implements Initializable{
     private AnchorPane pane;
     @FXML 
     protected Text username;
+    @FXML
+    protected Button logout;
      
         Preferences prefs = Preferences.userNodeForPackage(MainController.class);            
 
@@ -85,6 +96,8 @@ public class SinglePlayFXMLController implements Initializable{
         System.out.println("backToMainPage: called");
         ButtonBack btnback = new ButtonBack("/view/sample.fxml");
         btnback.handleButtonBack(event);
+                System.out.println("backToMainPage: called");
+
    
     } 
     
@@ -338,5 +351,32 @@ public class SinglePlayFXMLController implements Initializable{
 //        checkDiagonal();
 
     }
- 
+    public void changeSceneToMain(ActionEvent event) {       
+        System.out.println("changeSceneToMain: called");
+        try {
+                System.out.println("Logout");
+                Preferences prefs =Preferences.userNodeForPackage(MainController.class);
+                prefs.remove("username");
+                prefs.remove("score");
+                Preferences pref =Preferences.userNodeForPackage(AccessFile.class);
+                String []keys=pref.keys();
+                for (String key : keys) {
+                    pref.remove(key);
+                }
+            //get scene
+            Parent main = FXMLLoader.load(getClass().getResource("/view/sample.fxml"));
+            //generate new scene
+            Scene MainScene = new Scene(main);
+            //get stage information
+            Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+
+            window.setTitle("main");
+            window.setScene(MainScene);
+            window.show();
+        } catch (IOException ex) {
+            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (BackingStoreException ex) {
+            Logger.getLogger(SinglePlayFXMLController.class.getName()).log(Level.SEVERE, null, ex);
+        }   
+    }
 }
