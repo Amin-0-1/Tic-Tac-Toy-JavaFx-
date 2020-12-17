@@ -55,4 +55,25 @@ public class AskDialog {
            return check;
     }
     
+    public void askPlayAgain(String s)
+    {   
+        
+        ButtonType Yes = new ButtonType("Play Again"); 
+        Alert a = new Alert(Alert.AlertType.NONE); 
+        a.setTitle("Alert ASk");
+        a.getDialogPane().getButtonTypes().add(Yes);
+        a.setHeaderText(s);
+
+         //a.setContentText(s);
+        DialogPane dialogPane = a.getDialogPane();
+        dialogPane.getStylesheets().add(
+        getClass().getResource("/css/fullpackstyling.css").toExternalForm());
+        dialogPane.getStyleClass().add("myDialog");
+
+        a.showAndWait();
+       
+    
+           
+    }
+    
 }

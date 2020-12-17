@@ -151,42 +151,7 @@ public class MainController implements Initializable{
     public void changeSceneToTwoPlayers(ActionEvent event) {
         
         System.out.println("changeSceneToTwoPlayers: called");
-
-       
-        //navigaetToTwoPlayerPage();
-        
-//        TwoPlayerDialog p = new TwoPlayerDialog();
-//        thisStage = (Stage) recWatchGame.getScene().getWindow();
-//        try {
-//            p.start(thisStage);
-            
-            
-//        try {
-//            //get scene
-//             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/TwoPlayerDialog.fxml"));
-//             Parent parent = fxmlLoader.load();
-//
-//               TwoPlayerDialog dialogController = fxmlLoader.<TwoPlayerDialog>getController();
-//               //dialogController.setAppMainObservableList();
-//               if(dialogController.getFlage()){
-//                   ButtonBack btnback = new ButtonBack("/view/sample.fxml");
-//                   btnback.handleButtonBack(event);
-//               }else{
-//                   Scene twoPlayerScene = new Scene(parent);
-//        
-//                    //get stage information
-//                    Stage window = new Stage();
-//
-//                    window.setTitle("Two players Mode");
-//                    window.initModality(Modality.APPLICATION_MODAL);
-//                    window.setScene(twoPlayerScene);
-//                    window.showAndWait();
-//               }
-//            
-//              
-//        } catch (IOException ex) {
-//            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+ 
 
            CustomDialog fristPlayerNameDialog = new CustomDialog();
            Boolean isCancled = fristPlayerNameDialog.displayDialog("Enter First Player Name");
@@ -201,6 +166,17 @@ public class MainController implements Initializable{
              prefs.putInt("secondPlayerScore",0);
              if(!isSecondCancled){
                  System.out.println("Not Canceld");
+                  AskDialog isrecoredGame = new AskDialog();
+                  Boolean check=isrecoredGame.alert("Do you want to record game ?");
+                  if(check)
+                  {
+                   AccessFile.createFile();
+                   AccessFile.writeFile("username1"+".");
+                   AccessFile.writeFile("username2"+".");
+
+                     
+                     isrecord=true;
+                  }
                  ButtonBack btnback = new ButtonBack("/view/TwoPlayerFXML.fxml");
                  btnback.handleButtonBack(event);
              }

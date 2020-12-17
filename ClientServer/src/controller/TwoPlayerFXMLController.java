@@ -5,6 +5,7 @@
  */
 package controller;
 
+import helper.AccessFile;
 import helper.AskDialog;
 import helper.ButtonBack;
 import helper.DisplayVideo;
@@ -50,6 +51,7 @@ public class TwoPlayerFXMLController implements Initializable {
     private int firstPlayerScore = 0;
     private int secondPlayerScore = 0;
     private Preferences prefs ;
+    private String winnerName;
     
     @FXML
     private  Button btn1;
@@ -109,6 +111,9 @@ public class TwoPlayerFXMLController implements Initializable {
             buttonPressed = (Button) e.getSource();
             if(buttonPressed.getText().equals("")){
                 buttonPressed.setText(player);
+                if(MainController.isrecord)
+                 AccessFile.writeFile(buttonPressed.getId()+buttonPressed.getText()+".");
+                
                 if(player=="X"){
                     player="O";
                 }
@@ -271,20 +276,21 @@ public class TwoPlayerFXMLController implements Initializable {
 
             if(firstPllayerWinner){
                 System.out.println("Player one is win");
-                labelFirstPlayer.setText("Player1: " +firstPlayerScore);
+                winnerName = prefs.get("fristPlayer","");
+                labelFirstPlayer.setText(winnerName +": "+firstPlayerScore);
                 prefs.putInt("firstPlayerScore",firstPlayerScore);
-                
-                repalayAgain();
+                repalayAgain(winnerName);
                 
             }else if(secondPlayerWinner){
                 System.out.println("Player two is win");
-                labelSecondPlayer.setText("Player2: " +secondPlayerScore);
+                winnerName = prefs.get("secondPlayer","");
+                labelFirstPlayer.setText(winnerName +": "+secondPlayerScore);
                 prefs.putInt("secondPlayerScore",secondPlayerScore);
-                repalayAgain();
+                repalayAgain(winnerName);
             }else{
                 if((isFullGrid())){
                     System.out.println("It's a Draw"); 
-                    repalayAgain();
+                    repalayAgain("It's a Draw");
                     
                 }
                    
@@ -297,13 +303,21 @@ public class TwoPlayerFXMLController implements Initializable {
      * when called make labe for winner empty and make button Visible
      * @param event 
      */
-      public void repalayAgain(){
-        
-       //makeGridEmpty();
-//       AskDialog isrecoredGame = new AskDialog();
-//       isrecoredGame.alert("Do you want to record game ?");
-//       ButtonBack btnback = new ButtonBack("/view/SinglePlayFXML.fxml");
-//       btnback.handleButtonBack(event);
+      public void repalayAgain(String winner){ 
+          
+           AskDialog askPlayAgain = new AskDialog();
+           askPlayAgain.askPlayAgain(winner+" Is Win");
+          
+            AskDialog isrecoredGame = new AskDialog();
+                  Boolean check=isrecoredGame.alert("Do you want to record game ?");
+                  if(check)
+                  {
+                   AccessFile.createFile();
+                   AccessFile.writeFile("username1"+".");
+                   AccessFile.writeFile("username2"+".");
+
+                     MainController.isrecord=true;
+            }
 
           //get scene
         Parent buttonParent;
