@@ -49,6 +49,33 @@ public class AskDialog {
                        //check=true;
                    }  
     }
+    
+    /**
+     * serverIssueAlert
+     *  to to player if there is issue in server happened
+     * @param smessage
+     */
+    
+    public void serverIssueAlert(String message)
+    {   
+        
+        ButtonType Yes = new ButtonType("Ok"); 
+        Alert a = new Alert(Alert.AlertType.NONE); 
+        a.setTitle("Alert Issue");
+        a.getDialogPane().getButtonTypes().add(Yes);
+        a.setHeaderText(message);
+
+         //a.setContentText(s);
+        DialogPane dialogPane = a.getDialogPane();
+        dialogPane.getStylesheets().add(
+        getClass().getResource("/css/fullpackstyling.css").toExternalForm());
+        dialogPane.getStyleClass().add("myDialog");
+
+        a.showAndWait();
+       
+    
+           
+    }
 
     
 }

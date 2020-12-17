@@ -5,6 +5,7 @@
  */
 package controller;
 
+import helper.AskDialog;
 import helper.ButtonBack;
 import java.io.DataInputStream;
 import java.io.FileInputStream;
@@ -87,6 +88,7 @@ public class OnlinePlayerController implements Initializable {
                                System.out.println("request is : "+data);
                                
                                if(data.equals("null")){ // last ps while listing
+                                   
                                    break;
                                }else
                                if(data.equals("requestPlaying")){
@@ -131,6 +133,15 @@ public class OnlinePlayerController implements Initializable {
                                }
 
                         } catch (IOException ex) {
+                            System.out.println("Server Colsed");
+                            //Show Alert Here and logout
+                            Platform.runLater(() -> {
+                            AskDialog  serverIssueAlert  = new AskDialog();
+                            serverIssueAlert.serverIssueAlert("There is issue in connection game page will be closed");
+                             ButtonBack backtoLoginPage = new ButtonBack("/view/LoginOrRegister.fxml");
+                            backtoLoginPage.navigateToAnotherPage(emailtxt);
+                            });
+                           
                             thread.stop();
                         }
                     }while(true);
@@ -219,7 +230,7 @@ public class OnlinePlayerController implements Initializable {
                         @Override
                         public void handle(ActionEvent event) {
                                 ps.println("request###"+b.getId()+"###"+emailtxt.getText()+"###"+usernametxt.getText());
-                                // pop up waiting for response from server                                                                // can use an Alert, Dialog, or PopupWindow as needed...
+                                // pop up waiting for response from server // can use an Alert, Dialog, or PopupWindow as needed...
                                 alert = new Alert(AlertType.INFORMATION);
                                 alert.setTitle("Information Dialog");
                                 alert.setContentText("Please Wait The Opponent to respond..");
