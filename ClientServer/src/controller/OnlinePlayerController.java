@@ -134,7 +134,6 @@ public class OnlinePlayerController implements Initializable {
 
                         } catch (IOException ex) {
                             System.out.println("Server Colsed");
-                            //Show Alert Here and logout
                             Platform.runLater(() -> {
                             AskDialog  serverIssueAlert  = new AskDialog();
                             serverIssueAlert.serverIssueAlert("There is issue in connection game page will be closed");
@@ -272,9 +271,20 @@ public class OnlinePlayerController implements Initializable {
     public void backToMainPage(ActionEvent event){
 
         System.out.println("backToMainPage: called");
+        System.out.println("Emial " + hash.get("email"));
+        if(hash.get("email")!= null){
+            AskDialog  logoutAlert  = new AskDialog();
+           Boolean logedOut  = logoutAlert.alert("Are you sure you want to logout","Alert Issue");
+           if(logedOut){
+               System.out.println("Send to server to logout");
+               ps.println("logout###"+hash.get("email")); 
+               thread.stop();
+               ButtonBack btnback = new ButtonBack("/view/LoginOrRegister.fxml");
+               btnback.handleButtonBack(event); 
+           }
+          
+        }
         
-        ButtonBack btnback = new ButtonBack("/view/sample.fxml");
-        btnback.handleButtonBack(event);
          
     }
 

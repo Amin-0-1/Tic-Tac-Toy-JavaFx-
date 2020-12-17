@@ -50,19 +50,44 @@ public class AskDialog {
                    }  
     }
     
-    /**
-     * serverIssueAlert
-     *  to to player if there is issue in server happened
-     * @param smessage
-     */
     
-    public void serverIssueAlert(String message)
-    {   
+   /**
+   *  serverIssueAlert
+   *  to to player if there is issue in server happened
+   * @param message
+   * @return 
+   */  
+    public void serverIssueAlert(String message){  
         
-        ButtonType Yes = new ButtonType("Ok"); 
+        ButtonType yes = new ButtonType("Yes"); 
         Alert a = new Alert(Alert.AlertType.NONE); 
         a.setTitle("Alert Issue");
-        a.getDialogPane().getButtonTypes().add(Yes);
+        a.getDialogPane().getButtonTypes().add(yes);
+        a.setHeaderText(message);
+
+         //a.setContentText(s);
+        DialogPane dialogPane = a.getDialogPane();
+        dialogPane.getStylesheets().add(
+        getClass().getResource("/css/fullpackstyling.css").toExternalForm());
+        dialogPane.getStyleClass().add("myDialog");
+
+        a.showAndWait();    
+    }
+  
+    
+  /**
+   *  alert
+   *  to to player if there is issue in server happened
+   * @param message
+   * @return 
+   */  
+    public boolean alert(String message,String title){  
+        
+        ButtonType yes = new ButtonType("Yes"); 
+        ButtonType no = new ButtonType("NO", ButtonBar.ButtonData.CANCEL_CLOSE);
+        Alert a = new Alert(Alert.AlertType.NONE); 
+        a.setTitle(title);
+        a.getDialogPane().getButtonTypes().addAll(yes,no);
         a.setHeaderText(message);
 
          //a.setContentText(s);
@@ -73,8 +98,10 @@ public class AskDialog {
 
         a.showAndWait();
        
-    
-           
+        if(a.getResult()==yes){  
+              return true;  
+        }
+        return false;    
     }
 
     

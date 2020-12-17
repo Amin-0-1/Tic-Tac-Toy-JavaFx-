@@ -112,6 +112,9 @@ public class ConnectedPlayer extends Thread implements Initializable {
                        case "decline":
                            refusedChallenge();
                            break;
+                       case "logout"  :
+                           logout();
+                           break;
                    }
                    
               }
@@ -281,5 +284,19 @@ public class ConnectedPlayer extends Thread implements Initializable {
                
            }
        }
+   }
+   
+   
+   /**
+    * logout
+    * when called set player is not active in database and update result set
+    */
+   private void logout(){
+       email = token.nextToken();
+       System.out.println("Logout Email " + email);
+       if(email != null){
+           server.databaseInstance.setActive(false, email);
+       }
+       
    }
 }
