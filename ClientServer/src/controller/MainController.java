@@ -24,9 +24,11 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class MainController implements Initializable{
@@ -34,7 +36,8 @@ public class MainController implements Initializable{
     private  Button btnWatchGame;
     @FXML
     private Rectangle recWatchGame;
-
+    @FXML
+    protected Label txtAlert;
     private boolean btnEnable = false;
     Preferences prefs ;
     int checkname;
@@ -42,40 +45,37 @@ public class MainController implements Initializable{
     static boolean x=false;
      static boolean checkip=false;
     Socket socket;
+    Preferences pref;
     DataInputStream dis;
     PrintStream ps;
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
-            prefs = Preferences.userNodeForPackage(MainController.class);
-            Preferences pref =Preferences.userNodeForPackage(AccessFile.class);
-          //  btnWatchGame.setDisable(false);
-            //recWatchGame.setVisible(false);
+        txtAlert.setVisible(false);
+        prefs = Preferences.userNodeForPackage(MainController.class);
+        pref =Preferences.userNodeForPackage(AccessFile.class);
         try {
-            /*  if(btnEnable)
-            {
-            btnWatchGame.setDisable(false);
-            recWatchGame.setVisible(false);
-            }
-            **/
+              if(pref.keys().length!=0)
+              {
+                  System.out.println("keys");
+                  String []names=pref.keys();
+                //  System.err.println("a"+pref.get(names[0], ""));
+                  String name=pref.get(names[0], "");
+                  // System.out.println(name.length());
+                  if(name.length()==0)
+                  { System.out.println("true");
+                    btnWatchGame.setDisable(true);
+                      recWatchGame.setVisible(true);
+                   }else {
+                      System.out.println("else");
+                      btnWatchGame.setDisable(false);
+                      recWatchGame.setVisible(false);
+                       }
+             }  
             
-            if(prefs.nodeExists("/helper"))
-            {String []keys=pref.keys();
-                String k=prefs.get(keys[1],"");
-                System.out.println(k.length());
-                if(k.length()==0)
-                {
-                    btnWatchGame.setDisable(false);
-                    recWatchGame.setVisible(false);
-                }
-            }
-           
-         
-    }   catch (BackingStoreException ex) {
+            }catch (BackingStoreException ex) {
             System.out.println("empty pref");
            // Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }
     /**
      * changeSceneToSinglePlayer.
@@ -83,10 +83,8 @@ public class MainController implements Initializable{
      * @param event 
      */
     public void changeSceneToSinglePlayer(ActionEvent event) {
+        txtAlert.setVisible(false);
         try {
-         //   CurrentDateTime c=new CurrentDateTime();
-        // System.out.println(c.getCurrentDateTime());
-
             if(prefs.nodeExists("/controller"))
             {
                 String s=prefs.get("username","");
@@ -133,7 +131,7 @@ public class MainController implements Initializable{
                   if(check)
                   {
                    AccessFile.createFile();
-                   AccessFile.writeFile("username1"+".");
+                   AccessFile.writeFile(prefs.get("username", "")+".");
                    AccessFile.writeFile("username2"+".");
                      isrecord=true;
                   }
@@ -167,7 +165,7 @@ public class MainController implements Initializable{
      * @param event 
      */
     public void changeSceneToTwoPlayers(ActionEvent event) {
-        
+        txtAlert.setVisible(false);
         System.out.println("changeSceneToTwoPlayers: called");
         try {
             //get scene
@@ -194,10 +192,12 @@ public class MainController implements Initializable{
      * @param event 
      */
     public void changeSceneToOnlineGame(ActionEvent event) {
-
+        txtAlert.setVisible(false);
         System.out.println("changeSceneToOnlineGame: called");
                if(!checkip)
-                {     System.out.println(checkip);               
+                   
+                { txtAlert.setVisible(false);
+                    System.out.println(checkip);               
                  CustomDialog cd = new CustomDialog();
                  Boolean isCancled = cd.displayDialog("Enter Server IP");
                    
@@ -232,7 +232,24 @@ public class MainController implements Initializable{
                                 {
                                 boolean sCancled=cd.displayDialog("Enter Server IP");
                                  if(!sCancled)
-                                  checkip=true;
+                                 {
+                                    try {
+                                        checkip=true;
+                                        //get scene
+                                        Parent singlePlayerParent = FXMLLoader.load(getClass().getResource("/view/LoginOrRegister.fxml"));
+                                        //generate new scene
+                                        Scene singlePlayerScene = new Scene(singlePlayerParent,btnWatchGame.getScene().getWidth(),
+                                                btnWatchGame.getScene().getHeight());
+                                        
+                                        //get stage information
+                                        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+                                        window.setTitle("Single play Mode");
+                                        window.setScene(singlePlayerScene);
+                                        window.show();
+                                    } catch (IOException ex1) {
+                                        Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex1);
+                                    }
+                                 }
                                  else 
                                      checkip=false;
                                  }
@@ -240,11 +257,19 @@ public class MainController implements Initializable{
                                 }
                                 }
                    }
+                    else 
+                    checkip=false;
                     
-                    }
+                    }else 
+                 {      
+                       txtAlert.setText("Please Enter Valid Ip");
+                       txtAlert.setVisible(true);
+                       checkip=false;
+
+                 }
                 }  
                else if (checkip)
-               { 
+               {                    
             try {
                 Parent singlePlayerParent = FXMLLoader.load(getClass().getResource("/view/LoginOrRegister.fxml"));
                 
@@ -271,7 +296,7 @@ public class MainController implements Initializable{
      */
      public void changeSceneToWatchGame(ActionEvent event){
          System.out.println("changeSceneToOnlineGame: called");
-        
+         txtAlert.setVisible(false);
         try {
             //get scene
 

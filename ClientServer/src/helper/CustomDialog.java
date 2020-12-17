@@ -14,7 +14,9 @@ import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
 /**
  *
  * @author Wesam
@@ -36,15 +38,14 @@ public class CustomDialog {
        TextField content = new TextField();
        alert.setTitle("Alert");
        alert.setHeaderText(message);
+
        alert.getDialogPane().setContent(content);
-    
+        alert.getDialogPane().setContentText("aa ");
         ButtonType buttonTypeOk = new ButtonType("Ok");
         ButtonType buttonTypeCancel = new ButtonType("Cancel", 
         ButtonBar.ButtonData.CANCEL_CLOSE);
-            
         alert.getButtonTypes().setAll(buttonTypeOk,
                 buttonTypeCancel);
-   
         DialogPane dialogPane = alert.getDialogPane();
         dialogPane.getStylesheets().add(
              getClass().getResource("/css/fullpackstyling.css").toExternalForm());

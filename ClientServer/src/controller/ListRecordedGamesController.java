@@ -28,6 +28,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
@@ -44,10 +45,10 @@ public class ListRecordedGamesController implements Initializable {
      * Initializes the controller class.
      */
     @FXML
-    
     private ListView <String> listgames;
     private ObservableList<String> listOfNamesGames =FXCollections.observableArrayList();
-   
+    @FXML
+    private ScrollPane games;
     public Preferences prefs=Preferences.userNodeForPackage(AccessFile.class);
     
     public static String gamename;
@@ -57,21 +58,19 @@ public class ListRecordedGamesController implements Initializable {
      * when called scene will be change to main page.
      * @param event 
      */
-    public void backToMainPage(ActionEvent event){       
+    public void backToMainPage(ActionEvent event){
         System.out.println("backToMainPage: called");
-        
         ButtonBack btnback = new ButtonBack("/view/sample.fxml");
-        btnback.handleButtonBack(event);         
-    }  
-    
+        btnback.handleButtonBack(event);
+                System.out.println("backToMainPage: called");
+
+   
+    } 
     public void initialize(URL url, ResourceBundle rb) {
             // TODO
-            listgames.applyCss();             
+            listgames.applyCss();
             showListItemes();        
     } 
-     
-    
-     
     public void showListItemes(){
            // listgames.setPrefSize(200, 250);
             try{
@@ -81,8 +80,10 @@ public class ListRecordedGamesController implements Initializable {
                 System.err.println(prefs.get(name, ""));
                   listOfNamesGames.add( prefs.get(name, ""));       
             }  
-           // listOfNamesGames.add(list);
+        //    listOfNamesGames.add(list);
             listgames.setItems(listOfNamesGames);
+            
+              games.setContent(listgames);
      
         //  listgames.getItems().addAll(listOfNamesGames);
         } catch (BackingStoreException ex) {

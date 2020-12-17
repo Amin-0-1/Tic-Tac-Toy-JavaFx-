@@ -40,7 +40,7 @@ public class AccessFile {
         CurrentDateTime c=new CurrentDateTime();
         prefs.put(c.getCurrentDateTime(), c.getCurrentDateTime());
        //  System.out.println(c.getCurrentDateTime());
-           file = new File("E:\\ITI\\Java\\Project\\Tic-Tac-Toy-JavaFx-\\"+prefs.get(c.getCurrentDateTime(),""));
+           file = new File("E:\\ITI\\Java\\Project\\Tic-Tac-Toy-JavaFx-\\savedGame\\"+prefs.get(c.getCurrentDateTime(),""));
            System.out.println(prefs.get(c.getCurrentDateTime(),""));
            try {
                
