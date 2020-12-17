@@ -39,9 +39,7 @@ public class ConnectedPlayer extends Thread implements Initializable {
    StringTokenizer token;
    boolean loggedin;
    ResultSet result;
-   Thread thread;
-   
-   
+   Thread thread;  
    String username,email;
   
    static ArrayList<ConnectedPlayer> players = new ArrayList<ConnectedPlayer>();
@@ -177,7 +175,7 @@ public class ConnectedPlayer extends Thread implements Initializable {
    
    private void signUp(){
         String username = token.nextToken();
-        String email = token.nextToken();
+        email = token.nextToken();
         String password = token.nextToken();
         System.out.println(username+" "+email+" "+password);
     
@@ -199,7 +197,6 @@ public class ConnectedPlayer extends Thread implements Initializable {
            //alert
            e.printStackTrace();
            System.out.println("Connection Issues");
-
         }
    }
    
@@ -261,8 +258,6 @@ public class ConnectedPlayer extends Thread implements Initializable {
    private void acceptChallenge(){
 //       ps.println("accept###"+emailtxt.getText()+"###"+opponentMail);
        System.out.println("accepted");
-       
-       
        
    }
    

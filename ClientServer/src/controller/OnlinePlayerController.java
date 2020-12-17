@@ -174,12 +174,14 @@ public class OnlinePlayerController implements Initializable {
     }
     
     private void recievedRequest(String opponent){
+        System.out.println("recieved request");
         token = new StringTokenizer(opponent,"###");
         String opponentMail = token.nextToken();
         String opponentUsername = token.nextToken();
         Platform.runLater(new Runnable(){
             @Override
             public void run() {
+                System.out.println("recieved request run");
                 alert = new Alert(AlertType.CONFIRMATION);
                 alert.setTitle("Confirmation");
                 alert.setContentText(opponentUsername+" wants to Challenge you, Are you Okay with that ?");
