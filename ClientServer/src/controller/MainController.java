@@ -1,5 +1,7 @@
 package controller;
 import helper.AccessFile;
+import helper.ButtonBack;
+import helper.TwoPlayerDialog;
 import helper.AskDialog;
 import helper.CurrentDateTime;
 import helper.CustomDialog;
@@ -29,6 +31,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class MainController implements Initializable{
@@ -39,7 +42,9 @@ public class MainController implements Initializable{
     @FXML
     protected Label txtAlert;
     private boolean btnEnable = false;
-    Preferences prefs ;
+
+    private Stage thisStage;
+     Preferences prefs ;
     int checkname;
     static boolean isrecord=false;
     static boolean x=false;
@@ -85,6 +90,9 @@ public class MainController implements Initializable{
     public void changeSceneToSinglePlayer(ActionEvent event) {
         txtAlert.setVisible(false);
         try {
+            System.out.println("changeSceneToSinglePlayer: called");
+            CurrentDateTime c=new CurrentDateTime();
+            System.out.println(c.getCurrentDateTime());
             if(prefs.nodeExists("/controller"))
             {
                 String s=prefs.get("username","");
@@ -106,7 +114,7 @@ public class MainController implements Initializable{
                              AccessFile.writeFile("username2"+".");
                                isrecord=true;
                             }
-
+                            
                             Parent singlePlayerParent = FXMLLoader.load(getClass().getResource("/view/SinglePlayFXML.fxml"));
                             
                             //generate new scene
@@ -135,7 +143,7 @@ public class MainController implements Initializable{
                    AccessFile.writeFile("username2"+".");
                      isrecord=true;
                   }
-                  
+                 
                 Parent singlePlayerParent = FXMLLoader.load(getClass().getResource("/view/SinglePlayFXML.fxml"));
                 
                 //generate new scene
@@ -154,7 +162,8 @@ public class MainController implements Initializable{
             
     } catch (BackingStoreException ex) {
             Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
+        } 
+        catch (IOException ex) {
             Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
         }
                            
@@ -166,23 +175,36 @@ public class MainController implements Initializable{
      */
     public void changeSceneToTwoPlayers(ActionEvent event) {
         txtAlert.setVisible(false);
-        System.out.println("changeSceneToTwoPlayers: called");
-        try {
-            //get scene
-           Parent twoPlayerParent = FXMLLoader.load(getClass().getResource("/view/TwoPlayerFXML.fxml"));
-            //generate new scene
-            Scene twoPlayerScene = new Scene(twoPlayerParent,btnWatchGame.getScene().getWidth(),
-           btnWatchGame.getScene().getHeight());
-        
-            //get stage information
-            Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-        
-            window.setTitle("Two players Mode");
-            window.setScene(twoPlayerScene);
-            window.show();
-        } catch (IOException ex) {
-            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
-        }       
+
+           CustomDialog fristPlayerNameDialog = new CustomDialog();
+           Boolean isCancled = fristPlayerNameDialog.displayDialog("Enter First Player Name");
+           prefs.put("fristPlayer", fristPlayerNameDialog.getName());
+           prefs.putInt("firstPlayerScore",0);
+           System.out.println("fristPlayer" +fristPlayerNameDialog.getName() );
+           if(!isCancled){
+              CustomDialog secondtPlayerNameDialog = new CustomDialog();
+             Boolean isSecondCancled = secondtPlayerNameDialog.displayDialog("Enter Second Player Name"); 
+             System.out.println("secondPlayer" +secondtPlayerNameDialog.getName() );
+             prefs.put("secondPlayer", secondtPlayerNameDialog.getName());
+             prefs.putInt("secondPlayerScore",0);
+               if(!isSecondCancled){
+                 System.out.println("Not Canceld");
+                  AskDialog isrecoredGame = new AskDialog();
+                  Boolean check=isrecoredGame.alert("Do you want to record game ?");
+                  if(check)
+                  {
+                   AccessFile.createFile();
+                   AccessFile.writeFile("username1"+".");
+                   AccessFile.writeFile("username2"+".");
+
+                     
+                     isrecord=true;
+                  }
+                 ButtonBack btnback = new ButtonBack("/view/TwoPlayerFXML.fxml");
+                 btnback.handleButtonBack(event);
+             }
+           }
+
         
     }
 
@@ -316,5 +338,32 @@ public class MainController implements Initializable{
             Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
         }       
     
+    }
+     
+      /**
+     * navigaetToTwoPlayerPage
+     * when called method will build new window to take player name
+     */
+    public void navigaetToTwoPlayerPage(){
+        try {
+            //get scene
+            Parent Register = FXMLLoader.load(getClass().getResource("/view/TwoPlayerDialog.fxml"));
+            //generate new scene
+            Scene RegisterScene = new Scene(Register);
+        
+            //get stage information
+            Stage window = new Stage();
+
+            window.setTitle("Congratulation");
+            window.setScene(RegisterScene);
+            window.setMinHeight(500);
+            window.setMinWidth(500);
+            window.setMaxHeight(250);
+            window.setMaxWidth(500);  
+            window.show();
+        } catch (IOException ex) {
+            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
 }

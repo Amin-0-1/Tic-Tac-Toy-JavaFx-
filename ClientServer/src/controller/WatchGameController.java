@@ -67,7 +67,7 @@ public class WatchGameController implements Initializable {
         System.out.println("backToMainPage: called");
         ButtonBack btnback = new ButtonBack("/view/ListRecordedGames.fxml");
         btnback.handleButtonBack(event);
-                System.out.println("backToMainPage: called");
+         System.out.println("backToMainPage: called");
 
    
     } 

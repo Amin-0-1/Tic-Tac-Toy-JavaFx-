@@ -42,14 +42,17 @@ public class AccessFile {
        //  System.out.println(c.getCurrentDateTime());
            file = new File("E:\\ITI\\Java\\Project\\Tic-Tac-Toy-JavaFx-\\savedGame\\"+prefs.get(c.getCurrentDateTime(),""));
            System.out.println(prefs.get(c.getCurrentDateTime(),""));
+
            try {
                
                if(file.createNewFile())
                    System.out.println("file created");
+              
            } catch (IOException ex) {
                Logger.getLogger(AccessFile.class.getName()).log(Level.SEVERE, null, ex);
            }
    }
+
     public  static void writeFile(String s)
     {
         try {

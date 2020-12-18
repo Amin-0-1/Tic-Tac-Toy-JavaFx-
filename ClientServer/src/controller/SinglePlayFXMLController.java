@@ -6,11 +6,14 @@
 package controller;
 
 import helper.AccessFile;
+import helper.AskDialog;
 import helper.ButtonBack;
+import helper.CustomDialog;
 import helper.DisplayVideo;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.Random;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -20,6 +23,7 @@ import java.util.prefs.Preferences;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -31,6 +35,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Line;
@@ -46,17 +53,14 @@ import sun.net.www.protocol.mailto.MailToURLConnection;
  */
 public class SinglePlayFXMLController implements Initializable{
     
-
-     /**
-     * backToMainPage.
-     * when called scene will be change to main page.
-     * @param event 
-     */
-    
     private String player = "X";
     private Button buttonPressed;
     private boolean winner = false;
     private boolean display = false;
+    private Preferences prefs ;
+    private int score = 0;
+    private Boolean computerWin = false ;
+
     @FXML
     private  Button btn1;
     @FXML
@@ -76,31 +80,60 @@ public class SinglePlayFXMLController implements Initializable{
     @FXML
     private  Button btn9;
     @FXML
-    private  Text txtWinner;
+    private  Label txtWinner;
     @FXML
     private GridPane grid;
     @FXML
     private AnchorPane pane;
-    @FXML 
-    protected Text username;
+
     @FXML
-    protected Button logout;
-     
-        Preferences prefs = Preferences.userNodeForPackage(MainController.class);            
+    private Label labUserName;
+    @FXML
+    private Label labScore;
+    @FXML
+    private  Button btnPlayAgain;
+    
+    
+   // File file;
+    //public File  file= new File("E:\\ITI\\Java\\Project\\Tic-Tac-Toy-JavaFx-\\game.txt");
+
 
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-       username.setText(prefs.get("username", "not found"));
+        System.out.println("first init");
+        prefs = Preferences.userNodeForPackage(SinglePlayFXMLController.class); 
+        try {
+            if(prefs.nodeExists("/controller"))
+            {
+             System.out.println("init");
+              String userName=prefs.get("username","");
+               score=prefs.getInt("score",0);
+              System.out.println(userName);
+              
+              if(userName.length() != 0){
+                 labUserName.setText(userName); 
+              }
+              if(score != 0){
+                 labScore.setText(""+ score);  
+              }
+              
+            }
+        } catch (BackingStoreException ex) {
+            Logger.getLogger(SinglePlayFXMLController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     } 
+     /**
+     * backToMainPage.
+     * when called scene will be change to main page.
+     * @param event 
+     */
     public void backToMainPage(ActionEvent event){
         System.out.println("backToMainPage: called");
         ButtonBack btnback = new ButtonBack("/view/sample.fxml");
         btnback.handleButtonBack(event);
-                System.out.println("backToMainPage: called");
-
    
     } 
-    
     public void buttonPressed(ActionEvent e){
 
         if(!winner){
@@ -112,12 +145,14 @@ public class SinglePlayFXMLController implements Initializable{
                 { 
                  AccessFile.writeFile(buttonPressed.getId()+buttonPressed.getText()+".");
                 }
+
                 if(player=="X"){
                     player="O";
                 }
                 else{
                     player="X";
                 }  
+                
                 checkState();
                 if(!winner){
                     computerTurn();
@@ -125,7 +160,8 @@ public class SinglePlayFXMLController implements Initializable{
                 }
             }else{
                 if(isFullGrid()){
-                    txtWinner.setText("draw");
+                    txtWinner.setText("It's a Draw");
+                    btnPlayAgain.setVisible(true);
                 }
             }
         }else{
@@ -170,6 +206,8 @@ public class SinglePlayFXMLController implements Initializable{
                 {
                    AccessFile.writeFile(buttonPressed.getId()+buttonPressed.getText()+".");
                 }
+
+
                     if(player=="X"){
                         player="O";
                     }
@@ -178,7 +216,8 @@ public class SinglePlayFXMLController implements Initializable{
                     }        
                 }else{
                     if(isFullGrid() && !winner){
-                        txtWinner.setText("draw");
+                        txtWinner.setText("It's a Draw");
+                        btnPlayAgain.setVisible(true);
                     }
                 }
             }
@@ -196,6 +235,20 @@ public class SinglePlayFXMLController implements Initializable{
             return false;
         }
     }
+    
+    private void makeGridEmpty(){
+        btn1.setText("");
+        btn2.setText("");
+        btn3.setText("");
+        btn4.setText("");
+        btn5.setText("");
+        btn6.setText("");
+        btn7.setText("");
+        btn8.setText("");
+        btn9.setText("");
+                    
+    }
+    
     private boolean checkRows(){
         if(btn1.getText().equals(btn2.getText()) && btn2.getText().equals(btn3.getText()) && !btn1.getText().equals("")){
             drawLine(btn1,btn3);
@@ -203,9 +256,12 @@ public class SinglePlayFXMLController implements Initializable{
                 txtWinner.setText("you won!");
                 //displayVideo();
                 display = true;
+                score += 10;
             }else{
                 txtWinner.setText("computer won!");
+                computerWin = true;
             }
+            winner = true;
         }
         else if(btn4.getText().equals(btn5.getText()) && btn5.getText().equals(btn6.getText()) && !btn4.getText().equals("")){
             drawLine(btn4,btn6);
@@ -213,23 +269,29 @@ public class SinglePlayFXMLController implements Initializable{
                 txtWinner.setText("you won!");
                 //displayVideo();
                 display = true;
+                score += 10;
             }else{
                 txtWinner.setText("computer won!");
+                computerWin = true;
             }
+            winner = true;
         }
-        else if(btn7.getText().equals(btn8.getText()) && btn8.getText().equals(btn9.getText()) && !btn9.getText().equals("")){
+        else if(btn7.getText().equals(btn8.getText()) && btn8.getText().equals(btn9.getText()) && !btn7.getText().equals("")){
             drawLine(btn7,btn9);
-            if(btn9.getText().equals("X")){
+            if(btn7.getText().equals("X")){
                 txtWinner.setText("you won!");
                 //displayVideo();
                 display = true;
+                score += 10;
             }else{
                 txtWinner.setText("computer won!");
+                computerWin = true;
             }
             winner = true;
         }else{
             return false;
         }
+        
         return winner;
     }
     
@@ -240,8 +302,10 @@ public class SinglePlayFXMLController implements Initializable{
                 txtWinner.setText("you won!");
                 //displayVideo();
                 display = true;
+                score += 10;
             }else{
                 txtWinner.setText("computer won!");
+                computerWin = true;
             }
             winner = true;
         }
@@ -251,8 +315,10 @@ public class SinglePlayFXMLController implements Initializable{
                 txtWinner.setText("you won!");
                 //displayVideo();
                 display = true;
+                score += 10;
             }else{
                 txtWinner.setText("computer won!");
+                computerWin = true;
             }
             winner = true;
         }
@@ -262,8 +328,10 @@ public class SinglePlayFXMLController implements Initializable{
                 txtWinner.setText("you won!");
                // displayVideo();
                display = true;
+               score += 10;
             }else{
                 txtWinner.setText("computer won!");
+                computerWin = true;
             }
             winner = true;
         }else{
@@ -279,8 +347,10 @@ public class SinglePlayFXMLController implements Initializable{
                 txtWinner.setText("you won!");
                 //displayVideo();
                 display = true;
+                score += 10;
             }else{
                 txtWinner.setText("computer won!");
+                computerWin = true;
             }
             winner = true;
         }
@@ -290,8 +360,10 @@ public class SinglePlayFXMLController implements Initializable{
                 txtWinner.setText("you won!");
                 //displayVideo();
                 display = true;
+                score += 10;
             }else{
                 txtWinner.setText("computer won!");
+                computerWin = true;
             }
             winner = true;
         }else{
@@ -299,56 +371,30 @@ public class SinglePlayFXMLController implements Initializable{
         }
         return winner;
     }
-    private void checkState (){
+        private void checkState (){
 
-        checkRows();
         checkColumns();
+        checkRows();
         checkDiagonal();
         if(display){
-            displayVideo();
-            
+            displayVideo();             
+            System.out.println("Synch");
+            prefs.putInt("score",score);
+            labScore.setText(""+ score);  
+            btnPlayAgain.setVisible(true);
+        }else if(computerWin){
+           btnPlayAgain.setVisible(true); 
         }
-/*
-        if(!checkRows()){
-            if(!checkColumns()){
-                if(!checkDiagonal()){
-                    
-                }else{
-                    winner = true;
-                }
-            }else{
-                winner = true;
-            }
-        }else{
-            winner = true;
-        }
-**/
-//        checkRows();
-//        checkColumns();
-//        checkDiagonal();
+
     }
     
-    // * displayVideo called when player win
-     
+
+    /**
+     * displayVideo called when player win
+     */
     private void displayVideo(){
         DisplayVideo winnerVideo = new DisplayVideo();
         winnerVideo.diplay();
-        if(!checkRows()){
-            if(!checkColumns()){
-                if(!checkDiagonal()){
-                    
-                }else{
-                    winner = true;
-                }
-            }else{
-                winner = true;
-            }
-        }else{
-            winner = true;
-        }
-//        checkRows();
-//        checkColumns();
-//        checkDiagonal();
 
     }
     public void changeSceneToMain(ActionEvent event) {       
@@ -379,4 +425,31 @@ public class SinglePlayFXMLController implements Initializable{
             Logger.getLogger(SinglePlayFXMLController.class.getName()).log(Level.SEVERE, null, ex);
         }   
     }
+      
+    /**
+     * repalayAgain 
+     * when called make labe for winner empty and make button Visible
+     * @param event 
+     */
+      public void repalayAgain(ActionEvent event){
+        txtWinner.setText("");
+        btnPlayAgain.setVisible(false);
+        
+         MainController.isrecord=false;
+       //makeGridEmpty();
+        AskDialog isrecoredGame = new AskDialog();
+                  Boolean check=isrecoredGame.alert("Do you want to record game ?");
+                  if(check)
+                  {
+                   AccessFile.createFile();
+                   AccessFile.writeFile("username1"+".");
+                   AccessFile.writeFile("username2"+".");
+
+                     MainController.isrecord=true;
+        }
+       ButtonBack btnback = new ButtonBack("/view/SinglePlayFXML.fxml");
+       btnback.handleButtonBack(event);
+         
+    } 
+  
 }

@@ -24,7 +24,13 @@ import javafx.scene.text.Text;
 public class CustomDialog {
     
    private String name = "";
+   private ButtonType buttonTypeOk,buttonTypeCancel;
     public CustomDialog(){}
+    
+    public CustomDialog(ButtonType buttonTypeOk,ButtonType buttonTypeCancel){
+        this.buttonTypeOk = buttonTypeOk;
+        this.buttonTypeCancel = buttonTypeCancel;
+    }
      public String getName()
      {
       return name;
@@ -72,5 +78,30 @@ public class CustomDialog {
        return isCancled;
     
     }   
+    
+    public Optional<ButtonType> displayReplayDialog(String message ){
+              
+       Alert alert = new Alert(Alert.AlertType.NONE);
+       TextField content = new TextField();
+       alert.setTitle("Alert");
+       alert.setHeaderText(message);
+       alert.getDialogPane().setContent(content);
+    
+         buttonTypeOk = new ButtonType("Ok");
+         buttonTypeCancel = new ButtonType("Cancel", 
+        ButtonBar.ButtonData.CANCEL_CLOSE);
+            
+        alert.getButtonTypes().setAll(buttonTypeOk,
+                buttonTypeCancel);
+   
+        DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.getStylesheets().add(
+             getClass().getResource("/css/fullpackstyling.css").toExternalForm());
+             dialogPane.getStyleClass().add("myDialog");
+        
+        Optional<ButtonType> result = alert.showAndWait();
+       return result;
+    
+    }
     
 }

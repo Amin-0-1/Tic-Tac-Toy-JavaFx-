@@ -45,12 +45,6 @@ public class OnlinePlayerController implements Initializable {
     HashMap<String, String>hash;
     
     ArrayList<Player> onlinePlayers ;
-    /**
-     * backToMainPage.
-     * when called scene will be change to main page.
-     * @param x
-     * @param event 
-     */
     
     @FXML
      private ScrollPane scrollpane;
@@ -107,6 +101,7 @@ public class OnlinePlayerController implements Initializable {
                                     }
 
                             } catch (IOException ex) {
+                                System.out.println("Server closed");
                                 thread.stop();
                             }
                         }while(true);
@@ -164,8 +159,14 @@ public class OnlinePlayerController implements Initializable {
         scoretxt.setText(hash.get("score"));        
     }
     
-      public void backToMainPage(ActionEvent event){
-//        System.out.println(hash.get("email"));
+     /**
+     * backToMainPage.
+     * when called scene will be change to main page.
+     * @param event 
+     */
+    
+    public void backToMainPage(ActionEvent event){
+
         System.out.println("backToMainPage: called");
         
         ButtonBack btnback = new ButtonBack("/view/sample.fxml");
