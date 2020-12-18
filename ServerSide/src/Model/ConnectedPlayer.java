@@ -44,6 +44,7 @@ public class ConnectedPlayer extends Thread implements Initializable {
    private Boolean updateList;   
 
    String username,email;
+   String password;
   
    static ArrayList<ConnectedPlayer> players = new ArrayList<ConnectedPlayer>();
    
@@ -70,7 +71,10 @@ public class ConnectedPlayer extends Thread implements Initializable {
             dis = new DataInputStream(socket.getInputStream());
             ps = new PrintStream(socket.getOutputStream());
             currentSocket = socket;
-            players.add(this);
+            String check = server.databaseInstance.checkSignIn(email, password);
+            if(!check.equals("This Email is alreay sign-in")){
+               players.add(this);
+            }
             this.start();
        }catch (IOException ex) {
            System.out.println("1");
@@ -137,10 +141,18 @@ public class ConnectedPlayer extends Thread implements Initializable {
                System.out.println("2");
                System.out.println("Closing try");
                System.out.println("Email: "+ email);
+               
+               
 
                if(email != null){
-                    server.databaseInstance.setActive(false,email);
-                    players.remove(this);   
+                   if(server.databaseInstance.checkIsActive(email)){
+                       String check = server.databaseInstance.checkSignIn(email, password);
+                     if(!check.equals("This Email is alreay sign-in")){
+                         server.databaseInstance.setActive(false,email);
+                         players.remove(this);
+                     }
+                   }
+                       
                }else{
                  System.out.println("nulllllll");  
                  updateList = true;
@@ -158,7 +170,7 @@ public class ConnectedPlayer extends Thread implements Initializable {
    
    private void signIn(){
         email = token.nextToken().toString();
-        String password = token.nextToken();
+         password = token.nextToken();
         String check;
         int score;
         System.out.println(email+" "+password);
