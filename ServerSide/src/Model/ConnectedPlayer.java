@@ -95,7 +95,7 @@ public class ConnectedPlayer extends Thread implements Initializable {
                if(clientData != null){
                    token = new StringTokenizer(clientData,"####");
                    query = token.nextToken();
-                   
+  
                    switch(query){
                        case "SignIn":
                            signIn();
@@ -125,13 +125,10 @@ public class ConnectedPlayer extends Thread implements Initializable {
                            break;
                    }
               }
-               
            } catch (IOException ex) {
 
                System.out.println("2");
                System.out.println("Closing try");
-               System.out.println("Email: "+ email);
-
                if(email != null){
                     server.databaseInstance.setActive(false,email);
 
@@ -143,12 +140,18 @@ public class ConnectedPlayer extends Thread implements Initializable {
                }
                 
                this.stop();
+               try {
+                   currentSocket.close();
+               } catch (IOException ex1) {
+                   Logger.getLogger(ConnectedPlayer.class.getName()).log(Level.SEVERE, null, ex1);
+               }
            }
        }
        if(currentSocket.isClosed()){
            System.out.println("3");
            System.out.println("close");
-//           players.remove(this);
+           server.databaseInstance.getActivePlayers();
+
        }
    }
    

@@ -13,9 +13,9 @@ import java.time.LocalDateTime;
  */
 public class CurrentDateTime {
   
-   private static DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd  HH-mm-ss");
-   private static LocalDateTime now = LocalDateTime.now();
-   public static String getCurrentDateTime(){
+   private  DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd  HH-mm-ss");
+   private  LocalDateTime now = LocalDateTime.now();
+   public  String getCurrentDateTime(){
         //  System.out.println(dtf.format(now));
             return dtf.format(now);
           //  return sdf.format(now);

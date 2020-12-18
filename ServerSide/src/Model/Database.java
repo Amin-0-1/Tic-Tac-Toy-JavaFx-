@@ -67,7 +67,7 @@ public class Database {
             pst = con.prepareStatement("update player set isActive = ? where email = ?");
             pst.setString(1, state+"");
             pst.setString(2, email);
-            System.out.println("db mail:"+email);
+            System.out.println("db mail active:"+email);
             pst.executeUpdate(); // rs has all data
             updateResultSet();
         } catch (SQLException ex) {
@@ -141,6 +141,7 @@ public class Database {
         pst.setString(3, password);
         pst.executeUpdate(); // rs has all data
         login(email,password);
+
     }
 
     public String checkRegister(String username , String email){

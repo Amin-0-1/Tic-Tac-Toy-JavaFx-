@@ -7,21 +7,16 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
 <AnchorPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="649.0" prefWidth="1087.0" style="-fx-background-color: #2F2B43;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.TwoPlayerFXMLController">
    <children>
       <Pane layoutX="-2.0" prefHeight="649.0" prefWidth="1093.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-2.0" AnchorPane.rightAnchor="-4.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Pane layoutX="289.0" layoutY="14.0" prefHeight="54.0" prefWidth="444.0">
-               <children>
-                  <Label layoutX="158.0" layoutY="17.0" text="Two Player Mode" textFill="WHITE" />
-               </children>
-            </Pane>
-            <Pane layoutX="37.0" layoutY="14.0" prefHeight="54.0" prefWidth="58.0">
+            <Pane layoutX="37.0" layoutY="14.0" prefHeight="54.0" prefWidth="57.0">
                <children>
                   <Button mnemonicParsing="false" onAction="#backToMainPage" opacity="0.7" prefHeight="54.0" prefWidth="65.0" styleClass="buttonBack" stylesheets="@../css/fullpackstyling.css">
                      <graphic>
@@ -34,9 +29,8 @@
                   </Button>
                </children>
             </Pane>
-            <Text fx:id="txtWinner" fill="WHITE" layoutX="973.0" layoutY="202.0" strokeType="OUTSIDE" strokeWidth="0.0" />
          </children></Pane>
-      <GridPane fx:id="grid" layoutX="10.0" layoutY="153.0" prefHeight="506.0" prefWidth="885.0">
+      <GridPane fx:id="grid" layoutX="114.0" layoutY="132.0" prefHeight="506.0" prefWidth="885.0" AnchorPane.bottomAnchor="11.0" AnchorPane.leftAnchor="114.0" AnchorPane.rightAnchor="88.0" AnchorPane.topAnchor="132.0">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -158,5 +152,16 @@
             </AnchorPane>
          </children>
       </GridPane>
+      <Label fx:id="labelFirstPlayer" style="-fx-font-size: 16;" stylesheets="@../css/fullpackstyling.css" text="Player1:" textFill="WHITE" AnchorPane.leftAnchor="120.0" AnchorPane.topAnchor="90.0" />
+      <Label fx:id="labelSecondPlayer" style="-fx-font-size: 16;" stylesheets="@../css/fullpackstyling.css" text="Player2:" textFill="WHITE" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="90.0" />
+      <HBox alignment="CENTER" prefHeight="54.0" prefWidth="173.0" AnchorPane.leftAnchor="400.0" AnchorPane.rightAnchor="400.0" AnchorPane.topAnchor="15.0">
+         <children>
+            <Label alignment="CENTER" text="Two Player Mode" textFill="WHITE">
+               <font>
+                  <Font name="System Bold Italic" size="15.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
    </children>    
 </AnchorPane>
