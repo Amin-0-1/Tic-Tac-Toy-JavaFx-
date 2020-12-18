@@ -39,12 +39,15 @@ public class Main extends Application {
          //MainController.enableWatchGameButton(true);
 
         Scene scene = new Scene(root);
+        scene.getStylesheets().add(getClass().getResource("/css/fullpackstyling.css").toString());
+
         //set transparent
         scene.setFill(Color.TRANSPARENT);
         primaryStage.setScene(scene);
         primaryStage.show();
-        
-        
+        primaryStage.setOnCloseRequest((event) -> {
+            System.exit(1);
+        });       
         
     }
 

@@ -80,52 +80,70 @@ public class RegisterFXMLController {
             String regex = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$";
             Pattern pattern = Pattern.compile(regex);     
             Matcher matcher = pattern.matcher(txtMail.getText());
-            if(!matcher.matches()){
-                txtAlret.setText("Please enter a valid mail");
+            String userName = txtUserName.getText().trim();
+            String email = txtMail.getText().trim();
+            String password = txtPassword.getText().trim();
+            String cPassword = txtRePassword.getText().trim();
+            if(userName.isEmpty() || email.isEmpty() ||
+                    password.isEmpty() || cPassword.isEmpty()  ){
+                Platform.runLater(()->{
+                  txtAlret.setText("Empty Fields is Required");
+                 }); 
+                
+            }else if(!matcher.matches()){
+                Platform.runLater(()->{
+                  txtAlret.setText("Please enter a valid mail");
+                 }); 
+                
             }
             //check for correct password
             else if(!txtPassword.getText().equals(txtRePassword.getText())){
-                txtAlret.setText("Please check your password");
+                Platform.runLater(()->{
+                  txtAlret.setText("Please check your password");
+                }); 
+                
             }else{
                 
                 Socket socket = new Socket("127.0.0.1",9876);
                 DataInputStream dis = new DataInputStream(socket.getInputStream());
                 PrintStream ps = new PrintStream(socket.getOutputStream());
-                ps.println("SignUp,"+txtUserName.getText()+","+txtMail.getText()+","+txtPassword.getText());
-
-
+                ps.println("SignUp###"+txtUserName.getText()+"###"+txtMail.getText()+"###"+txtPassword.getText());
+                
                 //the server response
-                System.out.println("main thread "+Thread.currentThread().getId());
+                
                 new Thread(){
                     String state,playerData;
                     HashMap<String, String> hash = new HashMap<>(); 
                     @Override
                     public void run(){
                         try {
+                            
                             state = dis.readLine();
-                            
-                            playerData = dis.readLine();
-                            
-                            token = new StringTokenizer(playerData,",");
-                            hash.put("username", token.nextToken());
-                            hash.put("email",token.nextToken());
-                            hash.put("score", "0");
-                            
-                            System.out.println(hash.toString());
-                            token = new StringTokenizer(state,"@@@");
+                            token = new StringTokenizer(state,"###");
                             String receivedState = token.nextToken();
+                            
                             System.out.println(receivedState);
+                            
                             switch(receivedState){
                                 case "Registered Successfully":
-                                     System.out.println("Thread before "+this.getId());
+                                    
+                                     playerData = dis.readLine();
+                                     token = new StringTokenizer(playerData,"###");
+                                     hash.put("username", token.nextToken());
+                                     hash.put("email",token.nextToken());
+                                     hash.put("score", "0");
+                                    
                                      Platform.runLater(()->{
-                                       btnback.handleButtonBack(e,hash);
+                                       btnback.handleButtonBack(e,hash,socket);
                                      });
                                      
 //                                    this.stop();
                                     break;
+                                    
                                 case "already signed-up":
-                                    System.out.println(receivedState);                                
+                                    Platform.runLater(()->{
+                                       txtAlret.setText("This Email is " +receivedState);
+                                    });                                
                                     break;
                             }
                             
@@ -137,7 +155,7 @@ public class RegisterFXMLController {
                     }
                 }.start();
             }
-                    } catch (IOException ex) {
+        } catch (IOException ex) {
 
             System.out.print("catch");
             Logger.getLogger(signInFXMLController.class.getName()).log(Level.SEVERE, null, ex);

@@ -27,7 +27,7 @@
               </rowConstraints>
                <children>
 
-                  <Label alignment="CENTER" contentDisplay="CENTER" graphicTextGap="10.0" prefHeight="81.0" prefWidth="176.0" style="-fx-font-size: 16;" text="UserName" textAlignment="CENTER" textFill="#eeecec">
+                  <Label alignment="CENTER" contentDisplay="CENTER" graphicTextGap="10.0" prefHeight="81.0" prefWidth="176.0" style="-fx-font-size: 16;" text="Email" textAlignment="CENTER" textFill="#eeecec">
 
                      <GridPane.margin>
                         <Insets />
@@ -36,7 +36,7 @@
                   <Label alignment="CENTER" prefHeight="81.0" prefWidth="176.0" style="-fx-font-size: 16;" text="Password" textFill="WHITE" GridPane.rowIndex="1" />
                   <AnchorPane prefHeight="82.0" prefWidth="327.0" GridPane.columnIndex="1">
                      <children>
-                        <TextField fx:id="txtUserName" layoutX="57.0" layoutY="40.0" promptText="User Name" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                        <TextField fx:id="txtUserName" layoutX="57.0" layoutY="40.0" promptText="Email " AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
                      </children>
                   </AnchorPane>
                   <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="1">

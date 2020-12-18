@@ -39,7 +39,6 @@ import javafx.stage.Stage;
  * @author dell
  */
 public class ListRecordedGamesController implements Initializable {
-
     /**
      * Initializes the controller class.
      */
