@@ -27,15 +27,29 @@ import javafx.stage.WindowEvent;
  * @author Amin
  */
 public class Chart extends Application {
-    private ObservableList<PieChart.Data> pieChartData;
-    Stage dialogStage;
-//    public static boolean flag = false;
-    private boolean flag = false;
     
-    public void setFlag(boolean x){
-        this.flag = x;
+    private static Chart ch;
+    private ObservableList<PieChart.Data> pieChartData;
+    private static boolean flag = false;
+    Stage dialogStage;
+    //    private boolean flag = false;
+
+    private Chart(){
+        
     }
-    public boolean getFlag(){
+    
+    
+    
+    public static Chart getChartObj(){
+        if(ch == null){
+            ch = new Chart();
+        }
+        return ch;
+    }
+    public static void setFlag(boolean x){
+        flag = x;
+    }
+    public static boolean getFlag(){
         return flag;
     }
     public void setChartData(ObservableList<PieChart.Data> ob){
@@ -47,29 +61,10 @@ public class Chart extends Application {
         
         final PieChart chart = new PieChart(pieChartData);
         chart.setTitle("Tic Tac Toe Statistics");
-        System.out.println("hello from chart");
         
         Scene scene = new Scene(new Group());
-//        final Label caption = new Label("");
-//        caption.setTextFill(Color.WHITE);
-//        caption.setStyle("-fx-font: 12 arial;");
- 
-//        for (final PieChart.Data data : chart.getData()) {
-//            data.getNode().addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
-//                @Override
-//                public void handle(MouseEvent e) {
-//                    caption.setTranslateX(e.getSceneX());
-//                    caption.setTranslateY(e.getSceneY());
-// 
-//                    caption.setText(String.valueOf(data.getPieValue()));
-//                }
-//            });
-//        }
-//        
-//        
-//        
-//        ((Group) scene.getRoot()).getChildren().addAll(chart,caption);
-           ((Group) scene.getRoot()).getChildren().add(chart);
+        scene.getStylesheets().add("/css/fullpackstyling.css");
+        ((Group) scene.getRoot()).getChildren().add(chart);
         if(dialogStage == null){
             
             dialogStage = new Stage();
@@ -79,38 +74,13 @@ public class Chart extends Application {
             dialogStage.initStyle(StageStyle.UTILITY);
             
         }
+        
         dialogStage.setScene(scene);
-        
-        System.out.println(dialogStage.isShowing());
-
-//        final Label caption = new Label("");
-//        caption.setTextFill(Color.WHITE);
-//        caption.setStyle("-fx-font: 12 arial;");
-// 
-//        for (final PieChart.Data data : chart.getData()) {
-//            data.getNode().addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
-//                @Override
-//                public void handle(MouseEvent e) {
-//                    caption.setTranslateX(e.getSceneX());
-//                    caption.setTranslateY(e.getSceneY());
-// 
-//                    caption.setText(String.valueOf(data.getPieValue()));
-//                }
-//            });
-//        }
-
-          
-                   dialogStage.show(); 
-
-         
-        
-        
-        dialogStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-          public void handle(WindowEvent we) {
-            Thread.currentThread().interrupt();
+        dialogStage.show();
+        chart.setLegendVisible(true);
+        dialogStage.setOnCloseRequest((WindowEvent we) -> {
             flag = true;
-         }
-        });        
+        });
                 
     }
 

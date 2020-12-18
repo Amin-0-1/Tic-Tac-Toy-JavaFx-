@@ -20,6 +20,8 @@ import java.util.ResourceBundle;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -56,14 +58,30 @@ public class signInFXMLController {
     
   
     public void signInPressed(ActionEvent e){
-            ButtonBack btnback = new ButtonBack("/view/OnlinePlayer.fxml");         
+            ButtonBack btnback = new ButtonBack("/view/OnlinePlayer.fxml");  
+            
         try {
-            socket = new Socket(IPvalidatation.getIp(),9876);
-            System.out.println("conncet valid ip ");
-            System.out.println(IPvalidatation.getIp());
+           
+            String regex = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$";
+            Pattern pattern = Pattern.compile(regex);     
+            Matcher matcher = pattern.matcher(txtUserName.getText());
+            String userName = txtUserName.getText().trim();
+            String email = txtPassword.getText().trim();
+            if(userName.isEmpty() || email.isEmpty() ){
+                Platform.runLater(()->{
+                  txtAlret.setText("Empty Fields is Required");
+                 }); 
+                
+            }else if(!matcher.matches()){
+                Platform.runLater(()->{
+                  txtAlret.setText("Please enter a valid mail");
+                 }); 
+                
+            }else{
+                socket = new Socket(IPvalidatation.getIp(),9876);
             dis = new DataInputStream(socket.getInputStream());
             ps = new PrintStream(socket.getOutputStream());
-            ps.println("SignIn,"+txtUserName.getText()+","+txtPassword.getText());
+            ps.println("SignIn###"+txtUserName.getText()+"###"+txtPassword.getText());
 
             if(txtUserName.getText().equals("")){
                 txtAlret.setText("Please enter your unsername");
@@ -79,15 +97,10 @@ public class signInFXMLController {
                     public void run(){
                         try {
                             state = dis.readLine();
-                            token = new StringTokenizer(state,"@@@");
+                            token = new StringTokenizer(state,"###");
                             String receivedState = token.nextToken();
                             System.out.println(receivedState);
-                            playerData = dis.readLine();
                             
-                            StringTokenizer token2 = new StringTokenizer(playerData,",");
-                            hash.put("username", token2.nextToken());
-                            hash.put("email",token2.nextToken());
-                            hash.put("score", token2.nextToken());
                             
                             // after login , get result set
 //                            String str;
@@ -99,22 +112,38 @@ public class signInFXMLController {
                             
                             switch(receivedState){
                                 case "Logged in successfully":
-                                    score = Integer.parseInt(token.nextToken());
-                                    
+//                                    score = Integer.parseInt(token.nextToken());
+                                    playerData = dis.readLine();
+                            
+                                    StringTokenizer token2 = new StringTokenizer(playerData,"###");
+                                    hash.put("username", token2.nextToken());
+                                    hash.put("email",token2.nextToken());
+                                    hash.put("score", token2.nextToken());
                                     //notification for successful logging in
                                      Platform.runLater(()->{
-                                       btnback.handleButtonBack(e,hash);
+                                       btnback.handleButtonBack(e,hash,socket);
                                       });
                                     break;
-                                case "Username is incorrect":
-                                    System.out.println(receivedState);                                
+                                case "Email is incorrect":
+                                    Platform.runLater(()->{
+                                       txtAlret.setText(receivedState);
+                                      });                                
                                     break;
                                 case "Password is incorrect":
-                                    System.out.println(receivedState);                                
+                                     Platform.runLater(()->{
+                                       txtAlret.setText(receivedState);
+                                      });                                 
                                     break;
                                 case "Connection issue, please try again later":
-                                    System.out.println(receivedState);
+                                     Platform.runLater(()->{
+                                       txtAlret.setText(receivedState);
+                                      }); 
                                     break;
+                                case "This Email is alreay sign-in":
+                                     Platform.runLater(()->{
+                                       txtAlret.setText(receivedState);
+                                      }); 
+                                    break;   
                             }
 
                         } catch (IOException ex) {
@@ -125,6 +154,8 @@ public class signInFXMLController {
                 }.start();            
 
             }
+         }
+            
 
         } catch (IOException ex) {
             System.out.println("33333333333");

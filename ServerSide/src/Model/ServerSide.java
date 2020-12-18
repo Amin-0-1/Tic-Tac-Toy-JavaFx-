@@ -33,6 +33,9 @@ public class ServerSide extends Application {
         stage.setTitle("Tic Tac Toy, Play and Enjoy!!");
 //        stage.initModality(Modality.APPLICATION_MODAL);
         stage.show();
+        stage.setOnCloseRequest((event) -> {
+            System.exit(1);
+        });
     }
 
     /**

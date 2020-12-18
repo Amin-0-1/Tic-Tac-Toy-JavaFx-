@@ -21,8 +21,12 @@ import org.apache.derby.jdbc.ClientDriver;
 public class Database {
     private static Database instanceData;
     private Connection con;
-    public ResultSet rs ;
+    private ResultSet rs ;
     private PreparedStatement pst;
+    
+    public ResultSet getResultSet(){
+        return rs;
+    }
     
     private Database() throws SQLException{
          DriverManager.registerDriver(new ClientDriver());
@@ -40,11 +44,6 @@ public class Database {
         
         try {
             this.pst =con.prepareStatement("Select * from player",ResultSet.TYPE_SCROLL_SENSITIVE ,ResultSet.CONCUR_READ_ONLY  );
-        } catch (SQLException ex) {
-            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        try {
             this.rs = pst.executeQuery(); // rs has all data
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
@@ -125,13 +124,14 @@ public class Database {
         }
         
     }
-    public void login(String username,String password) throws SQLException{
-        pst = con.prepareStatement("update player set isActive = ?  where username = ? and password = ? ",ResultSet.TYPE_SCROLL_SENSITIVE ,ResultSet.CONCUR_UPDATABLE  );
+    
+    public void login(String email,String password) throws SQLException{
+        pst = con.prepareStatement("update player set isActive = ?  where email = ? and password = ? ",ResultSet.TYPE_SCROLL_SENSITIVE ,ResultSet.CONCUR_UPDATABLE  );
         pst.setString(1, "true");
-        pst.setString(2, username);
+        pst.setString(2, email);
         pst.setString(3, password);
         pst.executeUpdate(); // rs has all data
-        updateResultSet();
+        updateResultSet();          
     }
     
     public void SignUp(String username , String email, String password) throws SQLException{
@@ -141,18 +141,18 @@ public class Database {
         pst.setString(2, email);
         pst.setString(3, password);
         pst.executeUpdate(); // rs has all data
-        updateResultSet();
-        login(username,password);
+        login(email,password);
     }
 
     public String checkRegister(String username , String email){
         ResultSet checkRs;
         PreparedStatement pstCheck;
-        String check;
+        
         try {
             //        String queryString= new String("select username from player where username = ?");
-            pstCheck = con.prepareStatement("select * from player where username = ?");
+            pstCheck = con.prepareStatement("select * from player where username = ? and email = ?");
             pstCheck.setString(1, username);
+            pstCheck.setString(2, email);
             checkRs = pstCheck.executeQuery();
             if(checkRs.next()){
                 return "already signed-up";
@@ -163,13 +163,16 @@ public class Database {
         }
         return "Registered Successfully";
     }
-    public String checkSignIn(String username, String password){
+    public String checkSignIn(String email, String password){
         ResultSet checkRs;
         PreparedStatement pstCheck;
         String check;       
-        try {
-            pstCheck = con.prepareStatement("select * from player where username = ?");
-            pstCheck.setString(1, username);
+        System.out.println("checkSignIn " +checkIsActive(email));
+        if(!checkIsActive(email)){
+            System.out.println(" checkSignIn: " +checkIsActive(email));
+                try { 
+            pstCheck = con.prepareStatement("select * from player where email = ? ");
+            pstCheck.setString(1, email);
             checkRs = pstCheck.executeQuery();
             if(checkRs.next()){
                 if(password.equals(checkRs.getString(4))){
@@ -177,21 +180,26 @@ public class Database {
                 }
                 return "Password is incorrect";
             }
-            return "Username is incorrect";
-        } catch (SQLException ex) {
+            return "Email is incorrect";
+          } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
             return "Connection issue, please try again later";
+             }
+        }else{
+            System.out.println("This Email alreay sign-in " + checkIsActive(email));
+           return "This Email is alreay sign-in";  
         }
+              
     }
     
-    public int getScore(String username){
+    public int getScore(String email){
         int score;
         ResultSet checkRs;
         PreparedStatement pstCheck;
  
         try {
-            pstCheck = con.prepareStatement("select * from player where username = ?");
-            pstCheck.setString(1, username);
+            pstCheck = con.prepareStatement("select * from player where email = ?");
+            pstCheck.setString(1, email);
             checkRs = pstCheck.executeQuery();
             checkRs.next();
             score = checkRs.getInt(5);
@@ -206,15 +214,103 @@ public class Database {
         ResultSet checkRs;
         PreparedStatement pstCheck;
         try {
-            pstCheck = con.prepareStatement("select * from player where username = ?");
+            pstCheck = con.prepareStatement("select * from player where email = ?");
             pstCheck.setString(1, username);
             checkRs = pstCheck.executeQuery();
             checkRs.next();
             email = checkRs.getString(3);
             return email;
         } catch (SQLException ex) {
-            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Invalod Email address");
+            //Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
+    
+    /**
+     * getUserName
+     * get user name to pass it to login method
+     * @param email
+     * @return 
+     */
+     public String getUserName(String email){
+        String userName;
+        ResultSet checkRs;
+        PreparedStatement pstCheck;
+        try {
+            pstCheck = con.prepareStatement("select * from player where email = ?");
+            pstCheck.setString(1, email);
+            checkRs = pstCheck.executeQuery();
+            checkRs.next();
+            userName = checkRs.getString(2);
+            return userName;
+        } catch (SQLException ex) {
+            System.out.println("Invalod Email address");
+            //Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+     
+     /**
+      * checkIsActive
+      * check if player login or not
+      * @param email
+      * @return 
+      */
+     public Boolean checkIsActive(String email){
+          ResultSet checkRs;
+          PreparedStatement pstCheck;
+          Boolean isActive ;
+         try {
+            pstCheck = con.prepareStatement("select isactive from player where email = ?");
+            pstCheck.setString(1, email);
+            checkRs = pstCheck.executeQuery();
+            checkRs.next();
+            System.out.println("checkIsActive true ");
+            isActive = checkRs.getBoolean("isactive");
+            System.out.println("checkIsActive " +isActive);
+            return isActive ;
+         } catch (SQLException ex) {
+            System.out.println("Invalod Email address");
+            //Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+         }
+         return false;
+         
+     }
+
+
+    public void makePlaying(String player1, String player2){
+        try {
+            pst = con.prepareStatement("update player set isPlaying = true  where email = ?",ResultSet.TYPE_SCROLL_SENSITIVE ,ResultSet.CONCUR_UPDATABLE  );
+            pst.setString(1, player1);
+            pst.executeUpdate(); // rs has all data
+            pst = con.prepareStatement("update player set isPlaying = true  where email = ?",ResultSet.TYPE_SCROLL_SENSITIVE ,ResultSet.CONCUR_UPDATABLE  );
+            pst.setString(1, player2);
+            pst.executeUpdate();
+            updateResultSet();
+        } catch (SQLException ex) {
+            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public boolean checkPlaying(String player){
+        boolean available;
+        ResultSet checkAv;
+        PreparedStatement pstCheckAv;
+        try {
+            pstCheckAv = con.prepareStatement("select * from player where username = ?");
+            pstCheckAv.setString(1, player);
+            checkAv = pstCheckAv.executeQuery();
+            checkAv.next();
+            available = checkAv.getBoolean(4);
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+
+    }
 }
+
+

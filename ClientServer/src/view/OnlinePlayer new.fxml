@@ -19,83 +19,8 @@
       <AnchorPane layoutX="305.0" layoutY="17.0" prefHeight="649.0" prefWidth="792.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="305.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <BorderPane prefHeight="649.0" prefWidth="792.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <top>
-                  <GridPane prefHeight="152.0" prefWidth="782.0" BorderPane.alignment="CENTER">
-                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-                     </columnConstraints>
-                     <rowConstraints>
-                        <RowConstraints maxHeight="97.0" minHeight="10.0" prefHeight="78.0" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="74.0" minHeight="50.0" prefHeight="80.0" vgrow="SOMETIMES" />
-                     </rowConstraints>
-                     <children>
-                        <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="button2" stylesheets="@../css/fullpackstyling.css">
-                           <GridPane.margin>
-                              <Insets bottom="15.0" left="15.0" right="15.0" top="30.0" />
-                           </GridPane.margin>
-                           <children>
-                              <Label fx:id="usernametxt" alignment="CENTER" contentDisplay="CENTER" prefHeight="27.0" prefWidth="142.0" text="Mahmoud Amin : x" textFill="#f8f1f1" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0">
-                                 <font>
-                                    <Font size="15.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                        </AnchorPane>
-                        <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="button2" stylesheets="@../css/fullpackstyling.css" GridPane.columnIndex="2">
-                           <children>
-                              <Label fx:id="scoretxt" alignment="CENTER" contentDisplay="CENTER" prefHeight="27.0" prefWidth="142.0" text="Mahmoud Amin : o" textFill="#f8f1f1" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0">
-                                 <font>
-                                    <Font size="15.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                           <GridPane.margin>
-                              <Insets bottom="15.0" left="15.0" right="15.0" top="30.0" />
-                           </GridPane.margin>
-                        </AnchorPane>
-                        <AnchorPane fx:id="middanc" prefHeight="200.0" prefWidth="200.0" styleClass="button2" stylesheets="@../css/fullpackstyling.css" GridPane.columnIndex="1">
-                           <children>
-                              <Label fx:id="emailtxt" alignment="CENTER" contentDisplay="CENTER" prefHeight="27.0" prefWidth="142.0" text="Mahmoud Amin" textFill="#f8f1f1" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0">
-                                 <font>
-                                    <Font size="15.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                           <GridPane.margin>
-                              <Insets bottom="15.0" left="15.0" right="15.0" top="30.0" />
-                           </GridPane.margin>
-                        </AnchorPane>
-                        <AnchorPane fx:id="player2anc" prefHeight="200.0" prefWidth="200.0" styleClass="button2" stylesheets="@../css/fullpackstyling.css" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="1">
-                           <children>
-                              <Label fx:id="player2lbl" alignment="CENTER" contentDisplay="CENTER" prefHeight="27.0" prefWidth="142.0" textFill="#f8f1f1" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0">
-                                 <font>
-                                    <Font size="15.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                           <GridPane.margin>
-                              <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
-                           </GridPane.margin>
-                        </AnchorPane>
-                        <AnchorPane fx:id="player1anc" prefHeight="200.0" prefWidth="200.0" styleClass="button2" stylesheets="@../css/fullpackstyling.css" visible="false" GridPane.rowIndex="1">
-                           <children>
-                              <Label fx:id="player1lbl" alignment="CENTER" contentDisplay="CENTER" prefHeight="27.0" prefWidth="142.0" textFill="#f8f1f1" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0">
-                                 <font>
-                                    <Font size="15.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                           <GridPane.margin>
-                              <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
-                           </GridPane.margin>
-                        </AnchorPane>
-                     </children>
-                  </GridPane>
-               </top>
                <center>
-                  <AnchorPane fx:id="playboard" prefHeight="521.0" prefWidth="782.0" visible="false" BorderPane.alignment="CENTER">
+                  <AnchorPane prefHeight="521.0" prefWidth="782.0" BorderPane.alignment="CENTER">
                      <children>
                         <GridPane fx:id="grid" alignment="TOP_CENTER" gridLinesVisible="true" layoutY="98.0" prefHeight="474.0" prefWidth="752.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="35.0">
                            <columnConstraints>
@@ -222,6 +147,81 @@
                      </children>
                   </AnchorPane>
                </center>
+               <top>
+                  <GridPane prefHeight="152.0" prefWidth="782.0" BorderPane.alignment="CENTER">
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints maxHeight="97.0" minHeight="10.0" prefHeight="78.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="74.0" minHeight="50.0" prefHeight="80.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <children>
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="button2" stylesheets="@../css/fullpackstyling.css">
+                           <GridPane.margin>
+                              <Insets bottom="15.0" left="15.0" right="15.0" top="30.0" />
+                           </GridPane.margin>
+                           <children>
+                              <Label fx:id="emailtxt" alignment="CENTER" contentDisplay="CENTER" prefHeight="27.0" prefWidth="142.0" text="Mahmoud Amin" textFill="#f8f1f1" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="button2" stylesheets="@../css/fullpackstyling.css" GridPane.columnIndex="2">
+                           <children>
+                              <Label fx:id="scoretxt" alignment="CENTER" contentDisplay="CENTER" prefHeight="27.0" prefWidth="142.0" text="Mahmoud Amin" textFill="#f8f1f1" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                           <GridPane.margin>
+                              <Insets bottom="15.0" left="15.0" right="15.0" top="30.0" />
+                           </GridPane.margin>
+                        </AnchorPane>
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="button2" stylesheets="@../css/fullpackstyling.css" GridPane.columnIndex="1">
+                           <children>
+                              <Label fx:id="usernametxt" alignment="CENTER" contentDisplay="CENTER" prefHeight="27.0" prefWidth="142.0" text="Mahmoud Amin" textFill="#f8f1f1" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                           <GridPane.margin>
+                              <Insets bottom="15.0" left="15.0" right="15.0" top="30.0" />
+                           </GridPane.margin>
+                        </AnchorPane>
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="button2" stylesheets="@../css/fullpackstyling.css" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                           <children>
+                              <Label fx:id="right" alignment="CENTER" contentDisplay="CENTER" prefHeight="27.0" prefWidth="142.0" text="Mahmoud Amin" textFill="#f8f1f1" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                           <GridPane.margin>
+                              <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                           </GridPane.margin>
+                        </AnchorPane>
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="button2" stylesheets="@../css/fullpackstyling.css" GridPane.rowIndex="1">
+                           <children>
+                              <Label fx:id="left" alignment="CENTER" contentDisplay="CENTER" prefHeight="27.0" prefWidth="142.0" text="Mahmoud Amin" textFill="#f8f1f1" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                           <GridPane.margin>
+                              <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                           </GridPane.margin>
+                        </AnchorPane>
+                     </children>
+                  </GridPane>
+               </top>
             </BorderPane>
          </children>
       </AnchorPane>

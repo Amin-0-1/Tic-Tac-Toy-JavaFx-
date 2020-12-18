@@ -57,6 +57,8 @@ public class ServerMainPageController implements Initializable {
     private int countOffline = 0;
     private Chart chart;
     private Stage thisStage;
+    
+    
     int id;
     @FXML
     private ImageView serverStateImage;
@@ -96,7 +98,7 @@ public class ServerMainPageController implements Initializable {
                      Thread.sleep(2000);  
 
                    }catch(InterruptedException ex){
-
+                     emptyList();
                    }
                 }
             }
@@ -106,47 +108,35 @@ public class ServerMainPageController implements Initializable {
                       
             @Override
             public void run() {
-                System.out.println("run");
                 while(true && showingChart){
-                    
-                        
-                        if(!chart.getFlag()){
-                                id =(int) Thread.currentThread().getId();
+                    if(!Chart.getFlag()){
                         ObservableList<PieChart.Data> pieChartData;
                         pieChartData =
                         FXCollections.observableArrayList(
                             new PieChart.Data("Offline", countOffline),
-                            new PieChart.Data("Idle", countOnline));
+                            new PieChart.Data("Online", countOnline));
 
                         chart.setChartData(pieChartData);                        
                         Platform.runLater(() -> {
                             try {
                                 chart.start(thisStage);
-                                System.out.print("outer Thread"+Thread.currentThread().getId());
                             } catch (Exception ex) {
-                                System.out.println("sss");
                                 Logger.getLogger(ServerMainPageController.class.getName()).log(Level.SEVERE, null, ex);
                             }
                         });
-                        
+
                         try{
-                            Thread.sleep(2000);
+                            Thread.sleep(3000);
                         }catch(InterruptedException ex){
 
                         }
-                    
-                      }else{
-                        System.out.println("Getting before suspend"+chart.getFlag());
+
+                    }else{
                         flageStartCharThread = false;
                         chartThread.suspend();
-                        System.out.println("Getting after suspend"+chart.getFlag());
-                            
-                       }
+                   }
                         
-                }
-                
-                
-                
+                } 
             }
         });
     }
@@ -159,7 +149,7 @@ public class ServerMainPageController implements Initializable {
             try {
                 System.out.println("toggle");
                 server.enableConnections();
-                        
+                
 //                listPlayers(true);
                 enableBtn();    // enable list online and offline btn;
                 serverStateImage.setImage(new Image(new FileInputStream("src/resources/shutdown.png")));
@@ -231,15 +221,18 @@ public class ServerMainPageController implements Initializable {
     }
  
     private void listPlayers(Boolean state){
-//        scrollpane.setContent(null);
+        
+        server.databaseInstance.updateResultSet();
+        scrollpane.setContent(null);
         try {
             Button button;
             VBox vbox = new VBox();
             HBox hbox;
             
             countOnline = 0;
-            while(server.databaseInstance.rs.next()){
-                if(server.databaseInstance.rs.getString("ISACTIVE").equals(state+"")){
+            
+            while(server.databaseInstance.getResultSet().next()){
+                if(server.databaseInstance.getResultSet().getString("ISACTIVE").equals(state+"")){
                     //System.out.println("platform check action action");
                     
                     ImageView view,view2;
@@ -261,7 +254,7 @@ public class ServerMainPageController implements Initializable {
                     view2.setFitHeight(20);
                     view2.setPreserveRatio(true);
 
-                    button = new Button(""+server.databaseInstance.rs.getString("userName"),view);
+                    button = new Button(""+server.databaseInstance.getResultSet().getString("userName"),view);
                     button.setAlignment(Pos.BOTTOM_LEFT);
 
                     hbox = new HBox(button,view2);
@@ -271,9 +264,8 @@ public class ServerMainPageController implements Initializable {
 
                     scrollpane.setContent(vbox);
                 }
-            }
-            
-            server.databaseInstance.rs.beforeFirst();
+            } 
+            server.databaseInstance.getResultSet().beforeFirst();
         } catch (SQLException ex) {
             Logger.getLogger(ServerMainPageController.class.getName()).log(Level.SEVERE, null, ex);
         }catch (FileNotFoundException ex) {
@@ -297,14 +289,15 @@ public class ServerMainPageController implements Initializable {
     private void chartHandle(ActionEvent e){
         countOffline = server.databaseInstance.getCountOfOfflineUserse();
         showingChart = true; 
-        chart = new Chart();
+        chart.setFlag(false);
+        chart = Chart.getChartObj();
         //thisStage = (Stage) serverStateImage.getScene().getWindow();
         
         if(Platform.isFxApplicationThread() && showingChart){
             if(flageStartCharThread){
               chartThread.start();  
             }else{
-                chart.setFlag(false);
+               
                chartThread.resume();
             }
             
