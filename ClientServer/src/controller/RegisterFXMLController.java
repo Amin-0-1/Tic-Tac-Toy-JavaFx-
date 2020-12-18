@@ -80,12 +80,28 @@ public class RegisterFXMLController {
             String regex = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$";
             Pattern pattern = Pattern.compile(regex);     
             Matcher matcher = pattern.matcher(txtMail.getText());
-            if(!matcher.matches()){
-                txtAlret.setText("Please enter a valid mail");
+            String userName = txtUserName.getText().trim();
+            String email = txtMail.getText().trim();
+            String password = txtPassword.getText().trim();
+            String cPassword = txtRePassword.getText().trim();
+            if(userName.isEmpty() || email.isEmpty() ||
+                    password.isEmpty() || cPassword.isEmpty()  ){
+                Platform.runLater(()->{
+                  txtAlret.setText("Empty Fields is Required");
+                 }); 
+                
+            }else if(!matcher.matches()){
+                Platform.runLater(()->{
+                  txtAlret.setText("Please enter a valid mail");
+                 }); 
+                
             }
             //check for correct password
             else if(!txtPassword.getText().equals(txtRePassword.getText())){
-                txtAlret.setText("Please check your password");
+                Platform.runLater(()->{
+                  txtAlret.setText("Please check your password");
+                }); 
+                
             }else{
                 
                 Socket socket = new Socket("127.0.0.1",9876);
@@ -125,7 +141,9 @@ public class RegisterFXMLController {
                                     break;
                                     
                                 case "already signed-up":
-                                    System.out.println(receivedState);                                
+                                    Platform.runLater(()->{
+                                       txtAlret.setText("This Email " +receivedState);
+                                    });                                
                                     break;
                             }
                             

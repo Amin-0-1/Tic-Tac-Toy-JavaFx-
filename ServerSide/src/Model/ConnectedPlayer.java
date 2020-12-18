@@ -157,25 +157,36 @@ public class ConnectedPlayer extends Thread implements Initializable {
    }
    
    private void signIn(){
-        username = token.nextToken().toString();
+        email = token.nextToken().toString();
         String password = token.nextToken();
         String check;
         int score;
-        System.out.println(username+" "+password);
+        System.out.println(email+" "+password);
         try{
 
     //                        instance = Database.getDataBase();
-             check = server.databaseInstance.checkSignIn(username, password);
-             score = server.databaseInstance.getScore(username);
-             email = server.databaseInstance.getEmail(username);
+             check = server.databaseInstance.checkSignIn(email, password);
+             
 
              if(check.equals("Logged in successfully")){
+                 score = server.databaseInstance.getScore(email);
+                 email = server.databaseInstance.getEmail(email);
+                 username = server.databaseInstance.getUserName(email);
                  server.databaseInstance.login(email, password);
                  ps.println(check +"###" + score);
                  ps.println(username+"###"+email+"###"+score); // send data to registerController
                  loggedin = true;
 
                  activeUsers.add(this);
+             }else if(check.equals("Email is incorrect")){
+                 ps.println(check +"###");
+                 
+             }else if(check.equals("Password is incorrect")){
+                 ps.println(check +"###");
+                 
+             }else if(check.equals("Connection issue, please try again later")){
+                 ps.println(check +"###");
+                 
              }
 //             ps.println(check +"###" + score);
 
@@ -205,6 +216,8 @@ public class ConnectedPlayer extends Thread implements Initializable {
                 server.databaseInstance.SignUp(username,email,password);
                 System.out.println("User is registered now , check database");   
                 activeUsers.add(this);
+            }else if (check.equals("already signed-up")){
+                ps.println("already signed-up"+"###");
             }
        }catch(SQLException e){
            //alert

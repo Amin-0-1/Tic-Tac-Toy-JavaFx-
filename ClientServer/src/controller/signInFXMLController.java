@@ -115,14 +115,20 @@ public class signInFXMLController {
                                        btnback.handleButtonBack(e,hash,socket);
                                       });
                                     break;
-                                case "Username is incorrect":
-                                    System.out.println(receivedState);                                
+                                case "Email is incorrect":
+                                    Platform.runLater(()->{
+                                       txtAlret.setText(receivedState);
+                                      });                                
                                     break;
                                 case "Password is incorrect":
-                                    System.out.println(receivedState);                                
+                                     Platform.runLater(()->{
+                                       txtAlret.setText(receivedState);
+                                      });                                 
                                     break;
                                 case "Connection issue, please try again later":
-                                    System.out.println(receivedState);
+                                     Platform.runLater(()->{
+                                       txtAlret.setText(receivedState);
+                                      }); 
                                     break;
                             }
 
