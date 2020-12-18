@@ -250,6 +250,7 @@ public class Database {
         }
         return null;
     }
+
      
      /**
       * checkIsActive
@@ -277,4 +278,39 @@ public class Database {
          return false;
          
      }
+
+
+    public void makePlaying(String player1, String player2){
+        try {
+            pst = con.prepareStatement("update player set isPlaying = true  where email = ?",ResultSet.TYPE_SCROLL_SENSITIVE ,ResultSet.CONCUR_UPDATABLE  );
+            pst.setString(1, player1);
+            pst.executeUpdate(); // rs has all data
+            pst = con.prepareStatement("update player set isPlaying = true  where email = ?",ResultSet.TYPE_SCROLL_SENSITIVE ,ResultSet.CONCUR_UPDATABLE  );
+            pst.setString(1, player2);
+            pst.executeUpdate();
+            updateResultSet();
+        } catch (SQLException ex) {
+            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public boolean checkPlaying(String player){
+        boolean available;
+        ResultSet checkAv;
+        PreparedStatement pstCheckAv;
+        try {
+            pstCheckAv = con.prepareStatement("select * from player where username = ?");
+            pstCheckAv.setString(1, player);
+            checkAv = pstCheckAv.executeQuery();
+            checkAv.next();
+            available = checkAv.getBoolean(4);
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+
+    }
 }
+
+

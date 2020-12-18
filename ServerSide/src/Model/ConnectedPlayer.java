@@ -13,6 +13,7 @@ import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
@@ -46,9 +47,11 @@ public class ConnectedPlayer extends Thread implements Initializable {
    String username,email;
    String password;
   
-   static ArrayList<ConnectedPlayer> players = new ArrayList<ConnectedPlayer>();
+//   static ArrayList<ConnectedPlayer> players = new ArrayList<ConnectedPlayer>(); // connected
    
-   static ArrayList<ConnectedPlayer> activeUsers = new ArrayList();
+   static ArrayList<ConnectedPlayer> activeUsers = new ArrayList(); // online
+   
+   static HashMap<ConnectedPlayer,ConnectedPlayer> game = new HashMap(); // 2 players in game
    
    
     
@@ -71,10 +74,14 @@ public class ConnectedPlayer extends Thread implements Initializable {
             dis = new DataInputStream(socket.getInputStream());
             ps = new PrintStream(socket.getOutputStream());
             currentSocket = socket;
-            String check = server.databaseInstance.checkSignIn(email, password);
-            if(!check.equals("This Email is alreay sign-in")){
-               players.add(this);
-            }
+
+//            String check = server.databaseInstance.checkSignIn(email, password);
+//            if(!check.equals("This Email is alreay sign-in")){
+//               players.add(this);
+//            }
+
+//            players.add(this);
+
             this.start();
        }catch (IOException ex) {
            System.out.println("1");
@@ -116,26 +123,17 @@ public class ConnectedPlayer extends Thread implements Initializable {
                        case "decline":
                            refusedChallenge();
                            break;
+
+                       case "gameTic":
+                           forwardPress();
+                           break;
+
                        case "logout"  :
                            logout();
                            break;
                    }
-                   
               }
                
-               
-              
-//               if(query.equals("SignIn") && token != null){
-//                   signIn();
-//                   
-//               }else if(query.equals("SignUp") && token != null){ // SignUp
-//                    signUp();
-//               }else if(query.equals("playerlist") && token != null){
-//                   listOnlinePlayers();
-//               }else if(query.equals("request") && token != null){
-//                   System.out.println("server received request");
-//                   requestPlaying();
-//               }
            } catch (IOException ex) {
 
                System.out.println("2");
@@ -145,17 +143,24 @@ public class ConnectedPlayer extends Thread implements Initializable {
                
 
                if(email != null){
+
                    if(server.databaseInstance.checkIsActive(email)){
-                       String check = server.databaseInstance.checkSignIn(email, password);
-                     if(!check.equals("This Email is alreay sign-in")){
+                      String check = server.databaseInstance.checkSignIn(email, password);
+                      
+                     //if(!check.equals("This Email is alreay sign-in")){
                          server.databaseInstance.setActive(false,email);
-                         players.remove(this);
-                     }
+                         activeUsers.remove(this);
+                     //}
                    }
-                       
+
+                    //server.databaseInstance.setActive(false,email);
+
+//                    players.remove(this);   
+
                }else{
                  System.out.println("nulllllll");  
                  updateList = true;
+
                }
                 
                this.stop();
@@ -164,7 +169,7 @@ public class ConnectedPlayer extends Thread implements Initializable {
        if(currentSocket.isClosed()){
            System.out.println("3");
            System.out.println("close");
-           players.remove(this);
+//           players.remove(this);
        }
    }
    
@@ -181,8 +186,11 @@ public class ConnectedPlayer extends Thread implements Initializable {
              
              System.out.println("Checked state " +check);
              
-
-             if(check.equals("Logged in successfully")){
+             Boolean isActive = server.databaseInstance.checkIsActive(email);
+             if(!isActive){
+                if(check.equals("Logged in successfully")){
+                
+                 System.out.println(check);
                  score = server.databaseInstance.getScore(email);
                  email = server.databaseInstance.getEmail(email);
                  username = server.databaseInstance.getUserName(email);
@@ -190,8 +198,11 @@ public class ConnectedPlayer extends Thread implements Initializable {
                  ps.println(check +"###" + score);
                  ps.println(username+"###"+email+"###"+score); // send data to registerController
                  loggedin = true;
-
-                 activeUsers.add(this);
+                 
+                    
+                        activeUsers.add(this);
+                       
+                 //activeUsers.add(this);
              }else if(check.equals("Email is incorrect")){
                  ps.println(check +"###");
                  
@@ -204,6 +215,12 @@ public class ConnectedPlayer extends Thread implements Initializable {
              }else if(check.equals("This Email is alreay sign-in")){
                  ps.println(check +"###");
              }
+             }else{
+                 System.out.println(check);
+                 ps.println(check +"###");
+                 email = null;
+             }
+             
 //             ps.println(check +"###" + score);
 
         }catch(SQLException e){
@@ -249,7 +266,7 @@ public class ConnectedPlayer extends Thread implements Initializable {
             while(true){
                  result = server.databaseInstance.getActivePlayers();
 
-                 System.out.println(result);
+//                 System.out.println(result);
                  try {
                      
 //                     ps.println("list");
@@ -266,7 +283,7 @@ public class ConnectedPlayer extends Thread implements Initializable {
 
                      ps.println("null");
 
-                     System.out.println("end while");
+//                     System.out.println("end while");
                  } catch (SQLException ex) {
                      System.out.println("4");
                      System.out.println("catch");
@@ -283,23 +300,68 @@ public class ConnectedPlayer extends Thread implements Initializable {
    }
    
    private void requestPlaying(){ // player1 send request to player 2 (server) 
-       String player2Mail = token.nextToken(); // opponent
-       String player1Data = token.nextToken(""); // "mail###username"
-      
-       System.out.println("forwarding method");
-       
-       for(ConnectedPlayer i : activeUsers){
-           if(i.email.equals(player2Mail)){
-               System.out.println("sending request");
-               i.ps.println("requestPlaying");
-               i.ps.println(player1Data);
-           }
-       }
+        String player2Mail = token.nextToken(); // opponent
+        String player1Data = token.nextToken(""); // "mail###username"
+        for(ConnectedPlayer i : activeUsers){
+            if(i.email.equals(player2Mail)){
+                System.out.println("sending request");
+                i.ps.println("requestPlaying");
+                i.ps.println(player1Data);
+            }
+        }
+            
+//        token = new StringTokenizer(player1Data,"####");
+//        String player1Mail = token.nextToken();
+//
+//        System.out.println(player1Mail);
+//        boolean available = server.databaseInstance.checkPlaying(player2Mail);
+//        System.out.println("forwarding method");
+//
+//        if(available){
+//
+//        }
+//        else{
+//            for(ConnectedPlayer i : activeUsers){
+//                if(i.email.equals(player1Mail)){
+//                    System.out.println("the opponent is already playing");
+//                    i.ps.println("already playing");
+//                    i.ps.println(player1Data);
+//                }
+//            }        
+//        }
    }
    
    private void acceptChallenge(){
-//       ps.println("accept###"+emailtxt.getText()+"###"+opponentMail);
+
        System.out.println("accepted");
+       
+       String player2 = token.nextToken(); // who recieve the request to play
+       String player2Name = token.nextToken();
+       
+       String player1 = token.nextToken();
+       
+       server.databaseInstance.makePlaying(player1, player2);
+       
+       
+       ConnectedPlayer p1 = null,p2=null;
+       for(ConnectedPlayer i : activeUsers){
+           
+           if(i.email.equals(player1)){
+               p1 = i;
+           }else if(i.email.equals(player2)){
+               p2 = i;
+           }
+       }
+       
+       if(p1 == null || p2 == null){
+           System.out.println("cannot adding player in game , not found, connected player");
+       }else{
+            game.put(p1, p2);
+            game.put(p2, p1);
+            p1.ps.println("gameOn");
+            p1.ps.println(player2Name);
+       }
+       
        
    }
    
@@ -310,18 +372,41 @@ public class ConnectedPlayer extends Thread implements Initializable {
        for(ConnectedPlayer i : activeUsers){
            if(i.email.equals(OpponentMail)){
                i.ps.println("decline");
-               
            }
        }
    }
    
-   
+   private void forwardPress(){
+
+       String mail = token.nextToken();
+       String btn = token.nextToken();  
+       ConnectedPlayer cp = null;
+       for(ConnectedPlayer i : activeUsers){
+           if(i.email.equals(mail)){
+               cp = i;
+               break;
+           }
+       }
+       System.out.println("CP "+cp.username);
+       ConnectedPlayer x = game.get(cp);
+//       System.out.println(x.username);
+       
+       x.ps.println("gameTic");
+       x.ps.println(btn);
+
+   }
    /**
     * logout
     * when called set player is not active in database and update result set
     */
    private void logout(){
        email = token.nextToken();
+       
+       for(ConnectedPlayer i : activeUsers){
+           if(i.email.equals(email)){
+               activeUsers.remove(i);
+           }
+       }
        System.out.println("Logout Email " + email);
        if(email != null){
            server.databaseInstance.setActive(false, email);
