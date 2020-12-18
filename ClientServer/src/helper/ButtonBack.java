@@ -17,6 +17,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 /**
@@ -78,6 +80,30 @@ public class ButtonBack {
            window.show();
         } catch (IOException ex) {
             System.out.println("handle button back catch");
+            Logger.getLogger(ButtonBack.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+    }
+    
+    /**
+     * 
+     */
+     public void navigateToAnotherPage(Label item){
+         //get scene
+        Parent buttonParent;
+        try {
+         buttonParent = FXMLLoader.load(getClass().getResource(source));
+             //generate new scene
+        Scene buttonScene = new Scene(buttonParent);
+        
+        //get stage information
+        Stage window = (Stage)item.getScene().getWindow();
+        
+        window.setTitle("Home");
+        window.setScene(buttonScene);
+        window.show();
+        } catch (IOException ex) {
             Logger.getLogger(ButtonBack.class.getName()).log(Level.SEVERE, null, ex);
         }
         

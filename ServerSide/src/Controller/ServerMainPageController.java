@@ -98,7 +98,7 @@ public class ServerMainPageController implements Initializable {
                      Thread.sleep(2000);  
 
                    }catch(InterruptedException ex){
-
+                     emptyList();
                    }
                 }
             }

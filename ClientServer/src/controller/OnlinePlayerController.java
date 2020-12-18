@@ -5,6 +5,7 @@
  */
 package controller;
 
+import helper.AskDialog;
 import helper.ButtonBack;
 import java.io.DataInputStream;
 import java.io.FileInputStream;
@@ -135,12 +136,12 @@ public class OnlinePlayerController implements Initializable {
                         onlinePlayers.clear();
                     do{
                         try {
-                               System.out.println(socket.isConnected());
-                               
+                             
                                String data = dis.readLine();
-                               System.out.println("request is : "+data);
+//                               System.out.println("request is : "+data);
                                
                                if(data.equals("null")){ // last ps while listing
+                                   
                                    break;
                                }else
                                if(data.equals("requestPlaying")){
@@ -166,6 +167,14 @@ public class OnlinePlayerController implements Initializable {
                                    });
                                             
                                }else if(data.equals("gameOn")){
+                                   Platform.runLater(new Runnable() {
+                                       @Override
+                                       public void run() {
+                                           if(alert.isShowing())
+                                                alert.close();
+                                       }
+                                   });
+                                   
                                    String OpponentUsername = dis.readLine();
                                    System.out.println("player 2 accepted");
 //                                   playGame(OpponentUsername);
@@ -192,6 +201,14 @@ public class OnlinePlayerController implements Initializable {
                                }
 
                         } catch (IOException ex) {
+                            System.out.println("Server Colsed");
+                            Platform.runLater(() -> {
+                            AskDialog  serverIssueAlert  = new AskDialog();
+                            serverIssueAlert.serverIssueAlert("There is issue in connection game page will be closed");
+                             ButtonBack backtoLoginPage = new ButtonBack("/view/LoginOrRegister.fxml");
+                            backtoLoginPage.navigateToAnotherPage(emailtxt);
+                            });
+                           
                             thread.stop();
                         }
                     }while(true);
@@ -291,6 +308,7 @@ public class OnlinePlayerController implements Initializable {
                     b.setOnAction(new EventHandler<ActionEvent>() {
                         @Override
                         public void handle(ActionEvent event) {
+
                             ps.println("request###"+b.getId()+"###"+emailtxt.getText()+"###"+usernametxt.getText());
                             // pop up waiting for response from server                                                                // can use an Alert, Dialog, or PopupWindow as needed...
                             alert = new Alert(AlertType.INFORMATION);
@@ -546,9 +564,20 @@ public class OnlinePlayerController implements Initializable {
     public void backToMainPage(ActionEvent event){
 
         System.out.println("backToMainPage: called");
+        System.out.println("Emial " + hash.get("email"));
+        if(hash.get("email")!= null){
+            AskDialog  logoutAlert  = new AskDialog();
+           Boolean logedOut  = logoutAlert.alert("Are you sure you want to logout","Alert Issue");
+           if(logedOut){
+               System.out.println("Send to server to logout");
+               ps.println("logout###"+hash.get("email")); 
+               thread.stop();
+               ButtonBack btnback = new ButtonBack("/view/LoginOrRegister.fxml");
+               btnback.handleButtonBack(event); 
+           }
+          
+        }
         
-        ButtonBack btnback = new ButtonBack("/view/sample.fxml");
-        btnback.handleButtonBack(event);
          
     }
 

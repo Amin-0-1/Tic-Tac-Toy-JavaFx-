@@ -40,7 +40,10 @@ public class ConnectedPlayer extends Thread implements Initializable {
    StringTokenizer token;
    boolean loggedin;
    ResultSet result;
-   Thread thread;  
+
+   Thread thread;
+   private Boolean updateList;   
+
    String username,email;
   
 //   static ArrayList<ConnectedPlayer> players = new ArrayList<ConnectedPlayer>(); // connected
@@ -112,17 +115,31 @@ public class ConnectedPlayer extends Thread implements Initializable {
                        case "decline":
                            refusedChallenge();
                            break;
+
                        case "gameTic":
                            forwardPress();
+                           break;
+
+                       case "logout"  :
+                           logout();
                            break;
                    }
               }
                
            } catch (IOException ex) {
 
+               System.out.println("2");
+               System.out.println("Closing try");
+               System.out.println("Email: "+ email);
+
                if(email != null){
                     server.databaseInstance.setActive(false,email);
+
 //                    players.remove(this);   
+               }else{
+                 System.out.println("nulllllll");  
+                 updateList = true;
+
                }
                 
                this.stop();
@@ -136,25 +153,36 @@ public class ConnectedPlayer extends Thread implements Initializable {
    }
    
    private void signIn(){
-        username = token.nextToken().toString();
+        email = token.nextToken().toString();
         String password = token.nextToken();
         String check;
         int score;
-        System.out.println(username+" "+password);
+        System.out.println(email+" "+password);
         try{
 
     //                        instance = Database.getDataBase();
-             check = server.databaseInstance.checkSignIn(username, password);
-             score = server.databaseInstance.getScore(username);
-             email = server.databaseInstance.getEmail(username);
+             check = server.databaseInstance.checkSignIn(email, password);
+             
 
              if(check.equals("Logged in successfully")){
-                 server.databaseInstance.login(username, password);
+                 score = server.databaseInstance.getScore(email);
+                 email = server.databaseInstance.getEmail(email);
+                 username = server.databaseInstance.getUserName(email);
+                 server.databaseInstance.login(email, password);
                  ps.println(check +"###" + score);
                  ps.println(username+"###"+email+"###"+score); // send data to registerController
                  loggedin = true;
 
                  activeUsers.add(this);
+             }else if(check.equals("Email is incorrect")){
+                 ps.println(check +"###");
+                 
+             }else if(check.equals("Password is incorrect")){
+                 ps.println(check +"###");
+                 
+             }else if(check.equals("Connection issue, please try again later")){
+                 ps.println(check +"###");
+                 
              }
 //             ps.println(check +"###" + score);
 
@@ -184,6 +212,8 @@ public class ConnectedPlayer extends Thread implements Initializable {
                 server.databaseInstance.SignUp(username,email,password);
                 System.out.println("User is registered now , check database");   
                 activeUsers.add(this);
+            }else if (check.equals("already signed-up")){
+                ps.println("already signed-up"+"###");
             }
        }catch(SQLException e){
            //alert
@@ -199,7 +229,7 @@ public class ConnectedPlayer extends Thread implements Initializable {
             while(true){
                  result = server.databaseInstance.getActivePlayers();
 
-                 System.out.println(result);
+//                 System.out.println(result);
                  try {
                      
 //                     ps.println("list");
@@ -216,7 +246,7 @@ public class ConnectedPlayer extends Thread implements Initializable {
 
                      ps.println("null");
 
-                     System.out.println("end while");
+//                     System.out.println("end while");
                  } catch (SQLException ex) {
                      System.out.println("4");
                      System.out.println("catch");
@@ -310,8 +340,7 @@ public class ConnectedPlayer extends Thread implements Initializable {
    }
    
    private void forwardPress(){
-//       ps.println("gameTic###"+hash.get("email")+"###"+buttonPressed.getId());
-        System.out.println();
+
        String mail = token.nextToken();
        String btn = token.nextToken();  
        ConnectedPlayer cp = null;
@@ -321,11 +350,30 @@ public class ConnectedPlayer extends Thread implements Initializable {
                break;
            }
        }
-       
+       System.out.println("CP "+cp.username);
        ConnectedPlayer x = game.get(cp);
-       System.out.println(x.username);
+//       System.out.println(x.username);
        
        x.ps.println("gameTic");
        x.ps.println(btn);
+
+   }
+   /**
+    * logout
+    * when called set player is not active in database and update result set
+    */
+   private void logout(){
+       email = token.nextToken();
+       
+       for(ConnectedPlayer i : activeUsers){
+           if(i.email.equals(email)){
+               activeUsers.remove(i);
+           }
+       }
+       System.out.println("Logout Email " + email);
+       if(email != null){
+           server.databaseInstance.setActive(false, email);
+       }
+       
    }
 }
