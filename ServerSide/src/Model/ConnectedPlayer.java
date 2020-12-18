@@ -13,6 +13,7 @@ import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
@@ -42,9 +43,11 @@ public class ConnectedPlayer extends Thread implements Initializable {
    Thread thread;  
    String username,email;
   
-   static ArrayList<ConnectedPlayer> players = new ArrayList<ConnectedPlayer>();
+//   static ArrayList<ConnectedPlayer> players = new ArrayList<ConnectedPlayer>(); // connected
    
-   static ArrayList<ConnectedPlayer> activeUsers = new ArrayList();
+   static ArrayList<ConnectedPlayer> activeUsers = new ArrayList(); // online
+   
+   static HashMap<ConnectedPlayer,ConnectedPlayer> game = new HashMap(); // 2 players in game
    
    
     
@@ -67,7 +70,7 @@ public class ConnectedPlayer extends Thread implements Initializable {
             dis = new DataInputStream(socket.getInputStream());
             ps = new PrintStream(socket.getOutputStream());
             currentSocket = socket;
-            players.add(this);
+//            players.add(this);
             this.start();
        }catch (IOException ex) {
            System.out.println("1");
@@ -109,28 +112,17 @@ public class ConnectedPlayer extends Thread implements Initializable {
                        case "decline":
                            refusedChallenge();
                            break;
+                       case "gameTic":
+                           forwardPress();
+                           break;
                    }
-                   
               }
                
-               
-              
-//               if(query.equals("SignIn") && token != null){
-//                   signIn();
-//                   
-//               }else if(query.equals("SignUp") && token != null){ // SignUp
-//                    signUp();
-//               }else if(query.equals("playerlist") && token != null){
-//                   listOnlinePlayers();
-//               }else if(query.equals("request") && token != null){
-//                   System.out.println("server received request");
-//                   requestPlaying();
-//               }
            } catch (IOException ex) {
 
                if(email != null){
                     server.databaseInstance.setActive(false,email);
-                    players.remove(this);   
+//                    players.remove(this);   
                }
                 
                this.stop();
@@ -139,7 +131,7 @@ public class ConnectedPlayer extends Thread implements Initializable {
        if(currentSocket.isClosed()){
            System.out.println("3");
            System.out.println("close");
-           players.remove(this);
+//           players.remove(this);
        }
    }
    
@@ -241,23 +233,68 @@ public class ConnectedPlayer extends Thread implements Initializable {
    }
    
    private void requestPlaying(){ // player1 send request to player 2 (server) 
-       String player2Mail = token.nextToken(); // opponent
-       String player1Data = token.nextToken(""); // "mail###username"
-      
-       System.out.println("forwarding method");
-       
-       for(ConnectedPlayer i : activeUsers){
-           if(i.email.equals(player2Mail)){
-               System.out.println("sending request");
-               i.ps.println("requestPlaying");
-               i.ps.println(player1Data);
-           }
-       }
+        String player2Mail = token.nextToken(); // opponent
+        String player1Data = token.nextToken(""); // "mail###username"
+        for(ConnectedPlayer i : activeUsers){
+            if(i.email.equals(player2Mail)){
+                System.out.println("sending request");
+                i.ps.println("requestPlaying");
+                i.ps.println(player1Data);
+            }
+        }
+            
+//        token = new StringTokenizer(player1Data,"####");
+//        String player1Mail = token.nextToken();
+//
+//        System.out.println(player1Mail);
+//        boolean available = server.databaseInstance.checkPlaying(player2Mail);
+//        System.out.println("forwarding method");
+//
+//        if(available){
+//
+//        }
+//        else{
+//            for(ConnectedPlayer i : activeUsers){
+//                if(i.email.equals(player1Mail)){
+//                    System.out.println("the opponent is already playing");
+//                    i.ps.println("already playing");
+//                    i.ps.println(player1Data);
+//                }
+//            }        
+//        }
    }
    
    private void acceptChallenge(){
-//       ps.println("accept###"+emailtxt.getText()+"###"+opponentMail);
+
        System.out.println("accepted");
+       
+       String player2 = token.nextToken(); // who recieve the request to play
+       String player2Name = token.nextToken();
+       
+       String player1 = token.nextToken();
+       
+       server.databaseInstance.makePlaying(player1, player2);
+       
+       
+       ConnectedPlayer p1 = null,p2=null;
+       for(ConnectedPlayer i : activeUsers){
+           
+           if(i.email.equals(player1)){
+               p1 = i;
+           }else if(i.email.equals(player2)){
+               p2 = i;
+           }
+       }
+       
+       if(p1 == null || p2 == null){
+           System.out.println("cannot adding player in game , not found, connected player");
+       }else{
+            game.put(p1, p2);
+            game.put(p2, p1);
+            p1.ps.println("gameOn");
+            p1.ps.println(player2Name);
+       }
+       
        
    }
    
@@ -268,8 +305,27 @@ public class ConnectedPlayer extends Thread implements Initializable {
        for(ConnectedPlayer i : activeUsers){
            if(i.email.equals(OpponentMail)){
                i.ps.println("decline");
-               
            }
        }
+   }
+   
+   private void forwardPress(){
+//       ps.println("gameTic###"+hash.get("email")+"###"+buttonPressed.getId());
+        System.out.println();
+       String mail = token.nextToken();
+       String btn = token.nextToken();  
+       ConnectedPlayer cp = null;
+       for(ConnectedPlayer i : activeUsers){
+           if(i.email.equals(mail)){
+               cp = i;
+               break;
+           }
+       }
+       
+       ConnectedPlayer x = game.get(cp);
+       System.out.println(x.username);
+       
+       x.ps.println("gameTic");
+       x.ps.println(btn);
    }
 }
