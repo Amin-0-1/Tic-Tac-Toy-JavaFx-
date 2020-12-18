@@ -20,6 +20,8 @@ import java.util.ResourceBundle;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -67,9 +69,26 @@ public class signInFXMLController {
          
     }
     public void signInPressed(ActionEvent e){
-            ButtonBack btnback = new ButtonBack("/view/OnlinePlayer.fxml");         
+            ButtonBack btnback = new ButtonBack("/view/OnlinePlayer.fxml");  
+            
         try {
-            socket = new Socket("127.0.0.1",9876);
+            String regex = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$";
+            Pattern pattern = Pattern.compile(regex);     
+            Matcher matcher = pattern.matcher(txtUserName.getText());
+            String userName = txtUserName.getText().trim();
+            String email = txtPassword.getText().trim();
+            if(userName.isEmpty() || email.isEmpty() ){
+                Platform.runLater(()->{
+                  txtAlret.setText("Empty Fields is Required");
+                 }); 
+                
+            }else if(!matcher.matches()){
+                Platform.runLater(()->{
+                  txtAlret.setText("Please enter a valid mail");
+                 }); 
+                
+            }else{
+                socket = new Socket("127.0.0.1",9876);
             dis = new DataInputStream(socket.getInputStream());
             ps = new PrintStream(socket.getOutputStream());
             ps.println("SignIn###"+txtUserName.getText()+"###"+txtPassword.getText());
@@ -130,6 +149,11 @@ public class signInFXMLController {
                                        txtAlret.setText(receivedState);
                                       }); 
                                     break;
+                                case "This Email is alreay sign-in":
+                                     Platform.runLater(()->{
+                                       txtAlret.setText(receivedState);
+                                      }); 
+                                    break;   
                             }
 
                         } catch (IOException ex) {
@@ -140,6 +164,8 @@ public class signInFXMLController {
                 }.start();            
 
             }
+         }
+            
 
         } catch (IOException ex) {
             System.out.println("33333333333");

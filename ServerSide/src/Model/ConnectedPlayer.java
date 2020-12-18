@@ -167,6 +167,8 @@ public class ConnectedPlayer extends Thread implements Initializable {
     //                        instance = Database.getDataBase();
              check = server.databaseInstance.checkSignIn(email, password);
              
+             System.out.println("Checked state " +check);
+             
 
              if(check.equals("Logged in successfully")){
                  score = server.databaseInstance.getScore(email);
@@ -187,6 +189,8 @@ public class ConnectedPlayer extends Thread implements Initializable {
              }else if(check.equals("Connection issue, please try again later")){
                  ps.println(check +"###");
                  
+             }else if(check.equals("This Email is alreay sign-in")){
+                 ps.println(check +"###");
              }
 //             ps.println(check +"###" + score);
 
