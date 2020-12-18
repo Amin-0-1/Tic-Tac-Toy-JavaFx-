@@ -31,10 +31,8 @@ public class AccessFile {
     
    private static File file;
    
-    public AccessFile() {
-    }
-   
-    public  static void createFile() {
+    public AccessFile() {}
+ public  static void createFile() {
         System.out.println("createf file method");
         Preferences prefs=Preferences.userNodeForPackage(AccessFile.class);
         CurrentDateTime c=new CurrentDateTime();
@@ -42,12 +40,10 @@ public class AccessFile {
        //  System.out.println(c.getCurrentDateTime());
            file = new File("E:\\ITI\\Java\\Project\\Tic-Tac-Toy-JavaFx-\\savedGame\\"+prefs.get(c.getCurrentDateTime(),""));
            System.out.println(prefs.get(c.getCurrentDateTime(),""));
-
            try {
                
                if(file.createNewFile())
                    System.out.println("file created");
-              
            } catch (IOException ex) {
                Logger.getLogger(AccessFile.class.getName()).log(Level.SEVERE, null, ex);
            }

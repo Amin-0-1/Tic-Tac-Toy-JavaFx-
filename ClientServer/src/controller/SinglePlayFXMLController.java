@@ -52,7 +52,6 @@ import sun.net.www.protocol.mailto.MailToURLConnection;
  * @author Wesam
  */
 public class SinglePlayFXMLController implements Initializable{
-    
     private String player = "X";
     private Button buttonPressed;
     private boolean winner = false;
@@ -97,27 +96,30 @@ public class SinglePlayFXMLController implements Initializable{
    // File file;
     //public File  file= new File("E:\\ITI\\Java\\Project\\Tic-Tac-Toy-JavaFx-\\game.txt");
 
+   // private Preferences pref;
 
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        prefs = Preferences.userNodeForPackage(MainController.class);            
+
         System.out.println("first init");
-        prefs = Preferences.userNodeForPackage(SinglePlayFXMLController.class); 
+       // pref = Preferences.userNodeForPackage(SinglePlayFXMLController.class); 
         try {
             if(prefs.nodeExists("/controller"))
             {
              System.out.println("init");
               String userName=prefs.get("username","");
-               score=prefs.getInt("score",0);
+         //      score=pref.getInt("score",0);
               System.out.println(userName);
               
               if(userName.length() != 0){
                  labUserName.setText(userName); 
               }
-              if(score != 0){
-                 labScore.setText(""+ score);  
+            //  if(score != 0){
+                // labScore.setText(""+ score);  
               }
               
-            }
+            
         } catch (BackingStoreException ex) {
             Logger.getLogger(SinglePlayFXMLController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -141,11 +143,17 @@ public class SinglePlayFXMLController implements Initializable{
             buttonPressed = (Button) e.getSource();
             if(buttonPressed.getText().equals("")){
                 buttonPressed.setText(player);
+                
                 if(MainController.isrecord)
                 { 
                  AccessFile.writeFile(buttonPressed.getId()+buttonPressed.getText()+".");
                 }
 
+  
+//                if(file.exists())
+//                { 
+//                AccessFile.writeFile(buttonPressed.getId()+player+".");
+//                }
                 if(player=="X"){
                     player="O";
                 }
@@ -202,11 +210,11 @@ public class SinglePlayFXMLController implements Initializable{
 
                 if(buttonPressed.getText().equals("")){
                     buttonPressed.setText(""+player);
+
                 if(MainController.isrecord)
                 {
                    AccessFile.writeFile(buttonPressed.getId()+buttonPressed.getText()+".");
                 }
-
 
                     if(player=="X"){
                         player="O";
@@ -380,6 +388,9 @@ public class SinglePlayFXMLController implements Initializable{
             displayVideo();             
             System.out.println("Synch");
             prefs.putInt("score",score);
+          //--  displayVideo();
+         //   prefs.putInt("score",score);
+
             labScore.setText(""+ score);  
             btnPlayAgain.setVisible(true);
         }else if(computerWin){
@@ -425,7 +436,7 @@ public class SinglePlayFXMLController implements Initializable{
             Logger.getLogger(SinglePlayFXMLController.class.getName()).log(Level.SEVERE, null, ex);
         }   
     }
-      
+
     /**
      * repalayAgain 
      * when called make labe for winner empty and make button Visible
