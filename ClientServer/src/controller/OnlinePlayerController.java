@@ -205,7 +205,7 @@ public class OnlinePlayerController implements Initializable {
                             Platform.runLater(() -> {
                             AskDialog  serverIssueAlert  = new AskDialog();
                             serverIssueAlert.serverIssueAlert("There is issue in connection game page will be closed");
-                             ButtonBack backtoLoginPage = new ButtonBack("/view/LoginOrRegister.fxml");
+                             ButtonBack backtoLoginPage = new ButtonBack("/view/sample.fxml");
                             backtoLoginPage.navigateToAnotherPage(emailtxt);
                             });
                            

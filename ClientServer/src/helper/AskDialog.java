@@ -6,7 +6,6 @@
 package helper;
 
 import controller.MainController;
-import controller.SinglePlayFXMLController;
 import java.util.prefs.Preferences;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonBar;
@@ -20,8 +19,10 @@ import javafx.scene.control.DialogPane;
 public class AskDialog {
     public AskDialog(){};
      boolean check=false;
-     
-        public Boolean alert(String s){   
+
+    public Boolean alert(String s)
+    {   
+
         
         ButtonType Yes = new ButtonType("Yes"); 
         ButtonType No = new ButtonType("NO", ButtonBar.ButtonData.CANCEL_CLOSE);
@@ -44,7 +45,9 @@ public class AskDialog {
              //  AccessFile.createFile();
                check= true;
 
+
                System.out.println("alertyes");
+
               
 //               System.out.println("alertOk");
              //  AccessFile.writeFile(pfrefs.get("username","not found")+".");  
@@ -57,7 +60,6 @@ public class AskDialog {
                    }  
            return check;
     }
-    
     
    /**
    *  serverIssueAlert
@@ -89,7 +91,7 @@ public class AskDialog {
    * @param message
    * @return 
    */  
-    public boolean alert(String message,String title){  
+    public boolean alert(String message,String title){ 
         
         ButtonType yes = new ButtonType("Yes"); 
         ButtonType no = new ButtonType("NO", ButtonBar.ButtonData.CANCEL_CLOSE);
@@ -97,20 +99,30 @@ public class AskDialog {
         a.setTitle(title);
         a.getDialogPane().getButtonTypes().addAll(yes,no);
         a.setHeaderText(message);
-
-         //a.setContentText(s);
-        DialogPane dialogPane = a.getDialogPane();
-        dialogPane.getStylesheets().add(
-        getClass().getResource("/css/fullpackstyling.css").toExternalForm());
-        dialogPane.getStyleClass().add("myDialog");
-
-        a.showAndWait();
+         a.showAndWait();
        
         if(a.getResult()==yes){  
               return true;  
         }
         return false;    
     }
+    
+    public void askPlayAgain(String s)
+    {   
+        
+        ButtonType Yes = new ButtonType("Play Again"); 
+        Alert a = new Alert(Alert.AlertType.NONE); 
+        a.setTitle("Alert ASk");
+        a.getDialogPane().getButtonTypes().add(Yes);
+        a.setHeaderText(s);
 
+
+         //a.setContentText(s);
+        DialogPane dialogPane = a.getDialogPane();
+        dialogPane.getStylesheets().add(
+        getClass().getResource("/css/fullpackstyling.css").toExternalForm());
+        dialogPane.getStyleClass().add("myDialog");
+        a.showAndWait();
+    }
     
 }

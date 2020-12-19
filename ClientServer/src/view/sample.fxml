@@ -218,5 +218,6 @@
             </ImageView>
          </children>
       </HBox>
+      <Label fx:id="txtAlert" layoutX="526.0" layoutY="592.0" textFill="#d30606" AnchorPane.bottomAnchor="36.0" AnchorPane.leftAnchor="526.0" AnchorPane.rightAnchor="526.0" AnchorPane.topAnchor="592.0" />
    </children>
 </AnchorPane>

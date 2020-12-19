@@ -15,7 +15,7 @@
 
 <AnchorPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="649.0" prefWidth="1087.0" style="-fx-background-color: #2F2B43;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.SinglePlayFXMLController">
    <children>
-      <Pane layoutX="-2.0" prefHeight="649.0" prefWidth="1093.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-2.0" AnchorPane.rightAnchor="-4.0" AnchorPane.topAnchor="0.0">
+      <Pane fx:id="btnLogout" layoutX="-2.0" prefHeight="649.0" prefWidth="1093.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-2.0" AnchorPane.rightAnchor="-4.0" AnchorPane.topAnchor="0.0">
          <children>
             <Pane layoutX="289.0" layoutY="14.0" prefHeight="54.0" prefWidth="444.0">
                <children>
@@ -51,9 +51,9 @@
                   </Button>
                </children>
             </Pane>
-            <Pane layoutX="815.0" layoutY="14.0" prefHeight="54.0" prefWidth="278.0">
+            <Pane layoutX="815.0" layoutY="14.0" prefHeight="54.0" prefWidth="153.0">
                <children>
-                  <HBox alignment="CENTER_LEFT" prefHeight="54.0" prefWidth="444.0">
+                  <HBox alignment="CENTER_LEFT" prefHeight="54.0" prefWidth="153.0">
                      <children>
                         <Label text="Score:" textFill="WHITE">
                            <font>
@@ -78,6 +78,11 @@
                   <Font name="System Bold Italic" size="20.0" />
                </font>
             </Label>
+            <Pane layoutX="1012.0" layoutY="14.0" prefHeight="54.0" prefWidth="58.0">
+               <children>
+                  <Button layoutX="-22.0" mnemonicParsing="false" onAction="#changeSceneToMain" opacity="0.7" prefHeight="54.0" prefWidth="87.0" styleClass="button2" stylesheets="@../css/fullpackstyling.css" text="Logout" textFill="WHITE" />
+               </children>
+            </Pane>
          </children>
       </Pane>
       <GridPane fx:id="grid" alignment="TOP_CENTER" gridLinesVisible="true" layoutY="143.0" prefHeight="506.0" prefWidth="885.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="150.0">
