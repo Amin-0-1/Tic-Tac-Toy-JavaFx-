@@ -45,6 +45,7 @@ public class ConnectedPlayer extends Thread implements Initializable {
    private Boolean updateList;   
 
    String username,email;
+   String password;
   
 //   static ArrayList<ConnectedPlayer> players = new ArrayList<ConnectedPlayer>(); // connected
    
@@ -73,7 +74,14 @@ public class ConnectedPlayer extends Thread implements Initializable {
             dis = new DataInputStream(socket.getInputStream());
             ps = new PrintStream(socket.getOutputStream());
             currentSocket = socket;
+
+//            String check = server.databaseInstance.checkSignIn(email, password);
+//            if(!check.equals("This Email is alreay sign-in")){
+//               players.add(this);
+//            }
+
 //            players.add(this);
+
             this.start();
        }catch (IOException ex) {
            System.out.println("1");
@@ -129,11 +137,25 @@ public class ConnectedPlayer extends Thread implements Initializable {
                
                System.out.println("2");
                System.out.println("Closing try");
-               if(email != null){
-                    server.databaseInstance.setActive(false,email);
-                   
-                
+               System.out.println("Email: "+ email);
                
+               
+
+               if(email != null){
+
+                   if(server.databaseInstance.checkIsActive(email)){
+                      String check = server.databaseInstance.checkSignIn(email, password);
+                      
+                     //if(!check.equals("This Email is alreay sign-in")){
+                         server.databaseInstance.setActive(false,email);
+                         activeUsers.remove(this);
+                     //}
+                   }
+
+                    //server.databaseInstance.setActive(false,email);
+
+//                    players.remove(this);   
+
                }else{
                  System.out.println("nulllllll");  
                  updateList = true;
@@ -158,7 +180,7 @@ public class ConnectedPlayer extends Thread implements Initializable {
    
    private void signIn(){
         email = token.nextToken().toString();
-        String password = token.nextToken();
+         password = token.nextToken();
         String check;
         int score;
         System.out.println(email+" "+password);
@@ -167,8 +189,13 @@ public class ConnectedPlayer extends Thread implements Initializable {
     //                        instance = Database.getDataBase();
              check = server.databaseInstance.checkSignIn(email, password);
              
-
-             if(check.equals("Logged in successfully")){
+             System.out.println("Checked state " +check);
+             
+             Boolean isActive = server.databaseInstance.checkIsActive(email);
+             if(!isActive){
+                if(check.equals("Logged in successfully")){
+                
+                 System.out.println(check);
                  score = server.databaseInstance.getScore(email);
                  email = server.databaseInstance.getEmail(email);
                  username = server.databaseInstance.getUserName(email);
@@ -176,8 +203,11 @@ public class ConnectedPlayer extends Thread implements Initializable {
                  ps.println(check +"###" + score);
                  ps.println(username+"###"+email+"###"+score); // send data to registerController
                  loggedin = true;
-
-                 activeUsers.add(this);
+                 
+                    
+                        activeUsers.add(this);
+                       
+                 //activeUsers.add(this);
              }else if(check.equals("Email is incorrect")){
                  ps.println(check +"###");
                  
@@ -187,7 +217,15 @@ public class ConnectedPlayer extends Thread implements Initializable {
              }else if(check.equals("Connection issue, please try again later")){
                  ps.println(check +"###");
                  
+             }else if(check.equals("This Email is alreay sign-in")){
+                 ps.println(check +"###");
              }
+             }else{
+                 System.out.println(check);
+                 ps.println(check +"###");
+                 email = null;
+             }
+             
 //             ps.println(check +"###" + score);
 
         }catch(SQLException e){
