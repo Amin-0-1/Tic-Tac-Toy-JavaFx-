@@ -28,6 +28,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
@@ -46,6 +47,11 @@ public class ListRecordedGamesController implements Initializable {
     @FXML
     
     private ListView <String> listgames;
+    
+    
+    @FXML
+    private ScrollPane games;
+    
     private ObservableList<String> listOfNamesGames =FXCollections.observableArrayList();
    
     public Preferences prefs=Preferences.userNodeForPackage(AccessFile.class);
@@ -83,6 +89,7 @@ public class ListRecordedGamesController implements Initializable {
             }  
            // listOfNamesGames.add(list);
             listgames.setItems(listOfNamesGames);
+             games.setContent(listgames);
      
         //  listgames.getItems().addAll(listOfNamesGames);
         } catch (BackingStoreException ex) {

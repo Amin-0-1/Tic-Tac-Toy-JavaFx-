@@ -224,41 +224,110 @@ public class MainController implements Initializable{
     }
     
     
-    /**
+   
+
+  /**
      * changeSceneToOnlineGame.
      * when called scene will be change to online game mode.
      * @param event 
      */
     public void changeSceneToOnlineGame(ActionEvent event) {
-        
+        txtAlert.setVisible(false);
         System.out.println("changeSceneToOnlineGame: called");
+               if(!checkip)
+                   
+                { txtAlert.setVisible(false);
+                    System.out.println(checkip);               
+                 CustomDialog cd = new CustomDialog();
+                 Boolean isCancled = cd.displayDialog("Enter Server IP");
+                   
+                 if(IPvalidatation.isValidIPAddress(cd.getName()))
+                    { 
+                        System.out.println("you entered ip ="+cd.getName());
+                    if(!isCancled){
+                            try {
+                                checkip=true;
+                                socket = new Socket(cd.getName(),9876);
+                                System.out.println("conncet valid ip " +cd.getName());
+                                System.out.println(cd.getName());
+                                dis = new DataInputStream(socket.getInputStream());
+                                ps = new PrintStream(socket.getOutputStream());
 
-//                    CustomDialog cd = new CustomDialog();
-//                    Boolean isCancled = cd.displayDialog("Enter Server IP");
+                                //get scene
+                                Parent singlePlayerParent = FXMLLoader.load(getClass().getResource("/view/LoginOrRegister.fxml"));
+                                //generate new scene
+                                Scene singlePlayerScene = new Scene(singlePlayerParent,btnWatchGame.getScene().getWidth(),
+                                 btnWatchGame.getScene().getHeight());
+                                
+                                //get stage information
+                                Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+                                window.setTitle("Single play Mode");
+                                window.setScene(singlePlayerScene);
+                                window.show();
+                            }catch (IOException ex) {
+                                 System.out.println("disconnect");
+                                 AskDialog AskIp=new AskDialog();
+                                Boolean c= AskIp.alert("You Enter Not Valid Ip Do You Want To Enter IP Again");
+                                if(c)
+                                {
+                                boolean sCancled=cd.displayDialog("Enter Server IP");
+                                 if(!sCancled)
+                                 {
+                                    try {
+                                        checkip=true;
+                                        //get scene
+                                        Parent singlePlayerParent = FXMLLoader.load(getClass().getResource("/view/LoginOrRegister.fxml"));
+                                        //generate new scene
+                                        Scene singlePlayerScene = new Scene(singlePlayerParent,btnWatchGame.getScene().getWidth(),
+                                                btnWatchGame.getScene().getHeight());
+                                        
+                                        //get stage information
+                                        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+                                        window.setTitle("Single play Mode");
+                                        window.setScene(singlePlayerScene);
+                                        window.show();
+                                    } catch (IOException ex1) {
+                                        Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex1);
+                                    }
+                                 }
+                                 else 
+                                     checkip=false;
+                                 }
+                                else {checkip=false;
+                                }
+                                }
+                   }
+                    else 
+                    checkip=false;
                     
-//                    if(IPvalidatation.isValidIPAddress(cd.getName()))
-//                    {
-//                    if(!isCancled){
-                        try {
-                            //get scene
-                       
-                            Parent singlePlayerParent = FXMLLoader.load(getClass().getResource("/view/LoginOrRegister.fxml"));
-                            
-                            //generate new scene
-                            Scene singlePlayerScene = new Scene(singlePlayerParent,btnWatchGame.getScene().getWidth(),
-                                    btnWatchGame.getScene().getHeight());
-                            
-                            //get stage information
-                            Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-                            window.setTitle("Single play Mode");
-                            window.setScene(singlePlayerScene);
-                            window.show();
-                         }catch (IOException ex) {
-                            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-//                    }
-    //}
-    }
+                    }else 
+                 {      
+                       txtAlert.setText("Please Enter Valid Ip");
+                       txtAlert.setVisible(true);
+                       checkip=false;
+
+                 }
+                }  
+               else if (checkip)
+               {                    
+            try {
+                Parent singlePlayerParent = FXMLLoader.load(getClass().getResource("/view/LoginOrRegister.fxml"));
+                
+                //generate new scene
+                Scene singlePlayerScene = new Scene(singlePlayerParent,btnWatchGame.getScene().getWidth(),
+                        btnWatchGame.getScene().getHeight());
+                
+                //get stage information
+                Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+                window.setTitle("Single play Mode");
+                window.setScene(singlePlayerScene);
+                window.show();
+            } catch (IOException ex) {
+                Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+               }
+    
+    }    
     
     /**
      * changeSceneToWatchGame.

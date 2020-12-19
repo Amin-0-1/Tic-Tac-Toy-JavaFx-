@@ -20,7 +20,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.text.Text;
+import javafx.scene.control.Label;
+
+
 /**
  * FXML Controller class
  *
@@ -28,7 +30,6 @@ import javafx.scene.text.Text;
  */
 public class WatchGameController implements Initializable {
 
-    
     /**
      * Initializes the controller class.
      */
@@ -51,92 +52,101 @@ public class WatchGameController implements Initializable {
     protected  Button btn8=new Button();
     @FXML
     protected  Button btn9=new Button();
+    
+    @FXML 
+    protected  Label user1;
+    @FXML
+    protected  Label user2;
+    
+    protected File file;
     protected String d;
     protected String position;
     String datareaded;
     public String [] arrOfData;
-  
+    Thread thread;
     
-   protected static File file;
-   static String filePath = new File("").getAbsolutePath();
-   static String p = filePath.concat("\\src\\savedGames\\");
+    
+     public void backToMainPage(ActionEvent event){
+        System.out.println("backToMainPage: called");
+        ButtonBack btnback = new ButtonBack("/view/ListRecordedGames.fxml");
+        btnback.handleButtonBack(event);
+         System.out.println("backToMainPage: called");
+
    
+    } 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-       // String data=AccessFile.readFile(ListRecordedGamesController.gamename);
-       // System.out.println(ListRecordedGamesController.gamename);
-        //System.out.println("filename");
-        datareaded=AccessFile.readFileAsString(p+ListRecordedGamesController.gamename);
+      
+        datareaded=AccessFile.readFileAsString("D:\\ITI\\Java\\java project\\Tic-Tac-Toy-JavaFx-\\savedGame\\"+ListRecordedGamesController.gamename);
     // displayRecorderdGame(AccessFile.readFileAsString("E:\\ITI\\Java\\Project\\Tic-Tac-Toy-JavaFx-\\"+ListRecordedGamesController.gamename));
        System.out.println("done");
-        //setItems(getRecordGame(datareaded));
-       
-       new Thread(new Runnable() {
+       // setItems(getRecordGame(datareaded));
+      thread= new Thread(new Runnable() {
            @Override
            public void run() {
-               {     String[] arrOfData=getRecordGame(datareaded);
-                 while(true){
+               {  String[] arrOfData=getRecordGame(datareaded);
+                     
+                 while(arrOfData!=null){
                    try {
                        for(int a=0;a<9;a++)
                            {
                             if(arrOfData[a]!=null)
-                            {System.out.println(arrOfData[a].substring(3,4));
-                     position=arrOfData[a].substring(3,4);
-                    //System.out.println(data[a].substring(1,2));
-                     d=arrOfData[a].substring(4,5);
-                    System.out.println("####"); 
-                       Platform.runLater(new Runnable() {
-                           @Override
-                           public void run() {
+                            {
+                             System.out.println("clear btn " + arrOfData[a].substring(3,4));
+                             position=arrOfData[a].substring(3,4);
+                             //System.out.println(data[a].substring(1,2));
+                             d=arrOfData[a].substring(4,5);
+                             System.out.println("####"); 
+                             Platform.runLater(new Runnable() {
+                             @Override
+                             public void run() {
                                switch(position)
-                    {
-                        case "1":
-                            btn1.setText(d);
-                            break;
-                        case "2":
-                           btn2.setText(d);
-                            break;
-                        case "3":
-                            btn3.setText(d);
-                            break;
-                        case "4":
-                            btn4.setText(d);
-                            break;
-                        case "5":
-                            btn5.setText(d);
-                            break;
-                        case "6":
-                            btn6.setText(d);
-                            break;
-                        case "7":
-                            btn7.setText(d);
-                            break;
-                        case "8":
-                            btn8.setText(d);
-                            break;
-                        case "9":
-                            btn9.setText(d);
-                            break;
-                        default:
-                            break;
-                    }
-                           }
-                       });
-                       Thread.sleep(2000L);
+                                    {
+                                      case "1":
+                                         btn1.setText(d);
+                                         break;
+                                     case "2":
+                                        btn2.setText(d);
+                                         break;
+                                     case "3":
+                                         btn3.setText(d);
+                                         break;
+                                     case "4":
+                                         btn4.setText(d);
+                                         break;
+                                     case "5":
+                                         btn5.setText(d);
+                                         break;
+                                     case "6":
+                                         btn6.setText(d);
+                                         break;
+                                     case "7":
+                                         btn7.setText(d);
+                                         break;
+                                     case "8":
+                                         btn8.setText(d);
+                                         break;
+                                     case "9":
+                                         btn9.setText(d);
+                                         break;
+                                     default:
+                                         break;
+                                    }
+                                        }
+                                    });
+                                    Thread.sleep(1000L);
                    } }}catch (InterruptedException ex) {
                        Logger.getLogger(WatchGameController.class.getName()).log(Level.SEVERE, null, ex);
-                   }
+                   }thread.stop();
                    }
                }
-               
-                   
+            
                }
-           
-       }).start();
-       
-       
-    
+                     
+       });
+              thread.start();
+
         }
     public void backToRecordedGames(ActionEvent event){     
         System.out.println("backToRecordedGames: called");
@@ -147,79 +157,50 @@ public class WatchGameController implements Initializable {
     { System.out.println("getRecordGame  ");
 		int index;
                 String []data=new String[9];
-                
 		while(dataStored.length()!=0)
 		{ 
+                    index=dataStored.indexOf(".");
+                    
+                    String player1 = dataStored.substring(0,index );
+                    System.out.println(player1);
+                    dataStored=dataStored.substring(index+1,dataStored.length());
+                    String player2 = dataStored.substring(0, index);
+                    System.out.println(player2);
+                    dataStored=dataStored.substring(index+1,dataStored.length());
+                    
+                     if(player2.equals("use")){
+                        Platform.runLater(()->{
+                             user1.setText(player1);
+                         });
+                     }else{
+                         Platform.runLater(()->{
+                             user1.setText(player1);
+                           user2.setText(player2);
+                         });
+                          
+                     }
+                    
+                    
+                    
                     for(int i=0;i<9;i++)
                     {
 	                index=dataStored.indexOf(".");
 			if(index!=-1)
                         {
-                          String username1=dataStored.substring(0, index);
-                          String username2=dataStored.substring(0, index);
-                            System.out.println(dataStored);
-                            System.out.println(username1);
-                            System.out.println(username2);
-                          data[i]=dataStored.substring(0,index);  
-                         
-			 dataStored=dataStored.substring(index+1,dataStored.length());
+                          data[i]=dataStored.substring(0,index);
+                            
+			  dataStored=dataStored.substring(index+1,dataStored.length());
 			}
 			else 
 			{
 			    dataStored="";
 			}    
                     }
+
+                    
                 }
-                return data;
-    }
+               return data;        
+  }
     
-    
-    public void setItems(String[] data)     
-    {
-        for(int a=0;a<9;a++)
-            {
-                if(data[a]!=null)
-                {
-                    System.out.println(data[a].substring(3,4));
-                     position=data[a].substring(3,4);
-                    //System.out.println(data[a].substring(1,2));
-                     d=data[a].substring(4,5);
-                    System.out.println("####"); 
-                      switch(position)
-                    {
-                        case "1":
-                            btn1.setText(d);
-                            break;
-                        case "2":
-                           btn2.setText(d);
-                            break;
-                        case "3":
-                            btn3.setText(d);
-                            break;
-                        case "4":
-                            btn4.setText(d);
-                            break;
-                        case "5":
-                            btn5.setText(d);
-                            break;
-                        case "6":
-                            btn6.setText(d);
-                            break;
-                        case "7":
-                            btn7.setText(d);
-                            break;
-                        case "8":
-                            btn8.setText(d);
-                            break;
-                        case "9":
-                            btn9.setText(d);
-                            break;
-                        default:
-                            break;
-                    }
-              
-                }
-            } 
-    }
   
 }
