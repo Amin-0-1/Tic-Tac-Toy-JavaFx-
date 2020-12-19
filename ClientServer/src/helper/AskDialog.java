@@ -19,9 +19,10 @@ import javafx.scene.control.DialogPane;
  */
 public class AskDialog {
     public AskDialog(){};
+     boolean check=false;
      
-    public void alert(String s)
-    {
+        public Boolean alert(String s){   
+        
         ButtonType Yes = new ButtonType("Yes"); 
         ButtonType No = new ButtonType("NO", ButtonBar.ButtonData.CANCEL_CLOSE);
         Alert a = new Alert(Alert.AlertType.NONE); 
@@ -30,7 +31,7 @@ public class AskDialog {
         a.setHeaderText(s);
 
          //a.setContentText(s);
-         DialogPane dialogPane = a.getDialogPane();
+        DialogPane dialogPane = a.getDialogPane();
         dialogPane.getStylesheets().add(
         getClass().getResource("/css/fullpackstyling.css").toExternalForm());
         dialogPane.getStyleClass().add("myDialog");
@@ -39,15 +40,22 @@ public class AskDialog {
        
            if(a.getResult()==Yes)
            {  
-               Preferences pfrefs= Preferences.userNodeForPackage(MainController.class);   
+             //  Preferences pfrefs= Preferences.userNodeForPackage(MainController.class);   
+             //  AccessFile.createFile();
+               check= true;
 
-               AccessFile.createFile();
-               AccessFile.writeFile(pfrefs.get("username","not found")+".");  
+               System.out.println("alertyes");
+              
+//               System.out.println("alertOk");
+             //  AccessFile.writeFile(pfrefs.get("username","not found")+".");  
            }
            else if (a.getResult()==No)
                    {
-                       //check=true;
+                       check=false;
+                      // AccessFile.isFileExit();
+                       System.out.println("alertNo");
                    }  
+           return check;
     }
     
     
