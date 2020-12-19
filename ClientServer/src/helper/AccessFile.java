@@ -30,7 +30,9 @@ import java.util.prefs.Preferences;
 public class AccessFile {
     
    private static File file;
-   
+   static String filePath = new File("").getAbsolutePath();
+   static String p = filePath.concat("\\src\\savedGames\\");
+    
     public AccessFile() {
     }
    
@@ -39,10 +41,10 @@ public class AccessFile {
         Preferences prefs=Preferences.userNodeForPackage(AccessFile.class);
           CurrentDateTime c=new CurrentDateTime();
 
-        prefs.put(c.getCurrentDateTime(), c.getCurrentDateTime());
-       //  System.out.println(c.getCurrentDateTime());
-           file = new File("D:\\ITI\\Java\\java project\\Tic-Tac-Toy-JavaFx-\\savedGame\\"+prefs.get(c.getCurrentDateTime(),""));
-           System.out.println(prefs.get(c.getCurrentDateTime(),""));
+        prefs.put(c.getCurrentDateTime(), c.getCurrentDateTime());     
+
+           file = new File(p+prefs.get(c.getCurrentDateTime(),""));
+           System.out.println(p);
                
            try {
                

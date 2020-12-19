@@ -28,6 +28,7 @@ import javafx.scene.text.Text;
  */
 public class WatchGameController implements Initializable {
 
+    
     /**
      * Initializes the controller class.
      */
@@ -50,19 +51,23 @@ public class WatchGameController implements Initializable {
     protected  Button btn8=new Button();
     @FXML
     protected  Button btn9=new Button();
-    protected File file;
     protected String d;
     protected String position;
     String datareaded;
     public String [] arrOfData;
   
+    
+   protected static File file;
+   static String filePath = new File("").getAbsolutePath();
+   static String p = filePath.concat("\\src\\savedGames\\");
+   
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
        // String data=AccessFile.readFile(ListRecordedGamesController.gamename);
        // System.out.println(ListRecordedGamesController.gamename);
         //System.out.println("filename");
-        datareaded=AccessFile.readFileAsString("D:\\ITI\\Java\\java project\\Tic-Tac-Toy-JavaFx-\\savedGame\\"+ListRecordedGamesController.gamename);
+        datareaded=AccessFile.readFileAsString(p+ListRecordedGamesController.gamename);
     // displayRecorderdGame(AccessFile.readFileAsString("E:\\ITI\\Java\\Project\\Tic-Tac-Toy-JavaFx-\\"+ListRecordedGamesController.gamename));
        System.out.println("done");
         //setItems(getRecordGame(datareaded));

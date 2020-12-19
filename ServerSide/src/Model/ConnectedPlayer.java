@@ -126,13 +126,14 @@ public class ConnectedPlayer extends Thread implements Initializable {
                    }
               }
            } catch (IOException ex) {
-
+               
                System.out.println("2");
                System.out.println("Closing try");
                if(email != null){
                     server.databaseInstance.setActive(false,email);
-
-//                    players.remove(this);   
+                   
+                
+               
                }else{
                  System.out.println("nulllllll");  
                  updateList = true;

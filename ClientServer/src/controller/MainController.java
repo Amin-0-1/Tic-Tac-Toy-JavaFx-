@@ -114,7 +114,7 @@ public class MainController implements Initializable{
                    AccessFile.createFile();
                    AccessFile.writeFile("username1"+".");
                    AccessFile.writeFile("username2"+".");
-
+                   
                      
                      isrecord=true;
                   }

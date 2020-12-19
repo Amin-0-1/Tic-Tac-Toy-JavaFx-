@@ -308,6 +308,7 @@ public class TwoPlayerFXMLController implements Initializable {
            AskDialog askPlayAgain = new AskDialog();
            askPlayAgain.askPlayAgain(winner+" Is Win");
           
+            MainController.isrecord = false;
             AskDialog isrecoredGame = new AskDialog();
                   Boolean check=isrecoredGame.alert("Do you want to record game ?");
                   if(check)

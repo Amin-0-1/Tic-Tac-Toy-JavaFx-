@@ -3,8 +3,4 @@ nbbuild/
 dist/
 nbdist/
 private/
-<<<<<<< HEAD
-=======
-savedGame/
-
->>>>>>> origin/online-mode
+savedGames/

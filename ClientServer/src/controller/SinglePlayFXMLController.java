@@ -408,6 +408,7 @@ public class SinglePlayFXMLController implements Initializable{
         txtWinner.setText("");
         btnPlayAgain.setVisible(false);
        //makeGridEmpty();
+       MainController.isrecord = false;
         AskDialog isrecoredGame = new AskDialog();
                   Boolean check=isrecoredGame.alert("Do you want to record game ?");
                   if(check)
