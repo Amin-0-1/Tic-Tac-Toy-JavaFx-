@@ -413,7 +413,7 @@ public class SinglePlayFXMLController implements Initializable{
                   Boolean check=isrecoredGame.alert("Do you want to record game ?");
                   if(check)
                   {
-                   AccessFile.createFile();
+                   AccessFile.createFile("local-mode");
                    AccessFile.writeFile(prefs.get("username","")+".");
                    AccessFile.writeFile("username2"+".");
 

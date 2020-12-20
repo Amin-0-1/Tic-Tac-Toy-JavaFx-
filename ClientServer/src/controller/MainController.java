@@ -60,7 +60,8 @@ public class MainController implements Initializable{
      public void initialize(URL url, ResourceBundle rb) {
         //txtAlert.setVisible(false);
         prefs = Preferences.userNodeForPackage(MainController.class);
-        pref =Preferences.userNodeForPackage(AccessFile.class);
+        pref = Preferences.userNodeForPackage(AccessFile.class);
+        
         try {
               if(pref.keys().length!=0)
               {
@@ -114,9 +115,9 @@ public class MainController implements Initializable{
                             Boolean check=isrecoredGame.alert("Do you want to record game ?");
                             if(check)
                             {
-                             AccessFile.createFile();
+                             AccessFile.createFile("local-mode");
                              AccessFile.writeFile(prefs.get("username","")+".");
-                             AccessFile.writeFile("username2"+".");
+                             AccessFile.writeFile("user"+".");
                                isrecord=true;
                             }
 
@@ -148,10 +149,10 @@ public class MainController implements Initializable{
                   Boolean check=isrecoredGame.alert("Do you want to record game ?");
                   if(check)
                   {
-                   AccessFile.createFile();
+                   AccessFile.createFile("local-mode");
 
                    AccessFile.writeFile(prefs.get("username", "")+".");
-                   AccessFile.writeFile("username2"+".");
+                   AccessFile.writeFile("user"+".");
                      isrecord=true;
                   }
                    
@@ -206,7 +207,7 @@ public class MainController implements Initializable{
                   Boolean check=isrecoredGame.alert("Do you want to record game ?");
                   if(check)
                   {
-                   AccessFile.createFile();
+                   AccessFile.createFile("local-mode");
                    AccessFile.writeFile(prefs.get("fristPlayer", "")+".");
                    AccessFile.writeFile(prefs.get("secondPlayer", "")+".");
 
@@ -270,7 +271,7 @@ public class MainController implements Initializable{
                                 Boolean c= AskIp.alert("You Enter Not Valid Ip Do You Want To Enter IP Again");
                                 if(c)
                                 {
-                                boolean sCancled=cd.displayDialog("Enter Server IP");
+                                 boolean sCancled=cd.displayDialog("Enter Server IP");
                                  if(!sCancled)
                                  {
                                     try {
@@ -337,51 +338,53 @@ public class MainController implements Initializable{
      public void changeSceneToWatchGame(ActionEvent event){
          System.out.println("changeSceneToOnlineGame: called");
         
-        try {
-            //get scene
-
-            Parent onlineGameParent = FXMLLoader.load(getClass().getResource("/view/ListRecordedGames.fxml"));
-
-            //generate new scene
-            Scene onlineGameScene = new Scene(onlineGameParent,btnWatchGame.getScene().getWidth(),
-           btnWatchGame.getScene().getHeight());
-        
-            //get stage information
-            Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-
-            window.setTitle("ListRecordedGames");
-            window.setScene(onlineGameScene);
-            window.show();
-        } catch (IOException ex) {
-            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
-        }       
+//        try {
+//            //get scene
+//
+//            Parent onlineGameParent = FXMLLoader.load(getClass().getResource("/view/ListRecordedGames.fxml"));
+//
+//            //generate new scene
+//            Scene onlineGameScene = new Scene(onlineGameParent,btnWatchGame.getScene().getWidth(),
+//           btnWatchGame.getScene().getHeight());
+//        
+//            //get stage information
+//            Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+//
+//            window.setTitle("ListRecordedGames");
+//            window.setScene(onlineGameScene);
+//            window.show();
+//        } catch (IOException ex) {
+//            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+//        }       
+       ButtonBack navigateToListPage = new ButtonBack("/view/ListRecordedGames.fxml");
+        navigateToListPage.handleButtonBack(event,"local-mode");
     
     }
      
-      /**
-     * navigaetToTwoPlayerPage
-     * when called method will build new window to take player name
-     */
-    public void navigaetToTwoPlayerPage(){
-        try {
-            //get scene
-            Parent Register = FXMLLoader.load(getClass().getResource("/view/TwoPlayerDialog.fxml"));
-            //generate new scene
-            Scene RegisterScene = new Scene(Register);
-        
-            //get stage information
-            Stage window = new Stage();
-
-            window.setTitle("Congratulation");
-            window.setScene(RegisterScene);
-            window.setMinHeight(500);
-            window.setMinWidth(500);
-            window.setMaxHeight(250);
-            window.setMaxWidth(500);  
-            window.show();
-        } catch (IOException ex) {
-            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-    }
+//      /**
+//     * navigaetToTwoPlayerPage
+//     * when called method will build new window to take player name
+//     */
+//    public void navigaetToTwoPlayerPage(){
+//        try {
+//            //get scene
+//            Parent Register = FXMLLoader.load(getClass().getResource("/view/TwoPlayerDialog.fxml"));
+//            //generate new scene
+//            Scene RegisterScene = new Scene(Register);
+//        
+//            //get stage information
+//            Stage window = new Stage();
+//
+//            window.setTitle("Congratulation");
+//            window.setScene(RegisterScene);
+//            window.setMinHeight(500);
+//            window.setMinWidth(500);
+//            window.setMaxHeight(250);
+//            window.setMaxWidth(500);  
+//            window.show();
+//        } catch (IOException ex) {
+//            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        
+//    }
 }

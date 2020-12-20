@@ -5,7 +5,9 @@
  */
 package helper;
 
+import controller.ListRecordedGamesController;
 import controller.OnlinePlayerController;
+import controller.WatchGameController;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.HashMap;
@@ -19,6 +21,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 /**
@@ -85,7 +88,53 @@ public class ButtonBack {
         
         
     }
+    public void handleButtonBack(ActionEvent event,String listType){
+         //get scene
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(source));
+            Parent root = (Parent)fxmlLoader.load();   
+            ListRecordedGamesController controller = fxmlLoader.<ListRecordedGamesController>getController();
+            controller.setType(listType);
+            
+            Scene buttonScene = new Scene(root);
+            fxmlLoader.setController(controller);
+           //get stage information
+           Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+
+           window.setTitle("List Player");
+           window.setScene(buttonScene);
+           window.show();
+        } catch (IOException ex) {
+            System.out.println("handle button back catch");
+            Logger.getLogger(ButtonBack.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+    }
     
+    public void handleButtonBack(MouseEvent event,String listType){
+         //get scene
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(source));
+            Parent root = (Parent)fxmlLoader.load();   
+            WatchGameController controller = fxmlLoader.<WatchGameController>getController();
+            controller.setType(listType);
+            
+            Scene buttonScene = new Scene(root);
+            fxmlLoader.setController(controller);
+           //get stage information
+           Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+
+           window.setTitle("List Player");
+           window.setScene(buttonScene);
+           window.show();
+        } catch (IOException ex) {
+            System.out.println("handle button back catch");
+            Logger.getLogger(ButtonBack.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+    }
     /**
      * 
      */

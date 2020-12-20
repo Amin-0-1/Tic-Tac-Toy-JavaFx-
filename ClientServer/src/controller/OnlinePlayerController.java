@@ -5,6 +5,8 @@
  */
 package controller;
 
+import static controller.MainController.isrecord;
+import helper.AccessFile;
 import helper.AskDialog;
 import helper.ButtonBack;
 import java.io.DataInputStream;
@@ -21,6 +23,7 @@ import java.util.ResourceBundle;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.prefs.Preferences;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -97,6 +100,8 @@ public class OnlinePlayerController implements Initializable {
     private  Button btn8;
     @FXML
     private  Button btn9;
+    @FXML
+    private Button btnWatchGame;        
     
 //    private Pane playboard;
     
@@ -112,9 +117,14 @@ public class OnlinePlayerController implements Initializable {
     HashMap<String, Button> btn;
     boolean myTurn,opponentTurn,gameState=false;
     String myTic,oppTic;
+    String opponentUsername ;
+    private Preferences pref ;
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        
+        pref =Preferences.userNodeForPackage(OnlinePlayerController.class);
+        
         btn = new HashMap();
 
         btn.put("btn1", btn1);
@@ -178,7 +188,9 @@ public class OnlinePlayerController implements Initializable {
                                    String OpponentUsername = dis.readLine();
                                    System.out.println("player 2 accepted");
 //                                   playGame(OpponentUsername);
+                                     
                                     showGame(true,OpponentUsername);
+                                    
                                }else if(data.equals("gameTic")){
                                    opponentTurn();
                                }
@@ -261,7 +273,7 @@ public class OnlinePlayerController implements Initializable {
         System.out.println("recieved request");
         token = new StringTokenizer(opponent,"###");
         String opponentMail = token.nextToken();
-        String opponentUsername = token.nextToken();
+         opponentUsername = token.nextToken();
         
         Platform.runLater(new Runnable(){
             @Override
@@ -343,6 +355,7 @@ public class OnlinePlayerController implements Initializable {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
+                showDialog();                    
                 playboard.setVisible(true);
                 player1anc.setVisible(true);
                 player2anc.setVisible(true);
@@ -373,6 +386,9 @@ public class OnlinePlayerController implements Initializable {
             buttonPressed = (Button) e.getSource();
             if(buttonPressed.getText().equals("")){
                 buttonPressed.setText(myTic);
+                System.out.println("My Tearn " +myTic);
+                //if(MainController.isrecord)
+                 AccessFile.writeFile(buttonPressed.getId()+buttonPressed.getText()+".");
                 myTurn = false;
                 opponentTurn = true;
                 ps.println("gameTic###"+hash.get("email")+"###"+buttonPressed.getId());
@@ -395,6 +411,8 @@ public class OnlinePlayerController implements Initializable {
                         @Override
                         public void run() {
                             button.setText(oppTic);
+                            System.out.println("myTic "+ oppTic);
+                            AccessFile.writeFile(btnOpp.getId()+btnOpp.getText()+".");
                             checkState();
                         }
                     });
@@ -566,7 +584,7 @@ public class OnlinePlayerController implements Initializable {
         System.out.println("backToMainPage: called");
         System.out.println("Emial " + hash.get("email"));
         if(hash.get("email")!= null){
-            AskDialog  logoutAlert  = new AskDialog();
+           AskDialog  logoutAlert  = new AskDialog();
            Boolean logedOut  = logoutAlert.alert("Are you sure you want to logout","Alert Issue");
            if(logedOut){
                System.out.println("Send to server to logout");
@@ -579,6 +597,31 @@ public class OnlinePlayerController implements Initializable {
         }
         
          
+    }
+    
+    /**
+     * showDialog
+     * when called ask player to save game
+     */
+    private void showDialog(){
+        AskDialog isrecoredGame = new AskDialog();
+        Boolean check=isrecoredGame.alert("Do you want to record game ?");
+        if(check){
+         AccessFile.createFile("online-mode");
+         AccessFile.writeFile(hash.get("username")+".");
+         AccessFile.writeFile(opponentUsername+".");
+                                           
+        }
+    }
+    
+    /**
+     * watchGame
+     * when called navigate to display list of games to show
+     */
+    public void watchGame(ActionEvent event){
+        ButtonBack navigateToListPage = new ButtonBack("/view/ListRecordedGames.fxml");
+        navigateToListPage.handleButtonBack(event,"online-mode");
+        
     }
 
 }

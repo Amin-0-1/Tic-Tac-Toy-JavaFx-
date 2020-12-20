@@ -313,9 +313,10 @@ public class TwoPlayerFXMLController implements Initializable {
                   Boolean check=isrecoredGame.alert("Do you want to record game ?");
                   if(check)
                   {
-                   AccessFile.createFile();
+                   AccessFile.createFile("local-mode");
                    AccessFile.writeFile(prefs.get("fristPlayer", "")+".");
                    AccessFile.writeFile(prefs.get("secondPlayer", "")+".");
+                   
 
                      MainController.isrecord=true;
             }

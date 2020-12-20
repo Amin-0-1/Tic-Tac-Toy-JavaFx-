@@ -5,6 +5,7 @@
  */
 package helper;
 
+import controller.OnlinePlayerController;
 import java.io.BufferedWriter;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -35,15 +36,30 @@ public class AccessFile {
     
     public AccessFile() {
     }
+    
    
-   public  static void createFile() {
+   
+   public  static void createFile(String listType) {
 
         Preferences prefs=Preferences.userNodeForPackage(AccessFile.class);
+        
+        Preferences pref=Preferences.userNodeForPackage(OnlinePlayerController.class);
+        
           CurrentDateTime c=new CurrentDateTime();
 
-        prefs.put(c.getCurrentDateTime(), c.getCurrentDateTime());     
+         
+       
+        
+        if(listType.equals("local-mode")){
+            prefs.put(c.getCurrentDateTime(), c.getCurrentDateTime()); 
+            file = new File("D:\\ITI\\Java\\java project\\Tic-Tac-Toy-JavaFx-\\savedGame\\"+prefs.get(c.getCurrentDateTime(),""));
+        }else if(listType.equals("online-mode")){
+             pref.put(c.getCurrentDateTime(), c.getCurrentDateTime());
+            file = new File("D:\\ITI\\Java\\java project\\Tic-Tac-Toy-JavaFx-\\savedOnlineGame\\"+pref.get(c.getCurrentDateTime(),""));
+            
+        }
 
-           file = new File("D:\\ITI\\Java\\java project\\Tic-Tac-Toy-JavaFx-\\savedGame\\"+prefs.get(c.getCurrentDateTime(),""));
+           
            System.out.println(p);
                
            try {

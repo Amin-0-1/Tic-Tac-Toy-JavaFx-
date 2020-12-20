@@ -407,14 +407,15 @@ public class ConnectedPlayer extends Thread implements Initializable {
    private void logout(){
        email = token.nextToken();
        
-       for(ConnectedPlayer i : activeUsers){
-           if(i.email.equals(email)){
-               activeUsers.remove(i);
-           }
-       }
+//       for(ConnectedPlayer i : activeUsers){
+//           if(i.email.equals(email)){
+//               activeUsers.remove(i);
+//           }
+//       }
        System.out.println("Logout Email " + email);
        if(email != null){
            server.databaseInstance.setActive(false, email);
+           activeUsers.remove(email);
        }
        
    }

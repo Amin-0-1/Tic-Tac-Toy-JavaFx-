@@ -99,6 +99,11 @@ public class AskDialog {
         a.setTitle(title);
         a.getDialogPane().getButtonTypes().addAll(yes,no);
         a.setHeaderText(message);
+        DialogPane dialogPane = a.getDialogPane();
+        dialogPane.getStylesheets().add(
+        getClass().getResource("/css/fullpackstyling.css").toExternalForm());
+        dialogPane.getStyleClass().add("myDialog");
+        
          a.showAndWait();
        
         if(a.getResult()==yes){  

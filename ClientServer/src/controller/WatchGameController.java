@@ -64,21 +64,110 @@ public class WatchGameController implements Initializable {
     String datareaded;
     public String [] arrOfData;
     Thread thread;
+    String listType;
     
     
-     public void backToMainPage(ActionEvent event){
-        System.out.println("backToMainPage: called");
-        ButtonBack btnback = new ButtonBack("/view/ListRecordedGames.fxml");
-        btnback.handleButtonBack(event);
-         System.out.println("backToMainPage: called");
-
-   
-    } 
+//     public void backToMainPage(ActionEvent event){
+//        System.out.println("backToMainPage: called");
+//        ButtonBack btnback = new ButtonBack("/view/sample.fxml");
+//        btnback.handleButtonBack(event);
+//         System.out.println("backToMainPage: called");
+//
+//   
+//    } 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-      
-        datareaded=AccessFile.readFileAsString("D:\\ITI\\Java\\java project\\Tic-Tac-Toy-JavaFx-\\savedGame\\"+ListRecordedGamesController.gamename);
+
+
+        }
+    public void backToRecordedGames(ActionEvent event){     
+        System.out.println("backToRecordedGames: called");
+        ButtonBack btnback = new ButtonBack("/view/sample.fxml");
+        btnback.handleButtonBack(event);         
+    }
+    public  String[] getRecordGame(String dataStored)
+    { System.out.println("getRecordGame  ");
+		int index;
+                String []data=new String[9];
+                index=dataStored.indexOf(".");
+                String player1 = dataStored.substring(0,index );
+                    System.out.println("player1 " +player1);
+                    dataStored=dataStored.substring(index+1,dataStored.length());
+                    System.out.println("dataStored " +dataStored);
+                    index=dataStored.indexOf(".");
+                    String player2 = dataStored.substring(0, index);
+                    System.out.println("player2 " +player2);
+                    dataStored=dataStored.substring(index+1,dataStored.length());
+                    System.out.println("dataStored2 " +dataStored);
+                    
+                     if(player2.equals("user")){
+                        Platform.runLater(()->{
+                             user1.setText(player1);
+                         });
+                     }else{
+                         Platform.runLater(()->{
+                             user1.setText(player1);
+                           user2.setText(player2);
+                         });
+                          
+                     }
+		while(dataStored.length()!=0)
+		{ 
+                    index=dataStored.indexOf(".");
+                    if(index != -1){
+                        
+                    }
+                    
+                
+                    for(int i=0;i<9;i++)
+                    {
+	                index=dataStored.indexOf(".");
+			if(index!=-1)
+                        {
+                          data[i]=dataStored.substring(0,index);
+                          System.out.println(data[i]);
+                            
+			  dataStored=dataStored.substring(index+1,dataStored.length());
+			}
+			else 
+			{
+			    dataStored="";
+			}    
+                    }
+
+                    
+                }
+               return data;        
+  }
+    
+     /**
+     * setType
+     * when called get string type from online or local mode ,check it to handle with list will be show 
+     * @param stringListType 
+     */
+    public void  setType(String  stringListType){ 
+         listType = stringListType;
+         System.out.println(listType);
+         
+         //flag = true ;
+         displayGame();
+               
+    }
+    
+    /**
+     * displayGame
+     * check list time to display game depend on list type
+     */
+    private void displayGame(){
+        
+        if(listType.equals("local-mode")){
+            datareaded=AccessFile.readFileAsString("D:\\ITI\\Java\\java project\\Tic-Tac-Toy-JavaFx-\\savedGame\\"+ListRecordedGamesController.gamename);
+        }else if (listType.equals("online-mode")){
+            datareaded=AccessFile.readFileAsString("D:\\ITI\\Java\\java project\\Tic-Tac-Toy-JavaFx-\\savedOnlineGame\\"+ListRecordedGamesController.gamename);
+        }
+              
+        
     // displayRecorderdGame(AccessFile.readFileAsString("E:\\ITI\\Java\\Project\\Tic-Tac-Toy-JavaFx-\\"+ListRecordedGamesController.gamename));
        System.out.println("done");
        // setItems(getRecordGame(datareaded));
@@ -93,7 +182,7 @@ public class WatchGameController implements Initializable {
                            {
                             if(arrOfData[a]!=null)
                             {
-                             System.out.println("clear btn " + arrOfData[a].substring(3,4));
+                             //System.out.println("clear btn " + arrOfData[a].substring(3,4));
                              position=arrOfData[a].substring(3,4);
                              //System.out.println(data[a].substring(1,2));
                              d=arrOfData[a].substring(4,5);
@@ -146,61 +235,7 @@ public class WatchGameController implements Initializable {
                      
        });
               thread.start();
-
-        }
-    public void backToRecordedGames(ActionEvent event){     
-        System.out.println("backToRecordedGames: called");
-        ButtonBack btnback = new ButtonBack("/view/ListRecordedGames.fxml");
-        btnback.handleButtonBack(event);         
     }
-    public  String[] getRecordGame(String dataStored)
-    { System.out.println("getRecordGame  ");
-		int index;
-                String []data=new String[9];
-		while(dataStored.length()!=0)
-		{ 
-                    index=dataStored.indexOf(".");
-                    
-                    String player1 = dataStored.substring(0,index );
-                    System.out.println(player1);
-                    dataStored=dataStored.substring(index+1,dataStored.length());
-                    String player2 = dataStored.substring(0, index);
-                    System.out.println(player2);
-                    dataStored=dataStored.substring(index+1,dataStored.length());
-                    
-                     if(player2.equals("use")){
-                        Platform.runLater(()->{
-                             user1.setText(player1);
-                         });
-                     }else{
-                         Platform.runLater(()->{
-                             user1.setText(player1);
-                           user2.setText(player2);
-                         });
-                          
-                     }
-                    
-                    
-                    
-                    for(int i=0;i<9;i++)
-                    {
-	                index=dataStored.indexOf(".");
-			if(index!=-1)
-                        {
-                          data[i]=dataStored.substring(0,index);
-                            
-			  dataStored=dataStored.substring(index+1,dataStored.length());
-			}
-			else 
-			{
-			    dataStored="";
-			}    
-                    }
-
-                    
-                }
-               return data;        
-  }
     
   
 }

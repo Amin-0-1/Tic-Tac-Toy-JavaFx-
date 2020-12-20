@@ -27,7 +27,7 @@
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="584.0" prefWidth="1173.0">
                <children>
-                  <ListView fx:id="listgames" editable="true" onMouseClicked="#selectedItem" prefHeight="583.0" prefWidth="1177.0" style="-fx-background-color: #393351;" />
+                  <ListView fx:id="listgames" editable="true" onMouseClicked="#selectedItem" prefHeight="583.0" prefWidth="1177.0" style="-fx-background-color: #393351;" stylesheets="@../css/fullpackstyling.css" />
                </children>
             </AnchorPane>
         </content>
