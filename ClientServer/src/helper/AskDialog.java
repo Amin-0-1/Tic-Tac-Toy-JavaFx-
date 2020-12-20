@@ -130,4 +130,19 @@ public class AskDialog {
         a.showAndWait();
     }
     
+    public void inValidIp(String s){
+        ButtonType Ok = new ButtonType("Ok"); 
+         Alert a = new Alert(Alert.AlertType.NONE); 
+        a.setTitle("Alert ASk");
+        a.getDialogPane().getButtonTypes().addAll(Ok);
+        a.setHeaderText(s);
+
+         //a.setContentText(s);
+        DialogPane dialogPane = a.getDialogPane();
+        dialogPane.getStylesheets().add(
+        getClass().getResource("/css/fullpackstyling.css").toExternalForm());
+        dialogPane.getStyleClass().add("myDialog");
+        a.showAndWait();
+        
+    }
 }

@@ -206,7 +206,17 @@
     -fx-background-color: linear-gradient(to bottom left, #A868A0, #2D75E8);
 }
 
+.list-view .list-cell:even {
+-fx-background-color:  #393351;
+-fx-text-fill: white;
 
+-fx-background-radius :  30 0 0 30;
+}
+.list-view .list-cell:odd {
+-fx-background-color : #2F2B43 ;
+-fx-text-fill: white;
+-fx-background-radius :  30 0 0 30;
+}
 
 
 
