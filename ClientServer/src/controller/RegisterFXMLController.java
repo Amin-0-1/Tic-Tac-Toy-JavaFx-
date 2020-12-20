@@ -142,7 +142,7 @@ public class RegisterFXMLController {
                                     
                                 case "already signed-up":
                                     Platform.runLater(()->{
-                                       txtAlret.setText("This Email " +receivedState);
+                                       txtAlret.setText("This Email is " +receivedState);
                                     });                                
                                     break;
                             }

@@ -45,6 +45,7 @@ public class ConnectedPlayer extends Thread implements Initializable {
    private Boolean updateList;   
 
    String username,email;
+   String password;
   
 //   static ArrayList<ConnectedPlayer> players = new ArrayList<ConnectedPlayer>(); // connected
    
@@ -68,7 +69,14 @@ public class ConnectedPlayer extends Thread implements Initializable {
             dis = new DataInputStream(socket.getInputStream());
             ps = new PrintStream(socket.getOutputStream());
             currentSocket = socket;
+
+//            String check = server.databaseInstance.checkSignIn(email, password);
+//            if(!check.equals("This Email is alreay sign-in")){
+//               players.add(this);
+//            }
+
 //            players.add(this);
+
             this.start();
        }catch (IOException ex) {
            System.out.println("1");
@@ -90,7 +98,7 @@ public class ConnectedPlayer extends Thread implements Initializable {
                if(clientData != null){
                    token = new StringTokenizer(clientData,"####");
                    query = token.nextToken();
-                   
+  
                    switch(query){
                        case "SignIn":
                            signIn();
@@ -139,7 +147,6 @@ public class ConnectedPlayer extends Thread implements Initializable {
                            break;
                    }
               }
-               
            } catch (IOException ex) {
                
                System.out.println("2");
@@ -158,18 +165,52 @@ public class ConnectedPlayer extends Thread implements Initializable {
                  }
                 
                 this.stop();
+//=======
+//               
+//               
+//
+//               if(email != null){
+//
+//                   if(server.databaseInstance.checkIsActive(email)){
+//                      String check = server.databaseInstance.checkSignIn(email, password);
+//                      
+//                     //if(!check.equals("This Email is alreay sign-in")){
+//                         server.databaseInstance.setActive(false,email);
+//                         activeUsers.remove(this);
+//                     //}
+//                   }
+//
+//                    //server.databaseInstance.setActive(false,email);
+//
+////                    players.remove(this);   
+//
+//               }else{
+//                 System.out.println("nulllllll");  
+//                 updateList = true;
+//
+//               }
+//                
+//               this.stop();
+//               try {
+//                   currentSocket.close();
+//               } catch (IOException ex1) {
+//                   Logger.getLogger(ConnectedPlayer.class.getName()).log(Level.SEVERE, null, ex1);
+//               }
+//>>>>>>> c9d8c823e22fe710e725352d55cdc4da77862c01
            }
        }
        if(currentSocket.isClosed()){
            System.out.println("3");
            System.out.println("close");
-//           players.remove(this);
+           server.databaseInstance.getActivePlayers();
+
        }
    }
    
    private void signIn(){
         email = token.nextToken();
         String password = token.nextToken();
+
         String check;
         int score;
         System.out.println(email+" "+password);
@@ -201,6 +242,7 @@ public class ConnectedPlayer extends Thread implements Initializable {
                 ps.println(check +"###");
 
             }
+
 //             ps.println(check +"###" + score);
 
         }catch(SQLException e){

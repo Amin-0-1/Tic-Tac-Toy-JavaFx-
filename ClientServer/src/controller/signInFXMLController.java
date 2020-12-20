@@ -20,6 +20,8 @@ import java.util.ResourceBundle;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -38,11 +40,7 @@ import javafx.stage.Stage;
  */
 public class signInFXMLController {
     
-     /**
-     * backToMainPage.
-     * when called scene will be change to main page.
-     * @param event 
-     */
+     
  
     Socket socket;
     DataInputStream dis;
@@ -58,16 +56,10 @@ public class signInFXMLController {
     @FXML
     private Label txtAlret;
     
-    public void backToMainPage(ActionEvent event){
-        
-        System.out.println("backToMainPage: called");
-        
-        ButtonBack btnback = new ButtonBack("/view/sample.fxml");
-        btnback.handleButtonBack(event);
-         
-    }
+  
     public void signInPressed(ActionEvent e){
-            ButtonBack btnback = new ButtonBack("/view/OnlinePlayer.fxml");         
+            ButtonBack btnback = new ButtonBack("/view/OnlinePlayer.fxml");  
+            
         try {
             if(socket == null){
                 socket = new Socket("127.0.0.1",9876);
@@ -75,6 +67,23 @@ public class signInFXMLController {
                 ps = new PrintStream(socket.getOutputStream());
             }
             
+            String regex = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$";
+            Pattern pattern = Pattern.compile(regex);     
+            Matcher matcher = pattern.matcher(txtUserName.getText());
+            String userName = txtUserName.getText().trim();
+            String email = txtPassword.getText().trim();
+            if(userName.isEmpty() || email.isEmpty() ){
+                Platform.runLater(()->{
+                  txtAlret.setText("Empty Fields is Required");
+                 }); 
+                
+            }else if(!matcher.matches()){
+                Platform.runLater(()->{
+                  txtAlret.setText("Please enter a valid mail");
+                 }); 
+                
+            }else{
+
             ps.println("SignIn###"+txtUserName.getText()+"###"+txtPassword.getText());
 
             if(txtUserName.getText().equals("")){
@@ -149,6 +158,8 @@ public class signInFXMLController {
                 }.start();            
 
             }
+         }
+            
 
         } catch (IOException ex) {
             System.out.println("33333333333");
@@ -156,6 +167,20 @@ public class signInFXMLController {
         }
     
 
+    }
+    
+     /**
+     * backToMainPage.
+     * when called scene will be change to main page.
+     * @param event 
+     */
+    public void backToMainPage(ActionEvent event){
+        
+        System.out.println("backToMainPage: called");
+        
+        ButtonBack btnback = new ButtonBack("/view/sample.fxml");
+        btnback.handleButtonBack(event);
+         
     }
    
 }

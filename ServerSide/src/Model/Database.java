@@ -67,7 +67,7 @@ public class Database {
             pst = con.prepareStatement("update player set isActive = ? where email = ?");
             pst.setString(1, state+"");
             pst.setString(2, email);
-            System.out.println("db mail:"+email);
+            System.out.println("db mail active:"+email);
             pst.executeUpdate(); // rs has all data
             updateResultSet();
         } catch (SQLException ex) {
@@ -135,12 +135,13 @@ public class Database {
         
     }
     public synchronized void login(String email,String password) throws SQLException{
+
         pst = con.prepareStatement("update player set isActive = ?  where email = ? and password = ? ",ResultSet.TYPE_SCROLL_SENSITIVE ,ResultSet.CONCUR_UPDATABLE  );
         pst.setString(1, "true");
         pst.setString(2, email);
         pst.setString(3, password);
         pst.executeUpdate(); // rs has all data
-        updateResultSet();
+        updateResultSet();          
     }
     
     public synchronized void SignUp(String username , String email, String password) throws SQLException{
@@ -151,6 +152,7 @@ public class Database {
         pst.setString(3, password);
         pst.executeUpdate(); // rs has all data
         login(email,password);
+
     }
 
     public synchronized String checkRegister(String username , String email){
@@ -176,7 +178,10 @@ public class Database {
         ResultSet checkRs;
         PreparedStatement pstCheck;
         String check;       
-        try {
+        System.out.println("checkSignIn " +checkIsActive(email));
+        if(!checkIsActive(email)){
+            System.out.println(" checkSignIn: " +checkIsActive(email));
+                try { 
             pstCheck = con.prepareStatement("select * from player where email = ? ");
             pstCheck.setString(1, email);
             checkRs = pstCheck.executeQuery();
@@ -187,10 +192,15 @@ public class Database {
                 return "Password is incorrect";
             }
             return "Email is incorrect";
-        } catch (SQLException ex) {
+          } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
             return "Connection issue, please try again later";
+             }
+        }else{
+            System.out.println("This Email alreay sign-in " + checkIsActive(email));
+           return "This Email is alreay sign-in";  
         }
+              
     }
     
     public synchronized int getScore(String email){
@@ -277,7 +287,41 @@ public class Database {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+
+     
+     /**
+      * checkIsActive
+      * check if player login or not
+      * @param email
+      * @return 
+      */
+     public Boolean checkIsActive(String email){
+          ResultSet checkRs;
+          PreparedStatement pstCheck;
+          Boolean isActive ;
+         try {
+            pstCheck = con.prepareStatement("select isactive from player where email = ?");
+            pstCheck.setString(1, email);
+            checkRs = pstCheck.executeQuery();
+            checkRs.next();
+            System.out.println("checkIsActive true ");
+            isActive = checkRs.getBoolean("isactive");
+            System.out.println("checkIsActive " +isActive);
+            return isActive ;
+         } catch (SQLException ex) {
+            System.out.println("Invalod Email address");
+            //Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+         }
+         return false;
+         
+     }
+
+
+
+
     public synchronized boolean checkPlaying(String player){
+
         boolean available;
         ResultSet checkAv;
         PreparedStatement pstCheckAv;
@@ -295,4 +339,5 @@ public class Database {
 
     }
 }
+
 

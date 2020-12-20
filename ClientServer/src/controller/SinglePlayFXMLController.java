@@ -22,6 +22,7 @@ import java.util.prefs.Preferences;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -53,6 +54,7 @@ public class SinglePlayFXMLController implements Initializable{
     private boolean display = false;
     private Preferences prefs ;
     private int score = 0;
+    private Boolean computerWin = false ;
 
     
     @FXML
@@ -132,6 +134,10 @@ public class SinglePlayFXMLController implements Initializable{
 //                { 
 //                AccessFile.writeFile(buttonPressed.getId()+player+".");
 //                }
+
+                 if(MainController.isrecord)
+                 AccessFile.writeFile(buttonPressed.getId()+buttonPressed.getText()+".");
+                 
                 if(player=="X"){
                     player="O";
                 }
@@ -146,7 +152,8 @@ public class SinglePlayFXMLController implements Initializable{
                 }
             }else{
                 if(isFullGrid()){
-                    txtWinner.setText("draw");
+                    txtWinner.setText("It's a Draw");
+                    btnPlayAgain.setVisible(true);
                 }
             }
         }else{
@@ -189,7 +196,9 @@ public class SinglePlayFXMLController implements Initializable{
 **/
                 if(buttonPressed.getText().equals("")){
                     buttonPressed.setText(""+player);
-                     AccessFile.writeFile(buttonPressed.getId()+player+".");
+                    
+                     if(MainController.isrecord)
+                     AccessFile.writeFile(buttonPressed.getId()+buttonPressed.getText()+".");
 
                     if(player=="X"){
                         player="O";
@@ -199,7 +208,8 @@ public class SinglePlayFXMLController implements Initializable{
                     }        
                 }else{
                     if(isFullGrid() && !winner){
-                        txtWinner.setText("draw");
+                        txtWinner.setText("It's a Draw");
+                        btnPlayAgain.setVisible(true);
                     }
                 }
             }
@@ -241,6 +251,7 @@ public class SinglePlayFXMLController implements Initializable{
                 score += 10;
             }else{
                 txtWinner.setText("computer won!");
+                computerWin = true;
             }
             winner = true;
         }
@@ -253,6 +264,7 @@ public class SinglePlayFXMLController implements Initializable{
                 score += 10;
             }else{
                 txtWinner.setText("computer won!");
+                computerWin = true;
             }
             winner = true;
         }
@@ -265,6 +277,7 @@ public class SinglePlayFXMLController implements Initializable{
                 score += 10;
             }else{
                 txtWinner.setText("computer won!");
+                computerWin = true;
             }
             winner = true;
         }else{
@@ -284,6 +297,7 @@ public class SinglePlayFXMLController implements Initializable{
                 score += 10;
             }else{
                 txtWinner.setText("computer won!");
+                computerWin = true;
             }
             winner = true;
         }
@@ -296,6 +310,7 @@ public class SinglePlayFXMLController implements Initializable{
                 score += 10;
             }else{
                 txtWinner.setText("computer won!");
+                computerWin = true;
             }
             winner = true;
         }
@@ -308,6 +323,7 @@ public class SinglePlayFXMLController implements Initializable{
                score += 10;
             }else{
                 txtWinner.setText("computer won!");
+                computerWin = true;
             }
             winner = true;
         }else{
@@ -326,6 +342,7 @@ public class SinglePlayFXMLController implements Initializable{
                 score += 10;
             }else{
                 txtWinner.setText("computer won!");
+                computerWin = true;
             }
             winner = true;
         }
@@ -338,6 +355,7 @@ public class SinglePlayFXMLController implements Initializable{
                 score += 10;
             }else{
                 txtWinner.setText("computer won!");
+                computerWin = true;
             }
             winner = true;
         }else{
@@ -351,29 +369,15 @@ public class SinglePlayFXMLController implements Initializable{
         checkRows();
         checkDiagonal();
         if(display){
-            displayVideo();
+            displayVideo();             
+            System.out.println("Synch");
             prefs.putInt("score",score);
             labScore.setText(""+ score);  
             btnPlayAgain.setVisible(true);
+        }else if(computerWin){
+           btnPlayAgain.setVisible(true); 
         }
-/*
-        if(!checkRows()){
-            if(!checkColumns()){
-                if(!checkDiagonal()){
-                    
-                }else{
-                    winner = true;
-                }
-            }else{
-                winner = true;
-            }
-        }else{
-            winner = true;
-        }
-**/
-//        checkRows();
-//        checkColumns();
-//        checkDiagonal();
+
     }
     
     /**
@@ -382,22 +386,7 @@ public class SinglePlayFXMLController implements Initializable{
     private void displayVideo(){
         DisplayVideo winnerVideo = new DisplayVideo();
         winnerVideo.diplay();
-//        if(!checkRows()){
-//            if(!checkColumns()){
-//                if(!checkDiagonal()){
-//                    
-//                }else{
-//                    winner = true;
-//                }
-//            }else{
-//                winner = true;
-//            }
-//        }else{
-//            winner = true;
-//        }
-////        checkRows();
-////        checkColumns();
-////        checkDiagonal();
+         
 
     }
     
@@ -422,8 +411,17 @@ public class SinglePlayFXMLController implements Initializable{
         txtWinner.setText("");
         btnPlayAgain.setVisible(false);
        //makeGridEmpty();
+       MainController.isrecord = false;
         AskDialog isrecoredGame = new AskDialog();
-        isrecoredGame.alert("Do you want to record game ?");
+                  Boolean check=isrecoredGame.alert("Do you want to record game ?");
+                  if(check)
+                  {
+                   AccessFile.createFile();
+                   AccessFile.writeFile("username1"+".");
+                   AccessFile.writeFile("username2"+".");
+
+                     MainController.isrecord=true;
+        }
        ButtonBack btnback = new ButtonBack("/view/SinglePlayFXML.fxml");
        btnback.handleButtonBack(event);
          

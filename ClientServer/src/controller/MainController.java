@@ -1,5 +1,11 @@
 package controller;
+
+import helper.AccessFile;
+import helper.ButtonBack;
+import helper.TwoPlayerDialog;
+
 import helper.AskDialog;
+import helper.CurrentDateTime;
 import helper.CustomDialog;
 import helper.IPvalidatation;
 import java.io.File;
@@ -20,6 +26,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class MainController implements Initializable{
@@ -29,14 +36,19 @@ public class MainController implements Initializable{
     @FXML
     private Rectangle recWatchGame;
     private boolean btnEnable = false;
-    Preferences prefs ;
+
+    private Stage thisStage;
+     Preferences prefs ;
     int checkname;
+    static boolean isrecord=false;
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-       //File file=new File("E:\\ITI\\Java\\Project\\Tic-Tac-Toy-JavaFx-\\game.txt");
-
-           btnWatchGame.setDisable(false);
-           recWatchGame.setVisible(false); 
+        //thisStage = (Stage) recWatchGame.getScene().getWindow();
+        btnWatchGame.setDisable(false);
+        recWatchGame.setVisible(false);
+  
+        recWatchGame.setVisible(false); 
         
         /*
         if(btnEnable)
@@ -55,20 +67,8 @@ public class MainController implements Initializable{
     public void changeSceneToSinglePlayer(ActionEvent event) {
         try {
             System.out.println("changeSceneToSinglePlayer: called");
-            /*
-            if(prefs.nodeExists("/controller"))
-            {
-            String s=prefs.get("username","");
-            System.out.println(s.length());
-            if(s.length()==0)
-            {
-            CustomDialog  c=new CustomDialog();
-            c.displayDialog("Enter your name");
-            prefs.put("username", c.getName());
-            System.out.println(prefs.get("username", "not found"));
-            }
-            }
-            **/
+            CurrentDateTime c=new CurrentDateTime();
+            System.out.println(c.getCurrentDateTime());
             if(prefs.nodeExists("/controller"))
             {
                 String s=prefs.get("username","");
@@ -81,8 +81,12 @@ public class MainController implements Initializable{
                     if(!isCancled){
                         try {
                             //get scene
-                            AskDialog isrecoredGame = new AskDialog();
-                            isrecoredGame.alert("Do you want to record game ?");
+                              AskDialog isrecoredGame = new AskDialog();
+                              Boolean check = isrecoredGame.alert("Do you want to record game ?");
+              
+                              AccessFile.createFile();
+                     
+                 
                     
                             Parent singlePlayerParent = FXMLLoader.load(getClass().getResource("/view/SinglePlayFXML.fxml"));
                             
@@ -103,8 +107,17 @@ public class MainController implements Initializable{
                 
             else
             {
-                 AskDialog isrecoredGame = new AskDialog();
-                  isrecoredGame.alert("Do you want to record game ?");
+                  AskDialog isrecoredGame = new AskDialog();
+                  Boolean check=isrecoredGame.alert("Do you want to record game ?");
+                  if(check)
+                  {
+                   AccessFile.createFile();
+                   AccessFile.writeFile("username1"+".");
+                   AccessFile.writeFile("username2"+".");
+                   
+                     
+                     isrecord=true;
+                  }
                    
                 Parent singlePlayerParent = FXMLLoader.load(getClass().getResource("/view/SinglePlayFXML.fxml"));
                 
@@ -138,25 +151,39 @@ public class MainController implements Initializable{
     public void changeSceneToTwoPlayers(ActionEvent event) {
         
         System.out.println("changeSceneToTwoPlayers: called");
-        try {
-            
-            
-            
-            //get scene
-           Parent twoPlayerParent = FXMLLoader.load(getClass().getResource("/view/TwoPlayerFXML.fxml"));
-            //generate new scene
-            Scene twoPlayerScene = new Scene(twoPlayerParent,btnWatchGame.getScene().getWidth(),
-           btnWatchGame.getScene().getHeight());
+ 
+
+           CustomDialog fristPlayerNameDialog = new CustomDialog();
+           Boolean isCancled = fristPlayerNameDialog.displayDialog("Enter First Player Name");
+           prefs.put("fristPlayer", fristPlayerNameDialog.getName());
+           prefs.putInt("firstPlayerScore",0);
+           System.out.println("fristPlayer" +fristPlayerNameDialog.getName() );
+           if(!isCancled){
+              CustomDialog secondtPlayerNameDialog = new CustomDialog();
+             Boolean isSecondCancled = secondtPlayerNameDialog.displayDialog("Enter Second Player Name"); 
+             System.out.println("secondPlayer" +secondtPlayerNameDialog.getName() );
+             prefs.put("secondPlayer", secondtPlayerNameDialog.getName());
+             prefs.putInt("secondPlayerScore",0);
+             if(!isSecondCancled){
+                 System.out.println("Not Canceld");
+                  AskDialog isrecoredGame = new AskDialog();
+                  Boolean check=isrecoredGame.alert("Do you want to record game ?");
+                  if(check)
+                  {
+                   AccessFile.createFile();
+                   AccessFile.writeFile("username1"+".");
+                   AccessFile.writeFile("username2"+".");
+
+                     
+                     isrecord=true;
+                  }
+                 ButtonBack btnback = new ButtonBack("/view/TwoPlayerFXML.fxml");
+                 btnback.handleButtonBack(event);
+             }
+           }
+
         
-            //get stage information
-            Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-        
-            window.setTitle("Two players Mode");
-            window.setScene(twoPlayerScene);
-            window.show();
-        } catch (IOException ex) {
-            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
-        }       
+
         
     }
     
@@ -224,5 +251,32 @@ public class MainController implements Initializable{
             Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
         }       
     
+    }
+     
+      /**
+     * navigaetToTwoPlayerPage
+     * when called method will build new window to take player name
+     */
+    public void navigaetToTwoPlayerPage(){
+        try {
+            //get scene
+            Parent Register = FXMLLoader.load(getClass().getResource("/view/TwoPlayerDialog.fxml"));
+            //generate new scene
+            Scene RegisterScene = new Scene(Register);
+        
+            //get stage information
+            Stage window = new Stage();
+
+            window.setTitle("Congratulation");
+            window.setScene(RegisterScene);
+            window.setMinHeight(500);
+            window.setMinWidth(500);
+            window.setMaxHeight(250);
+            window.setMaxWidth(500);  
+            window.show();
+        } catch (IOException ex) {
+            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
 }
