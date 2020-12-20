@@ -66,25 +66,24 @@ public class WatchGameController implements Initializable {
     Thread thread;
     String listType;
     
-    
-//     public void backToMainPage(ActionEvent event){
-//        System.out.println("backToMainPage: called");
-//        ButtonBack btnback = new ButtonBack("/view/sample.fxml");
-//        btnback.handleButtonBack(event);
-//         System.out.println("backToMainPage: called");
-//
-//   
-//    } 
+   
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
 
 
         }
+    
     public void backToRecordedGames(ActionEvent event){     
         System.out.println("backToRecordedGames: called");
-        ButtonBack btnback = new ButtonBack("/view/sample.fxml");
-        btnback.handleButtonBack(event);         
+        if(listType.equals("local-mode")){
+          ButtonBack btnback = new ButtonBack("/view/ListRecordedGames.fxml");
+           btnback.handleButtonBack(event,"local-mode");   
+        }else if (listType.equals("online-mode")) {
+            ButtonBack btnback = new ButtonBack("/view/ListRecordedGames.fxml");
+            btnback.handleButtonBack(event,"online-mode"); 
+        }
+                
     }
     public  String[] getRecordGame(String dataStored)
     { System.out.println("getRecordGame  ");

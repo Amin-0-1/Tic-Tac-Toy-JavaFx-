@@ -623,5 +623,6 @@ public class OnlinePlayerController implements Initializable {
         navigateToListPage.handleButtonBack(event,"online-mode");
         
     }
+   
 
 }

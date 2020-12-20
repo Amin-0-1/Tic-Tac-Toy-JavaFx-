@@ -73,8 +73,15 @@ public class ListRecordedGamesController implements Initializable {
     public void backToMainPage(ActionEvent event){       
         System.out.println("backToMainPage: called");
         
-        ButtonBack btnback = new ButtonBack("/view/sample.fxml");
-        btnback.handleButtonBack(event);         
+        if(listType.equals("local-mode")){
+          ButtonBack btnback = new ButtonBack("/view/sample.fxml");
+           btnback.handleButtonBack(event);   
+        }else if (listType.equals("online-mode")) {
+            ButtonBack btnback = new ButtonBack("/view/OnlinePlayer.fxml");
+            btnback.handleButtonBack(event); 
+        }
+        
+               
     }  
     
     public void initialize(URL url, ResourceBundle rb) {
@@ -159,22 +166,7 @@ public class ListRecordedGamesController implements Initializable {
         navigateToListPage.handleButtonBack(event,"online-mode"); 
         }
         
-//        try {
-//            //get scene
-//           Parent twoPlayerParent = FXMLLoader.load(getClass().getResource("/view/WatchGame.fxml"));
-//            //generate new scene
-//            Scene twoPlayerScene = new Scene(twoPlayerParent,event.getSceneX(),
-//           event.getSceneY());
-//        
-//            //get stage information
-//            Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-//        
-//            window.setTitle("Watch Game");
-//            window.setScene(twoPlayerScene);
-//            window.show();
-//        } catch (IOException ex) {
-//            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
-//        }       
+      
         
     }
     
