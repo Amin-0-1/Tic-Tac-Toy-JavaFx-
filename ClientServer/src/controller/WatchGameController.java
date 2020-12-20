@@ -100,7 +100,7 @@ public class WatchGameController implements Initializable {
                     dataStored=dataStored.substring(index+1,dataStored.length());
                     System.out.println("dataStored2 " +dataStored);
                     
-                     if(player2.equals("user")){
+                     if(player2.equals("user") || player2.equals("null")){
                         Platform.runLater(()->{
                              user1.setText(player1);
                          });

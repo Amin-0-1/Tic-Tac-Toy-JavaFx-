@@ -35,7 +35,7 @@ public class AskDialog {
         DialogPane dialogPane = a.getDialogPane();
         dialogPane.getStylesheets().add(
         getClass().getResource("/css/fullpackstyling.css").toExternalForm());
-        dialogPane.getStyleClass().add("myDialog");
+        dialogPane.getStyleClass().add("infoDialog");
 
         a.showAndWait();
        
@@ -79,7 +79,7 @@ public class AskDialog {
         DialogPane dialogPane = a.getDialogPane();
         dialogPane.getStylesheets().add(
         getClass().getResource("/css/fullpackstyling.css").toExternalForm());
-        dialogPane.getStyleClass().add("myDialog");
+        dialogPane.getStyleClass().add("infoDialog");
 
         a.showAndWait();    
     }
@@ -102,7 +102,7 @@ public class AskDialog {
         DialogPane dialogPane = a.getDialogPane();
         dialogPane.getStylesheets().add(
         getClass().getResource("/css/fullpackstyling.css").toExternalForm());
-        dialogPane.getStyleClass().add("myDialog");
+        dialogPane.getStyleClass().add("infoDialog");
         
          a.showAndWait();
        
@@ -126,7 +126,7 @@ public class AskDialog {
         DialogPane dialogPane = a.getDialogPane();
         dialogPane.getStylesheets().add(
         getClass().getResource("/css/fullpackstyling.css").toExternalForm());
-        dialogPane.getStyleClass().add("myDialog");
+        dialogPane.getStyleClass().add("infoDialog");
         a.showAndWait();
     }
     
@@ -141,7 +141,7 @@ public class AskDialog {
         DialogPane dialogPane = a.getDialogPane();
         dialogPane.getStylesheets().add(
         getClass().getResource("/css/fullpackstyling.css").toExternalForm());
-        dialogPane.getStyleClass().add("myDialog");
+        dialogPane.getStyleClass().add("infoDialog");
         a.showAndWait();
         
     }
