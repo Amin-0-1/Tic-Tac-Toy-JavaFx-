@@ -86,6 +86,9 @@ public class SinglePlayFXMLController implements Initializable{
     @FXML
     private  Button btnPlayAgain;
     
+    @FXML
+    private AnchorPane anchorpane;
+    
     
    // File file;
     //public File  file= new File("E:\\ITI\\Java\\Project\\Tic-Tac-Toy-JavaFx-\\game.txt");
@@ -160,7 +163,7 @@ public class SinglePlayFXMLController implements Initializable{
         x2 = (bound2.getMinX() + bound2.getMaxX())/2 ;
         y2 = (bound2.getMinY() + bound2.getMaxY())/2;
         Line line = new Line(x1,y1,x2,y2);
-        pane.getChildren().add(line);
+        anchorpane.getChildren().add(line);
     }
     private void computerTurn(){
         Random r;

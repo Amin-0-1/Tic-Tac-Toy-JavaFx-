@@ -16,7 +16,7 @@
 
 <AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="649.0" prefWidth="1087.0" style="-fx-background-color: #2F2B43;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.OnlinePlayerController">
    <children>
-      <AnchorPane layoutX="305.0" layoutY="17.0" prefHeight="649.0" prefWidth="792.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="305.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane fx:id="anchorpane" layoutX="305.0" layoutY="17.0" prefHeight="649.0" prefWidth="792.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="305.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <BorderPane prefHeight="649.0" prefWidth="792.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <top>
@@ -111,16 +111,7 @@
                            <children>
                               <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="1">
                                  <children>
-                                    <Button fx:id="btn5" alignment="CENTER" mnemonicParsing="false" onAction="#buttonPressed" pickOnBounds="false" prefHeight="31.0" prefWidth="295.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                       <font>
-                                          <Font size="36.0" />
-                                       </font>
-                                    </Button>
-                                 </children>
-                              </AnchorPane>
-                              <AnchorPane>
-                                 <children>
-                                    <Button mnemonicParsing="false" prefHeight="31.0" prefWidth="295.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <Button fx:id="btn5" layoutX="124.0" layoutY="52.0" mnemonicParsing="false" onAction="#buttonPressed" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <font>
                                           <Font size="36.0" />
                                        </font>
@@ -129,7 +120,7 @@
                               </AnchorPane>
                               <AnchorPane prefWidth="633.0" GridPane.rowIndex="1">
                                  <children>
-                                    <Button fx:id="btn4" alignment="CENTER" mnemonicParsing="false" onAction="#buttonPressed" pickOnBounds="false" prefHeight="31.0" prefWidth="295.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <Button fx:id="btn4" layoutX="99.0" layoutY="66.0" mnemonicParsing="false" onAction="#buttonPressed" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <font>
                                           <Font size="36.0" />
                                        </font>
@@ -138,7 +129,7 @@
                               </AnchorPane>
                               <AnchorPane prefWidth="633.0" GridPane.columnIndex="1">
                                  <children>
-                                    <Button fx:id="btn2" alignment="CENTER" mnemonicParsing="false" onAction="#buttonPressed" pickOnBounds="false" prefHeight="31.0" prefWidth="295.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <Button fx:id="btn2" layoutX="111.0" layoutY="59.0" mnemonicParsing="false" onAction="#buttonPressed" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <font>
                                           <Font size="36.0" />
                                        </font>
@@ -147,7 +138,7 @@
                               </AnchorPane>
                               <AnchorPane prefWidth="633.0" GridPane.rowIndex="2">
                                  <children>
-                                    <Button fx:id="btn7" alignment="CENTER" mnemonicParsing="false" onAction="#buttonPressed" pickOnBounds="false" prefHeight="31.0" prefWidth="295.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <Button fx:id="btn7" layoutX="134.0" layoutY="32.0" mnemonicParsing="false" onAction="#buttonPressed" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <font>
                                           <Font size="36.0" />
                                        </font>
@@ -156,25 +147,7 @@
                               </AnchorPane>
                               <AnchorPane prefWidth="633.0">
                                  <children>
-                                    <Button mnemonicParsing="false" prefHeight="31.0" prefWidth="295.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                       <font>
-                                          <Font size="36.0" />
-                                       </font>
-                                    </Button>
-                                 </children>
-                              </AnchorPane>
-                              <AnchorPane prefWidth="633.0">
-                                 <children>
-                                    <Button mnemonicParsing="false" prefHeight="31.0" prefWidth="295.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                       <font>
-                                          <Font size="36.0" />
-                                       </font>
-                                    </Button>
-                                 </children>
-                              </AnchorPane>
-                              <AnchorPane prefWidth="633.0">
-                                 <children>
-                                    <Button fx:id="btn1" alignment="CENTER" mnemonicParsing="false" onAction="#buttonPressed" pickOnBounds="false" prefHeight="31.0" prefWidth="295.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <Button fx:id="btn1" layoutX="112.0" layoutY="67.0" mnemonicParsing="false" onAction="#buttonPressed" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <font>
                                           <Font size="36.0" />
                                        </font>
@@ -183,7 +156,7 @@
                               </AnchorPane>
                               <AnchorPane prefWidth="633.0" GridPane.columnIndex="2">
                                  <children>
-                                    <Button fx:id="btn3" alignment="CENTER" mnemonicParsing="false" onAction="#buttonPressed" pickOnBounds="false" prefHeight="31.0" prefWidth="295.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <Button fx:id="btn3" layoutX="91.0" layoutY="81.0" mnemonicParsing="false" onAction="#buttonPressed" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <font>
                                           <Font size="36.0" />
                                        </font>
@@ -192,7 +165,7 @@
                               </AnchorPane>
                               <AnchorPane prefWidth="633.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
                                  <children>
-                                    <Button fx:id="btn9" alignment="CENTER" mnemonicParsing="false" onAction="#buttonPressed" pickOnBounds="false" prefHeight="31.0" prefWidth="295.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <Button fx:id="btn9" layoutX="153.0" layoutY="85.0" mnemonicParsing="false" onAction="#buttonPressed" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <font>
                                           <Font size="36.0" />
                                        </font>
@@ -201,7 +174,7 @@
                               </AnchorPane>
                               <AnchorPane prefWidth="633.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
                                  <children>
-                                    <Button fx:id="btn6" alignment="CENTER" mnemonicParsing="false" onAction="#buttonPressed" pickOnBounds="false" prefHeight="31.0" prefWidth="295.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <Button fx:id="btn6" layoutX="83.0" layoutY="74.0" mnemonicParsing="false" onAction="#buttonPressed" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <font>
                                           <Font size="36.0" />
                                        </font>
@@ -210,7 +183,7 @@
                               </AnchorPane>
                               <AnchorPane prefWidth="633.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                                  <children>
-                                    <Button fx:id="btn8" alignment="CENTER" mnemonicParsing="false" onAction="#buttonPressed" pickOnBounds="false" prefHeight="31.0" prefWidth="295.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <Button fx:id="btn8" layoutX="101.0" layoutY="83.0" mnemonicParsing="false" onAction="#buttonPressed" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <font>
                                           <Font size="36.0" />
                                        </font>

@@ -86,6 +86,31 @@ public class ButtonBack {
         
     }
     
+    public void handleButtonBack(Button event,HashMap<String,String> hash,Socket socket){
+         //get scene
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(source));
+            Parent root = (Parent)fxmlLoader.load();   
+            OnlinePlayerController controller = fxmlLoader.<OnlinePlayerController>getController();
+            controller.setHash(hash);
+            controller.setSocket(socket);
+            
+            Scene buttonScene = new Scene(root);
+            fxmlLoader.setController(controller);
+           //get stage information
+           Stage window = (Stage)(event).getScene().getWindow();
+
+           window.setTitle("Home");
+           window.setScene(buttonScene);
+           window.show();
+        } catch (IOException ex) {
+            System.out.println("handle button back catch");
+            Logger.getLogger(ButtonBack.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+    }
+    
     /**
      * 
      */
