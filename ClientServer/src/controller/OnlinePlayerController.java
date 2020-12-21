@@ -401,7 +401,7 @@ public class OnlinePlayerController implements Initializable {
                 buttonPressed.setText(myTic);
                 System.out.println("My Tearn " +myTic);
                 //if(MainController.isrecord)
-                 AccessFile.writeFile(buttonPressed.getId()+buttonPressed.getText()+".");
+//                 AccessFile.wrwriteFileiteFile(buttonPressed.getId()+buttonPressed.getText()+".");
                 myTurn = false;
                 opponentTurn = true;
                 System.out.println("I pressed "+buttonPressed.getId());
@@ -430,8 +430,8 @@ public class OnlinePlayerController implements Initializable {
                             button.setText(oppTic);
 
                             System.out.println("myTic "+ oppTic);
-                            AccessFile.writeFile(btnOpp.getId()+btnOpp.getText()+".");
-                            checkState();
+//                            AccessFile.writeFile(btnOpp.getId()+btnOpp.getText()+".");
+//                            checkState();
 
                             //to stop from playing if opponent is winner
 //                            checkState();
@@ -775,7 +775,8 @@ public class OnlinePlayerController implements Initializable {
                System.out.println("Send to server to logout");
                ps.println("logout###"+hash.get("email"));
                thread.stop();
-               ButtonBack btnback = new ButtonBack("/view/LoginOrRegister.fxml");
+//               ButtonBack btnback = new ButtonBack("/view/LoginOrRegister.fxml");
+               ButtonBack btnback = new ButtonBack("/view/SinglePlayer.fxml");
                btnback.handleButtonBack(event); 
            }
           

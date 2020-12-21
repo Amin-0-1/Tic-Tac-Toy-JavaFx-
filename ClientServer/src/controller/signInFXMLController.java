@@ -57,15 +57,25 @@ public class signInFXMLController {
     private Label txtAlret;
     
   
+    public void setSocket(Socket socket){
+        try {
+            this.socket = socket;
+            
+            dis = new DataInputStream(socket.getInputStream());
+            ps = new PrintStream(socket.getOutputStream());
+        } catch (IOException ex) {
+            Logger.getLogger(signInFXMLController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     public void signInPressed(ActionEvent e){
             ButtonBack btnback = new ButtonBack("/view/OnlinePlayer.fxml");  
             
-        try {
-            if(socket == null){
-                socket = new Socket("127.0.0.1",9876);
-                dis = new DataInputStream(socket.getInputStream());
-                ps = new PrintStream(socket.getOutputStream());
-            }
+//        try {
+//            if(socket == null){
+//                socket = new Socket("127.0.0.1",9876);
+//                dis = new DataInputStream(socket.getInputStream());
+//                ps = new PrintStream(socket.getOutputStream());
+//            }
             
             String regex = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$";
             Pattern pattern = Pattern.compile(regex);     
@@ -83,13 +93,25 @@ public class signInFXMLController {
                  }); 
                 
             }else{
-
+             
             ps.println("SignIn###"+txtUserName.getText()+"###"+txtPassword.getText());
 
             if(txtUserName.getText().equals("")){
-                txtAlret.setText("Please enter your unsername");
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        txtAlret.setText("Please enter your unsername");
+                    }
+                });
+                
             } else if(txtPassword.getText().equals("")){
-                txtAlret.setText("Please enter your password");            
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        txtAlret.setText("Please enter your password");            
+                    }
+                });
+                
             }else{
 
                 //reciving response
@@ -127,24 +149,49 @@ public class signInFXMLController {
                                       });
                                     break;
                                 case "Already SignIn":
-                                    Platform.runLater(()->{
-                                       txtAlret.setText(receivedState);
-                                      });                                
+                                    System.out.println("already sign in before run later");
+                                    Platform.runLater(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            txtAlret.setText(receivedState);
+                                        }
+                                    });
+//                                    Platform.runLater(()->{
+//                                       txtAlret.setText(receivedState);
+//                                      });                                
                                     break;
                                 case "Email is incorrect":
-                                    Platform.runLater(()->{
-                                       txtAlret.setText(receivedState);
-                                      });                                
+                                    Platform.runLater(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            txtAlret.setText(receivedState);
+                                        }
+                                    });
+//                                    Platform.runLater(()->{
+//                                       txtAlret.setText(receivedState);
+//                                      });                                
                                     break;
                                 case "Password is incorrect":
-                                     Platform.runLater(()->{
-                                       txtAlret.setText(receivedState);
-                                      });                                 
+                                    Platform.runLater(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            txtAlret.setText(receivedState);
+                                        }
+                                    });
+//                                     Platform.runLater(()->{
+//                                       txtAlret.setText(receivedState);
+//                                      });                                 
                                     break;
                                 case "Connection issue, please try again later":
-                                     Platform.runLater(()->{
-                                       txtAlret.setText(receivedState);
-                                      }); 
+                                    Platform.runLater(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            txtAlret.setText(receivedState);
+                                        }
+                                    });
+//                                     Platform.runLater(()->{
+//                                       txtAlret.setText(receivedState);
+//                                      }); 
                                     break;
                                 default :
                                     System.out.println("default case in sign in");
@@ -161,10 +208,10 @@ public class signInFXMLController {
          }
             
 
-        } catch (IOException ex) {
-            System.out.println("33333333333");
-            Logger.getLogger(signInFXMLController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        } catch (IOException ex) {
+//            System.out.println("33333333333");
+//            Logger.getLogger(signInFXMLController.class.getName()).log(Level.SEVERE, null, ex);
+//        }
     
 
     }

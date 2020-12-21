@@ -8,10 +8,12 @@ package controller;
 import helper.ButtonBack;
 import helper.CustomDialog;
 import java.io.IOException;
+import java.net.Socket;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -25,6 +27,11 @@ import javafx.stage.Stage;
  * @author Wesam
  */
 public class LoginOrRegisterController {
+    
+    private Socket socket;
+    public void setSocket(Socket socket){
+        this.socket = socket;
+    }
     
      /**
      * backToMainPage.
@@ -45,22 +52,44 @@ public class LoginOrRegisterController {
      */
     public void changeSceneToLogin(ActionEvent event) {       
         System.out.println("changeSceneToLogin: called");
-        
-        try {
+        System.out.println("socket "+this.socket.isConnected());
+//        try {
             //get scene
-            Parent Login = FXMLLoader.load(getClass().getResource("/view/signIn.fxml"));
-            //generate new scene
-            Scene LoginScene = new Scene(Login);
-        
-            //get stage information
-            Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+//            Parent root = FXMLLoader.load(getClass().getResource("/view/signIn.fxml"));
+//            //generate new scene
+//            Scene LoginScene = new Scene(Login);
+//        
 
-            window.setTitle("Login");
-            window.setScene(LoginScene);
-            window.show();
-        } catch (IOException ex) {
-            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
-        }   
+
+
+//            //get stage information
+//            Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+
+
+            Platform.runLater(()->{
+                try {
+                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/signIn.fxml"));
+                    Parent root = (Parent)fxmlLoader.load();
+                    signInFXMLController controller = fxmlLoader.<signInFXMLController>getController();
+                    
+                    controller.setSocket(socket);
+                    fxmlLoader.setController(controller);
+                    
+                    //generate new scene
+                    Scene buttonScene = new Scene(root);
+                    Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+                    
+                    window.setTitle("Login");
+                    window.setScene(buttonScene);
+                    window.show();
+                } catch (IOException ex) {
+                    Logger.getLogger(LoginOrRegisterController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            });
+            
+//        } catch (IOException ex) {
+//            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+//        }   
     }
     
      /**

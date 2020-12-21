@@ -246,7 +246,8 @@ public class MainController implements Initializable{
                                 { 
                                     checkip=true;
                                   ButtonBack navigateToLoginOrRegister = new ButtonBack("/view/LoginOrRegister.fxml");
-                                  navigateToLoginOrRegister.handleButtonBack(event);
+                                  navigateToLoginOrRegister.handleButtonBack(event,socket);
+//                                    navigateToLoginOrRegister.handleButtonBack(event);
                                 }else 
                                 {AskDialog a=new AskDialog();
                                  a.inValidIp("you entered InValidIP ,Please try Again");
@@ -282,11 +283,14 @@ public class MainController implements Initializable{
             if(IPvalidatation.isValidIPAddress(s)) { 
                 try {
                     System.out.println("enter try valip ip");
-                    socket = new Socket(s,9876);
-                    System.out.println("conncet valid ip ");
-                    System.out.println(IPvalidatation.getIp());
-                    dis = new DataInputStream(socket.getInputStream());
-                    ps = new PrintStream(socket.getOutputStream());
+                    if(socket == null){
+                        socket = new Socket(s,9876);
+                        System.out.println("conncet valid ip ");
+                        System.out.println(IPvalidatation.getIp());
+                        dis = new DataInputStream(socket.getInputStream());
+                        ps = new PrintStream(socket.getOutputStream());
+                    }
+                    
                     return true;
                 } catch (IOException ex) {
                     return false;

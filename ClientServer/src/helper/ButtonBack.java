@@ -6,6 +6,7 @@
 package helper;
 
 import controller.ListRecordedGamesController;
+import controller.LoginOrRegisterController;
 import controller.OnlinePlayerController;
 import controller.WatchGameController;
 import java.io.IOException;
@@ -63,6 +64,36 @@ public class ButtonBack {
         
         
     }
+    
+    
+    public void handleButtonBack(ActionEvent event,Socket socket){
+         //get scene
+//        Parent buttonParent;
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(source));
+            Parent root = (Parent)fxmlLoader.load();   
+            LoginOrRegisterController controller = fxmlLoader.<LoginOrRegisterController>getController();
+            
+            controller.setSocket(socket);
+            fxmlLoader.setController(controller);
+         
+             //generate new scene
+            Scene buttonScene = new Scene(root);
+
+            //get stage information
+            Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+
+            window.setTitle("Home");
+            window.setScene(buttonScene);
+            window.show();
+        } catch (IOException ex) {
+            Logger.getLogger(ButtonBack.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+    }
+        
+        
 
     public void handleButtonBack(ActionEvent event,HashMap<String,String> hash,Socket socket){
          //get scene

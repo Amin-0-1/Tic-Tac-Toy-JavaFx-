@@ -208,6 +208,7 @@ public class ConnectedPlayer extends Thread implements Initializable {
    }
    
    private void signIn(){
+       
         email = token.nextToken();
         String password = token.nextToken();
 

@@ -32,7 +32,7 @@ public class AccessFile {
     
    private static File file;
    static String filePath = new File("").getAbsolutePath();
-   static String p = filePath.concat("\\src\\savedGames\\");
+   static String p = filePath.concat("\\src\\savedGame\\");
     
     public AccessFile() {
     }
