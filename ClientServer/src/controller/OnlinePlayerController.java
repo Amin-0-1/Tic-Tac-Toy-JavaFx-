@@ -776,7 +776,7 @@ public class OnlinePlayerController implements Initializable {
                ps.println("logout###"+hash.get("email"));
                thread.stop();
 //               ButtonBack btnback = new ButtonBack("/view/LoginOrRegister.fxml");
-               ButtonBack btnback = new ButtonBack("/view/SinglePlayer.fxml");
+               ButtonBack btnback = new ButtonBack("/view/sample.fxml");
                btnback.handleButtonBack(event); 
            }
           

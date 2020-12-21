@@ -231,8 +231,8 @@ public class MainController implements Initializable{
     public void changeSceneToOnlineGame(ActionEvent event) {
         txtAlert.setVisible(false);
         System.out.println("changeSceneToOnlineGame: called");
-               if(!checkip)
-                { txtAlert.setVisible(false);
+//               if(!checkip){
+                    txtAlert.setVisible(false);
                     System.out.println(checkip); 
                      CustomDialog cd = new CustomDialog();
                      Boolean isCancled = cd.displayDialog("Enter Server IP");
@@ -246,6 +246,7 @@ public class MainController implements Initializable{
                                 { 
                                     checkip=true;
                                   ButtonBack navigateToLoginOrRegister = new ButtonBack("/view/LoginOrRegister.fxml");
+                                  System.out.println("socket is "+socket.isConnected()+" from main controller");
                                   navigateToLoginOrRegister.handleButtonBack(event,socket);
 //                                    navigateToLoginOrRegister.handleButtonBack(event);
                                 }else 
@@ -255,13 +256,13 @@ public class MainController implements Initializable{
                                 
                             }
                                 
-                }
-               else if (checkip)
-               {                    
-                ButtonBack navigateToLoginOrRegister = new ButtonBack("/view/LoginOrRegister.fxml");
-                navigateToLoginOrRegister.handleButtonBack(event);
-            
-               }
+//                }
+//               else if (checkip)
+//               {                    
+//                ButtonBack navigateToLoginOrRegister = new ButtonBack("/view/LoginOrRegister.fxml");
+//                navigateToLoginOrRegister.handleButtonBack(event);
+//            
+//               }
     
     }
     
