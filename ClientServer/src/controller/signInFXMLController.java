@@ -57,15 +57,11 @@ public class signInFXMLController {
     private Label txtAlret;
     
   
-    public void setSocket(Socket socket){
-        try {
-            this.socket = socket;
-            
-            dis = new DataInputStream(socket.getInputStream());
-            ps = new PrintStream(socket.getOutputStream());
-        } catch (IOException ex) {
-            Logger.getLogger(signInFXMLController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    public void setSocket(Socket s) throws IOException{
+        
+        this.socket = s;
+        dis = new DataInputStream(s.getInputStream());
+        ps = new PrintStream(s.getOutputStream());
     }
     public void signInPressed(ActionEvent e){
             ButtonBack btnback = new ButtonBack("/view/OnlinePlayer.fxml");  
@@ -124,7 +120,7 @@ public class signInFXMLController {
                             state = dis.readLine();
                             token = new StringTokenizer(state,"###");
                             String receivedState = token.nextToken();
-                            System.out.println("sign in page"+receivedState);
+                            System.out.println("sign in page "+receivedState);
                             
                             // after login , get result set
 //                            String str;
@@ -148,7 +144,7 @@ public class signInFXMLController {
                                        btnback.handleButtonBack(e,hash,socket);
                                       });
                                     break;
-                                case "Already SignIn":
+                                case "This Email is alreay sign-in":
                                     System.out.println("already sign in before run later");
                                     Platform.runLater(new Runnable() {
                                         @Override
@@ -194,7 +190,12 @@ public class signInFXMLController {
 //                                      }); 
                                     break;
                                 default :
-                                    System.out.println("default case in sign in");
+                                    Platform.runLater(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            txtAlret.setText("Please Enter valid Credentials");
+                                        }
+                                    });
                             }
 
                         } catch (IOException ex) {

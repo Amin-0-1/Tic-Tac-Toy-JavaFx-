@@ -241,19 +241,17 @@ public class OnlinePlayerController implements Initializable {
         currentScore = Integer.parseInt(hash.get("score"));
     }
     
-    public void setSocket(Socket s){
+    public void setSocket(Socket s) throws IOException{
         System.out.println(s);
-        try {
-            System.out.println("socketset");
-            this.socket = s;
-            dis = new DataInputStream(s.getInputStream());
-            ps = new PrintStream(s.getOutputStream());
-            
-            loaded = true;
-            ps.println("playerlist");
-        } catch (IOException ex) {
-            Logger.getLogger(OnlinePlayerController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    
+        System.out.println("socketset");
+        this.socket = s;
+        dis = new DataInputStream(s.getInputStream());
+        ps = new PrintStream(s.getOutputStream());
+
+        loaded = true;
+        ps.println("playerlist");
+        
     }
     
     private void recievedRequest() throws IOException{
@@ -793,10 +791,9 @@ public class OnlinePlayerController implements Initializable {
         AskDialog isrecoredGame = new AskDialog();
         Boolean check=isrecoredGame.alert("Do you want to record game ?");
         if(check){
-         AccessFile.createFile("online-mode");
-         AccessFile.writeFile(hash.get("username")+".");
-         AccessFile.writeFile(opponentUsername+".");
-                                           
+            AccessFile.createFile("online-mode");
+            AccessFile.writeFile(hash.get("username")+".");
+            AccessFile.writeFile(opponentUsername+".");                      
         }
     }
     

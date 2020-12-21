@@ -294,6 +294,14 @@ public class MainController implements Initializable{
                     
                     return true;
                 } catch (IOException ex) {
+                    try {
+                        System.out.println("closing socket in main controller");
+                        socket.close();
+                        dis.close();
+                        ps.close();
+                    } catch (IOException ex1) {
+                        Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex1);
+                    }
                     return false;
                 }
                 

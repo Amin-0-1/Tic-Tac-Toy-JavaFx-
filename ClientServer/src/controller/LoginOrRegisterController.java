@@ -7,7 +7,9 @@ package controller;
 
 import helper.ButtonBack;
 import helper.CustomDialog;
+import java.io.DataInputStream;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.net.Socket;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -29,8 +31,13 @@ import javafx.stage.Stage;
 public class LoginOrRegisterController {
     
     private Socket socket;
-    public void setSocket(Socket socket){
-        this.socket = socket;
+    DataInputStream dis;
+    PrintStream ps;
+    
+    public void setSocket(Socket s) throws IOException{
+          this.socket = s;
+          dis = new DataInputStream(s.getInputStream());
+          ps = new PrintStream(s.getOutputStream());
     }
     
      /**
@@ -50,7 +57,7 @@ public class LoginOrRegisterController {
      * when called scene will be change to Login.
      * @param event 
      */
-    public void changeSceneToLogin(ActionEvent event) {       
+    public void changeSceneToLogin(ActionEvent event)throws IOException {       
         System.out.println("changeSceneToLogin: called");
         System.out.println("socket "+this.socket.isConnected());
 //        try {
