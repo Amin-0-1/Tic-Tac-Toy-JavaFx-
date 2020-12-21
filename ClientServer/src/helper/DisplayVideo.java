@@ -13,17 +13,20 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import java.util.logging.Logger;
 import java.util.logging.Level;
+import javafx.animation.PauseTransition;
+import javafx.application.Platform;
+import javafx.util.Duration;
 
 /**
  *
  * @author Wesam
  */
-public class DisplayVideo {
+ public class DisplayVideo {
     
     /**
      * when called method will build new window and display video on it
      */
-    public void diplay(){
+     public void diplay(){
         try {
             //get scene
             Parent Register = FXMLLoader.load(getClass().getResource("/view/VideoWindow.fxml"));
@@ -40,10 +43,21 @@ public class DisplayVideo {
             window.setMaxHeight(250);
             window.setMaxWidth(500);  
             window.show();
+            
+            
+                PauseTransition wait = new PauseTransition(Duration.seconds(3));
+                            wait.setOnFinished((e) -> {
+                                /*YOUR METHOD*/
+                                window.close();
+                                //btn.setDisable(false);
+                                wait.playFromStart();
+                            });
+                            wait.play();
+                    
         } catch (IOException ex) {
             Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }
     
 }

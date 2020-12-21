@@ -47,7 +47,9 @@ public class Server {
     public void enableConnections() throws SQLException{
 
         databaseInstance = Database.getDataBase();
-        databaseInstance.updateResultSet();       
+        databaseInstance.changeStateToOffline();
+        databaseInstance.changeStateToNotPlaying();
+        databaseInstance.updateResultSet();
         initServer(); // enable socket server
 //    Thread.sleep(200);
     }
@@ -64,6 +66,9 @@ public class Server {
         } catch (IOException ex) {
             System.out.print("disable connection server");
         }
+    }
+    public void setNotPlaying(String email){
+        databaseInstance.setNotPlaying(email);
     }
     
     private void initServer(){
@@ -83,6 +88,7 @@ public class Server {
             });
             listener.start();
         }catch (IOException ex) {
+            System.out.println("server exception");
             ex.printStackTrace();
         }
     }

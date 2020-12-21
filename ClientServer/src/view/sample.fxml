@@ -159,7 +159,7 @@
                   </Pane>
                   <Pane prefHeight="202.0" prefWidth="179.0">
                      <children>
-                        <Button fx:id="btnWatchGame" disable="true" mnemonicParsing="false" onAction="#changeSceneToWatchGame" opacity="0.7" prefHeight="190.0" prefWidth="168.0" styleClass="button2" stylesheets="@../css/fullpackstyling.css">
+                        <Button fx:id="btnWatchGame" disable="true" mnemonicParsing="false" onAction="#changeSceneToWatchGame" prefHeight="190.0" prefWidth="168.0" styleClass="button2" stylesheets="@../css/fullpackstyling.css">
                            <graphic>
                               <AnchorPane prefHeight="200.0" prefWidth="200.0">
                                  <children>
@@ -187,7 +187,7 @@
                                  </children>
                               </AnchorPane>
                            </graphic></Button>
-                        <Rectangle fx:id="recWatchGame" arcHeight="5.0" arcWidth="5.0" fill="#3933516b" height="177.0" layoutX="9.0" layoutY="6.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="152.0" />
+                        <Rectangle fx:id="recWatchGame" arcHeight="5.0" arcWidth="5.0" fill="#3933516b" height="177.0" layoutX="9.0" layoutY="6.0" opacity="0.4" stroke="#393351" strokeType="INSIDE" strokeWidth="0.0" width="152.0" />
                      </children>
                      <HBox.margin>
                         <Insets left="40.0" />
@@ -216,6 +216,11 @@
                   <Image url="@../resources/test.png" />
                </image>
             </ImageView>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" layoutX="96.0" layoutY="542.0" prefHeight="100.0" prefWidth="945.0" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="96.0" AnchorPane.rightAnchor="46.0" AnchorPane.topAnchor="542.0">
+         <children>
+            <Label fx:id="txtAlert" alignment="CENTER" prefHeight="21.0" prefWidth="347.0" textFill="#d30606" />
          </children>
       </HBox>
    </children>

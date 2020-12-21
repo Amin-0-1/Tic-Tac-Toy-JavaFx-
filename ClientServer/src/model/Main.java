@@ -43,6 +43,10 @@ public class Main extends Application {
         scene.setFill(Color.TRANSPARENT);
         primaryStage.setScene(scene);
         primaryStage.show();
+        primaryStage.setOnCloseRequest((event) -> {
+            System.exit(1);
+        });       
+        
     }
 
 

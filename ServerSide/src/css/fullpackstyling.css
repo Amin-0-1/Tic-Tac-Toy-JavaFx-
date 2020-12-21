@@ -159,3 +159,14 @@
 {
     -fx-background-color: linear-gradient(to bottom left, #A868A0, #2D75E8);
 }
+
+
+.data0.chart-pie
+{
+-fx-pie-color: #505FA3;
+
+}
+.data1.chart-pie{
+-fx-pie-color: #9999ff;
+}
+

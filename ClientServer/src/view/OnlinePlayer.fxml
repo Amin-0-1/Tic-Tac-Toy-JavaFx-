@@ -10,88 +10,195 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="649.0" prefWidth="1087.0" style="-fx-background-color: #2F2B43;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.OnlinePlayerController">
    <children>
-      <AnchorPane layoutX="305.0" layoutY="17.0" prefHeight="649.0" prefWidth="792.0">
+      <AnchorPane fx:id="anchorpane" layoutX="305.0" layoutY="17.0" prefHeight="649.0" prefWidth="792.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="305.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <BorderPane prefHeight="649.0" prefWidth="792.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <top>
-                  <GridPane>
+                  <GridPane prefHeight="152.0" prefWidth="782.0" BorderPane.alignment="CENTER">
                      <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
                      </columnConstraints>
                      <rowConstraints>
-                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="97.0" minHeight="10.0" prefHeight="78.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="74.0" minHeight="50.0" prefHeight="80.0" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <children>
-                        <Pane prefHeight="63.0" prefWidth="233.0" styleClass="button2" stylesheets="@../css/fullpackstyling.css">
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="button2" stylesheets="@../css/fullpackstyling.css">
+                           <GridPane.margin>
+                              <Insets bottom="15.0" left="15.0" right="15.0" top="30.0" />
+                           </GridPane.margin>
                            <children>
-                              <Label layoutX="9.0" layoutY="18.0" prefHeight="27.0" prefWidth="230.0" text="Mahmoudamin373@gmial.com" textFill="#f8f1f1">
+                              <Label fx:id="usernametxt" alignment="CENTER" contentDisplay="CENTER" prefHeight="27.0" prefWidth="142.0" text="Mahmoud Amin : x" textFill="#f8f1f1" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0">
                                  <font>
-                                    <Font size="16.0" />
+                                    <Font size="15.0" />
                                  </font>
                               </Label>
                            </children>
-                           <opaqueInsets>
-                              <Insets />
-                           </opaqueInsets>
-                           <GridPane.margin>
-                              <Insets bottom="50.0" left="10.0" right="10.0" top="10.0" />
-                           </GridPane.margin>
-                        </Pane>
-                        <Pane prefHeight="63.0" prefWidth="223.0" styleClass="button2" stylesheets="@../css/fullpackstyling.css" GridPane.columnIndex="1">
+                        </AnchorPane>
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="button2" stylesheets="@../css/fullpackstyling.css" GridPane.columnIndex="2">
                            <children>
-                              <Label layoutX="57.0" layoutY="18.0" prefHeight="27.0" prefWidth="142.0" text="Mahmoud Amin" textFill="#f8f1f1">
+                              <Label fx:id="scoretxt" alignment="CENTER" contentDisplay="CENTER" prefHeight="27.0" prefWidth="142.0" text="Mahmoud Amin : o" textFill="#f8f1f1" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0">
                                  <font>
                                     <Font size="15.0" />
                                  </font>
                               </Label>
                            </children>
                            <GridPane.margin>
-                              <Insets bottom="50.0" left="10.0" right="10.0" top="10.0" />
+                              <Insets bottom="15.0" left="15.0" right="15.0" top="30.0" />
                            </GridPane.margin>
-                        </Pane>
-                        <Pane prefHeight="63.0" prefWidth="233.0" styleClass="button2" stylesheets="@../css/fullpackstyling.css" GridPane.columnIndex="2">
+                        </AnchorPane>
+                        <AnchorPane fx:id="middanc" prefHeight="200.0" prefWidth="200.0" styleClass="button2" stylesheets="@../css/fullpackstyling.css" GridPane.columnIndex="1">
                            <children>
-                              <HBox layoutX="68.0" layoutY="18.0">
-                                 <children>
-                                    <Label prefHeight="27.0" prefWidth="56.0" text="Score:" textFill="#f8f1f1">
-                                       <font>
-                                          <Font size="15.0" />
-                                       </font>
-                                    </Label>
-                                    <Label prefHeight="27.0" prefWidth="56.0" text="9999" textFill="#f8f1f1">
-                                       <font>
-                                          <Font size="15.0" />
-                                       </font>
-                                    </Label>
-                                 </children>
-                              </HBox>
+                              <Label fx:id="emailtxt" alignment="CENTER" contentDisplay="CENTER" prefHeight="27.0" prefWidth="142.0" text="Mahmoud Amin" textFill="#f8f1f1" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
                            </children>
                            <GridPane.margin>
-                              <Insets bottom="50.0" left="10.0" right="10.0" top="10.0" />
+                              <Insets bottom="15.0" left="15.0" right="15.0" top="30.0" />
                            </GridPane.margin>
-                        </Pane>
+                        </AnchorPane>
+                        <AnchorPane fx:id="player2anc" prefHeight="200.0" prefWidth="200.0" styleClass="button2" stylesheets="@../css/fullpackstyling.css" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                           <children>
+                              <Label fx:id="player2lbl" alignment="CENTER" contentDisplay="CENTER" prefHeight="27.0" prefWidth="142.0" textFill="#f8f1f1" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                           <GridPane.margin>
+                              <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                           </GridPane.margin>
+                        </AnchorPane>
+                        <AnchorPane fx:id="player1anc" prefHeight="200.0" prefWidth="200.0" styleClass="button2" stylesheets="@../css/fullpackstyling.css" visible="false" GridPane.rowIndex="1">
+                           <children>
+                              <Label fx:id="player1lbl" alignment="CENTER" contentDisplay="CENTER" prefHeight="27.0" prefWidth="142.0" textFill="#f8f1f1" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                           <GridPane.margin>
+                              <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                           </GridPane.margin>
+                        </AnchorPane>
                      </children>
-                     <BorderPane.margin>
-                        <Insets />
-                     </BorderPane.margin>
                   </GridPane>
                </top>
                <center>
-                  <Pane fx:id="playboard" prefHeight="555.0" prefWidth="792.0" BorderPane.alignment="CENTER" />
+                  <AnchorPane fx:id="playboard" prefHeight="521.0" prefWidth="782.0" visible="false" BorderPane.alignment="CENTER">
+                     <children>
+                        <GridPane fx:id="grid" alignment="TOP_CENTER" gridLinesVisible="true" layoutY="98.0" prefHeight="474.0" prefWidth="752.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="35.0">
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                           <children>
+                              <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                 <children>
+                                    <Button fx:id="btn5" layoutX="124.0" layoutY="52.0" mnemonicParsing="false" onAction="#buttonPressed" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <font>
+                                          <Font size="36.0" />
+                                       </font>
+                                    </Button>
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane prefWidth="633.0" GridPane.rowIndex="1">
+                                 <children>
+                                    <Button fx:id="btn4" layoutX="99.0" layoutY="66.0" mnemonicParsing="false" onAction="#buttonPressed" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <font>
+                                          <Font size="36.0" />
+                                       </font>
+                                    </Button>
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane prefWidth="633.0" GridPane.columnIndex="1">
+                                 <children>
+                                    <Button fx:id="btn2" layoutX="111.0" layoutY="59.0" mnemonicParsing="false" onAction="#buttonPressed" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <font>
+                                          <Font size="36.0" />
+                                       </font>
+                                    </Button>
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane prefWidth="633.0" GridPane.rowIndex="2">
+                                 <children>
+                                    <Button fx:id="btn7" layoutX="134.0" layoutY="32.0" mnemonicParsing="false" onAction="#buttonPressed" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <font>
+                                          <Font size="36.0" />
+                                       </font>
+                                    </Button>
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane prefWidth="633.0">
+                                 <children>
+                                    <Button fx:id="btn1" layoutX="112.0" layoutY="67.0" mnemonicParsing="false" onAction="#buttonPressed" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <font>
+                                          <Font size="36.0" />
+                                       </font>
+                                    </Button>
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane prefWidth="633.0" GridPane.columnIndex="2">
+                                 <children>
+                                    <Button fx:id="btn3" layoutX="91.0" layoutY="81.0" mnemonicParsing="false" onAction="#buttonPressed" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <font>
+                                          <Font size="36.0" />
+                                       </font>
+                                    </Button>
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane prefWidth="633.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                                 <children>
+                                    <Button fx:id="btn9" layoutX="153.0" layoutY="85.0" mnemonicParsing="false" onAction="#buttonPressed" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <font>
+                                          <Font size="36.0" />
+                                       </font>
+                                    </Button>
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane prefWidth="633.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                                 <children>
+                                    <Button fx:id="btn6" layoutX="83.0" layoutY="74.0" mnemonicParsing="false" onAction="#buttonPressed" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <font>
+                                          <Font size="36.0" />
+                                       </font>
+                                    </Button>
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane prefWidth="633.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                 <children>
+                                    <Button fx:id="btn8" layoutX="101.0" layoutY="83.0" mnemonicParsing="false" onAction="#buttonPressed" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <font>
+                                          <Font size="36.0" />
+                                       </font>
+                                    </Button>
+                                 </children>
+                              </AnchorPane>
+                           </children>
+                        </GridPane>
+                     </children>
+                  </AnchorPane>
                </center>
             </BorderPane>
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="649.0" prefWidth="296.0" style="-fx-background-color: #393351;">
+      <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="649.0" prefWidth="296.0" style="-fx-background-color: #393351;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <Pane fx:id="paneLabel" layoutY="86.0" prefHeight="61.0" prefWidth="283.0" style="-fx-background-color: #FA2C56; -fx-background-radius: 5;">
                <children>
@@ -103,6 +210,15 @@
                </children>
             </Pane>
             <ScrollPane fx:id="scrollpane" focusTraversable="false" layoutY="185.0" prefHeight="458.0" prefWidth="296.0" style="-fx-background: #393351; -fx-border-color: #393351;" AnchorPane.bottomAnchor="6.0" AnchorPane.topAnchor="185.0" />
+            <Button fx:id="btnWatchGame" layoutX="217.0" layoutY="21.0" mnemonicParsing="false" onAction="#watchGame" opacity="0.71" prefHeight="54.0" prefWidth="65.0" styleClass="buttonBackOnlineMode" stylesheets="@../css/fullpackstyling.css">
+               <graphic>
+                  <ImageView fitHeight="40.0" fitWidth="47.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/video.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
          </children>
       </AnchorPane>
       <Button layoutX="20.0" layoutY="20.0" mnemonicParsing="false" onAction="#backToMainPage" opacity="0.71" prefHeight="54.0" prefWidth="65.0" styleClass="buttonBackOnlineMode" stylesheets="@../css/fullpackstyling.css">
