@@ -59,7 +59,7 @@ public class LoginOrRegisterController {
      */
     public void changeSceneToLogin(ActionEvent event)throws IOException {       
         System.out.println("changeSceneToLogin: called");
-        System.out.println("socket "+this.socket.isConnected());
+        //System.out.println("socket "+this.socket.isConnected());
 //        try {
             //get scene
 //            Parent root = FXMLLoader.load(getClass().getResource("/view/signIn.fxml"));
@@ -73,27 +73,31 @@ public class LoginOrRegisterController {
 //            Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
 
 
-            Platform.runLater(()->{
-                try {
-                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/signIn.fxml"));
-                    Parent root = (Parent)fxmlLoader.load();
-                    signInFXMLController controller = fxmlLoader.<signInFXMLController>getController();
-                    
-                    controller.setSocket(socket);
-                    fxmlLoader.setController(controller);
-                    
-                    //generate new scene
-                    Scene buttonScene = new Scene(root);
-                    Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-                    
-                    window.setTitle("Login");
-                    window.setScene(buttonScene);
-                    window.show();
-                } catch (IOException ex) {
-                    Logger.getLogger(LoginOrRegisterController.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            });
-            
+//            Platform.runLater(()->{
+//                try {
+//                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/signIn.fxml"));
+//                    Parent root = (Parent)fxmlLoader.load();
+//                    signInFXMLController controller = fxmlLoader.<signInFXMLController>getController();
+//                    
+//                    controller.setSocket(socket);
+//                    fxmlLoader.setController(controller);
+//                    
+//                    //generate new scene
+//                    Scene buttonScene = new Scene(root);
+//                    Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+//                    
+//                    window.setTitle("Login");
+//                    window.setScene(buttonScene);
+//                    window.show();
+//                } catch (IOException ex) {
+//                    Logger.getLogger(LoginOrRegisterController.class.getName()).log(Level.SEVERE, null, ex);
+//                }
+//            });
+
+             ButtonBack navigateToOnlinePlay = new ButtonBack("/view/signIn.fxml");
+             //navigateToOnlinePlay.handleButtonBack(event, socket, "signInFXMLController");
+             
+            navigateToOnlinePlay.handleButtonBack(event);
 //        } catch (IOException ex) {
 //            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
 //        }   
@@ -108,21 +112,26 @@ public class LoginOrRegisterController {
         
         System.out.println("changeSceneToRegister: called");
         
-        try {
+        //try {
             //get scene
-            Parent Register = FXMLLoader.load(getClass().getResource("/view/Register.fxml"));
-            //generate new scene
-            Scene RegisterScene = new Scene(Register);
-        
-            //get stage information
-            Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+//            Parent Register = FXMLLoader.load(getClass().getResource("/view/Register.fxml"));
+//            //generate new scene
+//            Scene RegisterScene = new Scene(Register);
+//        
+//            //get stage information
+//            Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+//
+//            window.setTitle("Login And Register");
+//            window.setScene(RegisterScene);
+//            window.show();
 
-            window.setTitle("Login And Register");
-            window.setScene(RegisterScene);
-            window.show();
-        } catch (IOException ex) {
-            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+             ButtonBack navigateToOnlinePlay = new ButtonBack("/view/Register.fxml");
+             //navigateToOnlinePlay.handleButtonBack(event, socket, "RegisterFXMLController");
+             navigateToOnlinePlay.handleButtonBack(event);
+             
+//        } catch (IOException ex) {
+//            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+//        }
     } 
     
 }

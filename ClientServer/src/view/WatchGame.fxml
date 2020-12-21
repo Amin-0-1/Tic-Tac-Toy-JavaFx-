@@ -29,7 +29,10 @@
       </Pane>
       <Pane layoutX="24.0" layoutY="67.0" prefWidth="1144.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
          <children>
-            <Label fx:id="user1" layoutX="205.0" layoutY="74.0" prefHeight="21.0" prefWidth="96.0" textFill="WHITE" />
+            <Label fx:id="user1" layoutX="236.0" layoutY="64.0" prefHeight="21.0" prefWidth="96.0" textFill="WHITE">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
             <Label fx:id="user2" layoutX="904.0" layoutY="74.0" prefHeight="21.0" prefWidth="96.0" textFill="WHITE" />
             <GridPane layoutX="225.0" layoutY="97.0" prefHeight="450.0" prefWidth="800.0">
                <columnConstraints>

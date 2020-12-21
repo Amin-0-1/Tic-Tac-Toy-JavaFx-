@@ -30,9 +30,12 @@ import java.util.prefs.Preferences;
  */
 public class AccessFile {
     
+    
    private static File file;
    static String filePath = new File("").getAbsolutePath();
-   static String p = filePath.concat("\\src\\savedGame\\");
+   static String pathLocalFile = filePath.concat("\\src\\savedGame\\");
+   static String pathOnlineFile = filePath.concat("\\src\\savedOnlineGame\\");
+
     
     public AccessFile() {
     }
@@ -52,16 +55,12 @@ public class AccessFile {
         
         if(listType.equals("local-mode")){
             prefs.put(c.getCurrentDateTime(), c.getCurrentDateTime()); 
-            file = new File("D:\\ITI\\Java\\java project\\Tic-Tac-Toy-JavaFx-\\savedGame\\"+prefs.get(c.getCurrentDateTime(),""));
+            file = new File(pathLocalFile+prefs.get(c.getCurrentDateTime(),""));
         }else if(listType.equals("online-mode")){
              pref.put(c.getCurrentDateTime(), c.getCurrentDateTime());
-            file = new File("D:\\ITI\\Java\\java project\\Tic-Tac-Toy-JavaFx-\\savedOnlineGame\\"+pref.get(c.getCurrentDateTime(),""));
+            file = new File(pathOnlineFile+pref.get(c.getCurrentDateTime(),""));
             
-        }
-
-           
-           System.out.println(p);
-               
+        }  
            try {
                
                if(file.createNewFile())

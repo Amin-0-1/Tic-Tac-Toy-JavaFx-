@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.net.Socket;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -42,7 +43,7 @@ public class MainController implements Initializable{
      @FXML
     protected Label txtAlert;
      
-     
+    static HashMap<String, String>hash = new HashMap<>();
     private boolean btnEnable = false;
 
     private Stage thisStage;
@@ -52,10 +53,12 @@ public class MainController implements Initializable{
 
     static boolean x=false;
      static boolean checkip=false;
-    Socket socket;
+    static Socket socket;
     Preferences pref;
-    DataInputStream dis;
-    PrintStream ps;
+    static DataInputStream dis;
+    static PrintStream ps;
+ 
+    
     @Override
      public void initialize(URL url, ResourceBundle rb) {
         //txtAlert.setVisible(false);
@@ -247,8 +250,8 @@ public class MainController implements Initializable{
                                     checkip=true;
                                   ButtonBack navigateToLoginOrRegister = new ButtonBack("/view/LoginOrRegister.fxml");
                                   System.out.println("socket is "+socket.isConnected()+" from main controller");
-                                  navigateToLoginOrRegister.handleButtonBack(event,socket);
-//                                    navigateToLoginOrRegister.handleButtonBack(event);
+                                 // navigateToLoginOrRegister.handleButtonBack(event,socket,"LoginOrRegisterController");
+                                  navigateToLoginOrRegister.handleButtonBack(event);
                                 }else 
                                 {AskDialog a=new AskDialog();
                                  a.inValidIp("you entered InValidIP ,Please try Again");
@@ -296,9 +299,12 @@ public class MainController implements Initializable{
                 } catch (IOException ex) {
                     try {
                         System.out.println("closing socket in main controller");
-                        socket.close();
-                        dis.close();
-                        ps.close();
+                        if(socket != null){
+                            socket.close();
+                            dis.close();
+                            ps.close();
+                        }
+                        
                     } catch (IOException ex1) {
                         Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex1);
                     }

@@ -23,17 +23,53 @@ public class VideoWindowController implements Initializable {
     @FXML MediaView mv;
     
     
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-       
-        //get video file and set it to media
-       Media media = new Media(getClass().getResource("/resources/video.mp4").toExternalForm());
-       
-        MediaPlayer mp = new MediaPlayer(media);
-        mv.setMediaPlayer(mp);
-        mp.play();
-        
-        
-    }   
+    private String typePlayer ;
     
+    
+  
+    
+    /**
+     * setType
+     * when called get string type from watching video page ,check it to handle with video will be show 
+     * @param stringListType 
+     */
+    public void  setType(String  stringTypePlayer){ 
+         typePlayer = stringTypePlayer;
+         System.out.println(typePlayer);
+         displayVideo(); 
+         //flag = true ;
+               
+    }
+    
+    private void displayVideo(){
+        
+        if(typePlayer.equals("winner")){
+               //get video file and set it to media
+            setMedia("/resources/video.mp4");
+        }else{
+           setMedia("/resources/lose.mp4");
+            
+        }
+       
+        
+    }
+    
+    private void setMedia(String videoPath){
+        Media media = new Media(getClass().getResource(videoPath).toExternalForm());
+
+             MediaPlayer mp = new MediaPlayer(media);
+             mv.setMediaPlayer(mp);
+             mp.play();
+        
+    }
+    
+    
+       @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        
+       
+      
+        
+        
+    } 
 }

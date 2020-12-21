@@ -142,7 +142,7 @@
 }
 .infoDialog:header *.header-panel *.label{
     -fx-font-size: 25px;
-    -fx-font-style: bold;
+    -fx-font-style: italic;
     -fx-text-fill: #ffffff
     
     

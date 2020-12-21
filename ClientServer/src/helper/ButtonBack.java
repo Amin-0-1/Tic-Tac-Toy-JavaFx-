@@ -6,15 +6,20 @@
 package helper;
 
 import controller.ListRecordedGamesController;
+import controller.MainController;
 import controller.LoginOrRegisterController;
 import controller.OnlinePlayerController;
+import controller.RegisterFXMLController;
+import controller.VideoWindowController;
 import controller.WatchGameController;
+import controller.signInFXMLController;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.animation.PauseTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -24,6 +29,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 /**
  *
@@ -66,16 +72,30 @@ public class ButtonBack {
     }
     
     
-    public void handleButtonBack(ActionEvent event,Socket socket){
+    public void handleButtonBack(ActionEvent event,Socket socket,String pageType){
          //get scene
 //        Parent buttonParent;
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(source));
-            Parent root = (Parent)fxmlLoader.load();   
-            LoginOrRegisterController controller = fxmlLoader.<LoginOrRegisterController>getController();
+            Parent root = (Parent)fxmlLoader.load();  
+            switch(pageType){
+                case "LoginOrRegisterController":
+                    LoginOrRegisterController controller = fxmlLoader.<LoginOrRegisterController>getController(); 
+                    controller.setSocket(socket);
+                    break;
+                case "signInFXMLController":
+                    signInFXMLController controller1 = fxmlLoader.<signInFXMLController>getController(); 
+                    //controller1.setSocket(socket);
+                    fxmlLoader.setController(controller1);
+                    break;
+                 case "RegisterFXMLController":
+                     RegisterFXMLController controller2 = fxmlLoader.<RegisterFXMLController>getController(); 
+                      //controller2.setSocket(socket);
+                      fxmlLoader.setController(controller2);
+                    break;   
+            }
             
-            controller.setSocket(socket);
-            fxmlLoader.setController(controller);
+            
          
              //generate new scene
             Scene buttonScene = new Scene(root);
@@ -95,14 +115,14 @@ public class ButtonBack {
         
         
 
-    public void handleButtonBack(ActionEvent event,HashMap<String,String> hash,Socket socket){
+    public void handleButtonBack(ActionEvent event,HashMap<String,String> hash){
          //get scene
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(source));
             Parent root = (Parent)fxmlLoader.load();   
             OnlinePlayerController controller = fxmlLoader.<OnlinePlayerController>getController();
-            controller.setHash(hash);
-            controller.setSocket(socket);
+            //controller.setHash(hash);
+            //controller.setSocket(socket);
             
             Scene buttonScene = new Scene(root);
             fxmlLoader.setController(controller);
@@ -174,6 +194,56 @@ public class ButtonBack {
         }
         
         
+    }
+    
+    
+    
+    /**
+     * displayVideo
+     * when called video controller will load with display video for winner or loser player
+     * 
+     * @param playerWinnerOrNot
+     * @param title 
+     */
+    public void displayVideo(String playerWinnerOrNot, String title){
+        try {
+            //get scene
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(source));
+            Parent root = (Parent)fxmlLoader.load(); 
+            
+            
+            VideoWindowController controller = fxmlLoader.<VideoWindowController>getController();
+            controller.setType(playerWinnerOrNot);
+            //generate new scene
+            Scene RegisterScene = new Scene(root);
+            fxmlLoader.setController(controller);
+            
+            
+        
+            //get stage information
+            Stage window = new Stage();
+
+            window.setTitle(title);
+            window.setScene(RegisterScene);
+            window.setMinHeight(500);
+            window.setMinWidth(500);
+            window.setMaxHeight(250);
+            window.setMaxWidth(500);  
+            window.show();
+            
+            
+                PauseTransition wait = new PauseTransition(Duration.seconds(3));
+                            wait.setOnFinished((e) -> {
+                                /*YOUR METHOD*/
+                                window.close();
+                                //btn.setDisable(false);
+                                wait.playFromStart();
+                            });
+                            wait.play();
+                    
+        } catch (IOException ex) {
+            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

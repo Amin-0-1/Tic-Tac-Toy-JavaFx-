@@ -42,9 +42,9 @@ public class signInFXMLController {
     
      
  
-    Socket socket;
-    DataInputStream dis;
-    PrintStream ps;
+//    Socket socket;
+//    DataInputStream dis;
+//    PrintStream ps;
     StringTokenizer token;
     int score;
 
@@ -57,12 +57,12 @@ public class signInFXMLController {
     private Label txtAlret;
     
   
-    public void setSocket(Socket s) throws IOException{
-        
-        this.socket = s;
-        dis = new DataInputStream(s.getInputStream());
-        ps = new PrintStream(s.getOutputStream());
-    }
+//    public void setSocket(Socket s) throws IOException{
+//        
+//        this.socket = s;
+//        dis = new DataInputStream(s.getInputStream());
+//        ps = new PrintStream(s.getOutputStream());
+//    }
     public void signInPressed(ActionEvent e){
             ButtonBack btnback = new ButtonBack("/view/OnlinePlayer.fxml");  
             
@@ -90,7 +90,7 @@ public class signInFXMLController {
                 
             }else{
              
-            ps.println("SignIn###"+txtUserName.getText()+"###"+txtPassword.getText());
+            MainController.ps.println("SignIn###"+txtUserName.getText()+"###"+txtPassword.getText());
 
             if(txtUserName.getText().equals("")){
                 Platform.runLater(new Runnable() {
@@ -112,12 +112,12 @@ public class signInFXMLController {
 
                 //reciving response
                 new Thread(){
-                    HashMap<String, String> hash = new HashMap<>(); 
+                   // HashMap<String, String> hash = new HashMap<>(); 
                     String state,playerData;
                     @Override
                     public void run(){
                         try {
-                            state = dis.readLine();
+                            state = MainController.dis.readLine();
                             token = new StringTokenizer(state,"###");
                             String receivedState = token.nextToken();
                             System.out.println("sign in page "+receivedState);
@@ -133,15 +133,17 @@ public class signInFXMLController {
                             switch(receivedState){
                                 case "Logged in successfully":
 //                                    score = Integer.parseInt(token.nextToken());
-                                    playerData = dis.readLine();
+                                    playerData = MainController.dis.readLine();
+                                    System.out.println("player data "+playerData);
                             
                                     StringTokenizer token2 = new StringTokenizer(playerData,"###");
-                                    hash.put("username", token2.nextToken());
-                                    hash.put("email",token2.nextToken());
-                                    hash.put("score", token2.nextToken());
+                                    MainController.hash.put("username", token2.nextToken());
+                                    MainController.hash.put("email",token2.nextToken());
+                                    MainController.hash.put("score", token2.nextToken());
                                     //notification for successful logging in
                                      Platform.runLater(()->{
-                                       btnback.handleButtonBack(e,hash,socket);
+                                       btnback.handleButtonBack(e);
+                                       //btnback.handleButtonBack(e);
                                       });
                                     break;
                                 case "This Email is alreay sign-in":

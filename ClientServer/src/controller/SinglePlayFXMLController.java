@@ -9,7 +9,6 @@ import helper.AccessFile;
 import helper.AskDialog;
 import helper.ButtonBack;
 import helper.CustomDialog;
-import helper.DisplayVideo;
 import java.io.File;
 import java.net.URL;
 import java.util.Optional;
@@ -387,10 +386,8 @@ public class SinglePlayFXMLController implements Initializable{
      * displayVideo called when player win
      */
     private void displayVideo(){
-        DisplayVideo winnerVideo = new DisplayVideo();
-        winnerVideo.diplay();
-         
-
+        ButtonBack displayVideo = new ButtonBack("/view/VideoWindow.fxml");
+        displayVideo.displayVideo("winner","Congratulation");
     }
     
      /**
