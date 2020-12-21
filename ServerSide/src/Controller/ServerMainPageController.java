@@ -220,7 +220,7 @@ public class ServerMainPageController implements Initializable {
         }
     }
  
-    private void listPlayers(Boolean state){
+    private synchronized void listPlayers(Boolean state){
         
         server.databaseInstance.updateResultSet();
         scrollpane.setContent(null);
@@ -291,7 +291,7 @@ public class ServerMainPageController implements Initializable {
         showingChart = true; 
         chart.setFlag(false);
         chart = Chart.getChartObj();
-        //thisStage = (Stage) serverStateImage.getScene().getWindow();
+        thisStage = (Stage) serverStateImage.getScene().getWindow();
         
         if(Platform.isFxApplicationThread() && showingChart){
             if(flageStartCharThread){

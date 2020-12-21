@@ -61,6 +61,12 @@ public class signInFXMLController {
             ButtonBack btnback = new ButtonBack("/view/OnlinePlayer.fxml");  
             
         try {
+            if(socket == null){
+                socket = new Socket("127.0.0.1",9876);
+                dis = new DataInputStream(socket.getInputStream());
+                ps = new PrintStream(socket.getOutputStream());
+            }
+            
             String regex = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$";
             Pattern pattern = Pattern.compile(regex);     
             Matcher matcher = pattern.matcher(txtUserName.getText());
@@ -77,9 +83,7 @@ public class signInFXMLController {
                  }); 
                 
             }else{
-                socket = new Socket("127.0.0.1",9876);
-            dis = new DataInputStream(socket.getInputStream());
-            ps = new PrintStream(socket.getOutputStream());
+
             ps.println("SignIn###"+txtUserName.getText()+"###"+txtPassword.getText());
 
             if(txtUserName.getText().equals("")){
@@ -98,8 +102,7 @@ public class signInFXMLController {
                             state = dis.readLine();
                             token = new StringTokenizer(state,"###");
                             String receivedState = token.nextToken();
-                            System.out.println(receivedState);
-                            
+                            System.out.println("sign in page"+receivedState);
                             
                             // after login , get result set
 //                            String str;
@@ -123,6 +126,11 @@ public class signInFXMLController {
                                        btnback.handleButtonBack(e,hash,socket);
                                       });
                                     break;
+                                case "Already SignIn":
+                                    Platform.runLater(()->{
+                                       txtAlret.setText(receivedState);
+                                      });                                
+                                    break;
                                 case "Email is incorrect":
                                     Platform.runLater(()->{
                                        txtAlret.setText(receivedState);
@@ -138,11 +146,8 @@ public class signInFXMLController {
                                        txtAlret.setText(receivedState);
                                       }); 
                                     break;
-                                case "This Email is alreay sign-in":
-                                     Platform.runLater(()->{
-                                       txtAlret.setText(receivedState);
-                                      }); 
-                                    break;   
+                                default :
+                                    System.out.println("default case in sign in");
                             }
 
                         } catch (IOException ex) {

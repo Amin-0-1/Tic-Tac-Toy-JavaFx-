@@ -2,11 +2,20 @@
 {
 -fx-background-color : #393351;
 -fx-background-radius :  30 0 0 30;
+-fx-text-fill: white;
+-fx-font-size: 14px;
+-fx-pref-width: 245px;
+/*-fx-border-insets: 5px;*/
+-fx-text-alignment: left;
+
+    /*-fx-text-alignment: center;*/
+
 }
 .button1:hover
 {
 -fx-background-color : #524A7B ;
 -fx-background-radius :  30 0 0 30;
+/*-fx-pref-width: 200px;*/
 }
 .button1:pressed
 {

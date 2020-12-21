@@ -62,12 +62,7 @@ public class ConnectedPlayer extends Thread implements Initializable {
         result = server.databaseInstance.getResultSet();
     }
     
-    private void func(){
-        for(ConnectedPlayer i : activeUsers){
-            System.out.println("start");
-            System.out.println(i.username);
-        }
-    }
+
    public ConnectedPlayer(Socket socket){
        server = Server.getServer();
        try {
@@ -123,13 +118,32 @@ public class ConnectedPlayer extends Thread implements Initializable {
                        case "decline":
                            refusedChallenge();
                            break;
+                       case "withdraw":
+                           withdraw();
+                           break;
 
                        case "gameTic":
                            forwardPress();
                            break;
-
-                       case "logout"  :
+                       case "finishgameTic":
+                           fforwardPress();
+                           break;
+                       case "updateScore":
+                           updateScore();
+                           break;
+                       case "rematch":
+//                           rematchRequest();
+                           break;
+                       case "endGame":
+                           endGame();
+                           break;
+                       case "available":
+                           reset();
+                           break;
+                       case "logout":
                            logout();
+                           break;
+                       default :
                            break;
                    }
               }
@@ -138,36 +152,51 @@ public class ConnectedPlayer extends Thread implements Initializable {
                System.out.println("2");
                System.out.println("Closing try");
                System.out.println("Email: "+ email);
-               
-               
+               withdraw();
 
-               if(email != null){
+                if(email != null){
+                    server.databaseInstance.setActive(false,email);
+                    server.databaseInstance.setNotPlaying(email);
+                    activeUsers.remove(this);   
 
-                   if(server.databaseInstance.checkIsActive(email)){
-                      String check = server.databaseInstance.checkSignIn(email, password);
-                      
-                     //if(!check.equals("This Email is alreay sign-in")){
-                         server.databaseInstance.setActive(false,email);
-                         activeUsers.remove(this);
-                     //}
-                   }
-
-                    //server.databaseInstance.setActive(false,email);
-
-//                    players.remove(this);   
-
-               }else{
-                 System.out.println("nulllllll");  
-                 updateList = true;
-
-               }
+                }else{
+                   System.out.println("nulllllll");  
+                   updateList = true;
+                 }
                 
-               this.stop();
-               try {
-                   currentSocket.close();
-               } catch (IOException ex1) {
-                   Logger.getLogger(ConnectedPlayer.class.getName()).log(Level.SEVERE, null, ex1);
-               }
+                this.stop();
+//=======
+//               
+//               
+//
+//               if(email != null){
+//
+//                   if(server.databaseInstance.checkIsActive(email)){
+//                      String check = server.databaseInstance.checkSignIn(email, password);
+//                      
+//                     //if(!check.equals("This Email is alreay sign-in")){
+//                         server.databaseInstance.setActive(false,email);
+//                         activeUsers.remove(this);
+//                     //}
+//                   }
+//
+//                    //server.databaseInstance.setActive(false,email);
+//
+////                    players.remove(this);   
+//
+//               }else{
+//                 System.out.println("nulllllll");  
+//                 updateList = true;
+//
+//               }
+//                
+//               this.stop();
+//               try {
+//                   currentSocket.close();
+//               } catch (IOException ex1) {
+//                   Logger.getLogger(ConnectedPlayer.class.getName()).log(Level.SEVERE, null, ex1);
+//               }
+//>>>>>>> c9d8c823e22fe710e725352d55cdc4da77862c01
            }
        }
        if(currentSocket.isClosed()){
@@ -179,53 +208,41 @@ public class ConnectedPlayer extends Thread implements Initializable {
    }
    
    private void signIn(){
-        email = token.nextToken().toString();
-         password = token.nextToken();
+        email = token.nextToken();
+        String password = token.nextToken();
+
         String check;
         int score;
         System.out.println(email+" "+password);
         try{
 
     //                        instance = Database.getDataBase();
-             check = server.databaseInstance.checkSignIn(email, password);
-             
-             System.out.println("Checked state " +check);
-             
-             Boolean isActive = server.databaseInstance.checkIsActive(email);
-             if(!isActive){
-                if(check.equals("Logged in successfully")){
-                
-                 System.out.println(check);
-                 score = server.databaseInstance.getScore(email);
-                 email = server.databaseInstance.getEmail(email);
-                 username = server.databaseInstance.getUserName(email);
-                 server.databaseInstance.login(email, password);
-                 ps.println(check +"###" + score);
-                 ps.println(username+"###"+email+"###"+score); // send data to registerController
-                 loggedin = true;
-                 
-                    
-                        activeUsers.add(this);
-                       
-                 //activeUsers.add(this);
-             }else if(check.equals("Email is incorrect")){
-                 ps.println(check +"###");
-                 
-             }else if(check.equals("Password is incorrect")){
-                 ps.println(check +"###");
-                 
-             }else if(check.equals("Connection issue, please try again later")){
-                 ps.println(check +"###");
-                 
-             }else if(check.equals("This Email is alreay sign-in")){
-                 ps.println(check +"###");
-             }
-             }else{
-                 System.out.println(check);
-                 ps.println(check +"###");
-                 email = null;
-             }
-             
+            check = server.databaseInstance.checkSignIn(email, password);
+
+
+            if(check.equals("Logged in successfully")){
+                score = server.databaseInstance.getScore(email);
+//                email = server.databaseInstance.getEmail(email);
+                username = server.databaseInstance.getUserName(email);
+                server.databaseInstance.login(email, password);
+                ps.println(check +"###" + score);
+                ps.println(username+"###"+email+"###"+score); // send data to registerController
+                loggedin = true;
+
+                activeUsers.add(this);
+            }else if(check.equals("Already SignIn")){
+                ps.println(check +"###");
+            }else if(check.equals("Email is incorrect")){
+                ps.println(check +"###");
+
+            }else if(check.equals("Password is incorrect")){
+                ps.println(check +"###");
+
+            }else if(check.equals("Connection issue, please try again later")){
+                ps.println(check +"###");
+
+            }
+
 //             ps.println(check +"###" + score);
 
         }catch(SQLException e){
@@ -363,8 +380,11 @@ public class ConnectedPlayer extends Thread implements Initializable {
        }else{
             game.put(p1, p2);
             game.put(p2, p1);
+            
             p1.ps.println("gameOn");
             p1.ps.println(player2Name);
+            System.out.println("Player 1 " + game.containsKey(p2) + "size" + game.size());
+            System.out.println("Player 2 " + game.containsKey(p1));
        }
        
        
@@ -380,6 +400,22 @@ public class ConnectedPlayer extends Thread implements Initializable {
            }
        }
    }
+    private synchronized void reset(){
+//        ConnectedPlayer cpr = null;
+//        cpr = game.get(this);
+//        if(cpr != null){
+//            game.remove(cpr);
+//        }
+//        ConnectedPlayer cp;
+//        if(game.containsKey(this)){
+//            cp = game.get(this);
+//            game.remove(cp);
+//            game.remove(this);
+//        }
+        
+        System.out.println("reset: " +email);
+        server.databaseInstance.setNotPlaying(email);
+    }
    
    private void forwardPress(){
 
@@ -392,31 +428,92 @@ public class ConnectedPlayer extends Thread implements Initializable {
                break;
            }
        }
+       System.out.println("game size"+game.size());
        System.out.println("CP "+cp.username);
        ConnectedPlayer x = game.get(cp);
-//       System.out.println(x.username);
+       System.out.println("cp "+x.username);
        
        x.ps.println("gameTic");
        x.ps.println(btn);
 
    }
+    private void endGame(){
+        String mail = token.nextToken();
+        ConnectedPlayer cp = null;
+        for(ConnectedPlayer i : activeUsers){
+            if(i.email.equals(mail)){
+                cp = game.get(i);
+                cp.ps.println("endGame");
+                game.remove(i, cp);
+                break;
+            }
+        }
+    }
+    private void fforwardPress(){
+        String mail = token.nextToken();
+        String btn = token.nextToken();  
+        ConnectedPlayer cp = null;
+        for(ConnectedPlayer i : activeUsers){
+            if(i.email.equals(mail)){
+                cp = i;
+                break;
+            }
+        }
+        System.out.println("CP "+cp.username);
+        ConnectedPlayer x = game.get(cp);
+        System.out.println("cp "+x.username);
+        if(game.containsKey(this)){
+            cp = game.get(this);
+            game.remove(cp);
+            game.remove(this);
+        }
+        x.ps.println("finalgameTic");
+        x.ps.println(btn);
+    }
+//   private void rematchRequest(){
+//        String mail = token.nextToken();
+//        ConnectedPlayer cp = null;
+//        for(ConnectedPlayer i : activeUsers){
+//            if(i.email.equals(mail)){
+//                cp = game.get(i);
+//                break;
+//            }
+//        }
+//            System.out.println("rematch forwarded");
+//            cp.ps.println("rematch");
+//    }
+   private void updateScore(){
+       String mail = token.nextToken();
+       int score = Integer.parseInt(token.nextToken());
+       System.out.println(score);
+       server.databaseInstance.updateScore(mail, score);
+       
+   }
+   private void withdraw(){
+        ConnectedPlayer cpr = null;
+        cpr = game.get(this);
+        if(cpr != null){
+            cpr.ps.println("withdraw");
+            game.remove(this);
+            game.remove(cpr);
+        }
+    }
    /**
     * logout
     * when called set player is not active in database and update result set
     */
-   private void logout(){
-       email = token.nextToken();
-       
-//       for(ConnectedPlayer i : activeUsers){
-//           if(i.email.equals(email)){
-//               activeUsers.remove(i);
-//           }
-//       }
-       System.out.println("Logout Email " + email);
-       if(email != null){
-           server.databaseInstance.setActive(false, email);
-           activeUsers.remove(email);
-       }
-       
-   }
+
+    private void logout(){
+        email = token.nextToken();
+
+
+        System.out.println("Logout Email " + email);
+        if(email != null){
+            server.databaseInstance.setActive(false, email);
+            activeUsers.remove(email);
+           
+        }
+
+    }
+
 }

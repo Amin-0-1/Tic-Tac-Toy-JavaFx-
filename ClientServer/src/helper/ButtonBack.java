@@ -113,20 +113,28 @@ public class ButtonBack {
     }
    
     
+
     public void handleButtonBack(MouseEvent event,String listType){
+
          //get scene
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(source));
             Parent root = (Parent)fxmlLoader.load();   
+
             WatchGameController controller = fxmlLoader.<WatchGameController>getController();
             controller.setType(listType);
+
             
             Scene buttonScene = new Scene(root);
             fxmlLoader.setController(controller);
            //get stage information
+
            Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
 
            window.setTitle("List Player");
+
+
+
            window.setScene(buttonScene);
            window.show();
         } catch (IOException ex) {
@@ -136,6 +144,7 @@ public class ButtonBack {
         
         
     }
+
     /**
      * 
      */

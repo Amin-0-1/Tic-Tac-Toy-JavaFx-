@@ -79,14 +79,16 @@ public class SinglePlayFXMLController implements Initializable{
     private  Label txtWinner;
     @FXML
     private GridPane grid;
-    @FXML
-    private AnchorPane pane;
+   
     @FXML
     private Label labUserName;
     @FXML
     private Label labScore;
     @FXML
     private  Button btnPlayAgain;
+    
+    @FXML
+    private AnchorPane anchorpane;
     
     
    // File file;
@@ -159,6 +161,7 @@ public class SinglePlayFXMLController implements Initializable{
 
     }
     private void drawLine(Button b1, Button b2){
+       
         Bounds bound1 = b1.localToScene(b1.getBoundsInLocal());
         Bounds bound2 = b2.localToScene(b2.getBoundsInLocal());
         double x1, y1, x2, y2;
@@ -167,7 +170,10 @@ public class SinglePlayFXMLController implements Initializable{
         x2 = (bound2.getMinX() + bound2.getMaxX())/2 ;
         y2 = (bound2.getMinY() + bound2.getMaxY())/2;
         Line line = new Line(x1,y1,x2,y2);
-        pane.getChildren().add(line);
+         Platform.runLater(()->{
+            anchorpane.getChildren().add(line);
+        });
+        
     }
     private void computerTurn(){
         Random r;
