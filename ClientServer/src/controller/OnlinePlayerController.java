@@ -62,7 +62,7 @@ import sun.util.locale.StringTokenIterator;
  */
 public class OnlinePlayerController implements Initializable {
     
-    HashMap<String, String>hash;
+    //static HashMap<String, String>hash;
     
     ArrayList<Player> onlinePlayers;
     
@@ -110,9 +110,9 @@ public class OnlinePlayerController implements Initializable {
 //    private Pane playboard;
     Stage thisStage;
     Thread thread;
-    Socket socket;
-    DataInputStream dis;
-    PrintStream ps;
+//    Socket socket;
+//    DataInputStream dis;
+//    PrintStream ps;
     Player player;
     StringTokenizer token;
     Alert alert;
@@ -125,6 +125,7 @@ public class OnlinePlayerController implements Initializable {
     String myTic,oppTic;
     String opponentUsername ;
     private Preferences pref ;
+    private Boolean isrecord = false;
 
     private int currentScore;
     @FXML
@@ -140,6 +141,12 @@ public class OnlinePlayerController implements Initializable {
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        
+        emailtxt.setText(MainController.hash.get("email"));
+        usernametxt.setText(MainController.hash.get("username"));
+        scoretxt.setText(MainController.hash.get("score")); 
+        loaded = true;
+        MainController.ps.println("playerlist");
         
         pref =Preferences.userNodeForPackage(OnlinePlayerController.class);
         
@@ -165,7 +172,7 @@ public class OnlinePlayerController implements Initializable {
                     do{
 
                         try{
-                            String data = dis.readLine();
+                            String data = MainController.dis.readLine();
                             if(data.equals("null")){
                                 break;
                             }
@@ -203,6 +210,7 @@ public class OnlinePlayerController implements Initializable {
                                     
                                     break;
                                 default :
+                                    System.out.println("default");
                                     readOnlineList(data);
                             }
                         } catch (IOException ex) {
@@ -230,34 +238,32 @@ public class OnlinePlayerController implements Initializable {
         thread.start();
     }
     
-    public void setHash(HashMap<String,String> x){
-        System.out.println("hello map");
-        hash = new HashMap<String, String>();
-        hash.putAll(x);
-        System.out.println(hash.get("email"));
-        emailtxt.setText(hash.get("email"));
-        usernametxt.setText(hash.get("username"));
-        scoretxt.setText(hash.get("score"));       
-        currentScore = Integer.parseInt(hash.get("score"));
-    }
+//    public void setHash(HashMap<String,String> x){
+//        System.out.println("hello map");
+//        MainController.hash = new HashMap<String, String>();
+//        hash.putAll(x);
+//        System.out.println(hash.get("email"));
+//        emailtxt.setText(hash.get("email"));
+//        usernametxt.setText(hash.get("username"));
+//        scoretxt.setText(hash.get("score"));       
+//        currentScore = Integer.parseInt(hash.get("score"));
+//    }
     
-    public void setSocket(Socket s){
-        System.out.println(s);
-        try {
-            System.out.println("socketset");
-            this.socket = s;
-            dis = new DataInputStream(s.getInputStream());
-            ps = new PrintStream(s.getOutputStream());
-            
-            loaded = true;
-            ps.println("playerlist");
-        } catch (IOException ex) {
-            Logger.getLogger(OnlinePlayerController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
+//    public void setSocket(Socket s) throws IOException{
+//        System.out.println(s);
+//    
+//        System.out.println("socketset");
+//        this.socket = s;
+//        dis = new DataInputStream(s.getInputStream());
+//        ps = new PrintStream(s.getOutputStream());
+//
+//        loaded = true;
+//        ps.println("playerlist");
+//        
+//    }
     
     private void recievedRequest() throws IOException{
-        String opponentData = dis.readLine();
+        String opponentData = MainController.dis.readLine();
         System.out.println("recieved request");
         token = new StringTokenizer(opponentData,"###");
         String opponentMail = token.nextToken();
@@ -277,12 +283,12 @@ public class OnlinePlayerController implements Initializable {
                 Optional<ButtonType> result = alert.showAndWait();
                 if (result.get() == ButtonType.OK){ // accept to play
                     System.out.println("game on");
-                    ps.println("accept###"+hash.get("email")+"###"+hash.get("username")+"###"+opponentMail);
+                    MainController.ps.println("accept###"+MainController.hash.get("email")+"###"+MainController.hash.get("username")+"###"+opponentMail);
                     // initialize game
                     showGame(false,opponentUsername);
                 }else {
                     System.out.println("no first request");
-                    ps.println("decline###"+opponentMail);
+                    MainController.ps.println("decline###"+opponentMail);
                 }
                 delay.play();
             }
@@ -301,6 +307,7 @@ public class OnlinePlayerController implements Initializable {
                     
                     
                     for(Player x : onlinePlayers){
+                        System.out.println("inside for loop");
                         view = new ImageView(new Image(new FileInputStream("src/resources/avatar.png")));
                         view.setFitHeight(30);
                         view.setPreserveRatio(true);
@@ -319,7 +326,7 @@ public class OnlinePlayerController implements Initializable {
                             
                             public void handle(ActionEvent event) {
 
-                                ps.println("request###"+button.getId()+"###"+emailtxt.getText()+"###"+usernametxt.getText());
+                                MainController.ps.println("request###"+button.getId()+"###"+emailtxt.getText()+"###"+usernametxt.getText());
                                 // pop up waiting for response from server                                                                // can use an Alert, Dialog, or PopupWindow as needed...
                                 alert = new Alert(AlertType.INFORMATION);
                                 alert.setTitle("Information Dialog");
@@ -401,15 +408,18 @@ public class OnlinePlayerController implements Initializable {
                 buttonPressed.setText(myTic);
                 System.out.println("My Tearn " +myTic);
                 //if(MainController.isrecord)
-                 AccessFile.writeFile(buttonPressed.getId()+buttonPressed.getText()+".");
+                if(isrecord){
+                  AccessFile.writeFile(buttonPressed.getId()+buttonPressed.getText()+".");  
+                }
+                 
                 myTurn = false;
                 opponentTurn = true;
                 System.out.println("I pressed "+buttonPressed.getId());
                 if(checkState()){
-                    ps.println("finishgameTic###"+hash.get("email")+"###"+buttonPressed.getId());
+                    MainController.ps.println("finishgameTic###"+MainController.hash.get("email")+"###"+buttonPressed.getId());
                     
                 }else{
-                    ps.println("gameTic###"+hash.get("email")+"###"+buttonPressed.getId());
+                    MainController.ps.println("gameTic###"+MainController.hash.get("email")+"###"+buttonPressed.getId());
                 }
             }
         }
@@ -417,7 +427,7 @@ public class OnlinePlayerController implements Initializable {
     
     private void opponentTurn(){
         try {
-            String oppPressed = dis.readLine();
+            String oppPressed = MainController.dis.readLine();
             System.out.println(oppPressed);
             Button btnOpp = btn.get(oppPressed);
             btnOpp.setOnAction(new EventHandler<ActionEvent>() {
@@ -430,7 +440,10 @@ public class OnlinePlayerController implements Initializable {
                             button.setText(oppTic);
 
                             System.out.println("myTic "+ oppTic);
-                            AccessFile.writeFile(btnOpp.getId()+btnOpp.getText()+".");
+                            if(isrecord){
+                              AccessFile.writeFile(btnOpp.getId()+btnOpp.getText()+".");  
+                            }
+                            
                             checkState();
 
                             //to stop from playing if opponent is winner
@@ -585,7 +598,7 @@ public class OnlinePlayerController implements Initializable {
         checkDiagonal();
         
         if(!gameState){
-            ps.println("updateGameState###"+hash.get("email"));
+            MainController.ps.println("updateGameState###"+MainController.hash.get("email"));
             Platform.runLater(new Runnable() {
                 @Override
                 public void run() {
@@ -648,31 +661,45 @@ public class OnlinePlayerController implements Initializable {
                 public void run() {
                     AskDialog  serverIssueAlert  = new AskDialog();
                     serverIssueAlert.serverIssueAlert("HardLuck next time...");
+                   
                 }
             });
         }  
+//        Platform.runLater(new Runnable() {
+//            @Override
+//            public void run() {
+//                gameState = false;
+//                playboard.setVisible(false);
+//                player2anc.setVisible(false);
+//                player1anc.setVisible(false);
+//                player1lbl.setText("");
+//                player2lbl.setText("");
+//                scoretxt.setText(currentScore+"");
+//                middanc.setVisible(true);
+//                scrollpane.setDisable(false);
+//                btn1.setText("");
+//                btn2.setText("");
+//                btn3.setText("");
+//                btn4.setText("");
+//                btn5.setText("");
+//                btn6.setText("");
+//                btn7.setText("");
+//                btn8.setText("");
+//                btn9.setText("");
+//                MainController.ps.println("available###"+MainController.hash.get("email"));
+//            }
+//        });
+        MainController.ps.println("available###"+MainController.hash.get("email"));
+        thread.stop();
+
+        
+        
+       
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                gameState = false;
-                playboard.setVisible(false);
-                player2anc.setVisible(false);
-                player1anc.setVisible(false);
-                player1lbl.setText("");
-                player2lbl.setText("");
-                scoretxt.setText(currentScore+"");
-                middanc.setVisible(true);
-                scrollpane.setDisable(false);
-                btn1.setText("");
-                btn2.setText("");
-                btn3.setText("");
-                btn4.setText("");
-                btn5.setText("");
-                btn6.setText("");
-                btn7.setText("");
-                btn8.setText("");
-                btn9.setText("");
-                ps.println("available###"+hash.get("email"));
+               ButtonBack reload = new ButtonBack("/view/OnlinePlayer.fxml");
+               reload.navigateToAnotherPage(player1lbl);
             }
         });
         
@@ -713,7 +740,7 @@ public class OnlinePlayerController implements Initializable {
 
                 }
                 player1lbl.setText(""+currentScore);
-                ps.println("updateScore###"+hash.get("email")+"###"+currentScore);
+                MainController.ps.println("updateScore###"+MainController.hash.get("email")+"###"+currentScore);
             }
         });
     }
@@ -726,7 +753,11 @@ public class OnlinePlayerController implements Initializable {
         player.setIsactive(Boolean.parseBoolean(token.nextToken()));
         player.setIsplaying(Boolean.parseBoolean(token.nextToken()));
         player.setScore(Integer.parseInt(token.nextToken()));
-        if(!hash.get("email").equals(player.getEmail())){
+        
+        System.out.println(MainController.hash.get("email"));
+        System.out.println(player.getEmail());
+        if(!MainController.hash.get("email").equals(player.getEmail())){
+            System.out.println("Add list");
             onlinePlayers.add(player);
         }
     }
@@ -739,7 +770,7 @@ public class OnlinePlayerController implements Initializable {
             }
         });
 
-        String OpponentUsername = dis.readLine();
+        String OpponentUsername = MainController.dis.readLine();
         System.out.println("player 2 accepted");
          showGame(true,OpponentUsername);
 
@@ -767,15 +798,16 @@ public class OnlinePlayerController implements Initializable {
     public void backToMainPage(ActionEvent event){
 
         System.out.println("backToMainPage: called");
-        System.out.println("Emial " + hash.get("email"));
-        if(hash.get("email")!= null){
+        System.out.println("Emial " + MainController.hash.get("email"));
+        if(MainController.hash.get("email")!= null){
            AskDialog  logoutAlert  = new AskDialog();
            Boolean logedOut  = logoutAlert.alert("Are you sure you want to logout","Alert Issue");
            if(logedOut){
                System.out.println("Send to server to logout");
-               ps.println("logout###"+hash.get("email"));
+               MainController.ps.println("logout###"+MainController.hash.get("email"));
                thread.stop();
-               ButtonBack btnback = new ButtonBack("/view/LoginOrRegister.fxml");
+//               ButtonBack btnback = new ButtonBack("/view/LoginOrRegister.fxml");
+               ButtonBack btnback = new ButtonBack("/view/sample.fxml");
                btnback.handleButtonBack(event); 
            }
           
@@ -789,13 +821,14 @@ public class OnlinePlayerController implements Initializable {
      * when called ask player to save game
      */
     private void showDialog(){
+        isrecord = false;
         AskDialog isrecoredGame = new AskDialog();
         Boolean check=isrecoredGame.alert("Do you want to record game ?");
         if(check){
-         AccessFile.createFile("online-mode");
-         AccessFile.writeFile(hash.get("username")+".");
-         AccessFile.writeFile(opponentUsername+".");
-                                           
+            isrecord = true;
+            AccessFile.createFile("online-mode");
+            AccessFile.writeFile(MainController.hash.get("username")+".");
+            AccessFile.writeFile(opponentUsername+".");                      
         }
     }
     
@@ -804,6 +837,7 @@ public class OnlinePlayerController implements Initializable {
      * when called navigate to display list of games to show
      */
     public void watchGame(ActionEvent event){
+        thread.stop();
         ButtonBack navigateToListPage = new ButtonBack("/view/ListRecordedGames.fxml");
         navigateToListPage.handleButtonBack(event,"online-mode");
         

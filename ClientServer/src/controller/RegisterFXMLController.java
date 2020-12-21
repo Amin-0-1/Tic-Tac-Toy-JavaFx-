@@ -61,6 +61,9 @@ public class RegisterFXMLController {
 
     
     StringTokenizer token;
+//     Socket socket;
+//    DataInputStream dis;
+//    PrintStream ps;
     
     public void backToMainPage(ActionEvent event){
         
@@ -70,10 +73,16 @@ public class RegisterFXMLController {
         btnback.handleButtonBack(event);
          
     } 
+//     public void setSocket(Socket s) throws IOException{
+//        
+//        this.socket = s;
+//        dis = new DataInputStream(s.getInputStream());
+//        ps = new PrintStream(s.getOutputStream());
+//    }
     @FXML
     public void signUpPressed(ActionEvent e){
         ButtonBack btnback = new ButtonBack("/view/OnlinePlayer.fxml");
-        try {
+       // try {
 
 
             //check for a vaild mail
@@ -104,21 +113,21 @@ public class RegisterFXMLController {
                 
             }else{
                 
-                Socket socket = new Socket("127.0.0.1",9876);
-                DataInputStream dis = new DataInputStream(socket.getInputStream());
-                PrintStream ps = new PrintStream(socket.getOutputStream());
-                ps.println("SignUp###"+txtUserName.getText()+"###"+txtMail.getText()+"###"+txtPassword.getText());
+//                Socket socket = new Socket("127.0.0.1",9876);
+//                DataInputStream dis = new DataInputStream(socket.getInputStream());
+//                PrintStream ps = new PrintStream(socket.getOutputStream());
+               MainController.ps.println("SignUp###"+txtUserName.getText()+"###"+txtMail.getText()+"###"+txtPassword.getText());
                 
                 //the server response
                 
                 new Thread(){
                     String state,playerData;
-                    HashMap<String, String> hash = new HashMap<>(); 
+                    //HashMap<String, String> hash = new HashMap<>(); 
                     @Override
                     public void run(){
                         try {
                             
-                            state = dis.readLine();
+                            state = MainController.dis.readLine();
                             token = new StringTokenizer(state,"###");
                             String receivedState = token.nextToken();
                             
@@ -127,14 +136,15 @@ public class RegisterFXMLController {
                             switch(receivedState){
                                 case "Registered Successfully":
                                     
-                                     playerData = dis.readLine();
+                                     playerData = MainController.dis.readLine();
                                      token = new StringTokenizer(playerData,"###");
-                                     hash.put("username", token.nextToken());
-                                     hash.put("email",token.nextToken());
-                                     hash.put("score", "0");
+                                     MainController.hash.put("username", token.nextToken());
+                                     MainController.hash.put("email",token.nextToken());
+                                     MainController.hash.put("score", "0");
                                     
                                      Platform.runLater(()->{
-                                       btnback.handleButtonBack(e,hash,socket);
+                                       //btnback.handleButtonBack(e,hash,socket);
+                                       btnback.handleButtonBack(e);
                                      });
                                      
 //                                    this.stop();
@@ -155,11 +165,11 @@ public class RegisterFXMLController {
                     }
                 }.start();
             }
-        } catch (IOException ex) {
-
-            System.out.print("catch");
-            Logger.getLogger(signInFXMLController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        } catch (IOException ex) {
+//
+//            System.out.print("catch");
+//            Logger.getLogger(signInFXMLController.class.getName()).log(Level.SEVERE, null, ex);
+//        }
     }
     
 

@@ -74,7 +74,6 @@ public class Server {
     private void initServer(){
         try {
             serverSocket = new ServerSocket(9876);
-            
             listener = new Thread(() -> {
                 while(true){
                     try {

@@ -143,6 +143,9 @@ public class ConnectedPlayer extends Thread implements Initializable {
                        case "logout":
                            logout();
                            break;
+                       case "sleep":
+                           this.sleep(5000);
+                           break;
                        default :
                            break;
                    }
@@ -163,7 +166,11 @@ public class ConnectedPlayer extends Thread implements Initializable {
                    System.out.println("nulllllll");  
                    updateList = true;
                  }
-                
+               try {
+                   currentSocket.close();
+               } catch (IOException ex1) {
+                   Logger.getLogger(ConnectedPlayer.class.getName()).log(Level.SEVERE, null, ex1);
+               }
                 this.stop();
 //=======
 //               
@@ -197,6 +204,8 @@ public class ConnectedPlayer extends Thread implements Initializable {
 //                   Logger.getLogger(ConnectedPlayer.class.getName()).log(Level.SEVERE, null, ex1);
 //               }
 //>>>>>>> c9d8c823e22fe710e725352d55cdc4da77862c01
+           } catch (InterruptedException ex) {
+               Logger.getLogger(ConnectedPlayer.class.getName()).log(Level.SEVERE, null, ex);
            }
        }
        if(currentSocket.isClosed()){
@@ -208,6 +217,7 @@ public class ConnectedPlayer extends Thread implements Initializable {
    }
    
    private void signIn(){
+       
         email = token.nextToken();
         String password = token.nextToken();
 
@@ -230,7 +240,8 @@ public class ConnectedPlayer extends Thread implements Initializable {
                 loggedin = true;
 
                 activeUsers.add(this);
-            }else if(check.equals("Already SignIn")){
+            }else if(check.equals("This Email is alreay sign-in")){
+                System.out.println("alread in connected");
                 ps.println(check +"###");
             }else if(check.equals("Email is incorrect")){
                 ps.println(check +"###");
@@ -282,7 +293,7 @@ public class ConnectedPlayer extends Thread implements Initializable {
    }
    
    private void listOnlinePlayers(){
-       new Thread(new Runnable() {
+      thread =  new Thread(new Runnable() {
         @Override
         public void run() {
             while(true){
@@ -318,7 +329,9 @@ public class ConnectedPlayer extends Thread implements Initializable {
                  }
             }
         }
-    }).start();
+    });
+      thread.start();
+              
    }
    
    private void requestPlaying(){ // player1 send request to player 2 (server) 
@@ -383,11 +396,9 @@ public class ConnectedPlayer extends Thread implements Initializable {
             
             p1.ps.println("gameOn");
             p1.ps.println(player2Name);
-            System.out.println("Player 1 " + game.containsKey(p2) + "size" + game.size());
-            System.out.println("Player 2 " + game.containsKey(p1));
+//            System.out.println("Player 1 " + game.containsKey(p2) + "size" + game.size());
+//            System.out.println("Player 2 " + game.containsKey(p1));
        }
-       
-       
    }
    
    private void refusedChallenge(){
@@ -513,7 +524,17 @@ public class ConnectedPlayer extends Thread implements Initializable {
             activeUsers.remove(email);
            
         }
+       try {
+           currentSocket.close();
+       } catch (IOException ex) {
+           Logger.getLogger(ConnectedPlayer.class.getName()).log(Level.SEVERE, null, ex);
+       }
 
+    }
+    
+    
+    private void sleep(){
+        
     }
 
 }

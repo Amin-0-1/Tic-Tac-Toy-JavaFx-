@@ -7,9 +7,12 @@ package helper;
 
 import controller.ListRecordedGamesController;
 import controller.MainController;
+import controller.LoginOrRegisterController;
 import controller.OnlinePlayerController;
+import controller.RegisterFXMLController;
 import controller.VideoWindowController;
 import controller.WatchGameController;
+import controller.signInFXMLController;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.HashMap;
@@ -67,15 +70,59 @@ public class ButtonBack {
         
         
     }
+    
+    
+    public void handleButtonBack(ActionEvent event,Socket socket,String pageType){
+         //get scene
+//        Parent buttonParent;
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(source));
+            Parent root = (Parent)fxmlLoader.load();  
+            switch(pageType){
+                case "LoginOrRegisterController":
+                    LoginOrRegisterController controller = fxmlLoader.<LoginOrRegisterController>getController(); 
+                    controller.setSocket(socket);
+                    break;
+                case "signInFXMLController":
+                    signInFXMLController controller1 = fxmlLoader.<signInFXMLController>getController(); 
+                    //controller1.setSocket(socket);
+                    fxmlLoader.setController(controller1);
+                    break;
+                 case "RegisterFXMLController":
+                     RegisterFXMLController controller2 = fxmlLoader.<RegisterFXMLController>getController(); 
+                      //controller2.setSocket(socket);
+                      fxmlLoader.setController(controller2);
+                    break;   
+            }
+            
+            
+         
+             //generate new scene
+            Scene buttonScene = new Scene(root);
 
-    public void handleButtonBack(ActionEvent event,HashMap<String,String> hash,Socket socket){
+            //get stage information
+            Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+
+            window.setTitle("Home");
+            window.setScene(buttonScene);
+            window.show();
+        } catch (IOException ex) {
+            Logger.getLogger(ButtonBack.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+    }
+        
+        
+
+    public void handleButtonBack(ActionEvent event,HashMap<String,String> hash){
          //get scene
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(source));
             Parent root = (Parent)fxmlLoader.load();   
             OnlinePlayerController controller = fxmlLoader.<OnlinePlayerController>getController();
-            controller.setHash(hash);
-            controller.setSocket(socket);
+            //controller.setHash(hash);
+            //controller.setSocket(socket);
             
             Scene buttonScene = new Scene(root);
             fxmlLoader.setController(controller);

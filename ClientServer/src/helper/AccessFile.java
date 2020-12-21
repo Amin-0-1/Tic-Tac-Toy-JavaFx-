@@ -30,10 +30,12 @@ import java.util.prefs.Preferences;
  */
 public class AccessFile {
     
+    
    private static File file;
    static String filePath = new File("").getAbsolutePath();
    static String pathLocalFile = filePath.concat("\\src\\savedGame\\");
    static String pathOnlineFile = filePath.concat("\\src\\savedOnlineGame\\");
+
     
     public AccessFile() {
     }

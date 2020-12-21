@@ -9,6 +9,7 @@ import helper.AccessFile;
 import helper.ButtonBack;
 import helper.CurrentDateTime;
 import java.io.IOException;
+import java.net.Socket;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -64,6 +65,7 @@ public class ListRecordedGamesController implements Initializable {
     
     public static String gamename;
     String listType;
+    Socket socket;
  
     /**
      * backToMainPage.
@@ -88,6 +90,7 @@ public class ListRecordedGamesController implements Initializable {
             // TODO
             listgames.applyCss();      
             System.out.println(listType);  
+            
             //if(flag){
                 //showListItemes(); 
             //}
@@ -177,6 +180,7 @@ public class ListRecordedGamesController implements Initializable {
      */
     public void  setType(String  stringListType){ 
          listType = stringListType;
+         
          System.out.println(listType);
          showListItemes(); 
          //flag = true ;
