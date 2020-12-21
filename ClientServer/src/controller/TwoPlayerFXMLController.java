@@ -8,7 +8,6 @@ package controller;
 import helper.AccessFile;
 import helper.AskDialog;
 import helper.ButtonBack;
-import helper.DisplayVideo;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Random;
@@ -145,13 +144,9 @@ public class TwoPlayerFXMLController implements Initializable {
         if(btn1.getText().equals(btn2.getText()) && btn2.getText().equals(btn3.getText()) && !btn1.getText().equals("")){
             drawLine(btn1,btn3);
             if(btn1.getText().equals("X")){
-                //txtWinner.setText("First player win");
-                //displayVideo();
-                //display = true;
                 firstPllayerWinner = true;
                 firstPlayerScore += 10;
             }else{
-                //txtWinner.setText("Second player win");
                 secondPlayerWinner = true;
                  secondPlayerScore += 10;
             }
@@ -160,13 +155,9 @@ public class TwoPlayerFXMLController implements Initializable {
         else if(btn4.getText().equals(btn5.getText()) && btn5.getText().equals(btn6.getText()) && !btn4.getText().equals("")){
             drawLine(btn4,btn6);
             if(btn4.getText().equals("X")){
-                //txtWinner.setText("First player win");
-                //displayVideo();
-                //display = true;
                 firstPllayerWinner = true;
                 firstPlayerScore += 10;
             }else{
-                //txtWinner.setText("Second player win");
                 secondPlayerWinner = true;
                 secondPlayerScore += 10;
             }
@@ -175,13 +166,9 @@ public class TwoPlayerFXMLController implements Initializable {
         else if(btn7.getText().equals(btn8.getText()) && btn8.getText().equals(btn9.getText()) && !btn9.getText().equals("")){
             drawLine(btn7,btn9);
             if(btn9.getText().equals("X")){
-                //txtWinner.setText("First player win");
-                //displayVideo();
-                //display = true;
                 firstPllayerWinner = true;
                 firstPlayerScore += 10;
             }else{
-                //txtWinner.setText("Second player win");
                 secondPlayerWinner = true;
                 secondPlayerScore += 10;
             }
@@ -193,13 +180,9 @@ public class TwoPlayerFXMLController implements Initializable {
         if(btn1.getText().equals(btn4.getText()) && btn4.getText().equals(btn7.getText()) && !btn1.getText().equals("")){
             drawLine(btn1,btn7);
             if(btn1.getText().equals("X")){
-                //txtWinner.setText("First player win");
-                //displayVideo();
-                //display = true;
                 firstPllayerWinner = true;
                 firstPlayerScore += 10;
             }else{
-                //txtWinner.setText("Second player win");
                 secondPlayerWinner = true;
                 secondPlayerScore += 10;
             }
@@ -208,13 +191,9 @@ public class TwoPlayerFXMLController implements Initializable {
         else if(btn2.getText().equals(btn5.getText()) && btn5.getText().equals(btn8.getText()) && !btn2.getText().equals("")){
             drawLine(btn2,btn8);
             if(btn2.getText().equals("X")){
-                //txtWinner.setText("First player win");
-                //displayVideo();
-                //display = true;
                 firstPllayerWinner = true;
                 firstPlayerScore += 10;
             }else{
-                //txtWinner.setText("Second player win");
                 secondPlayerWinner = true;
                 secondPlayerScore += 10;
             }
@@ -223,13 +202,9 @@ public class TwoPlayerFXMLController implements Initializable {
         else if(btn3.getText().equals(btn6.getText()) && btn6.getText().equals(btn9.getText()) && !btn3.getText().equals("")){
             drawLine(btn3,btn9);
             if(btn3.getText().equals("X")){
-                //txtWinner.setText("First player win");
-               // displayVideo();
-               //display = true;
                firstPllayerWinner = true;
                firstPlayerScore += 10;
             }else{
-                //txtWinner.setText("Second player win");
                 secondPlayerWinner = true;
                 secondPlayerScore += 10;
             }
@@ -241,13 +216,9 @@ public class TwoPlayerFXMLController implements Initializable {
         if(btn1.getText().equals(btn5.getText()) && btn5.getText().equals(btn9.getText()) && !btn1.getText().equals("")){
             drawLine(btn1,btn9);
             if(btn1.getText().equals("X")){
-                //txtWinner.setText("First player win");
-                //displayVideo();
-                //display = true;
                 firstPllayerWinner = true;
                 firstPlayerScore += 10;
             }else{
-                //txtWinner.setText("Second player win");
                 secondPlayerWinner = true;
                 secondPlayerScore += 10;
             }
@@ -256,13 +227,9 @@ public class TwoPlayerFXMLController implements Initializable {
         else if(btn3.getText().equals(btn5.getText()) && btn5.getText().equals(btn7.getText()) && !btn3.getText().equals("")){
             drawLine(btn3,btn7);
             if(btn3.getText().equals("X")){
-                //txtWinner.setText("First player win");
-                //displayVideo();
-                //display = true;
                 firstPllayerWinner = true;
                 firstPlayerScore += 10;
             }else{
-                //txtWinner.setText("Second player win");
                 secondPlayerWinner = true;
                 secondPlayerScore += 10;
             }

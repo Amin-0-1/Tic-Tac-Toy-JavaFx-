@@ -6,7 +6,9 @@
 package helper;
 
 import controller.ListRecordedGamesController;
+import controller.MainController;
 import controller.OnlinePlayerController;
+import controller.VideoWindowController;
 import controller.WatchGameController;
 import java.io.IOException;
 import java.net.Socket;
@@ -14,6 +16,7 @@ import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.animation.PauseTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -23,6 +26,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 /**
  *
@@ -143,6 +147,56 @@ public class ButtonBack {
         }
         
         
+    }
+    
+    
+    
+    /**
+     * displayVideo
+     * when called video controller will load with display video for winner or loser player
+     * 
+     * @param playerWinnerOrNot
+     * @param title 
+     */
+    public void displayVideo(String playerWinnerOrNot, String title){
+        try {
+            //get scene
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(source));
+            Parent root = (Parent)fxmlLoader.load(); 
+            
+            
+            VideoWindowController controller = fxmlLoader.<VideoWindowController>getController();
+            controller.setType(playerWinnerOrNot);
+            //generate new scene
+            Scene RegisterScene = new Scene(root);
+            fxmlLoader.setController(controller);
+            
+            
+        
+            //get stage information
+            Stage window = new Stage();
+
+            window.setTitle(title);
+            window.setScene(RegisterScene);
+            window.setMinHeight(500);
+            window.setMinWidth(500);
+            window.setMaxHeight(250);
+            window.setMaxWidth(500);  
+            window.show();
+            
+            
+                PauseTransition wait = new PauseTransition(Duration.seconds(3));
+                            wait.setOnFinished((e) -> {
+                                /*YOUR METHOD*/
+                                window.close();
+                                //btn.setDisable(false);
+                                wait.playFromStart();
+                            });
+                            wait.play();
+                    
+        } catch (IOException ex) {
+            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

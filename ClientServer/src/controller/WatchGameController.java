@@ -66,6 +66,10 @@ public class WatchGameController implements Initializable {
     Thread thread;
     String listType;
     
+   static String filePath = new File("").getAbsolutePath();
+   static String pathLocalFile = filePath.concat("\\src\\savedGame\\");
+   static String pathOnlineFile = filePath.concat("\\src\\savedOnlineGame\\");
+    
    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -161,9 +165,9 @@ public class WatchGameController implements Initializable {
     private void displayGame(){
         
         if(listType.equals("local-mode")){
-            datareaded=AccessFile.readFileAsString("D:\\ITI\\Java\\java project\\Tic-Tac-Toy-JavaFx-\\savedGame\\"+ListRecordedGamesController.gamename);
+            datareaded=AccessFile.readFileAsString(pathLocalFile+ListRecordedGamesController.gamename);
         }else if (listType.equals("online-mode")){
-            datareaded=AccessFile.readFileAsString("D:\\ITI\\Java\\java project\\Tic-Tac-Toy-JavaFx-\\savedOnlineGame\\"+ListRecordedGamesController.gamename);
+            datareaded=AccessFile.readFileAsString(pathOnlineFile+ListRecordedGamesController.gamename);
         }
               
         
