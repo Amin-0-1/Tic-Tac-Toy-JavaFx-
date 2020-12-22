@@ -39,6 +39,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
@@ -137,6 +138,8 @@ public class OnlinePlayerController implements Initializable {
     @FXML
     private Label currentLabel;
     ImageView view;
+    
+    private Boolean display = false;
 
     
     @Override
@@ -273,15 +276,24 @@ public class OnlinePlayerController implements Initializable {
             @Override
             public void run() {
                 System.out.println("recieved request run");
-                alert = new Alert(AlertType.CONFIRMATION);
+                
+                ButtonType Yes = new ButtonType("Yes"); 
+                ButtonType No = new ButtonType("NO", ButtonBar.ButtonData.CANCEL_CLOSE);
+                alert = new Alert(AlertType.NONE);
                 alert.setTitle("Confirmation");
-                alert.setContentText(opponentUsername+" wants to Challenge you, Are you Okay with that ?");
+                alert.setHeaderText(opponentUsername+" wants to Challenge you, Are you Okay with that ?");
+                alert.getDialogPane().getButtonTypes().addAll(Yes,No);
+                
+                DialogPane dialogPane = alert.getDialogPane();
+                dialogPane.getStylesheets().add(
+                getClass().getResource("/css/fullpackstyling.css").toExternalForm());
+                dialogPane.getStyleClass().add("infoDialog");
                 
                 PauseTransition delay = new PauseTransition(Duration.seconds(10));
                 delay.setOnFinished(e -> alert.hide());
                                         
                 Optional<ButtonType> result = alert.showAndWait();
-                if (result.get() == ButtonType.OK){ // accept to play
+                if (result.get() == Yes){ // accept to play
                     System.out.println("game on");
                     MainController.ps.println("accept###"+MainController.hash.get("email")+"###"+MainController.hash.get("username")+"###"+opponentMail);
                     // initialize game
@@ -327,10 +339,17 @@ public class OnlinePlayerController implements Initializable {
                             public void handle(ActionEvent event) {
 
                                 MainController.ps.println("request###"+button.getId()+"###"+emailtxt.getText()+"###"+usernametxt.getText());
-                                // pop up waiting for response from server                                                                // can use an Alert, Dialog, or PopupWindow as needed...
-                                alert = new Alert(AlertType.INFORMATION);
+                                // pop up waiting for response from server 
+                                ButtonType Yes = new ButtonType("Ok"); // can use an Alert, Dialog, or PopupWindow as needed...
+                                alert = new Alert(AlertType.NONE);
                                 alert.setTitle("Information Dialog");
-                                alert.setContentText("Please Wait The Opponent to respond..");
+                                alert.setHeaderText("Please Wait The Opponent to respond..");
+                                alert.getDialogPane().getButtonTypes().addAll(Yes);
+                               
+                                DialogPane dialogPane = alert.getDialogPane();
+                                dialogPane.getStylesheets().add(
+                                getClass().getResource("/css/fullpackstyling.css").toExternalForm());
+                                dialogPane.getStyleClass().add("infoDialog");
 
                                 // hide popup after 3 seconds:
                                 PauseTransition delay = new PauseTransition(Duration.seconds(15));
@@ -470,7 +489,7 @@ public class OnlinePlayerController implements Initializable {
             gameState = false;
             if(btn1.getText().equals(myTic)){
                 //displayVideo();
-//                display = true;
+                display = true;
                 updateScore();
                 // update database
             }else{
@@ -483,7 +502,7 @@ public class OnlinePlayerController implements Initializable {
             if(btn4.getText().equals(myTic)){
 //                txtWinner.setText("you won!");
                 //displayVideo();
-//                display = true;
+               display = true;
                 updateScore();
                 // update database
             }else{
@@ -496,7 +515,7 @@ public class OnlinePlayerController implements Initializable {
             if(btn7.getText().equals(myTic)){
 //                txtWinner.setText("you won!");
                 //displayVideo();
-//                display = true;
+               display = true;
                 updateScore();
                 // update database
             }else{
@@ -515,7 +534,7 @@ public class OnlinePlayerController implements Initializable {
             if(btn1.getText().equals(myTic)){
 //                txtWinner.setText("you won!");
                 //displayVideo();
-//                display = true;
+               display = true;
                 updateScore();
             }else{
 //               
@@ -527,7 +546,7 @@ public class OnlinePlayerController implements Initializable {
             if(btn2.getText().equals(myTic)){
 //                txtWinner.setText("you won!");
                 //displayVideo();
-//                display = true;
+              display = true;
                 updateScore();
             }else{
 //                txtWinner.setText("computer won!");
@@ -539,7 +558,7 @@ public class OnlinePlayerController implements Initializable {
             if(btn3.getText().equals(myTic)){
                
                // displayVideo();
-//               display = true;
+             display = true;
                updateScore();
             }else{
 //                txtWinner.setText("computer won!");
@@ -557,7 +576,7 @@ public class OnlinePlayerController implements Initializable {
             if(btn1.getText().equals(myTic)){
 //                txtWinner.setText("you won!");
                 //displayVideo();
-//                display = true;
+              display = true;
                 updateScore();
             }else{
 //                txtWinner.setText("computer won!");
@@ -569,7 +588,7 @@ public class OnlinePlayerController implements Initializable {
             if(btn3.getText().equals(myTic)){
 //                txtWinner.setText("you won!");
                 //displayVideo();
-//                display = true;
+               display = true;
                 updateScore();
             }else{
 //                txtWinner.setText("computer won!");
@@ -602,8 +621,17 @@ public class OnlinePlayerController implements Initializable {
             Platform.runLater(new Runnable() {
                 @Override
                 public void run() {
-                    AskDialog  serverIssueAlert  = new AskDialog();
-                    serverIssueAlert.serverIssueAlert("You Are The winner !!");
+//                    AskDialog  serverIssueAlert  = new AskDialog();
+//                    serverIssueAlert.serverIssueAlert("You Are The winner !!");
+
+                    if(display){
+                        displayVideo("winner");
+                    
+
+                    }else{
+                     displayVideo("opps");
+                        
+                    }
                 }
             });
             
@@ -615,7 +643,7 @@ public class OnlinePlayerController implements Initializable {
                 @Override
                 public void run() {
                     AskDialog  serverIssueAlert  = new AskDialog();
-                    serverIssueAlert.serverIssueAlert("draw !!");
+                    serverIssueAlert.serverIssueAlert("It's adraw !!");
                 }
             });
                 
@@ -655,16 +683,16 @@ public class OnlinePlayerController implements Initializable {
     }
 
     private void reset(){
-        if(gameState){ // loser window
-            Platform.runLater(new Runnable() {
-                @Override
-                public void run() {
-                    AskDialog  serverIssueAlert  = new AskDialog();
-                    serverIssueAlert.serverIssueAlert("HardLuck next time...");
-                   
-                }
-            });
-        }  
+        //if(gameState){ // loser window
+//            Platform.runLater(new Runnable() {
+//                @Override
+//                public void run() {
+//                    AskDialog  serverIssueAlert  = new AskDialog();
+//                    serverIssueAlert.serverIssueAlert("HardLuck next time...");
+//                   
+//                }
+//            });
+//        }  
 //        Platform.runLater(new Runnable() {
 //            @Override
 //            public void run() {
@@ -781,9 +809,15 @@ public class OnlinePlayerController implements Initializable {
             public void run() {
                 if(alert.isShowing())
                     alert.close();
-                 alert = new Alert(AlertType.INFORMATION);
+                ButtonType Yes = new ButtonType("Ok"); 
+                 alert = new Alert(AlertType.NONE);
                  alert.setTitle("Information Dialog");
-                 alert.setContentText("Your Opponent Refused to Challenge you!");
+                 alert.setHeaderText("Your Opponent Refused to Challenge you!");
+                 alert.getDialogPane().getButtonTypes().addAll(Yes);
+                 DialogPane dialogPane = alert.getDialogPane();
+                 dialogPane.getStylesheets().add(
+                 getClass().getResource("/css/fullpackstyling.css").toExternalForm());
+                 dialogPane.getStyleClass().add("infoDialog");
                  alert.showAndWait();
             }
         });
@@ -806,6 +840,13 @@ public class OnlinePlayerController implements Initializable {
                System.out.println("Send to server to logout");
                MainController.ps.println("logout###"+MainController.hash.get("email"));
                thread.stop();
+               try {
+                   MainController.socket.close();
+                   MainController.dis.close();
+                   MainController.ps.close();
+               } catch (IOException ex) {
+                   Logger.getLogger(OnlinePlayerController.class.getName()).log(Level.SEVERE, null, ex);
+               }
 //               ButtonBack btnback = new ButtonBack("/view/LoginOrRegister.fxml");
                ButtonBack btnback = new ButtonBack("/view/sample.fxml");
                btnback.handleButtonBack(event); 
@@ -840,6 +881,20 @@ public class OnlinePlayerController implements Initializable {
         thread.stop();
         ButtonBack navigateToListPage = new ButtonBack("/view/ListRecordedGames.fxml");
         navigateToListPage.handleButtonBack(event,"online-mode");
+        
+    }
+    
+    /**
+     * displayVideo called when player win or lose
+     */
+    private void displayVideo(String type){
+        if(type.equals("winner")){
+           ButtonBack displayVideo = new ButtonBack("/view/VideoWindow.fxml");
+           displayVideo.displayVideo("winner","Congratulation"); 
+        }else{
+           ButtonBack displayVideo = new ButtonBack("/view/VideoWindow.fxml");
+           displayVideo.displayVideo("opps","opps!!");  
+        }
         
     }
    

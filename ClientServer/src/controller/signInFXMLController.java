@@ -45,6 +45,7 @@ public class signInFXMLController {
 //    Socket socket;
 //    DataInputStream dis;
 //    PrintStream ps;
+    private Thread thread;
     StringTokenizer token;
     int score;
 
@@ -111,7 +112,7 @@ public class signInFXMLController {
             }else{
 
                 //reciving response
-                new Thread(){
+              thread =  new Thread(){
                    // HashMap<String, String> hash = new HashMap<>(); 
                     String state,playerData;
                     @Override
@@ -141,7 +142,9 @@ public class signInFXMLController {
                                     MainController.hash.put("email",token2.nextToken());
                                     MainController.hash.put("score", token2.nextToken());
                                     //notification for successful logging in
+                                    
                                      Platform.runLater(()->{
+                                         thread.stop();
                                        btnback.handleButtonBack(e);
                                        //btnback.handleButtonBack(e);
                                       });
@@ -205,7 +208,8 @@ public class signInFXMLController {
                             Logger.getLogger(signInFXMLController.class.getName()).log(Level.SEVERE, null, ex);
                         }
                     }
-                }.start();            
+                };   
+              thread.start();
 
             }
          }

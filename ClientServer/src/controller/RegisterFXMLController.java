@@ -61,6 +61,7 @@ public class RegisterFXMLController {
 
     
     StringTokenizer token;
+    private Thread thread;
 //     Socket socket;
 //    DataInputStream dis;
 //    PrintStream ps;
@@ -120,7 +121,7 @@ public class RegisterFXMLController {
                 
                 //the server response
                 
-                new Thread(){
+             thread =   new Thread(){
                     String state,playerData;
                     //HashMap<String, String> hash = new HashMap<>(); 
                     @Override
@@ -144,6 +145,7 @@ public class RegisterFXMLController {
                                     
                                      Platform.runLater(()->{
                                        //btnback.handleButtonBack(e,hash,socket);
+                                       thread.stop();
                                        btnback.handleButtonBack(e);
                                      });
                                      
@@ -163,7 +165,8 @@ public class RegisterFXMLController {
                             Logger.getLogger(RegisterFXMLController.class.getName()).log(Level.SEVERE, null, ex);
                         }
                     }
-                }.start();
+                };
+             thread.start();
             }
 //        } catch (IOException ex) {
 //
