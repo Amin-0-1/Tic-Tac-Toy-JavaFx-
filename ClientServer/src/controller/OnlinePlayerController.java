@@ -138,6 +138,8 @@ public class OnlinePlayerController implements Initializable {
     @FXML
     private Label currentLabel;
     ImageView view;
+    
+    private Boolean display = false;
 
     
     @Override
@@ -487,7 +489,7 @@ public class OnlinePlayerController implements Initializable {
             gameState = false;
             if(btn1.getText().equals(myTic)){
                 //displayVideo();
-//                display = true;
+                display = true;
                 updateScore();
                 // update database
             }else{
@@ -500,7 +502,7 @@ public class OnlinePlayerController implements Initializable {
             if(btn4.getText().equals(myTic)){
 //                txtWinner.setText("you won!");
                 //displayVideo();
-//                display = true;
+               display = true;
                 updateScore();
                 // update database
             }else{
@@ -513,7 +515,7 @@ public class OnlinePlayerController implements Initializable {
             if(btn7.getText().equals(myTic)){
 //                txtWinner.setText("you won!");
                 //displayVideo();
-//                display = true;
+               display = true;
                 updateScore();
                 // update database
             }else{
@@ -532,7 +534,7 @@ public class OnlinePlayerController implements Initializable {
             if(btn1.getText().equals(myTic)){
 //                txtWinner.setText("you won!");
                 //displayVideo();
-//                display = true;
+               display = true;
                 updateScore();
             }else{
 //               
@@ -544,7 +546,7 @@ public class OnlinePlayerController implements Initializable {
             if(btn2.getText().equals(myTic)){
 //                txtWinner.setText("you won!");
                 //displayVideo();
-//                display = true;
+              display = true;
                 updateScore();
             }else{
 //                txtWinner.setText("computer won!");
@@ -556,7 +558,7 @@ public class OnlinePlayerController implements Initializable {
             if(btn3.getText().equals(myTic)){
                
                // displayVideo();
-//               display = true;
+             display = true;
                updateScore();
             }else{
 //                txtWinner.setText("computer won!");
@@ -574,7 +576,7 @@ public class OnlinePlayerController implements Initializable {
             if(btn1.getText().equals(myTic)){
 //                txtWinner.setText("you won!");
                 //displayVideo();
-//                display = true;
+              display = true;
                 updateScore();
             }else{
 //                txtWinner.setText("computer won!");
@@ -586,7 +588,7 @@ public class OnlinePlayerController implements Initializable {
             if(btn3.getText().equals(myTic)){
 //                txtWinner.setText("you won!");
                 //displayVideo();
-//                display = true;
+               display = true;
                 updateScore();
             }else{
 //                txtWinner.setText("computer won!");
@@ -619,8 +621,17 @@ public class OnlinePlayerController implements Initializable {
             Platform.runLater(new Runnable() {
                 @Override
                 public void run() {
-                    AskDialog  serverIssueAlert  = new AskDialog();
-                    serverIssueAlert.serverIssueAlert("You Are The winner !!");
+//                    AskDialog  serverIssueAlert  = new AskDialog();
+//                    serverIssueAlert.serverIssueAlert("You Are The winner !!");
+
+                    if(display){
+                        displayVideo("winner");
+                    
+
+                    }else{
+                     displayVideo("opps");
+                        
+                    }
                 }
             });
             
@@ -632,7 +643,7 @@ public class OnlinePlayerController implements Initializable {
                 @Override
                 public void run() {
                     AskDialog  serverIssueAlert  = new AskDialog();
-                    serverIssueAlert.serverIssueAlert("draw !!");
+                    serverIssueAlert.serverIssueAlert("It's adraw !!");
                 }
             });
                 
@@ -672,16 +683,16 @@ public class OnlinePlayerController implements Initializable {
     }
 
     private void reset(){
-        if(gameState){ // loser window
-            Platform.runLater(new Runnable() {
-                @Override
-                public void run() {
-                    AskDialog  serverIssueAlert  = new AskDialog();
-                    serverIssueAlert.serverIssueAlert("HardLuck next time...");
-                   
-                }
-            });
-        }  
+        //if(gameState){ // loser window
+//            Platform.runLater(new Runnable() {
+//                @Override
+//                public void run() {
+//                    AskDialog  serverIssueAlert  = new AskDialog();
+//                    serverIssueAlert.serverIssueAlert("HardLuck next time...");
+//                   
+//                }
+//            });
+//        }  
 //        Platform.runLater(new Runnable() {
 //            @Override
 //            public void run() {
@@ -870,6 +881,20 @@ public class OnlinePlayerController implements Initializable {
         thread.stop();
         ButtonBack navigateToListPage = new ButtonBack("/view/ListRecordedGames.fxml");
         navigateToListPage.handleButtonBack(event,"online-mode");
+        
+    }
+    
+    /**
+     * displayVideo called when player win or lose
+     */
+    private void displayVideo(String type){
+        if(type.equals("winner")){
+           ButtonBack displayVideo = new ButtonBack("/view/VideoWindow.fxml");
+           displayVideo.displayVideo("winner","Congratulation"); 
+        }else{
+           ButtonBack displayVideo = new ButtonBack("/view/VideoWindow.fxml");
+           displayVideo.displayVideo("opps","opps!!");  
+        }
         
     }
    
