@@ -287,7 +287,7 @@ public class MainController implements Initializable{
             if(IPvalidatation.isValidIPAddress(s)) { 
                 try {
                     System.out.println("enter try valip ip");
-                    if(socket == null){
+                    if(socket == null || socket.isClosed()){
                         socket = new Socket(s,9876);
                         System.out.println("conncet valid ip ");
                         System.out.println(IPvalidatation.getIp());
