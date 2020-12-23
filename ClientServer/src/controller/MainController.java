@@ -112,7 +112,6 @@ public class MainController implements Initializable{
 
         System.out.println("changeSceneToTwoPlayers: called");
  
-
            CustomDialog fristPlayerNameDialog = new CustomDialog();
            Boolean isCancled = fristPlayerNameDialog.displayDialog("Enter First Player Name");
            prefs.put("fristPlayer", fristPlayerNameDialog.getName());
@@ -134,7 +133,6 @@ public class MainController implements Initializable{
                    AccessFile.writeFile(prefs.get("fristPlayer", "")+".");
                    AccessFile.writeFile(prefs.get("secondPlayer", "")+".");
 
-                     
                      isrecord=true;
                   }
                  ButtonBack btnback = new ButtonBack("/view/TwoPlayerFXML.fxml");
