@@ -7,8 +7,6 @@ package Model;
 
 //import Controller.ConnectedPlayer;
 import Controller.ServerMainPageController;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -16,7 +14,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.scene.image.Image;
 
 /**
  *
@@ -67,9 +64,6 @@ public class Server {
             System.out.print("disable connection server");
         }
     }
-    public void setNotPlaying(String email){
-        databaseInstance.setNotPlaying(email);
-    }
     
     private void initServer(){
         try {
@@ -90,5 +84,44 @@ public class Server {
             System.out.println("server exception");
             ex.printStackTrace();
         }
+    }
+    public void setActive(Boolean state, String mail){
+        databaseInstance.setActive(false,mail);
+    }
+    public void setNotPlaying(String email){
+        databaseInstance.setNotPlaying(email);
+    }
+    public void getActivePlayers1(){
+        databaseInstance.getActivePlayers();
+    }
+    public String checkSignIn(String email,String password){
+        return databaseInstance.checkSignIn(email, password);
+    }
+    public int getScore(String email){
+        return databaseInstance.getScore(email);
+    }
+    public String getUserName(String email){
+        return databaseInstance.getUserName(email);
+    }
+    public void login(String email,String password) throws SQLException{
+        databaseInstance.login(email, password);
+    }
+    public String checkRegister(String username,String email){
+        return databaseInstance.checkRegister(username, email);
+    }
+    public void SignUp(String username,String email,String password) throws SQLException{
+        databaseInstance.SignUp(username,email,password);
+    }
+    public ResultSet getActivePlayers(){
+        return databaseInstance.getActivePlayers();
+    }
+    public void updateScore(String mail,int score){
+        databaseInstance.updateScore(mail, score);
+    }
+    public void makePlaying(String player1,String player2){
+        databaseInstance.makePlaying(player1, player2);
+    }
+    public ResultSet getResultSet(){
+        return databaseInstance.getResultSet();
     }
 }
