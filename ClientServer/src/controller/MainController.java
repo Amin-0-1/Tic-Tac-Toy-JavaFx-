@@ -90,98 +90,17 @@ public class MainController implements Initializable{
         }
 
      }
-    /**
-     * changeSceneToSinglePlayer.
+     /**
+     * changeSceneToEasyOrHardLevel.
      * when called scene will be change to single player mode.
      * @param event 
      */
-    public void changeSceneToSinglePlayer(ActionEvent event) {
+    public void changeSceneToEasyOrHardLevel(ActionEvent event) {
         txtAlert.setVisible(false);
-        try {
-            System.out.println("changeSceneToSinglePlayer: called");
-            CurrentDateTime c=new CurrentDateTime();
-            System.out.println(c.getCurrentDateTime());
-            if(prefs.nodeExists("/controller"))
-            {
-                String s=prefs.get("username","");
-                System.out.println(s.length());
-                if(s.length()==0)
-                {
-                    CustomDialog cd = new CustomDialog();
-                    Boolean isCancled = cd.displayDialog("Enter Your Name");
-                    prefs.put("username", cd.getName());
-                    if(!isCancled){
-                        try {
-                            //get scene
-
-                            AskDialog isrecoredGame = new AskDialog();
-                            Boolean check=isrecoredGame.alert("Do you want to record game ?");
-                            if(check)
-                            {
-                             AccessFile.createFile("local-mode");
-                             AccessFile.writeFile(prefs.get("username","")+".");
-                             AccessFile.writeFile("user"+".");
-                               isrecord=true;
-                            }
-
-
-                    
-                            Parent singlePlayerParent = FXMLLoader.load(getClass().getResource("/view/SinglePlayFXML.fxml"));
-                            
-                            //generate new scene
-                            Scene singlePlayerScene = new Scene(singlePlayerParent,btnWatchGame.getScene().getWidth(),
-                                    btnWatchGame.getScene().getHeight());
-                            
-                            //get stage information
-                            Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-                            window.setTitle("Single play Mode");
-                            window.setScene(singlePlayerScene);
-                            window.show();
-                         }catch (IOException ex) {
-                            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                    }
-                }
-                
-            else
-            {
-
-
-                  AskDialog isrecoredGame = new AskDialog();
-
-                  Boolean check=isrecoredGame.alert("Do you want to record game ?");
-                  if(check)
-                  {
-                   AccessFile.createFile("local-mode");
-
-                   AccessFile.writeFile(prefs.get("username", "")+".");
-                   AccessFile.writeFile("user"+".");
-                     isrecord=true;
-                  }
-                   
-                Parent singlePlayerParent = FXMLLoader.load(getClass().getResource("/view/SinglePlayFXML.fxml"));
-                
-                //generate new scene
-                Scene singlePlayerScene = new Scene(singlePlayerParent,btnWatchGame.getScene().getWidth(),
-                        btnWatchGame.getScene().getHeight());
-                
-                //get stage information
-                Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-                
-                window.setTitle("Single play Mode");
-                window.setScene(singlePlayerScene);
-                window.show();
-                
-            }
-            }
-            
-    } catch (BackingStoreException ex) {
-            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
-        } 
-        catch (IOException ex) {
-            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-                           
+        ButtonBack navigateToOnlinePlay = new ButtonBack("/view/EasyORHardLevel.fxml");
+        navigateToOnlinePlay.handleButtonBack(event);
+        
+         
     }
     /**
      * changeSceneToTwoPlayers.
@@ -189,7 +108,8 @@ public class MainController implements Initializable{
      * @param event 
      */
     public void changeSceneToTwoPlayers(ActionEvent event) {
-        
+                txtAlert.setVisible(false);
+
         System.out.println("changeSceneToTwoPlayers: called");
  
 
@@ -222,9 +142,6 @@ public class MainController implements Initializable{
              }
            }
     }
-    
-    
-   
 
   /**
      * changeSceneToOnlineGame.
@@ -258,15 +175,7 @@ public class MainController implements Initializable{
                                 }
                                 
                             }
-                                
-//                }
-//               else if (checkip)
-//               {                    
-//                ButtonBack navigateToLoginOrRegister = new ButtonBack("/view/LoginOrRegister.fxml");
-//                navigateToLoginOrRegister.handleButtonBack(event);
-//            
-//               }
-    
+                               
     }
     
     /**

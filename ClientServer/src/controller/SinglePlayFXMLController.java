@@ -43,9 +43,7 @@ import javafx.util.Duration;
  * @author Wesam
  */
 public class SinglePlayFXMLController implements Initializable{
-    
 
-    
     private String player = "X";
     private Button buttonPressed;
     private boolean winner = false;
@@ -119,21 +117,16 @@ public class SinglePlayFXMLController implements Initializable{
         }
 
     } 
-    
-     
-    
+
     public void buttonPressed(ActionEvent e){
         if(!winner){
             System.err.println("x");
             buttonPressed = (Button) e.getSource();
             if(buttonPressed.getText().equals("")){
                 buttonPressed.setText(player);
-//                if(file.exists())
-//                { 
-//                AccessFile.writeFile(buttonPressed.getId()+player+".");
-//                }
 
-                 if(MainController.isrecord)
+
+                if(EasyOrHardLevelController.isrecord)
                  AccessFile.writeFile(buttonPressed.getId()+buttonPressed.getText()+".");
                  
                 if(player=="X"){
@@ -196,11 +189,12 @@ public class SinglePlayFXMLController implements Initializable{
                /* if(buttonPressed.getText().equals("")){
                     buttonPressed.setText(""+player);
 **/
+    
                 if(buttonPressed.getText().equals("")){
                     buttonPressed.setText(""+player);
                     
-                     if(MainController.isrecord)
-                     AccessFile.writeFile(buttonPressed.getId()+buttonPressed.getText()+".");
+                    if(EasyOrHardLevelController.isrecord)
+                    AccessFile.writeFile(buttonPressed.getId()+buttonPressed.getText()+".");
 
                     if(player=="X"){
                         player="O";
@@ -382,7 +376,8 @@ public class SinglePlayFXMLController implements Initializable{
 
     }
     
-    /**
+    
+      /**         
      * displayVideo called when player win
      */
     private void displayVideo(){
@@ -397,11 +392,11 @@ public class SinglePlayFXMLController implements Initializable{
      */
     public void backToMainPage(ActionEvent event){
         System.out.println("backToMainPage: called");
-        ButtonBack btnback = new ButtonBack("/view/sample.fxml");
+        ButtonBack btnback = new ButtonBack("/view/EasyORHardLevel.fxml");
         btnback.handleButtonBack(event);
    
     } 
-    
+  
     /**
      * repalayAgain 
      * when called make labe for winner empty and make button Visible
@@ -427,9 +422,13 @@ public class SinglePlayFXMLController implements Initializable{
          
     } 
   
-      public void changeSceneToMain(ActionEvent event) {       
+      public void logout(ActionEvent event) {       
         System.out.println("changeSceneToMain: called");
-           
+            AskDialog isrecoredGame = new AskDialog();
+
+                  Boolean check=isrecoredGame.alert("Do you want logout and remove your data from App?");
+                  if(check)
+                  {
         try {
              System.out.println("Logout");
                 Preferences prefs =Preferences.userNodeForPackage(MainController.class);
@@ -446,9 +445,8 @@ public class SinglePlayFXMLController implements Initializable{
         } catch (BackingStoreException ex) {
             Logger.getLogger(SinglePlayFXMLController.class.getName()).log(Level.SEVERE, null, ex);
         }
-              
-           
-         
+   
     }
-
+     
+      }
 }

@@ -22,8 +22,6 @@ public class AskDialog {
 
     public Boolean alert(String s)
     {   
-
-        
         ButtonType Yes = new ButtonType("Yes"); 
         ButtonType No = new ButtonType("NO", ButtonBar.ButtonData.CANCEL_CLOSE);
         Alert a = new Alert(Alert.AlertType.NONE); 
