@@ -5,6 +5,7 @@
  */
 package Model;
 
+import Controller.ServerMainPageController;
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.PrintStream;
@@ -38,7 +39,8 @@ public class ConnectedPlayer extends Thread implements Initializable {
    private Boolean updateList;   
    private ResultSet result;
    private Thread thread;
-
+  
+   
   
    static ArrayList<ConnectedPlayer> activeUsers = new ArrayList(); // online
    
@@ -213,27 +215,33 @@ public class ConnectedPlayer extends Thread implements Initializable {
       thread =  new Thread(new Runnable() {
         @Override
         public void run() {
+            
             while(true){
-                result = server.getActivePlayers();
-                try {
-                    while(result.next()){
-                        ps.println(result.getString("username")+"###"+
-                                result.getString("email")+"###"+
-                                result.getBoolean("isActive")+"###"+
-                                result.getBoolean("isPlaying")+"###"+
-                                result.getInt("score")
-                            );
+                if(ServerMainPageController.serverState){
+                    result = server.getActivePlayers();
+                    try {
+                        while(result.next()){
+                            ps.println(result.getString("username")+"###"+
+                                    result.getString("email")+"###"+
+                                    result.getBoolean("isActive")+"###"+
+                                    result.getBoolean("isPlaying")+"###"+
+                                    result.getInt("score")
+                                );
+                        }
+                        ps.println("null");
+                    } catch (SQLException ex) {
+                        System.out.println("4");
+                        System.out.println("catch");
+                        Logger.getLogger(ConnectedPlayer.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                    ps.println("null");
-                } catch (SQLException ex) {
-                    System.out.println("4");
-                    System.out.println("catch");
-                    Logger.getLogger(ConnectedPlayer.class.getName()).log(Level.SEVERE, null, ex);
-                }
-               try {
-                Thread.sleep(5000);
-                } catch (InterruptedException ex) {
-                    Logger.getLogger(ConnectedPlayer.class.getName()).log(Level.SEVERE, null, ex);
+                   try {
+                    Thread.sleep(5000);
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(ConnectedPlayer.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }else{
+                    ps.println("close");
+                    thread.stop();
                 }
             }
         }

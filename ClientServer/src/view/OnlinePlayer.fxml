@@ -91,6 +91,18 @@
                               <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                            </GridPane.margin>
                         </AnchorPane>
+                        <AnchorPane fx:id="stateanc" prefHeight="73.0" prefWidth="63.0" styleClass="button2" stylesheets="@../css/fullpackstyling.css" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                           <children>
+                              <Label fx:id="statelbl" alignment="CENTER" contentDisplay="CENTER" prefHeight="27.0" prefWidth="142.0" text="X" textFill="#ebe5e5" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                           <GridPane.margin>
+                              <Insets bottom="50.0" left="60.0" right="60.0" top="50.0" />
+                           </GridPane.margin>
+                        </AnchorPane>
                      </children>
                   </GridPane>
                </top>

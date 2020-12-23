@@ -101,6 +101,10 @@ public class OnlinePlayerController implements Initializable {
     private Pane paneLabel;
     @FXML
     private Label currentLabel;
+    @FXML
+    private AnchorPane stateanc;
+    @FXML 
+    private Label statelbl;
 
     private Stage thisStage;
     private Thread thread;
@@ -198,20 +202,14 @@ public class OnlinePlayerController implements Initializable {
                                         reload.navigateToAnotherPage(player1lbl);
                                     });
                                     break;
+                                case "close":
+                                    close();
                                 default :
                                     System.out.println("default");
                                     readOnlineList(data);
                             }
                         } catch (IOException ex) {
-                            System.out.println("Server Colsed");
-                            
-                            Platform.runLater(() -> {
-                            AskDialog  serverIssueAlert  = new AskDialog();
-                            serverIssueAlert.serverIssueAlert("There is issue in connection game page will be closed");
-                            ButtonBack backtoLoginPage = new ButtonBack("/view/sample.fxml");
-                            backtoLoginPage.navigateToAnotherPage(emailtxt);
-                            });
-                            thread.stop();
+                            close();
                         }
                     }while(true);
                     listOnlinePlayers();
@@ -339,6 +337,15 @@ public class OnlinePlayerController implements Initializable {
                 player1anc.setVisible(true);
                 player2anc.setVisible(true);
                 middanc.setVisible(false);
+                stateanc.setVisible(true);
+                
+                statelbl.setText(myTic);
+                if(myTurn && myTic.equals("X")){
+                    stateanc.setStyle("-fx-background-color: #008000");
+                }else{
+                    stateanc.setStyle("-fx-background-color: #FA2C56");
+                }
+                
                 scoretxt.setText(name);
                 scrollpane.setDisable(true);
                 currentScore = Integer.parseInt(MainController.hash.get("score"));
@@ -388,8 +395,14 @@ public class OnlinePlayerController implements Initializable {
                 }
                 myTurn = false;
                 opponentTurn = true;
+                if(myTurn && myTic.equals("X")){
+                    stateanc.setStyle("-fx-background-color: #008000");
+                }else{
+                    stateanc.setStyle("-fx-background-color: #FA2C56");
+                }
                 System.out.println("I pressed "+buttonPressed.getId());
                 if(checkState()){
+                    
                     MainController.ps.println("finishgameTic###"+MainController.hash.get("email")+"###"+buttonPressed.getId());
                 }else{
                     MainController.ps.println("gameTic###"+MainController.hash.get("email")+"###"+buttonPressed.getId());
@@ -423,6 +436,9 @@ public class OnlinePlayerController implements Initializable {
             btnOpp.fire();
             myTurn= true;
             opponentTurn = false;
+            stateanc.setStyle("-fx-background-color: #008000");
+
+            
         } catch (IOException ex) {
             Logger.getLogger(OnlinePlayerController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -520,8 +536,13 @@ public class OnlinePlayerController implements Initializable {
                 public void run() {
                     if(display){
                         displayVideo("winner");
+                        //AskDialog  serverIssueAlert  = new AskDialog();
+                        //serverIssueAlert.serverIssueAlert("Congrats !! , your score right now is :"+ MainController.hash.get("score"));
+                        
                     }else{
-                        displayVideo("opps");
+                        displayVideo("lose");
+                        //AskDialog  serverIssueAlert  = new AskDialog();
+                        //serverIssueAlert.serverIssueAlert("Oh, Hardluck next time..");
                     }
                 }
             });
@@ -691,5 +712,17 @@ public class OnlinePlayerController implements Initializable {
            ButtonBack displayVideo = new ButtonBack("/view/VideoWindow.fxml");
            displayVideo.displayVideo("opps","opps!!");  
         }
+    }
+    
+    private void close(){
+        System.out.println("Server Colsed");
+                            
+        Platform.runLater(() -> {
+        AskDialog  serverIssueAlert  = new AskDialog();
+        serverIssueAlert.serverIssueAlert("There is issue in connection game page will be closed");
+        ButtonBack backtoLoginPage = new ButtonBack("/view/sample.fxml");
+        backtoLoginPage.navigateToAnotherPage(emailtxt);
+        });
+        thread.stop();
     }
 }

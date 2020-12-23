@@ -8,6 +8,7 @@ package Model;
 //import Controller.ConnectedPlayer;
 import Controller.ServerMainPageController;
 import java.io.IOException;
+import java.net.Inet4Address;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.sql.ResultSet;
@@ -67,7 +68,9 @@ public class Server {
     
     private void initServer(){
         try {
-            serverSocket = new ServerSocket(9876);
+            serverSocket = new ServerSocket(9081);
+            System.out.println(Inet4Address.getLocalHost().getHostAddress());
+            
             listener = new Thread(() -> {
                 while(true){
                     try {

@@ -46,7 +46,7 @@ public class ServerMainPageController implements Initializable {
     ResultSet chartData;
     
     
-    private boolean serverState ;
+    public static boolean serverState ;
     private boolean flageStartThrea = false;
     private boolean flageStartCharThread = true;
     private boolean onlineOrOfflineFlag = true;
@@ -57,7 +57,6 @@ public class ServerMainPageController implements Initializable {
     private int countOffline = 0;
     private Chart chart;
     private Stage thisStage;
-    
     
     int id;
     @FXML
@@ -263,6 +262,8 @@ public class ServerMainPageController implements Initializable {
                     vbox.getChildren().add(hbox);
 
                     scrollpane.setContent(vbox);
+                    
+                    
                 }
             } 
             server.databaseInstance.getResultSet().beforeFirst();
