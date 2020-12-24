@@ -151,7 +151,8 @@ public class ServerMainPageController implements Initializable {
                 
 //                listPlayers(true);
                 enableBtn();    // enable list online and offline btn;
-                serverStateImage.setImage(new Image(new FileInputStream("src/resources/shutdown.png")));
+                serverStateImage.setImage(new Image(this.getClass().getResourceAsStream("/resources/shutdown.png")));
+                
                 status.setText("Deactivate");
                 currentLabel.setText("Status : On");
 
@@ -166,21 +167,25 @@ public class ServerMainPageController implements Initializable {
             }catch(SQLException e){
                 System.out.println("Connection Issues, Try again later");
                 serverState = !serverState;
-            }catch (FileNotFoundException ex) {
-                Logger.getLogger(ServerMainPageController.class.getName()).log(Level.SEVERE, null, ex);
             }
+//            catch (FileNotFoundException ex) {
+//                Logger.getLogger(ServerMainPageController.class.getName()).log(Level.SEVERE, null, ex);
+//            }
         }else{ // state is true needed to be deactivate
             try {
-                serverStateImage.setImage(new Image(new FileInputStream("src/resources/launch.png")));
+
+                serverStateImage.setImage(new Image(this.getClass().getResourceAsStream("/resources/launch.png")));
                 status.setText("Activate");
                 currentLabel.setText("Status : OFF");
                 updateListThread.suspend();
                 flageStartThrea = true;
                 onlineOrOfflineFlag = true;
                 //Platform.exit();
-            }catch (FileNotFoundException ex) {
-                System.out.println("No Img");
-            }finally{
+            }
+//            catch (FileNotFoundException ex) {
+//                System.out.println("No Img");
+//            }
+            finally{
                 server.disableConnections();
                 emptyList();
                 disableBtn();
@@ -198,24 +203,17 @@ public class ServerMainPageController implements Initializable {
             onlineOrOfflineFlag = false;
             listPlayers(false);
             listbtnlbl.setText("List Online Players");
-            try {
-                listimg.setImage(new Image(new FileInputStream("src/resources/online.png")));
-            } catch (FileNotFoundException ex) {
-                ex.printStackTrace();
-                System.out.println("image not found");
-            }
+
+            listimg.setImage(new Image(this.getClass().getResourceAsStream("/resources/online.png")));
+
         }else{
             System.out.println("list on");
             scrollpane.setContent(null);
             onlineOrOfflineFlag = true;
             listPlayers(true);
             listbtnlbl.setText("List Offline Players");
-            try {
-                listimg.setImage(new Image(new FileInputStream("src/resources/Offline.png")));
-            } catch (FileNotFoundException ex) {
-                ex.printStackTrace();
-                System.out.println("image not found");
-            }
+            listimg.setImage(new Image(this.getClass().getResourceAsStream("/resources/Offline.png")));
+
         }
     }
  
@@ -236,16 +234,18 @@ public class ServerMainPageController implements Initializable {
                     
                     ImageView view,view2;
                         // avatar view
-                    view = new ImageView(new Image(new FileInputStream("src/resources/avatar.png")));
+                    view = new ImageView(new Image(this.getClass().getResourceAsStream("/resources/avatar.png")));
                     view.setFitHeight(30);
                     view.setPreserveRatio(true);
 
                     // active icon view
                     if(state){
-                        view2 = new ImageView(new Image(new FileInputStream("src/resources/active.png")));
+
+                        view2 = new ImageView(new Image(this.getClass().getResourceAsStream("/resources/active.png")));
                         countOnline++;
                     }else{
-                        view2 = new ImageView(new Image(new FileInputStream("src/resources/inactive.png")));
+
+                           view2 = new ImageView(new Image(this.getClass().getResourceAsStream("/resources/inactive.png")));
                         countOffline++;
                     }
 
@@ -269,9 +269,8 @@ public class ServerMainPageController implements Initializable {
             server.databaseInstance.getResultSet().beforeFirst();
         } catch (SQLException ex) {
             Logger.getLogger(ServerMainPageController.class.getName()).log(Level.SEVERE, null, ex);
-        }catch (FileNotFoundException ex) {
-            System.out.println("Image Not Found");
         }
+
     }
     
     private void emptyList(){

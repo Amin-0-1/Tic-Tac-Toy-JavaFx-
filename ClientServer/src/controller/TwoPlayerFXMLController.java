@@ -273,37 +273,41 @@ public class TwoPlayerFXMLController implements Initializable {
       public void repalayAgain(String winner){ 
           
            AskDialog askPlayAgain = new AskDialog();
-           askPlayAgain.askPlayAgain(winner+" Is Win");
-          
-            MainController.isrecord = false;
-            AskDialog isrecoredGame = new AskDialog();
-                  Boolean check=isrecoredGame.alert("Do you want to record game ?");
-                  if(check)
-                  {
-                   AccessFile.createFile("local-mode");
-                   AccessFile.writeFile(prefs.get("fristPlayer", "")+".");
-                   AccessFile.writeFile(prefs.get("secondPlayer", "")+".");
-                   
+           boolean result = askPlayAgain.askPlayAgain(winner+" Is Win");
+           if(result){
+                MainController.isrecord = false;
+                AskDialog isrecoredGame = new AskDialog();
+                      Boolean check=isrecoredGame.alert("Do you want to record game ?");
+                      if(check)
+                      {
+                       AccessFile.createFile("local-mode");
+                       AccessFile.writeFile(prefs.get("fristPlayer", "")+".");
+                       AccessFile.writeFile(prefs.get("secondPlayer", "")+".");
 
-                     MainController.isrecord=true;
-            }
 
-          //get scene
-        Parent buttonParent;
-        try {
-         buttonParent = FXMLLoader.load(getClass().getResource("/view/TwoPlayerFXML.fxml"));
-             //generate new scene
-        Scene buttonScene = new Scene(buttonParent);
-        
-        //get stage information
-        Stage window = (Stage)btn1.getScene().getWindow();
-        
-        window.setTitle("Home");
-        window.setScene(buttonScene);
-        window.show();
-        } catch (IOException ex) {
-            Logger.getLogger(ButtonBack.class.getName()).log(Level.SEVERE, null, ex);
-        }
+                         MainController.isrecord=true;
+                }
+
+                    //get scene
+                  Parent buttonParent;
+                  try {
+                   buttonParent = FXMLLoader.load(getClass().getResource("/view/TwoPlayerFXML.fxml"));
+                       //generate new scene
+                  Scene buttonScene = new Scene(buttonParent);
+
+                  //get stage information
+                  Stage window = (Stage)btn1.getScene().getWindow();
+
+                  window.setTitle("Home");
+                  window.setScene(buttonScene);
+                  window.show();
+                  } catch (IOException ex) {
+                      Logger.getLogger(ButtonBack.class.getName()).log(Level.SEVERE, null, ex);
+                  }
+           }else{
+               ButtonBack navigate = new ButtonBack("/view/sample.fxml");
+               navigate.navigateToAnotherPage(labelFirstPlayer);
+           }
          
     } 
     

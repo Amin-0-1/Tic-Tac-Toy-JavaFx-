@@ -17,6 +17,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.UUID;
@@ -56,6 +57,7 @@ public class AccessFile {
         if(listType.equals("local-mode")){
             prefs.put(c.getCurrentDateTime(), c.getCurrentDateTime()); 
             file = new File(pathLocalFile+prefs.get(c.getCurrentDateTime(),""));
+
         }else if(listType.equals("online-mode")){
              pref.put(c.getCurrentDateTime(), c.getCurrentDateTime());
             file = new File(pathOnlineFile+pref.get(c.getCurrentDateTime(),""));
@@ -65,8 +67,7 @@ public class AccessFile {
                
                if(file.createNewFile())
                    System.out.println("file created");
-              
-              
+                            
            } catch (IOException ex) {
                Logger.getLogger(AccessFile.class.getName()).log(Level.SEVERE, null, ex);
            }
@@ -104,7 +105,5 @@ public class AccessFile {
            Logger.getLogger(AccessFile.class.getName()).log(Level.SEVERE, null, ex);
        }
      return data;   
-  } 
-   
-     
+  }
 }

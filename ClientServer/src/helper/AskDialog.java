@@ -112,22 +112,25 @@ public class AskDialog {
         return false;    
     }
     
-    public void askPlayAgain(String s)
+    public boolean askPlayAgain(String s)
     {   
         
         ButtonType Yes = new ButtonType("Play Again"); 
+        ButtonType No = new ButtonType("NO", ButtonBar.ButtonData.CANCEL_CLOSE);
         Alert a = new Alert(Alert.AlertType.NONE); 
         a.setTitle("Alert ASk");
-        a.getDialogPane().getButtonTypes().add(Yes);
+        a.getDialogPane().getButtonTypes().addAll(Yes,No);
         a.setHeaderText(s);
-
-
-         //a.setContentText(s);
-        DialogPane dialogPane = a.getDialogPane();
-        dialogPane.getStylesheets().add(
+        DialogPane dialogPaneDialogPane = a.getDialogPane();
+         dialogPaneDialogPane.getStylesheets().add(
         getClass().getResource("/css/fullpackstyling.css").toExternalForm());
-        dialogPane.getStyleClass().add("infoDialog");
-        a.showAndWait();
+        dialogPaneDialogPane.getStyleClass().add("infoDialog");
+         a.showAndWait();
+        if(a.getResult()==Yes){  
+             return true; 
+        }else{
+            return false;
+        }
     }
     
     public void inValidIp(String s){

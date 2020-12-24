@@ -273,14 +273,14 @@ public class OnlinePlayerController implements Initializable {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                try {
+//                try {
                     btn1.getScene().getStylesheets().add(getClass().getResource("/css/fullpackstyling.css").toString());
                     scrollpane.setContent(null);
                     vbox.getChildren().clear();
                     
                     for(Player x : onlinePlayers){
                         System.out.println("inside for loop");
-                        view = new ImageView(new Image(new FileInputStream("src/resources/avatar.png")));
+                        view = new ImageView(new Image(this.getClass().getResourceAsStream("/resources/avatar.png")));
                         view.setFitHeight(30);
                         view.setPreserveRatio(true);
                     
@@ -321,9 +321,7 @@ public class OnlinePlayerController implements Initializable {
                         scrollpane.setContent(vbox);
                     }
                     onlinePlayers.clear();
-                } catch (FileNotFoundException ex) {
-                    Logger.getLogger(OnlinePlayerController.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                
             }
         });
     }

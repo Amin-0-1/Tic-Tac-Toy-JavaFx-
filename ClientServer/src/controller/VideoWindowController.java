@@ -47,7 +47,7 @@ public class VideoWindowController implements Initializable {
                //get video file and set it to media
             setMedia("/resources/video.mp4");
         }else{
-           setMedia("/resources/lose.mp4");
+           setMedia("/resources/loser.mp4");
             
         }
        
