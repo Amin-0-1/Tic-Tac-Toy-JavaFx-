@@ -146,6 +146,7 @@ public class SinglePlayFXMLController implements Initializable{
                     txtWinner.setText("It's a Draw");
                     btnPlayAgain.setVisible(true);
                 }
+                
             }
         }else{
             // show video
@@ -365,13 +366,16 @@ public class SinglePlayFXMLController implements Initializable{
         checkRows();
         checkDiagonal();
         if(display){
-            displayVideo();             
+            displayVideo("winner");             
             System.out.println("Synch");
             prefs.putInt("score",score);
             labScore.setText(""+ score);  
             btnPlayAgain.setVisible(true);
         }else if(computerWin){
+            System.out.println("computer wins");
+            displayVideo("lose");
            btnPlayAgain.setVisible(true); 
+           
         }
 
     }
@@ -449,4 +453,14 @@ public class SinglePlayFXMLController implements Initializable{
     }
      
       }
+      
+      private void displayVideo(String type){
+        if(type.equals("winner")){
+           ButtonBack displayVideo = new ButtonBack("/view/VideoWindow.fxml");
+           displayVideo.displayVideo("winner","Congratulation"); 
+        }else{
+           ButtonBack displayVideo = new ButtonBack("/view/VideoWindow.fxml");
+           displayVideo.displayVideo("opps","opps!!");  
+        }
+    }
 }

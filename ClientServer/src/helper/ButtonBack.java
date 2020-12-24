@@ -233,7 +233,7 @@ public class ButtonBack {
             window.show();
             
             
-                PauseTransition wait = new PauseTransition(Duration.seconds(8));
+                PauseTransition wait = new PauseTransition(Duration.seconds(20));
                             wait.setOnFinished((e) -> {
                                 /*YOUR METHOD*/
                                 window.close();
@@ -241,7 +241,11 @@ public class ButtonBack {
                                 wait.playFromStart();
                             });
                             wait.play();
-                    
+                            
+                window.setOnCloseRequest((event) -> {
+                    System.out.println("closing vid");
+                     VideoWindowController.mp.stop();
+                });
         } catch (IOException ex) {
             Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
         }
