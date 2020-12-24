@@ -170,3 +170,9 @@
 -fx-pie-color: #9999ff;
 }
 
+.buttonBackOnlineMode
+{
+-fx-background-color : #393351;
+-fx-background-radius :  40 40 40 40;
+}
+

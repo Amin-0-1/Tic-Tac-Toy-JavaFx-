@@ -562,6 +562,7 @@ public class OnlinePlayerController implements Initializable {
     }
 
     private void reset(){
+
         MainController.ps.println("available###"+MainController.hash.get("email"));
         thread.stop();
         Platform.runLater(new Runnable() {

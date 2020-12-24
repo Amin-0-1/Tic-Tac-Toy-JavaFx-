@@ -33,6 +33,15 @@
                </children>
             </Pane>
             <ScrollPane fx:id="scrollpane" focusTraversable="false" layoutY="185.0" prefHeight="458.0" prefWidth="296.0" style="-fx-background: #393351; -fx-border-color: #393351;" AnchorPane.bottomAnchor="6.0" AnchorPane.topAnchor="185.0" />
+            <Button fx:id="ipbtn" layoutX="14.0" layoutY="25.0" mnemonicParsing="false" onAction="#getip" prefHeight="51.0" prefWidth="47.0" styleClass="buttonBackOnlineMode" stylesheets="@../css/fullpackstyling.css">
+               <graphic>
+                  <ImageView fitHeight="43.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/location.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
          </children>
       </AnchorPane>
       <AnchorPane layoutX="295.0" layoutY="7.0" prefHeight="649.0" prefWidth="792.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="295.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">

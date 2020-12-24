@@ -9,7 +9,9 @@ import Model.Chart;
 import Model.Server;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.net.Inet4Address;
 import java.net.URL;
+import java.net.UnknownHostException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
@@ -25,6 +27,8 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.chart.PieChart;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -75,6 +79,8 @@ public class ServerMainPageController implements Initializable {
     private Label listbtnlbl;
     @FXML
     private ImageView listimg;
+    @FXML
+    private Button ipbtn;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -279,10 +285,12 @@ public class ServerMainPageController implements Initializable {
     private void disableBtn(){
         listOnlinebtn.setDisable(true);
         chartbtn.setDisable(true);
+        ipbtn.setDisable(true);
     }
     private void enableBtn(){
         listOnlinebtn.setDisable(false);
         chartbtn.setDisable(false);
+        ipbtn.setDisable(false);
     }   
     
     @FXML
@@ -315,5 +323,18 @@ public class ServerMainPageController implements Initializable {
 //            System.out.println("mouse entered");
 //        }
             
+    }
+    
+    public void getip(ActionEvent e){
+        Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle("Get IP");
+        alert.setHeaderText(null);
+        try {
+            alert.setContentText("Server IP is :" +Inet4Address.getLocalHost().getHostAddress());
+        } catch (UnknownHostException ex) {
+            Logger.getLogger(ServerMainPageController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        alert.showAndWait();
     }
 }

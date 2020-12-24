@@ -56,11 +56,16 @@ public class AccessFile {
         
         if(listType.equals("local-mode")){
             prefs.put(c.getCurrentDateTime(), c.getCurrentDateTime()); 
-            file = new File(pathLocalFile+prefs.get(c.getCurrentDateTime(),""));
-
+//            file = new File(pathLocalFile+prefs.get(c.getCurrentDateTime(),""));
+              File dir = new File("record/savedGame");
+              dir.mkdirs();
+              file = new File(dir,prefs.get(c.getCurrentDateTime(),""));
+              
         }else if(listType.equals("online-mode")){
-             pref.put(c.getCurrentDateTime(), c.getCurrentDateTime());
-            file = new File(pathOnlineFile+pref.get(c.getCurrentDateTime(),""));
+            File dir = new File("record/savedOnlineGame");
+            dir.mkdirs();
+            pref.put(c.getCurrentDateTime(), c.getCurrentDateTime());
+            file = new File(dir,pref.get(c.getCurrentDateTime(),""));
             
         }  
            try {

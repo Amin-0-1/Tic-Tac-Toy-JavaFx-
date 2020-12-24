@@ -165,9 +165,13 @@ public class WatchGameController implements Initializable {
     private void displayGame(){
         
         if(listType.equals("local-mode")){
-            datareaded=AccessFile.readFileAsString(pathLocalFile+ListRecordedGamesController.gamename);
+            File dir = new File("record/savedGame");
+            dir.mkdirs();
+            datareaded=AccessFile.readFileAsString(dir+"/"+ListRecordedGamesController.gamename);
         }else if (listType.equals("online-mode")){
-            datareaded=AccessFile.readFileAsString(pathOnlineFile+ListRecordedGamesController.gamename);
+            File dir = new File("record/savedOnlineGame");
+            dir.mkdirs();
+            datareaded=AccessFile.readFileAsString(dir+"/"+ListRecordedGamesController.gamename);
         }
               
         

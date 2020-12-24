@@ -28,6 +28,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -222,7 +223,7 @@ public class ButtonBack {
         
             //get stage information
             Stage window = new Stage();
-
+            window.initModality(Modality.APPLICATION_MODAL);
             window.setTitle(title);
             window.setScene(RegisterScene);
             window.setMinHeight(500);
@@ -232,7 +233,7 @@ public class ButtonBack {
             window.show();
             
             
-                PauseTransition wait = new PauseTransition(Duration.seconds(3));
+                PauseTransition wait = new PauseTransition(Duration.seconds(8));
                             wait.setOnFinished((e) -> {
                                 /*YOUR METHOD*/
                                 window.close();
