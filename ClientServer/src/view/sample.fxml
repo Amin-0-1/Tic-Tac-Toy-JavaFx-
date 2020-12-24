@@ -32,7 +32,7 @@
                <children>
                   <Pane minHeight="-Infinity" minWidth="-Infinity">
                      <children>
-                        <Button fx:id="btnSinglePlayer" mnemonicParsing="false" onAction="#changeSceneToSinglePlayer" prefHeight="190.0" prefWidth="168.0" styleClass="button2" stylesheets="@../css/fullpackstyling.css">
+                        <Button fx:id="btnSinglePlayer" mnemonicParsing="false" onAction="#changeSceneToEasyOrHardLevel" prefHeight="190.0" prefWidth="168.0" styleClass="button2" stylesheets="@../css/fullpackstyling.css">
                            <graphic>
                               <AnchorPane>
                                  <children>
