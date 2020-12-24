@@ -161,6 +161,7 @@ public class HardLevelFXMLController implements Initializable {
                         if (result == 10) {
                             System.out.println("You lost :(");
                             txtWinner.setText("computer won!");
+                            displayVideo("lose");
                             // edit 
                             btnPlayAgain.setVisible(true); 
                             winner=true;
@@ -170,7 +171,7 @@ public class HardLevelFXMLController implements Initializable {
 
                         } else if (result == -10) {
                             System.out.println("You won ^^");
-                            displayVideo();
+                            displayVideo("winner");
                             score+=10;
                             prefs.putInt("score",score);
                             labScore.setText(""+ score);  
@@ -260,5 +261,13 @@ public class HardLevelFXMLController implements Initializable {
     }
             
     
-    
+          private void displayVideo(String type){
+        if(type.equals("winner")){
+           ButtonBack displayVideo = new ButtonBack("/view/VideoWindow.fxml");
+           displayVideo.displayVideo("winner","Congratulation"); 
+        }else{
+           ButtonBack displayVideo = new ButtonBack("/view/VideoWindow.fxml");
+           displayVideo.displayVideo("opps","opps!!");  
+        }
+    }
 }

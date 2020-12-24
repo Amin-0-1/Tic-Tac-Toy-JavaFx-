@@ -6,6 +6,7 @@
 package controller;
 
 
+import helper.AskDialog;
 import helper.ButtonBack;
 
 import javafx.scene.control.TextField;
@@ -204,8 +205,22 @@ public class signInFXMLController {
                             }
 
                         } catch (IOException ex) {
+                            Platform.runLater(() -> {
+                                try {
+                                    AskDialog  serverIssueAlert  = new AskDialog();
+                                    serverIssueAlert.serverIssueAlert("There is issue in connection game page will be closed");
+                                    ButtonBack backtoLoginPage = new ButtonBack("/view/sample.fxml");
+                                    backtoLoginPage.handleButtonBack(e);
+                                    thread.stop();
+                                    MainController.socket.close();
+                                    MainController.dis.close();
+                                    MainController.ps.close();
+                                } catch (IOException ex1) {
+                                    Logger.getLogger(signInFXMLController.class.getName()).log(Level.SEVERE, null, ex1);
+                                }
+
+                                });
                             System.out.println("111111111");
-                            Logger.getLogger(signInFXMLController.class.getName()).log(Level.SEVERE, null, ex);
                         }
                     }
                 };   

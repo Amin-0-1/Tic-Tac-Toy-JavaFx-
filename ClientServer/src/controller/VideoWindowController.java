@@ -12,6 +12,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -21,10 +22,10 @@ import javafx.scene.media.MediaView;
 public class VideoWindowController implements Initializable {
 
     @FXML MediaView mv;
-    
+    Stage thisStage;
     
     private String typePlayer ;
-    
+    public static MediaPlayer mp;
     
   
     
@@ -57,7 +58,7 @@ public class VideoWindowController implements Initializable {
     private void setMedia(String videoPath){
         Media media = new Media(getClass().getResource(videoPath).toExternalForm());
 
-             MediaPlayer mp = new MediaPlayer(media);
+             mp = new MediaPlayer(media);
              mv.setMediaPlayer(mp);
              mp.play();
         
@@ -66,10 +67,7 @@ public class VideoWindowController implements Initializable {
     
        @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
-       
-      
-        
+//        thisStage = (Stage) mv.getScene().getWindow();
         
     } 
 }

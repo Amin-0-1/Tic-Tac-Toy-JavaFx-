@@ -6,6 +6,7 @@
 package controller;
 
 
+import helper.AskDialog;
 import helper.ButtonBack;
 import java.io.DataInputStream;
 import java.io.IOException;
@@ -160,9 +161,20 @@ public class RegisterFXMLController {
                             }
                             
                         }catch (IOException ex) {
-                            txtAlret.setText("Our server is having some issues, please try again later");
-                            this.stop();
-                            Logger.getLogger(RegisterFXMLController.class.getName()).log(Level.SEVERE, null, ex);
+                            Platform.runLater(() -> {
+                                try {
+                                    AskDialog  serverIssueAlert  = new AskDialog();
+                                    serverIssueAlert.serverIssueAlert("There is issue in connection game page will be closed");
+                                    ButtonBack backtoLoginPage = new ButtonBack("/view/sample.fxml");
+                                    backtoLoginPage.handleButtonBack(e);
+                                    this.stop();
+                                    MainController.socket.close();
+                                    MainController.dis.close();
+                                    MainController.ps.close();
+                                } catch (IOException ex1) {
+                                    Logger.getLogger(signInFXMLController.class.getName()).log(Level.SEVERE, null, ex1);
+                                }
+                            });
                         }
                     }
                 };

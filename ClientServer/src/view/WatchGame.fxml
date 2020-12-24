@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
@@ -49,42 +50,73 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <Button fx:id="btn1" mnemonicParsing="false" prefHeight="157.0" prefWidth="267.0">
+                  <Button fx:id="btn1" mnemonicParsing="false" prefHeight="157.0" prefWidth="267.0" styleClass="tic" stylesheets="@../css/fullpackstyling.css">
                      <font>
                         <Font size="36.0" />
-                     </font></Button>
-                  <Button fx:id="btn2" mnemonicParsing="false" prefHeight="308.0" prefWidth="267.0" GridPane.columnIndex="1">
+                     </font>
+                     <GridPane.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </GridPane.margin>
+                  </Button>
+                  <Button fx:id="btn2" mnemonicParsing="false" prefHeight="308.0" prefWidth="267.0" styleClass="tic" stylesheets="@../css/fullpackstyling.css" GridPane.columnIndex="1">
                      <font>
                         <Font size="36.0" />
-                     </font></Button>
-                  <Button fx:id="btn4" mnemonicParsing="false" prefHeight="334.0" prefWidth="267.0" GridPane.rowIndex="1">
+                     </font>
+                     <GridPane.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </GridPane.margin>
+                  </Button>
+                  <Button fx:id="btn4" mnemonicParsing="false" prefHeight="334.0" prefWidth="267.0" styleClass="tic" stylesheets="@../css/fullpackstyling.css" GridPane.rowIndex="1">
                      <font>
                         <Font size="36.0" />
-                     </font></Button>
-                  <Button fx:id="btn7" mnemonicParsing="false" prefHeight="252.0" prefWidth="267.0" GridPane.rowIndex="2">
+                     </font>
+                     <GridPane.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </GridPane.margin>
+                  </Button>
+                  <Button fx:id="btn7" mnemonicParsing="false" prefHeight="252.0" prefWidth="267.0" styleClass="tic" stylesheets="@../css/fullpackstyling.css" GridPane.rowIndex="2">
                      <font>
                         <Font size="36.0" />
-                     </font></Button>
-                  <Button fx:id="btn5" mnemonicParsing="false" prefHeight="206.0" prefWidth="267.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     </font>
+                     <GridPane.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </GridPane.margin>
+                  </Button>
+                  <Button fx:id="btn5" mnemonicParsing="false" prefHeight="206.0" prefWidth="267.0" styleClass="tic" stylesheets="@../css/fullpackstyling.css" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <font>
                         <Font size="36.0" />
-                     </font></Button>
-                  <Button fx:id="btn8" mnemonicParsing="false" prefHeight="245.0" prefWidth="306.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                     </font>
+                     <GridPane.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </GridPane.margin></Button>
+                  <Button fx:id="btn8" mnemonicParsing="false" prefHeight="245.0" prefWidth="306.0" styleClass="tic" stylesheets="@../css/fullpackstyling.css" GridPane.columnIndex="1" GridPane.rowIndex="2">
                      <font>
                         <Font size="36.0" />
-                     </font></Button>
-                  <Button fx:id="btn3" mnemonicParsing="false" prefHeight="319.0" prefWidth="266.0" GridPane.columnIndex="2">
+                     </font>
+                     <GridPane.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </GridPane.margin></Button>
+                  <Button fx:id="btn3" mnemonicParsing="false" prefHeight="319.0" prefWidth="266.0" styleClass="tic" stylesheets="@../css/fullpackstyling.css" GridPane.columnIndex="2">
                      <font>
                         <Font size="36.0" />
-                     </font></Button>
-                  <Button fx:id="btn6" mnemonicParsing="false" prefHeight="211.0" prefWidth="266.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                     </font>
+                     <GridPane.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </GridPane.margin></Button>
+                  <Button fx:id="btn6" mnemonicParsing="false" prefHeight="211.0" prefWidth="266.0" styleClass="tic" stylesheets="@../css/fullpackstyling.css" GridPane.columnIndex="2" GridPane.rowIndex="1">
                      <font>
                         <Font size="36.0" />
-                     </font></Button>
-                  <Button fx:id="btn9" mnemonicParsing="false" prefHeight="150.0" prefWidth="421.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                     </font>
+                     <GridPane.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </GridPane.margin></Button>
+                  <Button fx:id="btn9" mnemonicParsing="false" prefHeight="150.0" prefWidth="421.0" styleClass="tic" stylesheets="@../css/fullpackstyling.css" GridPane.columnIndex="2" GridPane.rowIndex="2">
                      <font>
                         <Font size="36.0" />
-                     </font></Button>
+                     </font>
+                     <GridPane.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </GridPane.margin></Button>
                </children>
             </GridPane>
          </children>

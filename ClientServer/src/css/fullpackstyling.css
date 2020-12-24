@@ -257,8 +257,18 @@
 -fx-background-radius :  30 0 0 30;
 }
 
-
-
-
-
+.tic{
+    -fx-background-color : #393351;
+    -fx-background-radius :  30 30 30 30;
+    -fx-padding: 10;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-pref-width: 245px;
+    -fx-text-alignment: left;
+    -fx-font-size: 36px;
+}
+.anchorPane{
+    -fx-background-color : #393351;
+    -fx-background-radius :  20;
+}
 

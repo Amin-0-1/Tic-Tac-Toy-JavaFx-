@@ -35,7 +35,7 @@ public class Main extends Application {
         });
         primaryStage.setTitle("Home");
         primaryStage.setMinWidth(1100);
-        primaryStage.setMinHeight(700);
+        primaryStage.setMinHeight(650);
          //MainController.enableWatchGameButton(true);
 
         Scene scene = new Scene(root);

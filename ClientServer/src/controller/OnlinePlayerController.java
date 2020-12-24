@@ -193,6 +193,7 @@ public class OnlinePlayerController implements Initializable {
                                     break;
                                 case "withdraw":
                                     System.out.println("withdraw");
+                                    updateScore();
                                     MainController.ps.println("available###"+MainController.hash.get("email"));
                                     Platform.runLater(() -> {
                                         AskDialog  serverIssueAlert  = new AskDialog();

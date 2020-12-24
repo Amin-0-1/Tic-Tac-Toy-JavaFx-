@@ -30,6 +30,8 @@ import javafx.scene.chart.PieChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
@@ -326,11 +328,19 @@ public class ServerMainPageController implements Initializable {
     }
     
     public void getip(ActionEvent e){
-        Alert alert = new Alert(AlertType.INFORMATION);
+        Alert alert = new Alert(AlertType.NONE);
         alert.setTitle("Get IP");
         alert.setHeaderText(null);
         try {
-            alert.setContentText("Server IP is :" +Inet4Address.getLocalHost().getHostAddress());
+            alert.setHeaderText("Server IP is :" +Inet4Address.getLocalHost().getHostAddress());
+            ButtonType Yes = new ButtonType("OK"); 
+            alert.getDialogPane().getButtonTypes().add(Yes);
+            
+            DialogPane dialogPane = alert.getDialogPane();
+            dialogPane.getStylesheets().add(
+            getClass().getResource("/css/fullpackstyling.css").toExternalForm());
+            dialogPane.getStyleClass().add("infoDialog");
+            
         } catch (UnknownHostException ex) {
             Logger.getLogger(ServerMainPageController.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -109,7 +109,7 @@
                <center>
                   <AnchorPane fx:id="playboard" prefHeight="521.0" prefWidth="782.0" visible="false" BorderPane.alignment="CENTER">
                      <children>
-                        <GridPane fx:id="grid" alignment="TOP_CENTER" gridLinesVisible="true" layoutY="98.0" prefHeight="474.0" prefWidth="752.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="35.0">
+                        <GridPane fx:id="grid" alignment="TOP_CENTER" layoutY="98.0" prefHeight="474.0" prefWidth="752.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="35.0">
                            <columnConstraints>
                               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -123,7 +123,7 @@
                            <children>
                               <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="1">
                                  <children>
-                                    <Button fx:id="btn5" layoutX="124.0" layoutY="52.0" mnemonicParsing="false" onAction="#buttonPressed" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <Button fx:id="btn5" layoutX="124.0" layoutY="52.0" mnemonicParsing="false" onAction="#buttonPressed" styleClass="tic" stylesheets="@../css/fullpackstyling.css" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
                                        <font>
                                           <Font size="36.0" />
                                        </font>
@@ -132,7 +132,7 @@
                               </AnchorPane>
                               <AnchorPane prefWidth="633.0" GridPane.rowIndex="1">
                                  <children>
-                                    <Button fx:id="btn4" layoutX="99.0" layoutY="66.0" mnemonicParsing="false" onAction="#buttonPressed" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <Button fx:id="btn4" layoutX="99.0" layoutY="66.0" mnemonicParsing="false" onAction="#buttonPressed" styleClass="tic" stylesheets="@../css/fullpackstyling.css" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
                                        <font>
                                           <Font size="36.0" />
                                        </font>
@@ -141,7 +141,7 @@
                               </AnchorPane>
                               <AnchorPane prefWidth="633.0" GridPane.columnIndex="1">
                                  <children>
-                                    <Button fx:id="btn2" layoutX="111.0" layoutY="59.0" mnemonicParsing="false" onAction="#buttonPressed" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <Button fx:id="btn2" layoutX="111.0" layoutY="59.0" mnemonicParsing="false" onAction="#buttonPressed" styleClass="tic" stylesheets="@../css/fullpackstyling.css" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
                                        <font>
                                           <Font size="36.0" />
                                        </font>
@@ -150,7 +150,7 @@
                               </AnchorPane>
                               <AnchorPane prefWidth="633.0" GridPane.rowIndex="2">
                                  <children>
-                                    <Button fx:id="btn7" layoutX="134.0" layoutY="32.0" mnemonicParsing="false" onAction="#buttonPressed" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <Button fx:id="btn7" layoutX="134.0" layoutY="32.0" mnemonicParsing="false" onAction="#buttonPressed" styleClass="tic" stylesheets="@../css/fullpackstyling.css" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
                                        <font>
                                           <Font size="36.0" />
                                        </font>
@@ -159,7 +159,7 @@
                               </AnchorPane>
                               <AnchorPane prefWidth="633.0">
                                  <children>
-                                    <Button fx:id="btn1" layoutX="112.0" layoutY="67.0" mnemonicParsing="false" onAction="#buttonPressed" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <Button fx:id="btn1" layoutX="112.0" layoutY="67.0" mnemonicParsing="false" onAction="#buttonPressed" styleClass="tic" stylesheets="@../css/fullpackstyling.css" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
                                        <font>
                                           <Font size="36.0" />
                                        </font>
@@ -168,7 +168,7 @@
                               </AnchorPane>
                               <AnchorPane prefWidth="633.0" GridPane.columnIndex="2">
                                  <children>
-                                    <Button fx:id="btn3" layoutX="91.0" layoutY="81.0" mnemonicParsing="false" onAction="#buttonPressed" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <Button fx:id="btn3" layoutX="91.0" layoutY="81.0" mnemonicParsing="false" onAction="#buttonPressed" styleClass="tic" stylesheets="@../css/fullpackstyling.css" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
                                        <font>
                                           <Font size="36.0" />
                                        </font>
@@ -177,7 +177,7 @@
                               </AnchorPane>
                               <AnchorPane prefWidth="633.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
                                  <children>
-                                    <Button fx:id="btn9" layoutX="153.0" layoutY="85.0" mnemonicParsing="false" onAction="#buttonPressed" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <Button fx:id="btn9" layoutX="153.0" layoutY="85.0" mnemonicParsing="false" onAction="#buttonPressed" styleClass="tic" stylesheets="@../css/fullpackstyling.css" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
                                        <font>
                                           <Font size="36.0" />
                                        </font>
@@ -186,7 +186,7 @@
                               </AnchorPane>
                               <AnchorPane prefWidth="633.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
                                  <children>
-                                    <Button fx:id="btn6" layoutX="83.0" layoutY="74.0" mnemonicParsing="false" onAction="#buttonPressed" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <Button fx:id="btn6" layoutX="83.0" layoutY="74.0" mnemonicParsing="false" onAction="#buttonPressed" styleClass="tic" stylesheets="@../css/fullpackstyling.css" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
                                        <font>
                                           <Font size="36.0" />
                                        </font>
@@ -195,7 +195,7 @@
                               </AnchorPane>
                               <AnchorPane prefWidth="633.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                                  <children>
-                                    <Button fx:id="btn8" layoutX="101.0" layoutY="83.0" mnemonicParsing="false" onAction="#buttonPressed" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <Button fx:id="btn8" layoutX="101.0" layoutY="83.0" mnemonicParsing="false" onAction="#buttonPressed" styleClass="tic" stylesheets="@../css/fullpackstyling.css" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
                                        <font>
                                           <Font size="36.0" />
                                        </font>

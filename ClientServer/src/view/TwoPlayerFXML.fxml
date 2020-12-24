@@ -44,16 +44,7 @@
          <children>
             <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="1">
                <children>
-                  <Button fx:id="btn5" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="31.0" prefWidth="295.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                     <font>
-                        <Font size="36.0" />
-                     </font>
-                  </Button>
-               </children>
-            </AnchorPane>
-            <AnchorPane>
-               <children>
-                  <Button mnemonicParsing="false" prefHeight="31.0" prefWidth="295.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <Button fx:id="btn5" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="31.0" prefWidth="295.0" styleClass="tic" stylesheets="@../css/fullpackstyling.css" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
                      <font>
                         <Font size="36.0" />
                      </font>
@@ -62,7 +53,7 @@
             </AnchorPane>
             <AnchorPane prefWidth="633.0" GridPane.rowIndex="1">
                <children>
-                  <Button fx:id="btn4" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="31.0" prefWidth="295.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <Button fx:id="btn4" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="31.0" prefWidth="295.0" styleClass="tic" stylesheets="@../css/fullpackstyling.css" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
                      <font>
                         <Font size="36.0" />
                      </font>
@@ -71,7 +62,7 @@
             </AnchorPane>
             <AnchorPane prefWidth="633.0" GridPane.columnIndex="1">
                <children>
-                  <Button fx:id="btn2" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="31.0" prefWidth="295.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <Button fx:id="btn2" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="31.0" prefWidth="295.0" styleClass="tic" stylesheets="@../css/fullpackstyling.css" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
                      <font>
                         <Font size="36.0" />
                      </font>
@@ -80,7 +71,7 @@
             </AnchorPane>
             <AnchorPane prefWidth="633.0" GridPane.rowIndex="2">
                <children>
-                  <Button fx:id="btn7" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="31.0" prefWidth="295.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <Button fx:id="btn7" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="31.0" prefWidth="295.0" styleClass="tic" stylesheets="@../css/fullpackstyling.css" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
                      <font>
                         <Font size="36.0" />
                      </font>
@@ -89,25 +80,7 @@
             </AnchorPane>
             <AnchorPane prefWidth="633.0">
                <children>
-                  <Button mnemonicParsing="false" prefHeight="31.0" prefWidth="295.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                     <font>
-                        <Font size="36.0" />
-                     </font>
-                  </Button>
-               </children>
-            </AnchorPane>
-            <AnchorPane prefWidth="633.0">
-               <children>
-                  <Button mnemonicParsing="false" prefHeight="31.0" prefWidth="295.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                     <font>
-                        <Font size="36.0" />
-                     </font>
-                  </Button>
-               </children>
-            </AnchorPane>
-            <AnchorPane prefWidth="633.0">
-               <children>
-                  <Button fx:id="btn1" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="31.0" prefWidth="295.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <Button fx:id="btn1" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="31.0" prefWidth="295.0" styleClass="tic" stylesheets="@../css/fullpackstyling.css" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
                      <font>
                         <Font size="36.0" />
                      </font>
@@ -116,7 +89,7 @@
             </AnchorPane>
             <AnchorPane prefWidth="633.0" GridPane.columnIndex="2">
                <children>
-                  <Button fx:id="btn3" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="31.0" prefWidth="295.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <Button fx:id="btn3" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="31.0" prefWidth="295.0" styleClass="tic" stylesheets="@../css/fullpackstyling.css" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
                      <font>
                         <Font size="36.0" />
                      </font>
@@ -125,7 +98,7 @@
             </AnchorPane>
             <AnchorPane prefWidth="633.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
                <children>
-                  <Button fx:id="btn9" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="31.0" prefWidth="295.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <Button fx:id="btn9" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="31.0" prefWidth="295.0" styleClass="tic" stylesheets="@../css/fullpackstyling.css" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
                      <font>
                         <Font size="36.0" />
                      </font>
@@ -134,7 +107,7 @@
             </AnchorPane>
             <AnchorPane prefWidth="633.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <children>
-                  <Button fx:id="btn6" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="31.0" prefWidth="295.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <Button fx:id="btn6" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="31.0" prefWidth="295.0" styleClass="tic" stylesheets="@../css/fullpackstyling.css" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
                      <font>
                         <Font size="36.0" />
                      </font>
@@ -143,7 +116,7 @@
             </AnchorPane>
             <AnchorPane prefWidth="633.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <children>
-                  <Button fx:id="btn8" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="31.0" prefWidth="295.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <Button fx:id="btn8" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="31.0" prefWidth="295.0" styleClass="tic" stylesheets="@../css/fullpackstyling.css" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
                      <font>
                         <Font size="36.0" />
                      </font>
