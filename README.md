@@ -6,7 +6,7 @@ The game Features : <br>
 - two player mode <br>
 - the game allow online mode<br>
 - allow player to record game <br>
--the game store username , score and support videaos for player in lose or win cases <br>
+- the game store username , score and support videaos for player in lose or win cases <br>
 (Server Side)<br>
 -----------------<br>
  - listen online player<br>
