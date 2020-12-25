@@ -5,7 +5,7 @@ Client Side
 - two player mode 
 - the game allow online mode
 allow player to record game 
-the game store username , score and support videaos for player in lose or win cases 
+the game store username , score and support videaos for player in lose or win cases <br>
  Server Side
  -listen online player
  - listen offline player 
