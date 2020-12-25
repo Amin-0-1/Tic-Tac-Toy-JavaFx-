@@ -9,10 +9,10 @@ The game Features : <br>
 - the game store username , score and support videaos for player in lose or win cases <br>
 <br>(Server Side)<br>
 -----------------<br>
- - listen online player<br>
- - listen offline player <br>
- - git server Ip <br>
- - close server<br>
- - display simple Pie chart <br>
- - handle game between player and online ,offline mode<br>
+- listen online player<br>
+- listen offline player <br>
+- git server Ip <br>
+- close server<br>
+- display simple Pie chart <br>
+- handle game between player and online ,offline mode<br>
  
