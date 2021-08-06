@@ -137,7 +137,7 @@ public class RegisterFXMLController {
                             
                             switch(receivedState){
                                 case "Registered Successfully":
-                                    
+                                    System.out.println("asdfasdfasdfasdfas");
                                      playerData = MainController.dis.readLine();
                                      token = new StringTokenizer(playerData,"###");
                                      MainController.hash.put("username", token.nextToken());

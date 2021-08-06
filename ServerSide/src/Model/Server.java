@@ -22,6 +22,17 @@ import java.util.logging.Logger;
  */
 public class Server {
     
+//    create table PLAYER
+//(
+//	id INT primary key GENERATED ALWAYS AS IDENTITY unique,
+//	USERNAME VARCHAR(25) not null,
+//	EMAIL VARCHAR(30) not null,
+//	PASSWORD VARCHAR(20) not null,
+//	SCORE INTEGER default 0 not null,
+//	ISACTIVE BOOLEAN default false not null,
+//	ISPLAYING BOOLEAN default false not null
+//);
+    
     private static Server server;
     public Database databaseInstance ;
     private ServerSocket serverSocket ;
