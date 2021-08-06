@@ -2,7 +2,8 @@
 ```
 Tic Tac Toy is a desktop game that is implemented with Java and javaFx,
 It has 2 modes either online on the same network or even offline with the AI Computer Player,
-it is a very elegent game with a neat user interface and cool features that you will find yourself 😉
+it is a very elegent game with a neat user interface and cool features that you
+will find yourself 😉
 ```
 
 
